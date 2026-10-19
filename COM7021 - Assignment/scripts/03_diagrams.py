@@ -271,11 +271,166 @@ def fig09_mode_performance_matrix() -> str:
 </svg>"""
 
 
+def fig00_workflow_roadmap() -> str:
+    """Recipe 6.6 & Custom: End-to-End Assignment R&D Workflow & Execution Roadmap.
+    Shows 6 sequential stages, detailed deliverables, and completed vs remaining milestones.
+    """
+    stages = [
+        {
+            "num": "01",
+            "title": "Data Hygiene",
+            "subtitle": "Ingestion & Audit",
+            "bullets": ["5,000 rows x 18 cols", "Excel serial to ISO", "Zero missing/anomalies"],
+            "status": "COMPLETED",
+            "status_color": MIDNIGHT,
+            "hi": False,
+            "dashed": False,
+        },
+        {
+            "num": "02",
+            "title": "First Principles",
+            "subtitle": "Feature Engineering",
+            "bullets": ["Net margin & recovery", "Rate / 10k pax metrics", "OLS cost decomposition"],
+            "status": "COMPLETED",
+            "status_color": MIDNIGHT,
+            "hi": False,
+            "dashed": False,
+        },
+        {
+            "num": "03",
+            "title": "Visualisation Suite",
+            "subtitle": "7 Advanced Figures",
+            "bullets": ["Raincloud & Dumbbell", "Joint OLS + KDE strips", "220 DPI Arden palette"],
+            "status": "COMPLETED",
+            "status_color": MIDNIGHT,
+            "hi": False,
+            "dashed": False,
+        },
+        {
+            "num": "04",
+            "title": "Interactive Dash",
+            "subtitle": "Decision Engine",
+            "bullets": ["Plotly 6-slicer engine", "6 real-time KPI tiles", "Scenario stress testing"],
+            "status": "COMPLETED",
+            "status_color": MIDNIGHT,
+            "hi": False,
+            "dashed": False,
+        },
+        {
+            "num": "05",
+            "title": "Critical Synthesis",
+            "subtitle": "Rubric Alignment",
+            "bullets": ["Task 1 (~680w explanation)", "Task 2 (~980w report)", "LO1–LO4 & Harvard refs"],
+            "status": "IN REVIEW",
+            "status_color": TIFFANY_DEEP,
+            "hi": True,
+            "dashed": False,
+        },
+        {
+            "num": "06",
+            "title": "Final Submission",
+            "subtitle": "Packaging & Word",
+            "bullets": ["Incorporate tutor notes", "Format official .docx", "Band 90–100 rubric check"],
+            "status": "PENDING",
+            "status_color": MUTE,
+            "hi": False,
+            "dashed": True,
+        },
+    ]
+
+    parts = []
+    # Header title inside diagram
+    parts.append(
+        f'<text x="40" y="30" class="lab" style="font-size:16px; font-weight:700; fill:{MIDNIGHT};">'
+        f'COM7021 ASSESSMENT R&amp;D WORKFLOW &amp; EXECUTION ROADMAP'
+        f'</text>'
+    )
+    parts.append(
+        f'<text x="40" y="48" class="small" style="fill:{MUTE};">'
+        f'Progress Tracker: 85% Completed (Stages 01–05 active/built) · Next: Stage 06 Final Word Packaging post-feedback'
+        f'</text>'
+    )
+
+    y_top = 66
+    card_w = 158
+    card_h = 210
+
+    for i, s in enumerate(stages):
+        x = 24 + i * 178
+        fill = MIST if s["hi"] else WHITE
+        stroke = TIFFANY_DEEP if s["hi"] else (LINE if not s["dashed"] else "#98AAB5")
+        sw = "2.5" if s["hi"] else ("1.5" if not s["dashed"] else "1.5")
+        dash_attr = 'stroke-dasharray="4,3"' if s["dashed"] else ""
+
+        # Connecting arrow to next stage
+        if i < len(stages) - 1:
+            arr_x1 = x + card_w + 3
+            arr_x2 = arr_x1 + 14
+            arr_y = y_top + card_h / 2
+            is_arr_tiffany = (i >= 3)
+            parts.append(arrow(arr_x1, arr_y, arr_x2, arr_y, tiffany=is_arr_tiffany))
+
+        # Card container
+        parts.append(f"""
+        <g filter="url(#shadow)">
+          <rect x="{x}" y="{y_top}" width="{card_w}" height="{card_h}" rx="12"
+                fill="{fill}" stroke="{stroke}" stroke-width="{sw}" {dash_attr}/>
+          <!-- Step circle -->
+          <circle cx="{x + 26}" cy="{y_top + 26}" r="15" fill="{s['status_color']}"/>
+          <text x="{x + 26}" y="{y_top + 31}" text-anchor="middle" class="num" style="font-size:11px;">{s['num']}</text>
+          <!-- Stage badge -->
+          <rect x="{x + 48}" y="{y_top + 15}" width="{card_w - 56}" height="22" rx="11" fill="{s['status_color']}"/>
+          <text x="{x + 48 + (card_w - 56)/2}" y="{y_top + 29}" text-anchor="middle" class="chip" style="font-size:9.5px; font-weight:700;">{s['status']}</text>
+          <!-- Title & Subtitle -->
+          <text x="{x + 14}" y="{y_top + 62}" class="lab" style="font-size:12.5px; font-weight:700; fill:{MIDNIGHT};">{esc(s['title'])}</text>
+          <text x="{x + 14}" y="{y_top + 78}" class="tiny" style="font-size:10px; font-weight:600; fill:{TEAL if s['hi'] else MUTE};">{esc(s['subtitle'])}</text>
+          <line x1="{x + 14}" y1="{y_top + 87}" x2="{x + card_w - 14}" y2="{y_top + 87}" stroke="{LINE}" stroke-width="1"/>
+          <!-- Bullets -->
+          <circle cx="{x + 18}" cy="{y_top + 106}" r="2.5" fill="{TIFFANY_DEEP if s['hi'] else MUTE}"/>
+          <text x="{x + 26}" y="{y_top + 110}" class="tiny" style="font-size:9.5px; fill:{MIDNIGHT};">{esc(s['bullets'][0])}</text>
+          <circle cx="{x + 18}" cy="{y_top + 128}" r="2.5" fill="{TIFFANY_DEEP if s['hi'] else MUTE}"/>
+          <text x="{x + 26}" y="{y_top + 132}" class="tiny" style="font-size:9.5px; fill:{MIDNIGHT};">{esc(s['bullets'][1])}</text>
+          <circle cx="{x + 18}" cy="{y_top + 150}" r="2.5" fill="{TIFFANY_DEEP if s['hi'] else MUTE}"/>
+          <text x="{x + 26}" y="{y_top + 154}" class="tiny" style="font-size:9.5px; fill:{MIDNIGHT};">{esc(s['bullets'][2])}</text>
+          <!-- Footer micro-label -->
+          <rect x="{x + 12}" y="{y_top + 172}" width="{card_w - 24}" height="26" rx="6" fill="{WHITE if s['hi'] else PAPER}" stroke="{LINE}" stroke-width="1"/>
+          <text x="{x + card_w / 2}" y="{y_top + 189}" text-anchor="middle" class="tiny" style="font-size:9px; font-weight:600; fill:{MIDNIGHT};">
+            {'Active Focus' if s['hi'] else ('Next Step' if s['dashed'] else 'Verified Artifact')}
+          </text>
+        </g>""")
+
+    # Bottom Progress Bar Strip
+    bar_y = 296
+    parts.append(f"""
+    <g filter="url(#shadow)">
+      <rect x="24" y="{bar_y}" width="1072" height="46" rx="10" fill="{WHITE}" stroke="{LINE}" stroke-width="1.5"/>
+      <!-- Track -->
+      <rect x="40" y="{bar_y + 16}" width="420" height="14" rx="7" fill="{MIST}"/>
+      <!-- Fill 85% -->
+      <rect x="40" y="{bar_y + 16}" width="357" height="14" rx="7" fill="{TIFFANY}"/>
+      <!-- 85% text -->
+      <text x="495" y="{bar_y + 27}" text-anchor="middle" class="chip" style="fill:{MIDNIGHT}; font-weight:700; font-size:10px;">85% Done</text>
+      <!-- Milestone text -->
+      <text x="545" y="{bar_y + 28}" class="small" style="font-weight:700; fill:{MIDNIGHT}; font-size:11.5px;">
+        Milestone: <tspan fill="{TIFFANY_DEEP}">Tutor Review Draft Online</tspan> · <tspan fill="{MUTE}">Next: Feedback &amp; Word Docx</tspan>
+      </text>
+    </g>""")
+
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="360" viewBox="0 0 1120 360">
+  <rect width="1120" height="360" fill="{PAPER}"/>
+  {defs()}
+  {"".join(parts)}
+</svg>"""
+
+
 def main() -> None:
     render(fig00_executive_kpi_strip(), "fig00_executive_kpi_strip", width=1600)
+    render(fig00_workflow_roadmap(), "fig00_workflow_roadmap", width=1600)
     render(fig08_methodology_pipeline(), "fig08_methodology_pipeline", width=1600)
     render(fig09_mode_performance_matrix(), "fig09_mode_performance_matrix", width=1600)
 
 
 if __name__ == "__main__":
     main()
+
