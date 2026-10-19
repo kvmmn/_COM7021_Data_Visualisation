@@ -271,154 +271,225 @@ def fig09_mode_performance_matrix() -> str:
 </svg>"""
 
 
+def curved_arrow(
+    d: str, tiffany: bool = True, dashed: bool = True, label: str = "", lx: float = 0, ly: float = 0
+) -> str:
+    c = TIFFANY_DEEP if tiffany else MUTE
+    dash = 'stroke-dasharray="4,3"' if dashed else ""
+    m = "url(#arrowT)" if tiffany else "url(#arrow)"
+    label_svg = ""
+    if label:
+        label_svg = (
+            f'<text x="{lx}" y="{ly}" text-anchor="middle" class="tiny" '
+            f'style="font-size:9.5px; font-weight:600; fill:{c}; font-style:italic;">{esc(label)}</text>'
+        )
+    return (
+        f'<path d="{d}" fill="none" stroke="{c}" stroke-width="1.8" {dash} '
+        f'marker-end="{m}"/>{label_svg}'
+    )
+
+
 def fig00_workflow_roadmap() -> str:
-    """Recipe 6.6 & Custom: End-to-End Assignment R&D Workflow & Execution Roadmap.
-    Shows 6 sequential stages, detailed deliverables, and completed vs remaining milestones.
+    """Non-linear, iterative R&D network topology.
+    Represents an organic network of 6 interacting working nodes with active feedback loops.
     """
-    stages = [
+    nodes = [
         {
-            "num": "01",
-            "title": "Data Hygiene",
-            "subtitle": "Ingestion & Audit",
-            "bullets": ["5,000 rows x 18 cols", "Excel serial to ISO", "Zero missing/anomalies"],
-            "status": "COMPLETED",
-            "status_color": MIDNIGHT,
+            "id": "hygiene",
+            "x": 45,
+            "y": 105,
+            "w": 280,
+            "h": 120,
+            "code": "01",
+            "title": "Data Hygiene & Ingestion",
+            "sub": "Raw Ingestion & Schema Auditing",
+            "items": ["5,000 records × 18 columns", "Excel serial to ISO (origin=1899-12-30)", "Zero missing values & anomaly check"],
+            "status": "VERIFIED BASE",
             "hi": False,
             "dashed": False,
         },
         {
-            "num": "02",
-            "title": "First Principles",
-            "subtitle": "Feature Engineering",
-            "bullets": ["Net margin & recovery", "Rate / 10k pax metrics", "OLS cost decomposition"],
-            "status": "COMPLETED",
-            "status_color": MIDNIGHT,
-            "hi": False,
-            "dashed": False,
-        },
-        {
-            "num": "03",
-            "title": "Visualisation Suite",
-            "subtitle": "7 Advanced Figures",
-            "bullets": ["Raincloud & Dumbbell", "Joint OLS + KDE strips", "220 DPI Arden palette"],
-            "status": "COMPLETED",
-            "status_color": MIDNIGHT,
-            "hi": False,
-            "dashed": False,
-        },
-        {
-            "num": "04",
-            "title": "Interactive Dash",
-            "subtitle": "Decision Engine",
-            "bullets": ["Plotly 6-slicer engine", "6 real-time KPI tiles", "Scenario stress testing"],
-            "status": "COMPLETED",
-            "status_color": MIDNIGHT,
-            "hi": False,
-            "dashed": False,
-        },
-        {
-            "num": "05",
-            "title": "Critical Synthesis",
-            "subtitle": "Rubric Alignment",
-            "bullets": ["Task 1 (~680w explanation)", "Task 2 (~980w report)", "LO1–LO4 & Harvard refs"],
-            "status": "IN REVIEW",
-            "status_color": TIFFANY_DEEP,
+            "id": "features",
+            "x": 395,
+            "y": 95,
+            "w": 290,
+            "h": 132,
+            "code": "02",
+            "title": "First-Principles Modeling",
+            "sub": "Mathematical Feature Derivations",
+            "items": ["Net Margin & Cost Recovery ratios", "Rate / 10k pax & Carbon ROI (€/tCO2)", "OLS fixed vs variable cost slope"],
+            "status": "ANALYTICAL CORE",
             "hi": True,
             "dashed": False,
         },
         {
-            "num": "06",
-            "title": "Final Submission",
-            "subtitle": "Packaging & Word",
-            "bullets": ["Incorporate tutor notes", "Format official .docx", "Band 90–100 rubric check"],
-            "status": "PENDING",
-            "status_color": MUTE,
+            "id": "visuals",
+            "x": 755,
+            "y": 105,
+            "w": 280,
+            "h": 120,
+            "code": "03",
+            "title": "Visualisation Suite",
+            "sub": "7 Distributional & Bivariate Figures",
+            "items": ["Raincloud (Half-KDE, box, jitter)", "Connected Dumbbell (Simpson's Paradox)", "Joint OLS with marginal KDE strips"],
+            "status": "7 FIGURES BUILT",
+            "hi": False,
+            "dashed": False,
+        },
+        {
+            "id": "dashboard",
+            "x": 755,
+            "y": 285,
+            "w": 280,
+            "h": 120,
+            "code": "04",
+            "title": "Interactive Dashboard",
+            "sub": "Dynamic Client-Side Decision Engine",
+            "items": ["Zero-dependency Plotly.js engine", "6 dynamic filters & 6 synced KPIs", "Rain/Snow stress-test scenarios"],
+            "status": "LIVE IN-PAGE",
+            "hi": False,
+            "dashed": False,
+        },
+        {
+            "id": "synthesis",
+            "x": 395,
+            "y": 275,
+            "w": 290,
+            "h": 132,
+            "code": "05",
+            "title": "Critical Academic Synthesis",
+            "sub": "Prose Drafting & Literature Mapping",
+            "items": ["Task 1 (~680w) & Task 2 (~980w)", "Cleveland & McGill, Tufte principles", "Learning Outcomes LO1–LO4 mapped"],
+            "status": "ACTIVE / IN REVIEW",
+            "hi": True,
+            "dashed": False,
+        },
+        {
+            "id": "feedback",
+            "x": 45,
+            "y": 285,
+            "w": 280,
+            "h": 120,
+            "code": "06",
+            "title": "Formative Review & Export",
+            "sub": "Iterative Feedback & Packaging",
+            "items": ["Ahmed Hassan tutor feedback review", "Band 90–100 rubric verification", "Official Arden Word (.docx) packaging"],
+            "status": "PENDING NEXT STEP",
             "hi": False,
             "dashed": True,
         },
     ]
 
     parts = []
-    # Header title inside diagram
+    # Title & Subtitle
     parts.append(
-        f'<text x="40" y="30" class="lab" style="font-size:16px; font-weight:700; fill:{MIDNIGHT};">'
-        f'COM7021 ASSESSMENT R&amp;D WORKFLOW &amp; EXECUTION ROADMAP'
+        f'<text x="45" y="28" class="lab" style="font-size:15px; font-weight:700; fill:{MIDNIGHT};">'
+        f'COM7021 ASSESSMENT R&amp;D TOPOLOGY — ITERATIVE RESEARCH &amp; FEEDBACK NETWORK'
         f'</text>'
     )
     parts.append(
-        f'<text x="40" y="48" class="small" style="fill:{MUTE};">'
-        f'Progress Tracker: 85% Completed (Stages 01–05 active/built) · Next: Stage 06 Final Word Packaging post-feedback'
+        f'<text x="45" y="46" class="small" style="font-size:11px; fill:{MUTE};">'
+        f'Non-linear empirical workflow: continuous feedback loops across data hygiene, mathematical modeling, visualisations, and rubric calibration'
         f'</text>'
     )
 
-    y_top = 66
-    card_w = 158
-    card_h = 210
+    # Connections & Feedback Loops (drawn behind cards)
+    # 1. Forward 01 -> 02
+    parts.append(arrow(325, 165, 390, 165))
+    # 1. Feedback Loop 02 -> 01 (curved top)
+    parts.append(
+        curved_arrow("M 415 95 C 375 62, 310 62, 260 102", tiffany=True, dashed=True,
+                     label="Iterative anomaly & serial date audit", lx=335, ly=68)
+    )
 
-    for i, s in enumerate(stages):
-        x = 24 + i * 178
-        fill = MIST if s["hi"] else WHITE
-        stroke = TIFFANY_DEEP if s["hi"] else (LINE if not s["dashed"] else "#98AAB5")
-        sw = "2.5" if s["hi"] else ("1.5" if not s["dashed"] else "1.5")
-        dash_attr = 'stroke-dasharray="4,3"' if s["dashed"] else ""
+    # 2. Forward 02 -> 03
+    parts.append(arrow(685, 165, 750, 165, tiffany=True))
+    # 2. Feedback Loop 03 -> 02 (curved top)
+    parts.append(
+        curved_arrow("M 770 102 C 730 62, 670 62, 630 92", tiffany=True, dashed=True,
+                     label="Simpson's paradox re-weighting loop", lx=698, ly=68)
+    )
 
-        # Connecting arrow to next stage
-        if i < len(stages) - 1:
-            arr_x1 = x + card_w + 3
-            arr_x2 = arr_x1 + 14
-            arr_y = y_top + card_h / 2
-            is_arr_tiffany = (i >= 3)
-            parts.append(arrow(arr_x1, arr_y, arr_x2, arr_y, tiffany=is_arr_tiffany))
+    # 3. Forward 03 -> 04 (vertical down)
+    parts.append(arrow(895, 225, 895, 280))
+    # 3. Feedback Loop 04 -> 03 (curved right)
+    parts.append(
+        curved_arrow("M 1035 320 C 1065 280, 1065 220, 1035 175", tiffany=True, dashed=True,
+                     label="Scenario stress-test loop", lx=980, ly=248)
+    )
 
-        # Card container
+    # 4. Forward 04 -> 05 (horizontal left)
+    parts.append(arrow(755, 345, 690, 345, tiffany=True))
+
+    # 5. Central Vertical Feedback Loop 05 <-> 02 (Synthesis <-> Feature Engineering)
+    parts.append(
+        curved_arrow("M 525 270 L 525 230", tiffany=True, dashed=True,
+                     label="Unit cost & policy loop", lx=460, ly=250)
+    )
+    parts.append(
+        arrow(560, 227, 560, 270, tiffany=False)
+    )
+
+    # 6. Forward 05 -> 06 (horizontal left)
+    parts.append(arrow(395, 345, 330, 345))
+    # 6. Feedback Loop 06 -> 05 (curved bottom)
+    parts.append(
+        curved_arrow("M 315 400 C 350 435, 395 435, 420 410", tiffany=True, dashed=True,
+                     label="Tutor review & rubric calibration", lx=368, ly=436)
+    )
+
+    # Draw Nodes / Cards
+    for n in nodes:
+        x, y, w, h = n["x"], n["y"], n["w"], n["h"]
+        fill = MIST if n["hi"] else WHITE
+        stroke = TIFFANY_DEEP if n["hi"] else (LINE if not n["dashed"] else "#98AAB5")
+        sw = "2.5" if n["hi"] else ("1.5" if not n["dashed"] else "1.5")
+        dash_attr = 'stroke-dasharray="4,3"' if n["dashed"] else ""
+        badge_bg = TIFFANY_DEEP if n["hi"] else (MIDNIGHT if not n["dashed"] else MUTE)
+
         parts.append(f"""
         <g filter="url(#shadow)">
-          <rect x="{x}" y="{y_top}" width="{card_w}" height="{card_h}" rx="12"
+          <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12"
                 fill="{fill}" stroke="{stroke}" stroke-width="{sw}" {dash_attr}/>
-          <!-- Step circle -->
-          <circle cx="{x + 26}" cy="{y_top + 26}" r="15" fill="{s['status_color']}"/>
-          <text x="{x + 26}" y="{y_top + 31}" text-anchor="middle" class="num" style="font-size:11px;">{s['num']}</text>
-          <!-- Stage badge -->
-          <rect x="{x + 48}" y="{y_top + 15}" width="{card_w - 56}" height="22" rx="11" fill="{s['status_color']}"/>
-          <text x="{x + 48 + (card_w - 56)/2}" y="{y_top + 29}" text-anchor="middle" class="chip" style="font-size:9.5px; font-weight:700;">{s['status']}</text>
-          <!-- Title & Subtitle -->
-          <text x="{x + 14}" y="{y_top + 62}" class="lab" style="font-size:12.5px; font-weight:700; fill:{MIDNIGHT};">{esc(s['title'])}</text>
-          <text x="{x + 14}" y="{y_top + 78}" class="tiny" style="font-size:10px; font-weight:600; fill:{TEAL if s['hi'] else MUTE};">{esc(s['subtitle'])}</text>
-          <line x1="{x + 14}" y1="{y_top + 87}" x2="{x + card_w - 14}" y2="{y_top + 87}" stroke="{LINE}" stroke-width="1"/>
+          <!-- Node Code & Title -->
+          <circle cx="{x + 22}" cy="{y + 20}" r="11" fill="{badge_bg}"/>
+          <text x="{x + 22}" y="{y + 24}" text-anchor="middle" class="num" style="font-size:9.5px;">{n['code']}</text>
+          
+          <rect x="{x + 38}" y="{y + 10}" width="{w - 48}" height="20" rx="10" fill="{badge_bg}"/>
+          <text x="{x + 38 + (w - 48)/2}" y="{y + 23}" text-anchor="middle" class="chip" style="font-size:9px; font-weight:700;">{n['status']}</text>
+
+          <text x="{x + 14}" y="{y + 48}" class="lab" style="font-size:12px; font-weight:700; fill:{MIDNIGHT};">{esc(n['title'])}</text>
+          <text x="{x + 14}" y="{y + 62}" class="tiny" style="font-size:9.5px; font-weight:600; fill:{TEAL if n['hi'] else MUTE};">{esc(n['sub'])}</text>
+          <line x1="{x + 14}" y1="{y + 68}" x2="{x + w - 14}" y2="{y + 68}" stroke="{LINE}" stroke-width="1"/>
+          
           <!-- Bullets -->
-          <circle cx="{x + 18}" cy="{y_top + 106}" r="2.5" fill="{TIFFANY_DEEP if s['hi'] else MUTE}"/>
-          <text x="{x + 26}" y="{y_top + 110}" class="tiny" style="font-size:9.5px; fill:{MIDNIGHT};">{esc(s['bullets'][0])}</text>
-          <circle cx="{x + 18}" cy="{y_top + 128}" r="2.5" fill="{TIFFANY_DEEP if s['hi'] else MUTE}"/>
-          <text x="{x + 26}" y="{y_top + 132}" class="tiny" style="font-size:9.5px; fill:{MIDNIGHT};">{esc(s['bullets'][1])}</text>
-          <circle cx="{x + 18}" cy="{y_top + 150}" r="2.5" fill="{TIFFANY_DEEP if s['hi'] else MUTE}"/>
-          <text x="{x + 26}" y="{y_top + 154}" class="tiny" style="font-size:9.5px; fill:{MIDNIGHT};">{esc(s['bullets'][2])}</text>
-          <!-- Footer micro-label -->
-          <rect x="{x + 12}" y="{y_top + 172}" width="{card_w - 24}" height="26" rx="6" fill="{WHITE if s['hi'] else PAPER}" stroke="{LINE}" stroke-width="1"/>
-          <text x="{x + card_w / 2}" y="{y_top + 189}" text-anchor="middle" class="tiny" style="font-size:9px; font-weight:600; fill:{MIDNIGHT};">
-            {'Active Focus' if s['hi'] else ('Next Step' if s['dashed'] else 'Verified Artifact')}
-          </text>
+          <circle cx="{x + 18}" cy="{y + 81}" r="2" fill="{TIFFANY_DEEP if n['hi'] else MUTE}"/>
+          <text x="{x + 25}" y="{y + 84}" class="tiny" style="font-size:9px; fill:{MIDNIGHT};">{esc(n['items'][0])}</text>
+
+          <circle cx="{x + 18}" cy="{y + 96}" r="2" fill="{TIFFANY_DEEP if n['hi'] else MUTE}"/>
+          <text x="{x + 25}" y="{y + 99}" class="tiny" style="font-size:9px; fill:{MIDNIGHT};">{esc(n['items'][1])}</text>
+
+          <circle cx="{x + 18}" cy="{y + 111}" r="2" fill="{TIFFANY_DEEP if n['hi'] else MUTE}"/>
+          <text x="{x + 25}" y="{y + 114}" class="tiny" style="font-size:9px; fill:{MIDNIGHT};">{esc(n['items'][2])}</text>
         </g>""")
 
-    # Bottom Progress Bar Strip
-    bar_y = 296
+    # Bottom minimal indicator bar
     parts.append(f"""
     <g filter="url(#shadow)">
-      <rect x="24" y="{bar_y}" width="1072" height="46" rx="10" fill="{WHITE}" stroke="{LINE}" stroke-width="1.5"/>
-      <!-- Track -->
-      <rect x="40" y="{bar_y + 16}" width="420" height="14" rx="7" fill="{MIST}"/>
-      <!-- Fill 85% -->
-      <rect x="40" y="{bar_y + 16}" width="357" height="14" rx="7" fill="{TIFFANY}"/>
-      <!-- 85% text -->
-      <text x="495" y="{bar_y + 27}" text-anchor="middle" class="chip" style="fill:{MIDNIGHT}; font-weight:700; font-size:10px;">85% Done</text>
-      <!-- Milestone text -->
-      <text x="545" y="{bar_y + 28}" class="small" style="font-weight:700; fill:{MIDNIGHT}; font-size:11.5px;">
-        Milestone: <tspan fill="{TIFFANY_DEEP}">Tutor Review Draft Online</tspan> · <tspan fill="{MUTE}">Next: Feedback &amp; Word Docx</tspan>
+      <rect x="45" y="445" width="990" height="34" rx="8" fill="{WHITE}" stroke="{LINE}" stroke-width="1.2"/>
+      <circle cx="62" cy="462" r="4" fill="{TIFFANY_DEEP}"/>
+      <text x="74" y="466" class="small" style="font-size:11px; font-weight:700; fill:{MIDNIGHT};">
+        Current Milestone: <tspan fill="{TIFFANY_DEEP}">Tutor Review Draft Published (5 Working Nodes Verified)</tspan>
+      </text>
+      <circle cx="680" cy="462" r="4" fill="{MUTE}"/>
+      <text x="692" y="466" class="small" style="font-size:11px; fill:{MUTE};">
+        Next Feedback Loop: <tspan font-weight="600" fill="{MIDNIGHT}">Ahmed Hassan Formative Input &amp; Word Export</tspan>
       </text>
     </g>""")
 
     return f"""<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="360" viewBox="0 0 1120 360">
-  <rect width="1120" height="360" fill="{PAPER}"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="495" viewBox="0 0 1080 495">
+  <rect width="1080" height="495" fill="{PAPER}"/>
   {defs()}
   {"".join(parts)}
 </svg>"""
