@@ -37,7 +37,7 @@ def count_words(html_fragment: str) -> int:
 # TASK 1 PROSE (~600 WORDS TARGET)
 # ==============================================================================
 TASK1_SEC_1_1 = """
-<p>The investigation examines <code>[5442] EcoMoveMobility.xlsx</code>, comprising 5,000 daily records across 18 attributes for public and shared mobility across 12 European cities (6 countries) from 1 January 2024 to 31 December 2025. Data hygiene audits confirmed all 5,000 <code>Record_ID</code> keys are unique with zero missing or negative values. During ingestion, raw <code>Date</code> values stored as Excel serial integers (<code>45292</code>–<code>46022</code>) were converted to ISO dates via <code>origin='1899-12-30'</code>. Six normalised metrics were engineered for first-principles comparison: net margin (<code>Net_Margin_EUR</code>), farebox recovery ratio (<code>Cost_Recovery_Pct</code>), unit costs and fares per passenger (<code>Cost_per_Pax_EUR</code>, <code>Fare_per_Pax_EUR</code>), volume-normalised complaints per 10,000 passengers (<code>Complaints_per_10k_Pax</code>), and carbon efficiency (<code>CO2_per_kWh</code>).</p>
+<p>The investigation examines <code>[5442] EcoMoveMobility.xlsx</code>, comprising 5,000 daily records across 18 attributes for public and shared mobility across 12 European cities (6 countries) from 1 January 2024 to 31 December 2025. Data hygiene audits confirmed all 5,000 <code>Record_ID</code> keys are unique with zero missing or negative values. During ingestion, raw <code>Date</code> values stored as Excel serial integers (<code>45292</code>–<code>46022</code>) were converted to ISO dates via <code>origin='1899-12-30'</code>. Six normalised metrics were engineered for rigorous multi-modal comparison: net margin (<code>Net_Margin_EUR</code>), farebox recovery ratio (<code>Cost_Recovery_Pct</code>), unit costs and fares per passenger (<code>Cost_per_Pax_EUR</code>, <code>Fare_per_Pax_EUR</code>), volume-normalised complaints per 10,000 passengers (<code>Complaints_per_10k_Pax</code>), and carbon efficiency (<code>CO2_per_kWh</code>).</p>
 """
 
 TASK1_SEC_1_2 = """
@@ -80,7 +80,7 @@ TASK2_SEC_2_1 = """
 
 TASK2_SEC_2_2 = """
 <h3>2.2 Synthesis of Empirical Findings Across Operational Domains (LO2 &amp; LO3)</h3>
-<p>A first-principles synthesis of the empirical evidence reveals that EcoMove operates a structurally bifurcated network governed by four core operational tensions:</p>
+<p>A critical synthesis of the empirical evidence reveals that EcoMove operates a structurally bifurcated network governed by four core operational tensions:</p>
 <ol>
   <li><strong>Inverted Unit Economics &amp; The Micromobility Subsidy Trap:</strong> Fixed electric transit anchors capacity and decarbonisation. Metro carries 62.96% of passengers (25.76M) and generates 70.30% of carbon savings (3,150.92 of 4,481.97 tonnes CO<sub>2</sub>) at 2.19 kg CO<sub>2</sub>/kWh while returning +€1,366 per tonne of CO<sub>2</sub> abated (Figures 3 and 8). Together, Metro, Tram, and Park &amp; Ride yield a +€8.40M operating surplus. Conversely, Bike Share and E-Scooter represent 24.64% of operational records (1,232 rows) yet serve only 1.06% of ridership (432,707 passengers) while accumulating an &minus;€8.88M deficit. OLS cost decomposition proves that variable servicing costs scale at ~€21–€22 per trip against fares of €1.15–€1.59, creating a negative contribution margin (&minus;€20 per trip). Thus, marketing to increase ridership under current contracts merely deepens municipal losses.</li>
   <li><strong>Simpson’s Paradox &amp; City-Level Modal Sampling Confounding:</strong> Raw financial totals misleadingly portray Madrid (&minus;€272.49k) and Barcelona (&minus;€152.69k) as severe underperformers while showing Berlin (+€14.54k) in surplus. Confounding analysis demonstrates that micromobility record share correlates heavily with raw city deficits (<em>r</em> = &minus;0.795). Direct standardisation (Figure 2) reveals that Berlin plunges from Rank #4 to Rank #11 (&minus;€353.87/record mix-adjusted) due to unmasked micromobility rebalancing costs, while Madrid recovers 62% of its deficit (&minus;€268.04/record adjusted) and rises to Rank #3 in true European passenger demand.</li>
@@ -804,131 +804,23 @@ def build_html() -> None:
       </div>
     </section>
 
-    <!-- SECTION 0: R&D WORKFLOW & EXECUTION ROADMAP -->
-    <section id="roadmap" class="section-card">
+    <!-- SECTION 0: PROJECT TOPOLOGY & STATUS -->
+    <section id="roadmap" class="section-card" style="padding: 22px 28px; margin-bottom: 24px;">
       <h2>
-        <span>Assessment Research &amp; Development Workflow and Execution Roadmap</span>
-        <span><span class="badge navy">Progress: 85% Completed</span> <span class="badge">Awaiting Tutor Review</span></span>
+        <span>Project Working Topology &amp; Status Overview</span>
+        <span><span class="badge navy">Status: 85% Completed</span> <span class="badge">Awaiting Tutor Review</span></span>
       </h2>
 
-      <p>This assessment operationalises an iterative, non-linear research and development topology designed to align directly with Arden University's highest evaluation criteria (Band 90–100%: <em>Exemplary technical understanding and judgement; Exceptional application of working process and techniques</em>). Rather than a simplistic linear conveyor belt, real data science requires continuous cycles of discovery, anomaly detection, metric re-weighting, and visual refinement. The schematic below captures the active network of interacting modules and feedback loops that underpinned this investigation.</p>
+      <p style="margin: 0 0 10px 0; font-size: 13.5px; color: var(--mute);">A symbolic overview of the iterative research progression across the six project phases, capturing recursive feedback loops between data validation, metric modeling, visual analytics, and formative tutor review.</p>
 
-      <div class="fig-box">
-        <img src="{b64_img('fig00_workflow_roadmap.png')}" alt="Assignment R&amp;D Workflow &amp; Execution Roadmap"/>
-        <div class="fig-caption"><strong>Figure R1 (Iterative R&amp;D Topology &amp; Feedback Network):</strong> Multi-node working topology of the COM7021 investigation. Nodes 01 to 05 form an active, interconnected research web with recursive feedback loops—such as Simpson's paradox re-weighting between visuals and feature engineering, and scenario stress-testing between the dashboard and distributional graphics. Node 06 marks the pending formative review and final packaging loop.</div>
+      <div class="fig-box" style="margin: 8px 0 12px 0; padding: 8px; background: var(--paper); border: 1.5px solid var(--line);">
+        <img src="{b64_img('fig00_workflow_roadmap.png')}" alt="Project Working Topology &amp; Status Overview"/>
       </div>
 
-      <div class="roadmap-grid">
-        <!-- COMPLETED PHASES -->
-        <div class="stage-card-list">
-          <h3 style="margin-top:0; margin-bottom:4px; font-size:15px; color:var(--midnight);">Completed Research &amp; Development Progression</h3>
-          
-          <div class="stage-item">
-            <div class="stage-head">
-              <span class="stage-title">01. Data Ingestion, Hygiene Audit &amp; ISO Conversion</span>
-              <span class="stage-pill done">Completed ✓</span>
-            </div>
-            <p class="stage-desc">Ingested <code>[5442] EcoMoveMobility.xlsx</code> (5,000 rows &times; 18 attributes). Resolved Excel integer serial dates (<code>45292</code>–<code>46022</code>) to standard ISO calendar dates via <code>origin='1899-12-30'</code>. Audited for zero nulls, negative values, or key collisions.</p>
-            <ul class="stage-bullets">
-              <li>Verified 100% complete dataset across 12 European cities (6 countries, 2024–2025).</li>
-              <li>Generated reproducible clean dataset: <code>data/ecomove_cleaned.csv</code>.</li>
-            </ul>
-          </div>
-
-          <div class="stage-item">
-            <div class="stage-head">
-              <span class="stage-title">02. First-Principles Feature Engineering &amp; Cost Derivations</span>
-              <span class="stage-pill done">Completed ✓</span>
-            </div>
-            <p class="stage-desc">Engineered 6 normalised ratios to avoid scale distortion: Net Margin, Farebox Recovery %, unit cost/fare per passenger, carbon efficiency (kg CO<sub>2</sub>/kWh &amp; marginal abatement return &euro;/tCO<sub>2</sub>), and volume-adjusted complaint rates (per 10k pax).</p>
-            <ul class="stage-bullets">
-              <li>OLS linear cost decomposition: isolated fixed versus variable cost structures.</li>
-              <li>Discovered Simpson's Paradox confounding across cities (<em>r</em> = &minus;0.795).</li>
-              <li>Exported structured analytical tables: <code>table01</code> to <code>table06</code>.</li>
-            </ul>
-          </div>
-
-          <div class="stage-item">
-            <div class="stage-head">
-              <span class="stage-title">03. Advanced Publication-Grade Visualisation Suite</span>
-              <span class="stage-pill done">Completed ✓</span>
-            </div>
-            <p class="stage-desc">Developed 7 advanced visualisations adhering strictly to Arden Visual Design tokens (Midnight <code>#002B49</code> / Tiffany <code>#66C9BA</code>) and Cleveland &amp; McGill perceptual hierarchy (no 3D, no pie charts, continuous axes):</p>
-            <ul class="stage-bullets">
-              <li><strong>Fig 1:</strong> Demand time-series with shaded +34.1% weekday commute premium corridor.</li>
-              <li><strong>Fig 2:</strong> Connected Dumbbell plot exposing Simpson's Paradox city rank shifts.</li>
-              <li><strong>Fig 3:</strong> Unit economics OLS slope &amp; marginal carbon abatement ROI (+&euro;1,366/t vs &minus;&euro;151k/t).</li>
-              <li><strong>Fig 4:</strong> Raincloud plot (Gaussian KDE half-violin + Tukey boxplot + jittered observations).</li>
-              <li><strong>Fig 5:</strong> Joint bivariate OLS regression with marginal top/right KDE density shifts.</li>
-              <li><strong>Fig 6:</strong> Dual-encoded weather delay heatmap &amp; percentage surge over Clear baseline.</li>
-              <li><strong>Fig 7:</strong> Route accessibility interaction matrix (Suburban Feeder 5&times; spike).</li>
-            </ul>
-          </div>
-
-          <div class="stage-item">
-            <div class="stage-head">
-              <span class="stage-title">04. Multi-Dimensional Interactive Decision Dashboard</span>
-              <span class="stage-pill done">Completed ✓</span>
-            </div>
-            <p class="stage-desc">Implemented a client-side, zero-dependency interactive dashboard engine using Plotly.js embedded directly within the document. Features 6 dynamic slicers (Month, Country, City, Mode, Route, Weather), 6 auto-aggregating KPI cards, and 4 coordinated responsive charts.</p>
-            <ul class="stage-bullets">
-              <li>Operationalises Shneiderman's mantra: overview, dynamic filtering, details-on-demand.</li>
-              <li>Verified scenario stress-testing (Rain &amp; Snow surface transit degradation).</li>
-            </ul>
-          </div>
-
-          <div class="stage-item active">
-            <div class="stage-head">
-              <span class="stage-title">05. Critical Academic Synthesis &amp; Web Draft Compilation</span>
-              <span class="stage-pill review">Active / In Review 🔍</span>
-            </div>
-            <p class="stage-desc">Synthesised empirical findings across Task 1 (~680 words) and Task 2 (~980 words) mapped to Learning Outcomes LO1–LO4. Compiled a self-contained, offline-capable single HTML document with embedded Base64 vector/220 DPI figures, interactive dashboard, and full Python source appendix.</p>
-            <ul class="stage-bullets">
-              <li>Strict word count governance (Task 1: ~600w; Task 2: ~900w; total prose ~1,680w).</li>
-              <li>Integrated peer-reviewed theoretical citations (Tufte, Cleveland, Ware, Munzner).</li>
-              <li>Published live to GitHub Pages for formative tutor review.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- REMAINING DELIVERABLES & NEXT STEPS -->
-        <div class="remaining-card">
-          <h4><span style="color:var(--tiffany-deep);">⏳</span> Remaining Stages &amp; Final Packaging</h4>
-          <p style="font-size:12.5px; margin:0; color:var(--mute);">The remaining 15% of the assessment lifecycle will be executed immediately upon receiving formative feedback from the module tutor:</p>
-
-          <div class="stage-item pending">
-            <div class="stage-head">
-              <span class="stage-title">06.1 Tutor Feedback Integration</span>
-              <span class="stage-pill wait">Pending ⏳</span>
-            </div>
-            <p class="stage-desc">Review commentary and recommendations from Module Tutor Ahmed Hassan. Adjust analytical focus, visual annotations, or narrative nuances as advised.</p>
-          </div>
-
-          <div class="stage-item pending">
-            <div class="stage-head">
-              <span class="stage-title">06.2 Band 90–100 Rubric Verification</span>
-              <span class="stage-pill wait">Pending ⏳</span>
-            </div>
-            <p class="stage-desc">Perform final line-by-line verification against the Arden assessment rubric to ensure exemplary technical execution, rigorous process documentation, and seamless synthesis.</p>
-          </div>
-
-          <div class="stage-item pending">
-            <div class="stage-head">
-              <span class="stage-title">06.3 Official Word Document (.docx) Export</span>
-              <span class="stage-pill wait">Pending ⏳</span>
-            </div>
-            <p class="stage-desc">Compile the final submission document formatted to official Arden University typography and layout standards. Embed high-resolution 300 DPI figures, formal cover sheet, declaration of authenticity, and code archive link.</p>
-          </div>
-
-          <div class="rubric-box">
-            <span class="target-band">🎯 Target Marking Criteria (Band 90–100%):</span>
-            <em>"Exemplary technical understanding and judgement. Exceptional application of working process and techniques. Data importing, initial statistics, visualisations and dashboard have all been completed correctly with advanced data methodologies applied."</em>
-          </div>
-
-          <div style="background:var(--mist); border-radius:8px; padding:10px 12px; font-size:11.5px; color:var(--midnight); border:1px solid var(--tiffany);">
-            <strong>Current Draft Availability:</strong> Published and ready for review online via GitHub Pages (<code>index.html</code>) and locally in repository root.
-          </div>
-        </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 10px 18px; font-size: 12.5px; flex-wrap: wrap; gap: 8px;">
+        <div><strong>Verified Working Nodes (85%):</strong> <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 01 Ingestion &amp; Hygiene · <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 02 Features &amp; Ratios · <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 03 Visual Analytics · <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 04 Interactive Dashboard</div>
+        <div><strong>Current Focus:</strong> <span class="badge" style="background:var(--tiffany-deep);">05 Academic Review Draft</span></div>
+        <div><strong>Next Step:</strong> <span style="color:var(--mute); font-weight:600;">06 Ahmed Hassan Formative Feedback &amp; Word Export</span></div>
       </div>
     </section>
 
