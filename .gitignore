@@ -1,0 +1,12 @@
+.DS_Store
+**/.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.venv/
+.env
+*.log
+
+# Archives already extracted beside them
+COM7021 - Code Space/Week 4 and 5 Data.zip
+COM7021 - Code Space/w2-activity-1/Dataset and Code.zip
