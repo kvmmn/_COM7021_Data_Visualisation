@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="182" viewBox="0 0 1040 182">
+  <rect width="1040" height="182" fill="#F7FAFB"/>
+  
+  <defs>
+    <filter id="shadow" x="-6%" y="-6%" width="118%" height="118%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.4"
+                    flood-color="#002B49" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5A6B75"/>
+    </marker>
+    <marker id="arrowT" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3AA89A"/>
+    </marker>
+    <style>
+      .lab { font: 600 14px Aptos, 'Helvetica Neue', sans-serif; fill: #002B49; }
+      .labw { font: 600 13px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+      .small { font: 400 11px Aptos, 'Helvetica Neue', sans-serif; fill: #5A6B75; }
+      .tiny { font: 400 10px Aptos, 'Helvetica Neue', sans-serif; fill: #5A6B75; }
+      .chip { font: 700 10px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+      .zone { font: 700 12px Aptos, 'Helvetica Neue', sans-serif; fill: #002B49; }
+      .num { font: 700 12px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  
+        <g filter="url(#shadow)">
+          <rect x="32" y="35" width="152" height="112" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="108" y="63" text-anchor="middle" class="small">Passengers</text>
+          <text x="108" y="101" text-anchor="middle"
+                style="font:700 25px Aptos, 'Helvetica Neue', sans-serif; fill:#002B49;">40.91M</text>
+          <text x="108" y="126" text-anchor="middle" class="tiny">12 EU cities</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="196" y="35" width="152" height="112" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="272" y="63" text-anchor="middle" class="small">On-time rate</text>
+          <text x="272" y="101" text-anchor="middle"
+                style="font:700 25px Aptos, 'Helvetica Neue', sans-serif; fill:#002B49;">82.1%</text>
+          <text x="272" y="126" text-anchor="middle" class="tiny">mean service</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="360" y="35" width="152" height="112" rx="14"
+                fill="#E6F5F2" stroke="#66C9BA" stroke-width="2.0"/>
+          <text x="436" y="63" text-anchor="middle" class="small">Mean delay</text>
+          <text x="436" y="101" text-anchor="middle"
+                style="font:700 25px Aptos, 'Helvetica Neue', sans-serif; fill:#002B49;">4.35m</text>
+          <text x="436" y="126" text-anchor="middle" class="tiny">Bus: 6.58m</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="524" y="35" width="152" height="112" rx="14"
+                fill="#E6F5F2" stroke="#66C9BA" stroke-width="2.0"/>
+          <text x="600" y="63" text-anchor="middle" class="small">Cost recovery</text>
+          <text x="600" y="101" text-anchor="middle"
+                style="font:700 25px Aptos, 'Helvetica Neue', sans-serif; fill:#002B49;">99.6%</text>
+          <text x="600" y="126" text-anchor="middle" class="tiny">Bike: 5.2%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="688" y="35" width="152" height="112" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="764" y="63" text-anchor="middle" class="small">CO2 saved</text>
+          <text x="764" y="101" text-anchor="middle"
+                style="font:700 25px Aptos, 'Helvetica Neue', sans-serif; fill:#002B49;">4,482t</text>
+          <text x="764" y="126" text-anchor="middle" class="tiny">Metro: 70.3%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="852" y="35" width="152" height="112" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="928" y="63" text-anchor="middle" class="small">Satisfaction</text>
+          <text x="928" y="101" text-anchor="middle"
+                style="font:700 25px Aptos, 'Helvetica Neue', sans-serif; fill:#002B49;">4.01</text>
+          <text x="928" y="126" text-anchor="middle" class="tiny">1 to 5 scale</text>
+        </g>
+</svg>

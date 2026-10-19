@@ -1,0 +1,7 @@
+Transport_Mode,Records,Mean_Pax_per_Day,Mean_Fare_per_Pax_EUR,Mean_Cost_per_Pax_EUR,Net_Margin_per_Pax_EUR,OLS_Fixed_Cost_EUR,OLS_Variable_Cost_per_Pax_EUR,OLS_Marginal_Contribution_per_Pax_EUR,Cost_Pax_R2,Total_CO2_Saved_Tonnes,Net_Return_per_Tonne_CO2_EUR,kWh_per_100_Pax
+Park and Ride,585,5581.57,3.08,2.54,0.55,151.18,2.51,0.58,0.95,199.19,8953.14,3.55
+Tram,761,8384.86,2.46,2.09,0.36,365.86,2.05,0.39,0.95,646.92,3571.11,6.1
+Metro,1047,24601.26,2.85,2.68,0.17,-303.27,2.69,0.14,0.96,3150.92,1366.25,5.59
+Bus,1375,3689.74,2.37,2.36,0.0,-53.92,2.38,0.0,0.95,414.16,23.33,7.62
+E-Scooter,473,346.6,1.59,21.57,-19.98,71.96,21.37,-19.79,0.58,21.65,-151292.6,1.83
+Bike Share,759,354.1,1.15,22.0,-20.84,-52.95,22.15,-21.0,0.61,49.13,-114016.37,0.0

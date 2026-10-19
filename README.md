@@ -10,6 +10,12 @@ Remote: [github.com/kvmmn/_COM7021_Data_Visualisation](https://github.com/kvmmn/
 
 University lecture files and the assessment statement stay in this private repository. They are not for redistribution.
 
+### Assessment Tutor Review Draft (GitHub Pages)
+The self-contained interactive assessment draft (Task 1 & Task 2) is published live on GitHub Pages:
+👉 **[https://kvmmn.github.io/_COM7021_Data_Visualisation/](https://kvmmn.github.io/_COM7021_Data_Visualisation/)**
+- Direct review file path in repository: [`COM7021 - Assignment/COM7021_Draft_Review_25199053.html`](COM7021%20-%20Assignment/COM7021_Draft_Review_25199053.html)
+
+
 ## Layout
 
 | Folder | What it holds |
@@ -41,4 +47,4 @@ The zip archives next to the extracted week folders stay on disk only. Git track
 
 ## Figure colours
 
-Assessed COM7021 figures default to palette `arden` (midnight `#002B49`, tiffany `#66C9BA`) as documented in `COM7021 - Assignment/VISUAL_DESIGN_GUIDE.md` and [`aesth/docs/design/palettes/arden.md`](aesth/docs/design/palettes/arden.md). Other named palettes live in `aesth` and are not the assignment default.
+[`aesth/`](aesth/README.md) is a separate open-source wrapper over plotnine, Great Tables, and Shiny. It is not part of the assessed EcoMove analysis.

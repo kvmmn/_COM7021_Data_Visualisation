@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="742" viewBox="0 0 1280 742">
+  <rect width="1280" height="742" fill="#F7FAFB"/>
+  <defs>
+    <filter id="shadow" x="-6%" y="-6%" width="118%" height="118%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.4" flood-color="#002B49" flood-opacity="0.10"/>
+    </filter>
+    <style>
+      .lab { font: 600 14px Aptos, 'Helvetica Neue', sans-serif; fill: #002B49; }
+      .labw { font: 600 13px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+      .small { font: 400 11px Aptos, 'Helvetica Neue', sans-serif; fill: #5A6B75; }
+      .tiny { font: 400 10px Aptos, 'Helvetica Neue', sans-serif; fill: #5A6B75; }
+      .chip { font: 700 10px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+      .zone { font: 700 11px Aptos, 'Helvetica Neue', sans-serif; fill: #002B49; }
+    </style>
+  </defs>
+  <rect x="30" y="24" width="1220" height="58" rx="14" fill="#002B49"/><text x="54" y="50" style="font:700 16px Aptos, Helvetica Neue, sans-serif; fill:#FFFFFF;">EcoMove City Transport Authority — Interactive Decision Dashboard</text><text x="54" y="69" style="font:400 11px Aptos, Helvetica Neue, sans-serif; fill:#E6F5F2;">Default View: All 12 European Cities · 2024–2025 Full Dataset (N = 5,000 records)</text><rect x="1080" y="40" width="146" height="26" rx="13" fill="#3AA89A"/><text x="1153" y="57" text-anchor="middle" class="chip">Python Dashboard</text><rect x="30" y="96" width="1220" height="54" rx="12" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5" filter="url(#shadow)"/><text x="50" y="128" class="zone">ACTIVE FILTERS</text><rect x="180" y="109" width="165" height="28" rx="14" fill="#1A4A6B"/><text x="262.5" y="127" text-anchor="middle" class="chip">Country: All (6)</text><rect x="356" y="109" width="165" height="28" rx="14" fill="#1A4A6B"/><text x="438.5" y="127" text-anchor="middle" class="chip">City: All (12)</text><rect x="532" y="109" width="165" height="28" rx="14" fill="#1A4A6B"/><text x="614.5" y="127" text-anchor="middle" class="chip">Mode: All (6)</text><rect x="708" y="109" width="165" height="28" rx="14" fill="#1A4A6B"/><text x="790.5" y="127" text-anchor="middle" class="chip">Route: All (6)</text><rect x="884" y="109" width="165" height="28" rx="14" fill="#1A4A6B"/><text x="966.5" y="127" text-anchor="middle" class="chip">Weather: All (6)</text><rect x="1060" y="109" width="165" height="28" rx="14" fill="#1A4A6B"/><text x="1142.5" y="127" text-anchor="middle" class="chip">Event Day: All</text>
+        <g filter="url(#shadow)">
+          <rect x="30" y="164" width="190" height="96" rx="14" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="125" y="188" text-anchor="middle" class="small">Passengers</text>
+          <text x="125" y="222" text-anchor="middle" style="font:700 22px Aptos, Helvetica Neue, sans-serif; fill:#002B49;">40.91M</text>
+          <text x="125" y="244" text-anchor="middle" class="tiny">5,000 records</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="236" y="164" width="190" height="96" rx="14" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="331" y="188" text-anchor="middle" class="small">On-time rate</text>
+          <text x="331" y="222" text-anchor="middle" style="font:700 22px Aptos, Helvetica Neue, sans-serif; fill:#002B49;">82.1%</text>
+          <text x="331" y="244" text-anchor="middle" class="tiny">target: 85.0%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="442" y="164" width="190" height="96" rx="14" fill="#E6F5F2" stroke="#66C9BA" stroke-width="2.0"/>
+          <text x="537" y="188" text-anchor="middle" class="small">Mean delay</text>
+          <text x="537" y="222" text-anchor="middle" style="font:700 22px Aptos, Helvetica Neue, sans-serif; fill:#002B49;">4.35 min</text>
+          <text x="537" y="244" text-anchor="middle" class="tiny">service reliability</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="648" y="164" width="190" height="96" rx="14" fill="#E6F5F2" stroke="#66C9BA" stroke-width="2.0"/>
+          <text x="743" y="188" text-anchor="middle" class="small">Cost recovery</text>
+          <text x="743" y="222" text-anchor="middle" style="font:700 22px Aptos, Helvetica Neue, sans-serif; fill:#002B49;">99.6%</text>
+          <text x="743" y="244" text-anchor="middle" class="tiny">-€0.47M net</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="854" y="164" width="190" height="96" rx="14" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="949" y="188" text-anchor="middle" class="small">CO2 saved</text>
+          <text x="949" y="222" text-anchor="middle" style="font:700 22px Aptos, Helvetica Neue, sans-serif; fill:#002B49;">4,482.0 t</text>
+          <text x="949" y="244" text-anchor="middle" class="tiny">decarbonisation</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="1060" y="164" width="190" height="96" rx="14" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="1155" y="188" text-anchor="middle" class="small">Satisfaction</text>
+          <text x="1155" y="222" text-anchor="middle" style="font:700 22px Aptos, Helvetica Neue, sans-serif; fill:#002B49;">4.01 / 5</text>
+          <text x="1155" y="244" text-anchor="middle" class="tiny">15.3 comp/10k</text>
+        </g><rect x="30" y="276" width="598" height="250" rx="14" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5" filter="url(#shadow)"/><text x="52" y="302" class="lab">Mean Service Delay (min) &amp; Cost Recovery by Mode</text><text x="148" y="337" text-anchor="end" class="small">Bus</text><rect x="160" y="322" width="230.3" height="20" rx="4" fill="#66C9BA"/><text x="398.3" y="337" class="tiny">6.58 min  (Recovery: 100.1%)</text><text x="148" y="369" text-anchor="end" class="small">Park and Ride</text><rect x="160" y="354" width="180.8" height="20" rx="4" fill="#1A4A6B"/><text x="348.8" y="369" class="tiny">5.17 min  (Recovery: 121.5%)</text><text x="148" y="401" text-anchor="end" class="small">Tram</text><rect x="160" y="386" width="167.7" height="20" rx="4" fill="#1A4A6B"/><text x="335.7" y="401" class="tiny">4.79 min  (Recovery: 117.3%)</text><text x="148" y="433" text-anchor="end" class="small">Metro</text><rect x="160" y="418" width="130.6" height="20" rx="4" fill="#1A4A6B"/><text x="298.6" y="433" class="tiny">3.73 min  (Recovery: 106.2%)</text><text x="148" y="465" text-anchor="end" class="small">E-Scooter</text><rect x="160" y="450" width="67.9" height="20" rx="4" fill="#1A4A6B"/><text x="235.9" y="465" class="tiny">1.94 min  (Recovery: 7.4%)</text><text x="148" y="497" text-anchor="end" class="small">Bike Share</text><rect x="160" y="482" width="56.5" height="20" rx="4" fill="#1A4A6B"/><text x="224.5" y="497" class="tiny">1.62 min  (Recovery: 5.2%)</text><rect x="652" y="276" width="598" height="250" rx="14" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5" filter="url(#shadow)"/><text x="674" y="302" class="lab">Accessibility Complaints per 10,000 Passengers by Route</text><text x="802" y="337" text-anchor="end" class="small">Suburban Feeder</text><rect x="814" y="322" width="270.5" height="20" rx="4" fill="#66C9BA"/><text x="1092.5" y="337" class="tiny">16.79 / 10k pax</text><text x="802" y="369" text-anchor="end" class="small">University Area</text><rect x="814" y="354" width="251.3" height="20" rx="4" fill="#1A4A6B"/><text x="1073.3" y="369" class="tiny">15.60 / 10k pax</text><text x="802" y="401" text-anchor="end" class="small">Tourist Zone</text><rect x="814" y="386" width="250.7" height="20" rx="4" fill="#1A4A6B"/><text x="1072.7" y="401" class="tiny">15.56 / 10k pax</text><text x="802" y="433" text-anchor="end" class="small">Airport Connector</text><rect x="814" y="418" width="240.3" height="20" rx="4" fill="#1A4A6B"/><text x="1062.3" y="433" class="tiny">14.91 / 10k pax</text><text x="802" y="465" text-anchor="end" class="small">Commuter Corridor</text><rect x="814" y="450" width="240.0" height="20" rx="4" fill="#1A4A6B"/><text x="1062.0" y="465" class="tiny">14.90 / 10k pax</text><text x="802" y="497" text-anchor="end" class="small">Central Route</text><rect x="814" y="482" width="236.9" height="20" rx="4" fill="#1A4A6B"/><text x="1058.9" y="497" class="tiny">14.70 / 10k pax</text><rect x="30" y="542" width="1220" height="176" rx="14" fill="#E6F5F2" stroke="#C9D5DD" stroke-width="1.5"/><text x="52" y="568" class="lab">City-Level Decision Summary (Top 6 Cities in Current Filter View)</text>
+        <g filter="url(#shadow)">
+          <rect x="48" y="582" width="184" height="118" rx="10" fill="#FFFFFF" stroke="#66C9BA" stroke-width="2.0"/>
+          <text x="140" y="606" text-anchor="middle" class="lab">Paris</text>
+          <text x="140" y="630" text-anchor="middle" class="small">Pax: 4.49M</text>
+          <text x="140" y="652" text-anchor="middle" class="tiny">Mean delay: 4.36 min</text>
+          <text x="140" y="672" text-anchor="middle" class="tiny">Cost recovery: 100.0%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="246" y="582" width="184" height="118" rx="10" fill="#FFFFFF" stroke="#66C9BA" stroke-width="2.0"/>
+          <text x="338" y="606" text-anchor="middle" class="lab">Berlin</text>
+          <text x="338" y="630" text-anchor="middle" class="small">Pax: 4.49M</text>
+          <text x="338" y="652" text-anchor="middle" class="tiny">Mean delay: 4.55 min</text>
+          <text x="338" y="672" text-anchor="middle" class="tiny">Cost recovery: 100.1%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="444" y="582" width="184" height="118" rx="10" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="536" y="606" text-anchor="middle" class="lab">Munich</text>
+          <text x="536" y="630" text-anchor="middle" class="small">Pax: 3.60M</text>
+          <text x="536" y="652" text-anchor="middle" class="tiny">Mean delay: 4.38 min</text>
+          <text x="536" y="672" text-anchor="middle" class="tiny">Cost recovery: 101.8%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="642" y="582" width="184" height="118" rx="10" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="734" y="606" text-anchor="middle" class="lab">Barcelona</text>
+          <text x="734" y="630" text-anchor="middle" class="small">Pax: 3.53M</text>
+          <text x="734" y="652" text-anchor="middle" class="tiny">Mean delay: 4.11 min</text>
+          <text x="734" y="672" text-anchor="middle" class="tiny">Cost recovery: 98.4%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="840" y="582" width="184" height="118" rx="10" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="932" y="606" text-anchor="middle" class="lab">Rome</text>
+          <text x="932" y="630" text-anchor="middle" class="small">Pax: 3.42M</text>
+          <text x="932" y="652" text-anchor="middle" class="tiny">Mean delay: 4.16 min</text>
+          <text x="932" y="672" text-anchor="middle" class="tiny">Cost recovery: 99.0%</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="1038" y="582" width="184" height="118" rx="10" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="1130" y="606" text-anchor="middle" class="lab">Vienna</text>
+          <text x="1130" y="630" text-anchor="middle" class="small">Pax: 3.39M</text>
+          <text x="1130" y="652" text-anchor="middle" class="tiny">Mean delay: 4.32 min</text>
+          <text x="1130" y="672" text-anchor="middle" class="tiny">Cost recovery: 101.0%</text>
+        </g>
+</svg>

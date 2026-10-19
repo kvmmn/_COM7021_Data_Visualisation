@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="464" viewBox="0 0 1050 464">
+  <rect width="1050" height="464" fill="#F7FAFB"/>
+  
+  <defs>
+    <filter id="shadow" x="-6%" y="-6%" width="118%" height="118%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.4"
+                    flood-color="#002B49" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5A6B75"/>
+    </marker>
+    <marker id="arrowT" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3AA89A"/>
+    </marker>
+    <style>
+      .lab { font: 600 14px Aptos, 'Helvetica Neue', sans-serif; fill: #002B49; }
+      .labw { font: 600 13px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+      .small { font: 400 11px Aptos, 'Helvetica Neue', sans-serif; fill: #5A6B75; }
+      .tiny { font: 400 10px Aptos, 'Helvetica Neue', sans-serif; fill: #5A6B75; }
+      .chip { font: 700 10px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+      .zone { font: 700 12px Aptos, 'Helvetica Neue', sans-serif; fill: #002B49; }
+      .num { font: 700 12px Aptos, 'Helvetica Neue', sans-serif; fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  <rect x="30" y="34" width="990" height="404" rx="18" fill="#E6F5F2" stroke="#C9D5DD"/><rect x="44" y="50" width="118" height="36" rx="10" fill="#002B49"/><text x="103" y="73" text-anchor="middle" class="labw">Dimension</text><rect x="175" y="50" width="128" height="36" rx="10" fill="#3AA89A"/><text x="239" y="73" text-anchor="middle" class="labw">Metro</text><rect x="315" y="50" width="128" height="36" rx="10" fill="#002B49"/><text x="379" y="73" text-anchor="middle" class="labw">Tram</text><rect x="455" y="50" width="128" height="36" rx="10" fill="#002B49"/><text x="519" y="73" text-anchor="middle" class="labw">Park &amp; Ride</text><rect x="595" y="50" width="128" height="36" rx="10" fill="#002B49"/><text x="659" y="73" text-anchor="middle" class="labw">Bus</text><rect x="735" y="50" width="128" height="36" rx="10" fill="#002B49"/><text x="799" y="73" text-anchor="middle" class="labw">Bike Share</text><rect x="875" y="50" width="128" height="36" rx="10" fill="#002B49"/><text x="939" y="73" text-anchor="middle" class="labw">E-Scooter</text><text x="103" y="130" text-anchor="middle" class="lab">Demand share</text>
+            <g filter="url(#shadow)">
+              <rect x="175" y="100" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2.0"/>
+              <text x="239" y="129" text-anchor="middle" class="small">63.0%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="315" y="100" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="379" y="129" text-anchor="middle" class="small">15.6%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="455" y="100" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="519" y="129" text-anchor="middle" class="small">8.0%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="595" y="100" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="659" y="129" text-anchor="middle" class="small">12.4%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="735" y="100" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="799" y="129" text-anchor="middle" class="small">0.7%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="875" y="100" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="939" y="129" text-anchor="middle" class="small">0.4%</text>
+            </g><text x="103" y="194" text-anchor="middle" class="lab">Mean delay</text>
+            <g filter="url(#shadow)">
+              <rect x="175" y="164" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2.0"/>
+              <text x="239" y="193" text-anchor="middle" class="small">3.73 min</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="315" y="164" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="379" y="193" text-anchor="middle" class="small">4.79 min</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="455" y="164" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="519" y="193" text-anchor="middle" class="small">5.17 min</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="595" y="164" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="659" y="193" text-anchor="middle" class="small">6.58 min</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="735" y="164" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="799" y="193" text-anchor="middle" class="small">1.62 min</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="875" y="164" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="939" y="193" text-anchor="middle" class="small">1.94 min</text>
+            </g><text x="103" y="258" text-anchor="middle" class="lab">Cost recovery</text>
+            <g filter="url(#shadow)">
+              <rect x="175" y="228" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2.0"/>
+              <text x="239" y="257" text-anchor="middle" class="small">106.2%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="315" y="228" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="379" y="257" text-anchor="middle" class="small">117.3%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="455" y="228" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="519" y="257" text-anchor="middle" class="small">121.5%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="595" y="228" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="659" y="257" text-anchor="middle" class="small">100.1%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="735" y="228" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="799" y="257" text-anchor="middle" class="small">5.2%</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="875" y="228" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="939" y="257" text-anchor="middle" class="small">7.4%</text>
+            </g><text x="103" y="322" text-anchor="middle" class="lab">CO2 / kWh</text>
+            <g filter="url(#shadow)">
+              <rect x="175" y="292" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2.0"/>
+              <text x="239" y="321" text-anchor="middle" class="small">2.19 kg</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="315" y="292" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="379" y="321" text-anchor="middle" class="small">1.66 kg</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="455" y="292" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="519" y="321" text-anchor="middle" class="small">1.72 kg</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="595" y="292" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="659" y="321" text-anchor="middle" class="small">1.07 kg</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="735" y="292" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="799" y="321" text-anchor="middle" class="small">0 kWh</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="875" y="292" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="939" y="321" text-anchor="middle" class="small">7.21 kg</text>
+            </g><text x="103" y="386" text-anchor="middle" class="lab">Complaints/10k</text>
+            <g filter="url(#shadow)">
+              <rect x="175" y="356" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2.0"/>
+              <text x="239" y="385" text-anchor="middle" class="small">14.85</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="315" y="356" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="379" y="385" text-anchor="middle" class="small">15.08</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="455" y="356" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="519" y="385" text-anchor="middle" class="small">15.87</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="595" y="356" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="659" y="385" text-anchor="middle" class="small">17.46</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="735" y="356" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="799" y="385" text-anchor="middle" class="small">17.00</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="875" y="356" width="128" height="48" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="939" y="385" text-anchor="middle" class="small">18.36</text>
+            </g>
+    <rect x="184" y="410" width="110" height="22" rx="11.0" fill="#3AA89A"/>
+    <text x="239.0" y="425.0" text-anchor="middle" class="chip">Core backbone</text>
+</svg>
