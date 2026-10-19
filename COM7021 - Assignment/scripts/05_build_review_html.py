@@ -357,11 +357,16 @@ def build_html() -> None:
       margin-left: 8px;
       font-weight: 600;
     }}
+    .top-nav .nav-actions {{
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }}
     .top-nav .links a {{
       color: var(--mist);
       text-decoration: none;
       font-size: 13px;
-      margin-left: 18px;
+      margin-left: 14px;
       padding: 4px 10px;
       border-radius: 999px;
       transition: background 0.15s;
@@ -369,6 +374,53 @@ def build_html() -> None:
     .top-nav .links a:hover {{
       background: var(--midnight-soft);
       color: var(--white);
+    }}
+    .lang-switch-btn {{
+      background: linear-gradient(135deg, var(--tiffany-deep), var(--tiffany));
+      color: var(--midnight) !important;
+      font-weight: 700 !important;
+      padding: 5px 14px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255,255,255,0.4);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+      font-size: 13px;
+    }}
+    .lang-switch-btn:hover {{
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(102,201,186,0.4);
+      color: var(--midnight) !important;
+    }}
+    .lang-floating-pill {{
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      box-shadow: 0 4px 16px rgba(0,43,73,0.22);
+      border-radius: 999px;
+    }}
+    .lang-floating-pill a {{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--midnight);
+      color: var(--white);
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 2px solid var(--tiffany);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      transition: all 0.2s;
+    }}
+    .lang-floating-pill a:hover {{
+      background: var(--tiffany-deep);
+      color: var(--white);
+      transform: translateY(-2px);
     }}
     .container {{
       max-width: 1120px;
@@ -770,16 +822,30 @@ def build_html() -> None:
 </head>
 <body>
 
+  <!-- FLOATING LANGUAGE TOGGLE -->
+  <div class="lang-floating-pill">
+    <a href="index_fa.html" title="مشاهده نگارش فارسی با استایل کامل RTL">
+      <span>🇮🇷</span>
+      <span>نسخه فارسی (FA)</span>
+    </a>
+  </div>
+
   <nav class="top-nav">
     <div class="brand">COM7021SCC Data Visualisation <span>· Tutor Feedback Draft (Student ID: 25199053)</span></div>
-    <div class="links">
-      <a href="#overview">Overview</a>
-      <a href="#roadmap">R&amp;D Roadmap</a>
-      <a href="#task1">Task 1 (70 Marks)</a>
-      <a href="#dashboard">Interactive Dashboard</a>
-      <a href="#task2">Task 2 Report (30 Marks)</a>
-      <a href="#references">References</a>
-      <a href="#appendix">Appendix (Python Code)</a>
+    <div class="nav-actions">
+      <div class="links">
+        <a href="#overview">Overview</a>
+        <a href="#roadmap">R&amp;D Roadmap</a>
+        <a href="#task1">Task 1 (70 Marks)</a>
+        <a href="#dashboard">Interactive Dashboard</a>
+        <a href="#task2">Task 2 Report (30 Marks)</a>
+        <a href="#references">References</a>
+        <a href="#appendix">Appendix (Python Code)</a>
+      </div>
+      <a href="index_fa.html" class="lang-switch-btn" title="تغییر به نسخه فارسی">
+        <span>🇮🇷</span>
+        <span>فارسی</span>
+      </a>
     </div>
   </nav>
 
@@ -1203,7 +1269,13 @@ def build_html() -> None:
         margin: {{l: 115, r: 16, t: 38, b: 36}}
       }}, {{displayModeBar: false, responsive: true}});
     }}
-    window.addEventListener('DOMContentLoaded', updateDash);
+    window.addEventListener('DOMContentLoaded', () => {{
+      updateDash();
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('lang') === 'fa') {{
+        window.location.href = 'index_fa.html';
+      }}
+    }});
   </script>
 </body>
 </html>
