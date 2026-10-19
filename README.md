@@ -18,6 +18,7 @@ University lecture files and the assessment statement stay in this private repos
 | `COM7021 - Code Space/` | Weekly seminar notebooks, sample data, and the Week 1 Gestalt review |
 | `COM7021 - Assignment/` | Assessment statement, assignment guide, and the visual design guide used for figures |
 | `COM7021 - eBooks/` | Reserved for module ebooks (empty for now) |
+| `aesth/` | Isolated visualisation library subproject (plotnine + Great Tables + Shiny). Public-grade docs; no lecture PDFs inside. Start at [`aesth/README.md`](aesth/README.md). |
 
 ## Lessons and code so far
 
@@ -40,4 +41,4 @@ The zip archives next to the extracted week folders stay on disk only. Git track
 
 ## Figure colours
 
-Charts and diagrams for this module use the palette locked in `COM7021 - Assignment/VISUAL_DESIGN_GUIDE.md`: midnight `#002B49`, tiffany `#66C9BA`, and the small derived set documented there.
+Assessed COM7021 figures default to palette `arden` (midnight `#002B49`, tiffany `#66C9BA`) as documented in `COM7021 - Assignment/VISUAL_DESIGN_GUIDE.md` and [`aesth/docs/design/palettes/arden.md`](aesth/docs/design/palettes/arden.md). Other named palettes live in `aesth` and are not the assignment default.

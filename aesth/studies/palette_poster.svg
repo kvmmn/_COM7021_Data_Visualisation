@@ -1,0 +1,359 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="1960" viewBox="0 0 1480 1960">
+<style>
+text { font-family: 'Aptos', 'IBM Plex Sans', sans-serif; font-feature-settings: 'liga' 0, 'calt' 0; }
+.title { font-size: 28px; font-weight: 700; fill: #151515; }
+.lede { font-size: 13px; font-weight: 400; fill: #989898; }
+.name { font-size: 16px; font-weight: 700; }
+.meta { font-size: 11px; font-weight: 400; }
+.role { font-size: 10px; font-weight: 600; }
+.hex { font-size: 9px; font-weight: 400; }
+.chip { font-size: 10px; font-weight: 700; fill: #FFFFFF; }
+</style>
+<rect width="100%" height="100%" fill="#F1F0EB"/>
+<text class="title" x="48" y="52">æsth palettes</text>
+<text class="lede" x="48" y="78">Frozen token rows. Accent last in series. Brand chrome is not a data hue.</text>
+<rect x="48" y="118" width="1384" height="198" rx="14" fill="#F7FAFB" stroke="#C9D5DD" stroke-width="1.5"/>
+<text class="name" x="68" y="146" fill="#002B49">arden</text>
+<rect x="166" y="130" width="52" height="20" rx="10" fill="#002B49"/>
+<text class="chip" x="192" y="144" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="144" text-anchor="end" fill="#5A6B75">series</text>
+<rect x="1232" y="130" width="32" height="18" fill="#002B49"/>
+<rect x="1268" y="130" width="32" height="18" fill="#3AA89A"/>
+<rect x="1304" y="130" width="32" height="18" fill="#0E7C8B"/>
+<rect x="1340" y="130" width="32" height="18" fill="#1A4A6B"/>
+<rect x="1376" y="130" width="32" height="18" fill="#66C9BA"/>
+<rect x="68" y="170" width="78" height="46" fill="#002B49" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="107.0" y="236" text-anchor="middle" fill="#002B49">ink</text>
+<text class="hex" x="107.0" y="252" text-anchor="middle" fill="#5A6B75">#002B49</text>
+<rect x="156" y="170" width="78" height="46" fill="#66C9BA" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="195.0" y="236" text-anchor="middle" fill="#002B49">accent</text>
+<text class="hex" x="195.0" y="252" text-anchor="middle" fill="#5A6B75">#66C9BA</text>
+<rect x="244" y="170" width="78" height="46" fill="#3AA89A" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="283.0" y="236" text-anchor="middle" fill="#002B49">accent_deep</text>
+<text class="hex" x="283.0" y="252" text-anchor="middle" fill="#5A6B75">#3AA89A</text>
+<rect x="332" y="170" width="78" height="46" fill="#1A4A6B" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="371.0" y="236" text-anchor="middle" fill="#002B49">ink_soft</text>
+<text class="hex" x="371.0" y="252" text-anchor="middle" fill="#5A6B75">#1A4A6B</text>
+<rect x="420" y="170" width="78" height="46" fill="#0E7C8B" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="459.0" y="236" text-anchor="middle" fill="#002B49">support</text>
+<text class="hex" x="459.0" y="252" text-anchor="middle" fill="#5A6B75">#0E7C8B</text>
+<rect x="508" y="170" width="78" height="46" fill="#E6F5F2" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="547.0" y="236" text-anchor="middle" fill="#002B49">mist</text>
+<text class="hex" x="547.0" y="252" text-anchor="middle" fill="#5A6B75">#E6F5F2</text>
+<rect x="596" y="170" width="78" height="46" fill="#F7FAFB" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="635.0" y="236" text-anchor="middle" fill="#002B49">paper</text>
+<text class="hex" x="635.0" y="252" text-anchor="middle" fill="#5A6B75">#F7FAFB</text>
+<rect x="684" y="170" width="78" height="46" fill="#FFFFFF" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="723.0" y="236" text-anchor="middle" fill="#002B49">white</text>
+<text class="hex" x="723.0" y="252" text-anchor="middle" fill="#5A6B75">#FFFFFF</text>
+<rect x="772" y="170" width="78" height="46" fill="#5A6B75" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="811.0" y="236" text-anchor="middle" fill="#002B49">mute</text>
+<text class="hex" x="811.0" y="252" text-anchor="middle" fill="#5A6B75">#5A6B75</text>
+<rect x="860" y="170" width="78" height="46" fill="#D5DEE3" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="899.0" y="236" text-anchor="middle" fill="#002B49">grid</text>
+<text class="hex" x="899.0" y="252" text-anchor="middle" fill="#5A6B75">#D5DEE3</text>
+<rect x="948" y="170" width="78" height="46" fill="#C9D5DD" stroke="#C9D5DD" stroke-width="0.75"/>
+<text class="role" x="987.0" y="236" text-anchor="middle" fill="#002B49">line</text>
+<text class="hex" x="987.0" y="252" text-anchor="middle" fill="#5A6B75">#C9D5DD</text>
+<rect x="48" y="332" width="1384" height="198" rx="14" fill="#F5F2EB" stroke="#CFC8BC" stroke-width="1.5"/>
+<text class="name" x="68" y="360" fill="#1B1916">carbon</text>
+<rect x="166" y="344" width="52" height="20" rx="10" fill="#6F5324"/>
+<text class="chip" x="192" y="358" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="358" text-anchor="end" fill="#5C564E">series</text>
+<rect x="1232" y="344" width="32" height="18" fill="#1B1916"/>
+<rect x="1268" y="344" width="32" height="18" fill="#6F5324"/>
+<rect x="1304" y="344" width="32" height="18" fill="#5C554C"/>
+<rect x="1340" y="344" width="32" height="18" fill="#3A3530"/>
+<rect x="1376" y="344" width="32" height="18" fill="#C4A36A"/>
+<rect x="68" y="384" width="78" height="46" fill="#1B1916" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="107.0" y="450" text-anchor="middle" fill="#1B1916">ink</text>
+<text class="hex" x="107.0" y="466" text-anchor="middle" fill="#5C564E">#1B1916</text>
+<rect x="156" y="384" width="78" height="46" fill="#C4A36A" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="195.0" y="450" text-anchor="middle" fill="#1B1916">accent</text>
+<text class="hex" x="195.0" y="466" text-anchor="middle" fill="#5C564E">#C4A36A</text>
+<rect x="244" y="384" width="78" height="46" fill="#6F5324" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="283.0" y="450" text-anchor="middle" fill="#1B1916">accent_deep</text>
+<text class="hex" x="283.0" y="466" text-anchor="middle" fill="#5C564E">#6F5324</text>
+<rect x="332" y="384" width="78" height="46" fill="#3A3530" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="371.0" y="450" text-anchor="middle" fill="#1B1916">ink_soft</text>
+<text class="hex" x="371.0" y="466" text-anchor="middle" fill="#5C564E">#3A3530</text>
+<rect x="420" y="384" width="78" height="46" fill="#5C554C" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="459.0" y="450" text-anchor="middle" fill="#1B1916">support</text>
+<text class="hex" x="459.0" y="466" text-anchor="middle" fill="#5C564E">#5C554C</text>
+<rect x="508" y="384" width="78" height="46" fill="#EFEAE2" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="547.0" y="450" text-anchor="middle" fill="#1B1916">mist</text>
+<text class="hex" x="547.0" y="466" text-anchor="middle" fill="#5C564E">#EFEAE2</text>
+<rect x="596" y="384" width="78" height="46" fill="#F5F2EB" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="635.0" y="450" text-anchor="middle" fill="#1B1916">paper</text>
+<text class="hex" x="635.0" y="466" text-anchor="middle" fill="#5C564E">#F5F2EB</text>
+<rect x="684" y="384" width="78" height="46" fill="#FFFFFF" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="723.0" y="450" text-anchor="middle" fill="#1B1916">white</text>
+<text class="hex" x="723.0" y="466" text-anchor="middle" fill="#5C564E">#FFFFFF</text>
+<rect x="772" y="384" width="78" height="46" fill="#5C564E" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="811.0" y="450" text-anchor="middle" fill="#1B1916">mute</text>
+<text class="hex" x="811.0" y="466" text-anchor="middle" fill="#5C564E">#5C564E</text>
+<rect x="860" y="384" width="78" height="46" fill="#DDD7CD" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="899.0" y="450" text-anchor="middle" fill="#1B1916">grid</text>
+<text class="hex" x="899.0" y="466" text-anchor="middle" fill="#5C564E">#DDD7CD</text>
+<rect x="948" y="384" width="78" height="46" fill="#CFC8BC" stroke="#CFC8BC" stroke-width="0.75"/>
+<text class="role" x="987.0" y="450" text-anchor="middle" fill="#1B1916">line</text>
+<text class="hex" x="987.0" y="466" text-anchor="middle" fill="#5C564E">#CFC8BC</text>
+<rect x="48" y="546" width="1384" height="198" rx="14" fill="#F6F0E2" stroke="#D8CBB4" stroke-width="1.5"/>
+<text class="name" x="68" y="574" fill="#2A2118">vellum</text>
+<rect x="166" y="558" width="52" height="20" rx="10" fill="#7A3C1E"/>
+<text class="chip" x="192" y="572" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="572" text-anchor="end" fill="#5C4F3C">series</text>
+<rect x="1232" y="558" width="32" height="18" fill="#2A2118"/>
+<rect x="1268" y="558" width="32" height="18" fill="#7A3C1E"/>
+<rect x="1304" y="558" width="32" height="18" fill="#6E5840"/>
+<rect x="1340" y="558" width="32" height="18" fill="#4A3A28"/>
+<rect x="1376" y="558" width="32" height="18" fill="#C06A3A"/>
+<rect x="68" y="598" width="78" height="46" fill="#2A2118" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="107.0" y="664" text-anchor="middle" fill="#2A2118">ink</text>
+<text class="hex" x="107.0" y="680" text-anchor="middle" fill="#5C4F3C">#2A2118</text>
+<rect x="156" y="598" width="78" height="46" fill="#C06A3A" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="195.0" y="664" text-anchor="middle" fill="#2A2118">accent</text>
+<text class="hex" x="195.0" y="680" text-anchor="middle" fill="#5C4F3C">#C06A3A</text>
+<rect x="244" y="598" width="78" height="46" fill="#7A3C1E" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="283.0" y="664" text-anchor="middle" fill="#2A2118">accent_deep</text>
+<text class="hex" x="283.0" y="680" text-anchor="middle" fill="#5C4F3C">#7A3C1E</text>
+<rect x="332" y="598" width="78" height="46" fill="#4A3A28" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="371.0" y="664" text-anchor="middle" fill="#2A2118">ink_soft</text>
+<text class="hex" x="371.0" y="680" text-anchor="middle" fill="#5C4F3C">#4A3A28</text>
+<rect x="420" y="598" width="78" height="46" fill="#6E5840" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="459.0" y="664" text-anchor="middle" fill="#2A2118">support</text>
+<text class="hex" x="459.0" y="680" text-anchor="middle" fill="#5C4F3C">#6E5840</text>
+<rect x="508" y="598" width="78" height="46" fill="#F2E8D6" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="547.0" y="664" text-anchor="middle" fill="#2A2118">mist</text>
+<text class="hex" x="547.0" y="680" text-anchor="middle" fill="#5C4F3C">#F2E8D6</text>
+<rect x="596" y="598" width="78" height="46" fill="#F6F0E2" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="635.0" y="664" text-anchor="middle" fill="#2A2118">paper</text>
+<text class="hex" x="635.0" y="680" text-anchor="middle" fill="#5C4F3C">#F6F0E2</text>
+<rect x="684" y="598" width="78" height="46" fill="#FFFDF8" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="723.0" y="664" text-anchor="middle" fill="#2A2118">white</text>
+<text class="hex" x="723.0" y="680" text-anchor="middle" fill="#5C4F3C">#FFFDF8</text>
+<rect x="772" y="598" width="78" height="46" fill="#5C4F3C" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="811.0" y="664" text-anchor="middle" fill="#2A2118">mute</text>
+<text class="hex" x="811.0" y="680" text-anchor="middle" fill="#5C4F3C">#5C4F3C</text>
+<rect x="860" y="598" width="78" height="46" fill="#E5D9C4" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="899.0" y="664" text-anchor="middle" fill="#2A2118">grid</text>
+<text class="hex" x="899.0" y="680" text-anchor="middle" fill="#5C4F3C">#E5D9C4</text>
+<rect x="948" y="598" width="78" height="46" fill="#D8CBB4" stroke="#D8CBB4" stroke-width="0.75"/>
+<text class="role" x="987.0" y="664" text-anchor="middle" fill="#2A2118">line</text>
+<text class="hex" x="987.0" y="680" text-anchor="middle" fill="#5C4F3C">#D8CBB4</text>
+<rect x="48" y="760" width="1384" height="198" rx="14" fill="#F3F5F7" stroke="#C4CDD4" stroke-width="1.5"/>
+<text class="name" x="68" y="788" fill="#14181E">obsidian</text>
+<rect x="166" y="772" width="52" height="20" rx="10" fill="#2F5C6C"/>
+<text class="chip" x="192" y="786" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="786" text-anchor="end" fill="#54606A">series</text>
+<rect x="1232" y="772" width="32" height="18" fill="#14181E"/>
+<rect x="1268" y="772" width="32" height="18" fill="#2F5C6C"/>
+<rect x="1304" y="772" width="32" height="18" fill="#4A5864"/>
+<rect x="1340" y="772" width="32" height="18" fill="#2C3540"/>
+<rect x="1376" y="772" width="32" height="18" fill="#8BB8C8"/>
+<rect x="68" y="812" width="78" height="46" fill="#14181E" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="107.0" y="878" text-anchor="middle" fill="#14181E">ink</text>
+<text class="hex" x="107.0" y="894" text-anchor="middle" fill="#54606A">#14181E</text>
+<rect x="156" y="812" width="78" height="46" fill="#8BB8C8" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="195.0" y="878" text-anchor="middle" fill="#14181E">accent</text>
+<text class="hex" x="195.0" y="894" text-anchor="middle" fill="#54606A">#8BB8C8</text>
+<rect x="244" y="812" width="78" height="46" fill="#2F5C6C" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="283.0" y="878" text-anchor="middle" fill="#14181E">accent_deep</text>
+<text class="hex" x="283.0" y="894" text-anchor="middle" fill="#54606A">#2F5C6C</text>
+<rect x="332" y="812" width="78" height="46" fill="#2C3540" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="371.0" y="878" text-anchor="middle" fill="#14181E">ink_soft</text>
+<text class="hex" x="371.0" y="894" text-anchor="middle" fill="#54606A">#2C3540</text>
+<rect x="420" y="812" width="78" height="46" fill="#4A5864" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="459.0" y="878" text-anchor="middle" fill="#14181E">support</text>
+<text class="hex" x="459.0" y="894" text-anchor="middle" fill="#54606A">#4A5864</text>
+<rect x="508" y="812" width="78" height="46" fill="#E6EDF1" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="547.0" y="878" text-anchor="middle" fill="#14181E">mist</text>
+<text class="hex" x="547.0" y="894" text-anchor="middle" fill="#54606A">#E6EDF1</text>
+<rect x="596" y="812" width="78" height="46" fill="#F3F5F7" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="635.0" y="878" text-anchor="middle" fill="#14181E">paper</text>
+<text class="hex" x="635.0" y="894" text-anchor="middle" fill="#54606A">#F3F5F7</text>
+<rect x="684" y="812" width="78" height="46" fill="#FFFFFF" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="723.0" y="878" text-anchor="middle" fill="#14181E">white</text>
+<text class="hex" x="723.0" y="894" text-anchor="middle" fill="#54606A">#FFFFFF</text>
+<rect x="772" y="812" width="78" height="46" fill="#54606A" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="811.0" y="878" text-anchor="middle" fill="#14181E">mute</text>
+<text class="hex" x="811.0" y="894" text-anchor="middle" fill="#54606A">#54606A</text>
+<rect x="860" y="812" width="78" height="46" fill="#D3DBE1" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="899.0" y="878" text-anchor="middle" fill="#14181E">grid</text>
+<text class="hex" x="899.0" y="894" text-anchor="middle" fill="#54606A">#D3DBE1</text>
+<rect x="948" y="812" width="78" height="46" fill="#C4CDD4" stroke="#C4CDD4" stroke-width="0.75"/>
+<text class="role" x="987.0" y="878" text-anchor="middle" fill="#14181E">line</text>
+<text class="hex" x="987.0" y="894" text-anchor="middle" fill="#54606A">#C4CDD4</text>
+<rect x="48" y="974" width="1384" height="198" rx="14" fill="#F6F3F0" stroke="#D2C8C1" stroke-width="1.5"/>
+<text class="name" x="68" y="1002" fill="#1C1917">cinnabar</text>
+<rect x="166" y="986" width="52" height="20" rx="10" fill="#C24732"/>
+<text class="chip" x="192" y="1000" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="1000" text-anchor="end" fill="#5A534E">series</text>
+<rect x="1232" y="986" width="32" height="18" fill="#1C1917"/>
+<rect x="1268" y="986" width="32" height="18" fill="#7A2A1E"/>
+<rect x="1304" y="986" width="32" height="18" fill="#6A5348"/>
+<rect x="1340" y="986" width="32" height="18" fill="#3A332E"/>
+<rect x="1376" y="986" width="32" height="18" fill="#C24732"/>
+<rect x="68" y="1026" width="78" height="46" fill="#1C1917" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="107.0" y="1092" text-anchor="middle" fill="#1C1917">ink</text>
+<text class="hex" x="107.0" y="1108" text-anchor="middle" fill="#5A534E">#1C1917</text>
+<rect x="156" y="1026" width="78" height="46" fill="#C24732" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="195.0" y="1092" text-anchor="middle" fill="#1C1917">accent</text>
+<text class="hex" x="195.0" y="1108" text-anchor="middle" fill="#5A534E">#C24732</text>
+<rect x="244" y="1026" width="78" height="46" fill="#7A2A1E" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="283.0" y="1092" text-anchor="middle" fill="#1C1917">accent_deep</text>
+<text class="hex" x="283.0" y="1108" text-anchor="middle" fill="#5A534E">#7A2A1E</text>
+<rect x="332" y="1026" width="78" height="46" fill="#3A332E" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="371.0" y="1092" text-anchor="middle" fill="#1C1917">ink_soft</text>
+<text class="hex" x="371.0" y="1108" text-anchor="middle" fill="#5A534E">#3A332E</text>
+<rect x="420" y="1026" width="78" height="46" fill="#6A5348" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="459.0" y="1092" text-anchor="middle" fill="#1C1917">support</text>
+<text class="hex" x="459.0" y="1108" text-anchor="middle" fill="#5A534E">#6A5348</text>
+<rect x="508" y="1026" width="78" height="46" fill="#F4EBE7" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="547.0" y="1092" text-anchor="middle" fill="#1C1917">mist</text>
+<text class="hex" x="547.0" y="1108" text-anchor="middle" fill="#5A534E">#F4EBE7</text>
+<rect x="596" y="1026" width="78" height="46" fill="#F6F3F0" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="635.0" y="1092" text-anchor="middle" fill="#1C1917">paper</text>
+<text class="hex" x="635.0" y="1108" text-anchor="middle" fill="#5A534E">#F6F3F0</text>
+<rect x="684" y="1026" width="78" height="46" fill="#FFFFFF" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="723.0" y="1092" text-anchor="middle" fill="#1C1917">white</text>
+<text class="hex" x="723.0" y="1108" text-anchor="middle" fill="#5A534E">#FFFFFF</text>
+<rect x="772" y="1026" width="78" height="46" fill="#5A534E" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="811.0" y="1092" text-anchor="middle" fill="#1C1917">mute</text>
+<text class="hex" x="811.0" y="1108" text-anchor="middle" fill="#5A534E">#5A534E</text>
+<rect x="860" y="1026" width="78" height="46" fill="#E0D8D2" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="899.0" y="1092" text-anchor="middle" fill="#1C1917">grid</text>
+<text class="hex" x="899.0" y="1108" text-anchor="middle" fill="#5A534E">#E0D8D2</text>
+<rect x="948" y="1026" width="78" height="46" fill="#D2C8C1" stroke="#D2C8C1" stroke-width="0.75"/>
+<text class="role" x="987.0" y="1092" text-anchor="middle" fill="#1C1917">line</text>
+<text class="hex" x="987.0" y="1108" text-anchor="middle" fill="#5A534E">#D2C8C1</text>
+<rect x="48" y="1188" width="1384" height="198" rx="14" fill="#F4F5EE" stroke="#CDD2C4" stroke-width="1.5"/>
+<text class="name" x="68" y="1216" fill="#1C2418">chloris</text>
+<rect x="166" y="1200" width="52" height="20" rx="10" fill="#3E4A1E"/>
+<text class="chip" x="192" y="1214" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="1214" text-anchor="end" fill="#545C4C">series</text>
+<rect x="1232" y="1200" width="32" height="18" fill="#1C2418"/>
+<rect x="1268" y="1200" width="32" height="18" fill="#3E4A1E"/>
+<rect x="1304" y="1200" width="32" height="18" fill="#5A6840"/>
+<rect x="1340" y="1200" width="32" height="18" fill="#33402A"/>
+<rect x="1376" y="1200" width="32" height="18" fill="#8A9648"/>
+<rect x="68" y="1240" width="78" height="46" fill="#1C2418" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="107.0" y="1306" text-anchor="middle" fill="#1C2418">ink</text>
+<text class="hex" x="107.0" y="1322" text-anchor="middle" fill="#545C4C">#1C2418</text>
+<rect x="156" y="1240" width="78" height="46" fill="#8A9648" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="195.0" y="1306" text-anchor="middle" fill="#1C2418">accent</text>
+<text class="hex" x="195.0" y="1322" text-anchor="middle" fill="#545C4C">#8A9648</text>
+<rect x="244" y="1240" width="78" height="46" fill="#3E4A1E" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="283.0" y="1306" text-anchor="middle" fill="#1C2418">accent_deep</text>
+<text class="hex" x="283.0" y="1322" text-anchor="middle" fill="#545C4C">#3E4A1E</text>
+<rect x="332" y="1240" width="78" height="46" fill="#33402A" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="371.0" y="1306" text-anchor="middle" fill="#1C2418">ink_soft</text>
+<text class="hex" x="371.0" y="1322" text-anchor="middle" fill="#545C4C">#33402A</text>
+<rect x="420" y="1240" width="78" height="46" fill="#5A6840" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="459.0" y="1306" text-anchor="middle" fill="#1C2418">support</text>
+<text class="hex" x="459.0" y="1322" text-anchor="middle" fill="#545C4C">#5A6840</text>
+<rect x="508" y="1240" width="78" height="46" fill="#EEF0E4" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="547.0" y="1306" text-anchor="middle" fill="#1C2418">mist</text>
+<text class="hex" x="547.0" y="1322" text-anchor="middle" fill="#545C4C">#EEF0E4</text>
+<rect x="596" y="1240" width="78" height="46" fill="#F4F5EE" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="635.0" y="1306" text-anchor="middle" fill="#1C2418">paper</text>
+<text class="hex" x="635.0" y="1322" text-anchor="middle" fill="#545C4C">#F4F5EE</text>
+<rect x="684" y="1240" width="78" height="46" fill="#FFFFFF" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="723.0" y="1306" text-anchor="middle" fill="#1C2418">white</text>
+<text class="hex" x="723.0" y="1322" text-anchor="middle" fill="#545C4C">#FFFFFF</text>
+<rect x="772" y="1240" width="78" height="46" fill="#545C4C" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="811.0" y="1306" text-anchor="middle" fill="#1C2418">mute</text>
+<text class="hex" x="811.0" y="1322" text-anchor="middle" fill="#545C4C">#545C4C</text>
+<rect x="860" y="1240" width="78" height="46" fill="#DBDFD2" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="899.0" y="1306" text-anchor="middle" fill="#1C2418">grid</text>
+<text class="hex" x="899.0" y="1322" text-anchor="middle" fill="#545C4C">#DBDFD2</text>
+<rect x="948" y="1240" width="78" height="46" fill="#CDD2C4" stroke="#CDD2C4" stroke-width="0.75"/>
+<text class="role" x="987.0" y="1306" text-anchor="middle" fill="#1C2418">line</text>
+<text class="hex" x="987.0" y="1322" text-anchor="middle" fill="#545C4C">#CDD2C4</text>
+<rect x="48" y="1402" width="1384" height="198" rx="14" fill="#F6F2F3" stroke="#D2C6CB" stroke-width="1.5"/>
+<text class="name" x="68" y="1430" fill="#241C22">iodine</text>
+<rect x="166" y="1414" width="52" height="20" rx="10" fill="#8A5A68"/>
+<text class="chip" x="192" y="1428" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="1428" text-anchor="end" fill="#5A5056">series</text>
+<rect x="1232" y="1414" width="32" height="18" fill="#241C22"/>
+<rect x="1268" y="1414" width="32" height="18" fill="#4A2E38"/>
+<rect x="1304" y="1414" width="32" height="18" fill="#6A4A40"/>
+<rect x="1340" y="1414" width="32" height="18" fill="#3A2C34"/>
+<rect x="1376" y="1414" width="32" height="18" fill="#8A5A68"/>
+<rect x="68" y="1454" width="78" height="46" fill="#241C22" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="107.0" y="1520" text-anchor="middle" fill="#241C22">ink</text>
+<text class="hex" x="107.0" y="1536" text-anchor="middle" fill="#5A5056">#241C22</text>
+<rect x="156" y="1454" width="78" height="46" fill="#8A5A68" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="195.0" y="1520" text-anchor="middle" fill="#241C22">accent</text>
+<text class="hex" x="195.0" y="1536" text-anchor="middle" fill="#5A5056">#8A5A68</text>
+<rect x="244" y="1454" width="78" height="46" fill="#4A2E38" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="283.0" y="1520" text-anchor="middle" fill="#241C22">accent_deep</text>
+<text class="hex" x="283.0" y="1536" text-anchor="middle" fill="#5A5056">#4A2E38</text>
+<rect x="332" y="1454" width="78" height="46" fill="#3A2C34" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="371.0" y="1520" text-anchor="middle" fill="#241C22">ink_soft</text>
+<text class="hex" x="371.0" y="1536" text-anchor="middle" fill="#5A5056">#3A2C34</text>
+<rect x="420" y="1454" width="78" height="46" fill="#6A4A40" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="459.0" y="1520" text-anchor="middle" fill="#241C22">support</text>
+<text class="hex" x="459.0" y="1536" text-anchor="middle" fill="#5A5056">#6A4A40</text>
+<rect x="508" y="1454" width="78" height="46" fill="#F0E8EB" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="547.0" y="1520" text-anchor="middle" fill="#241C22">mist</text>
+<text class="hex" x="547.0" y="1536" text-anchor="middle" fill="#5A5056">#F0E8EB</text>
+<rect x="596" y="1454" width="78" height="46" fill="#F6F2F3" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="635.0" y="1520" text-anchor="middle" fill="#241C22">paper</text>
+<text class="hex" x="635.0" y="1536" text-anchor="middle" fill="#5A5056">#F6F2F3</text>
+<rect x="684" y="1454" width="78" height="46" fill="#FFFFFF" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="723.0" y="1520" text-anchor="middle" fill="#241C22">white</text>
+<text class="hex" x="723.0" y="1536" text-anchor="middle" fill="#5A5056">#FFFFFF</text>
+<rect x="772" y="1454" width="78" height="46" fill="#5A5056" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="811.0" y="1520" text-anchor="middle" fill="#241C22">mute</text>
+<text class="hex" x="811.0" y="1536" text-anchor="middle" fill="#5A5056">#5A5056</text>
+<rect x="860" y="1454" width="78" height="46" fill="#E0D6DA" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="899.0" y="1520" text-anchor="middle" fill="#241C22">grid</text>
+<text class="hex" x="899.0" y="1536" text-anchor="middle" fill="#5A5056">#E0D6DA</text>
+<rect x="948" y="1454" width="78" height="46" fill="#D2C6CB" stroke="#D2C6CB" stroke-width="0.75"/>
+<text class="role" x="987.0" y="1520" text-anchor="middle" fill="#241C22">line</text>
+<text class="hex" x="987.0" y="1536" text-anchor="middle" fill="#5A5056">#D2C6CB</text>
+<rect x="48" y="1616" width="1384" height="198" rx="14" fill="#F4F4F1" stroke="#CECEC8" stroke-width="1.5"/>
+<text class="name" x="68" y="1644" fill="#1A1A1A">noir</text>
+<rect x="166" y="1628" width="52" height="20" rx="10" fill="#5C5646"/>
+<text class="chip" x="192" y="1642" text-anchor="middle">chip</text>
+<text class="meta" x="1412" y="1642" text-anchor="end" fill="#555555">series</text>
+<rect x="1232" y="1628" width="32" height="18" fill="#1A1A1A"/>
+<rect x="1268" y="1628" width="32" height="18" fill="#5C5646"/>
+<rect x="1304" y="1628" width="32" height="18" fill="#5C5C5C"/>
+<rect x="1340" y="1628" width="32" height="18" fill="#3D3D3D"/>
+<rect x="1376" y="1628" width="32" height="18" fill="#C8B896"/>
+<rect x="68" y="1668" width="78" height="46" fill="#1A1A1A" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="107.0" y="1734" text-anchor="middle" fill="#1A1A1A">ink</text>
+<text class="hex" x="107.0" y="1750" text-anchor="middle" fill="#555555">#1A1A1A</text>
+<rect x="156" y="1668" width="78" height="46" fill="#C8B896" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="195.0" y="1734" text-anchor="middle" fill="#1A1A1A">accent</text>
+<text class="hex" x="195.0" y="1750" text-anchor="middle" fill="#555555">#C8B896</text>
+<rect x="244" y="1668" width="78" height="46" fill="#5C5646" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="283.0" y="1734" text-anchor="middle" fill="#1A1A1A">accent_deep</text>
+<text class="hex" x="283.0" y="1750" text-anchor="middle" fill="#555555">#5C5646</text>
+<rect x="332" y="1668" width="78" height="46" fill="#3D3D3D" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="371.0" y="1734" text-anchor="middle" fill="#1A1A1A">ink_soft</text>
+<text class="hex" x="371.0" y="1750" text-anchor="middle" fill="#555555">#3D3D3D</text>
+<rect x="420" y="1668" width="78" height="46" fill="#5C5C5C" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="459.0" y="1734" text-anchor="middle" fill="#1A1A1A">support</text>
+<text class="hex" x="459.0" y="1750" text-anchor="middle" fill="#555555">#5C5C5C</text>
+<rect x="508" y="1668" width="78" height="46" fill="#EEEEEA" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="547.0" y="1734" text-anchor="middle" fill="#1A1A1A">mist</text>
+<text class="hex" x="547.0" y="1750" text-anchor="middle" fill="#555555">#EEEEEA</text>
+<rect x="596" y="1668" width="78" height="46" fill="#F4F4F1" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="635.0" y="1734" text-anchor="middle" fill="#1A1A1A">paper</text>
+<text class="hex" x="635.0" y="1750" text-anchor="middle" fill="#555555">#F4F4F1</text>
+<rect x="684" y="1668" width="78" height="46" fill="#FFFFFF" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="723.0" y="1734" text-anchor="middle" fill="#1A1A1A">white</text>
+<text class="hex" x="723.0" y="1750" text-anchor="middle" fill="#555555">#FFFFFF</text>
+<rect x="772" y="1668" width="78" height="46" fill="#555555" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="811.0" y="1734" text-anchor="middle" fill="#1A1A1A">mute</text>
+<text class="hex" x="811.0" y="1750" text-anchor="middle" fill="#555555">#555555</text>
+<rect x="860" y="1668" width="78" height="46" fill="#DDDDD8" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="899.0" y="1734" text-anchor="middle" fill="#1A1A1A">grid</text>
+<text class="hex" x="899.0" y="1750" text-anchor="middle" fill="#555555">#DDDDD8</text>
+<rect x="948" y="1668" width="78" height="46" fill="#CECEC8" stroke="#CECEC8" stroke-width="0.75"/>
+<text class="role" x="987.0" y="1734" text-anchor="middle" fill="#1A1A1A">line</text>
+<text class="hex" x="987.0" y="1750" text-anchor="middle" fill="#555555">#CECEC8</text>
+</svg>

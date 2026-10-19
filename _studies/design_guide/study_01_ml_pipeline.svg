@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="280" viewBox="0 0 1020 280">
+  <rect width="1020" height="280" fill="#F7FAFB"/>
+  
+  <defs>
+    <filter id="shadow" x="-6%" y="-6%" width="118%" height="118%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.4"
+                    flood-color="#002B49" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5A6B75"/>
+    </marker>
+    <marker id="arrowT" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3AA89A"/>
+    </marker>
+    <style>
+      .lab { font: 600 14px Aptos, sans-serif; fill: #002B49; }
+      .labw { font: 600 13px Aptos, sans-serif; fill: #FFFFFF; }
+      .small { font: 400 11px Aptos, sans-serif; fill: #5A6B75; }
+      .tiny { font: 400 10px Aptos, sans-serif; fill: #5A6B75; }
+      .chip { font: 700 10px Aptos, sans-serif; fill: #FFFFFF; }
+      .zone { font: 700 12px Aptos, sans-serif; fill: #002B49; }
+      .num { font: 700 12px Aptos, sans-serif; fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  
+    <circle cx="110" cy="70" r="16" fill="#002B49"/>
+    <text x="110" y="75" text-anchor="middle" class="num">01</text>
+    <circle cx="310" cy="70" r="16" fill="#002B49"/>
+    <text x="310" y="75" text-anchor="middle" class="num">02</text>
+    <circle cx="510" cy="70" r="16" fill="#002B49"/>
+    <text x="510" y="75" text-anchor="middle" class="num">03</text>
+    <circle cx="710" cy="70" r="16" fill="#002B49"/>
+    <text x="710" y="75" text-anchor="middle" class="num">04</text>
+    <circle cx="910" cy="70" r="16" fill="#002B49"/>
+    <text x="910" y="75" text-anchor="middle" class="num">05</text>
+    <g filter="url(#shadow)">
+      <rect x="40" y="100" width="140" height="78" rx="12"
+            fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+      <text x="110.0" y="131.0" text-anchor="middle" class="lab">Raw data</text>
+      <text x="110.0" y="147.0" text-anchor="middle" class="tiny">CSV / API</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="240" y="100" width="140" height="78" rx="12"
+            fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+      <text x="310.0" y="131.0" text-anchor="middle" class="lab">Clean</text>
+      <text x="310.0" y="147.0" text-anchor="middle" class="tiny">validate</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="440" y="100" width="140" height="78" rx="12"
+            fill="#E6F5F2" stroke="#66C9BA" stroke-width="2"/>
+      <text x="510.0" y="131.0" text-anchor="middle" class="lab">Features</text>
+      <text x="510.0" y="147.0" text-anchor="middle" class="tiny">encode / scale</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="640" y="100" width="140" height="78" rx="12"
+            fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+      <text x="710.0" y="131.0" text-anchor="middle" class="lab">Model</text>
+      <text x="710.0" y="147.0" text-anchor="middle" class="tiny">train / select</text>
+    </g>
+    <g filter="url(#shadow)">
+      <rect x="840" y="100" width="140" height="78" rx="12"
+            fill="#E6F5F2" stroke="#002B49" stroke-width="1.5"/>
+      <text x="910.0" y="131.0" text-anchor="middle" class="lab">Evaluate</text>
+      <text x="910.0" y="147.0" text-anchor="middle" class="tiny">hold-out</text>
+    </g><line x1="180" y1="139" x2="240" y2="139" stroke="#5A6B75" stroke-width="2" marker-end="url(#arrow)"/><line x1="380" y1="139" x2="440" y2="139" stroke="#5A6B75" stroke-width="2" marker-end="url(#arrow)"/><line x1="580" y1="139" x2="640" y2="139" stroke="#3AA89A" stroke-width="2" marker-end="url(#arrowT)"/><line x1="780" y1="139" x2="840" y2="139" stroke="#3AA89A" stroke-width="2" marker-end="url(#arrowT)"/>
+    <rect x="320" y="220" width="110" height="24" rx="12.0" fill="#002B49"/>
+    <text x="375.0" y="236.0" text-anchor="middle" class="chip">batch</text>
+    <rect x="450" y="220" width="130" height="24" rx="12.0" fill="#3AA89A"/>
+    <text x="515.0" y="236.0" text-anchor="middle" class="chip">supervised</text>
+    <rect x="600" y="220" width="120" height="24" rx="12.0" fill="#1A4A6B"/>
+    <text x="660.0" y="236.0" text-anchor="middle" class="chip">reportable</text>
+</svg>

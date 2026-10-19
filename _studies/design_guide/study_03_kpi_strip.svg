@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="210" viewBox="0 0 1040 210">
+  <rect width="1040" height="210" fill="#F7FAFB"/>
+  
+  <defs>
+    <filter id="shadow" x="-6%" y="-6%" width="118%" height="118%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.4"
+                    flood-color="#002B49" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5A6B75"/>
+    </marker>
+    <marker id="arrowT" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3AA89A"/>
+    </marker>
+    <style>
+      .lab { font: 600 14px Aptos, sans-serif; fill: #002B49; }
+      .labw { font: 600 13px Aptos, sans-serif; fill: #FFFFFF; }
+      .small { font: 400 11px Aptos, sans-serif; fill: #5A6B75; }
+      .tiny { font: 400 10px Aptos, sans-serif; fill: #5A6B75; }
+      .chip { font: 700 10px Aptos, sans-serif; fill: #FFFFFF; }
+      .zone { font: 700 12px Aptos, sans-serif; fill: #002B49; }
+      .num { font: 700 12px Aptos, sans-serif; fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  
+        <g filter="url(#shadow)">
+          <rect x="40" y="50" width="170" height="110" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="125" y="80" text-anchor="middle" class="small">Rows</text>
+          <text x="125" y="118" text-anchor="middle"
+                style="font:700 28px Aptos, sans-serif; fill:#002B49;">128k</text>
+          <text x="125" y="142" text-anchor="middle" class="tiny">cleaned</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="230" y="50" width="170" height="110" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="315" y="80" text-anchor="middle" class="small">Features</text>
+          <text x="315" y="118" text-anchor="middle"
+                style="font:700 28px Aptos, sans-serif; fill:#002B49;">24</text>
+          <text x="315" y="142" text-anchor="middle" class="tiny">selected</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="420" y="50" width="170" height="110" rx="14"
+                fill="#E6F5F2" stroke="#66C9BA" stroke-width="2"/>
+          <text x="505" y="80" text-anchor="middle" class="small">MAE</text>
+          <text x="505" y="118" text-anchor="middle"
+                style="font:700 28px Aptos, sans-serif; fill:#002B49;">3.1%</text>
+          <text x="505" y="142" text-anchor="middle" class="tiny">hold-out</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="610" y="50" width="170" height="110" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="695" y="80" text-anchor="middle" class="small">Peak hour</text>
+          <text x="695" y="118" text-anchor="middle"
+                style="font:700 28px Aptos, sans-serif; fill:#002B49;">17:00</text>
+          <text x="695" y="142" text-anchor="middle" class="tiny">UTC</text>
+        </g>
+        <g filter="url(#shadow)">
+          <rect x="800" y="50" width="170" height="110" rx="14"
+                fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+          <text x="885" y="80" text-anchor="middle" class="small">Coverage</text>
+          <text x="885" y="118" text-anchor="middle"
+                style="font:700 28px Aptos, sans-serif; fill:#002B49;">98%</text>
+          <text x="885" y="142" text-anchor="middle" class="tiny">valid rows</text>
+        </g>
+</svg>

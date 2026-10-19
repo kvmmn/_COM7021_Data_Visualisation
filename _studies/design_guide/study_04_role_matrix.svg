@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1020" height="420" viewBox="0 0 1020 420">
+  <rect width="1020" height="420" fill="#F7FAFB"/>
+  
+  <defs>
+    <filter id="shadow" x="-6%" y="-6%" width="118%" height="118%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.4"
+                    flood-color="#002B49" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5A6B75"/>
+    </marker>
+    <marker id="arrowT" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#3AA89A"/>
+    </marker>
+    <style>
+      .lab { font: 600 14px Aptos, sans-serif; fill: #002B49; }
+      .labw { font: 600 13px Aptos, sans-serif; fill: #FFFFFF; }
+      .small { font: 400 11px Aptos, sans-serif; fill: #5A6B75; }
+      .tiny { font: 400 10px Aptos, sans-serif; fill: #5A6B75; }
+      .chip { font: 700 10px Aptos, sans-serif; fill: #FFFFFF; }
+      .zone { font: 700 12px Aptos, sans-serif; fill: #002B49; }
+      .num { font: 700 12px Aptos, sans-serif; fill: #FFFFFF; }
+    </style>
+  </defs>
+
+  <rect x="40" y="40" width="940" height="340" rx="18" fill="#E6F5F2" stroke="#C9D5DD"/><rect x="50" y="55" width="90" height="36" rx="10" fill="#002B49"/><text x="95" y="78" text-anchor="middle" class="labw">View</text><rect x="160" y="55" width="180" height="36" rx="10" fill="#002B49"/><text x="250" y="78" text-anchor="middle" class="labw">Analyst</text><rect x="360" y="55" width="180" height="36" rx="10" fill="#3AA89A"/><text x="450" y="78" text-anchor="middle" class="labw">Manager</text><rect x="560" y="55" width="180" height="36" rx="10" fill="#002B49"/><text x="650" y="78" text-anchor="middle" class="labw">Engineer</text><rect x="760" y="55" width="180" height="36" rx="10" fill="#002B49"/><text x="850" y="78" text-anchor="middle" class="labw">Auditor</text><text x="95" y="128" text-anchor="middle" class="lab">Trend chart</text>
+            <g filter="url(#shadow)">
+              <rect x="160" y="100" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="250" y="132" text-anchor="middle" class="small">read</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="360" y="100" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2"/>
+              <text x="450" y="132" text-anchor="middle" class="small">read</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="560" y="100" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="650" y="132" text-anchor="middle" class="small">build</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="760" y="100" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="850" y="132" text-anchor="middle" class="small">—</text>
+            </g><text x="95" y="198" text-anchor="middle" class="lab">Exception strip</text>
+            <g filter="url(#shadow)">
+              <rect x="160" y="170" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="250" y="202" text-anchor="middle" class="small">read</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="360" y="170" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2"/>
+              <text x="450" y="202" text-anchor="middle" class="small">act</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="560" y="170" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="650" y="202" text-anchor="middle" class="small">build</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="760" y="170" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="850" y="202" text-anchor="middle" class="small">read</text>
+            </g><text x="95" y="268" text-anchor="middle" class="lab">Feature table</text>
+            <g filter="url(#shadow)">
+              <rect x="160" y="240" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="250" y="272" text-anchor="middle" class="small">explore</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="360" y="240" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2"/>
+              <text x="450" y="272" text-anchor="middle" class="small">—</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="560" y="240" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="650" y="272" text-anchor="middle" class="small">own</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="760" y="240" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="850" y="272" text-anchor="middle" class="small">sample</text>
+            </g><text x="95" y="338" text-anchor="middle" class="lab">Lineage log</text>
+            <g filter="url(#shadow)">
+              <rect x="160" y="310" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="250" y="342" text-anchor="middle" class="small">—</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="360" y="310" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#66C9BA" stroke-width="2"/>
+              <text x="450" y="342" text-anchor="middle" class="small">—</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="560" y="310" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="650" y="342" text-anchor="middle" class="small">own</text>
+            </g>
+            <g filter="url(#shadow)">
+              <rect x="760" y="310" width="180" height="52" rx="8"
+                    fill="#FFFFFF" stroke="#C9D5DD" stroke-width="1.5"/>
+              <text x="850" y="342" text-anchor="middle" class="small">review</text>
+            </g>
+</svg>
