@@ -398,11 +398,13 @@ def build_fa_html() -> None:
       padding: 0;
       background: var(--paper);
       color: var(--text);
-      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Shabnam", Tahoma, sans-serif;
-      font-size: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Vazirmatn", "Shabnam", system-ui, Tahoma, sans-serif;
+      font-size: 14px;
+      font-weight: 350;
       line-height: 1.8;
       direction: rtl;
       text-align: right;
+      letter-spacing: -0.15px;
     }}
     code, pre {{
       font-family: 'JetBrains Mono', Consolas, monospace;
@@ -435,11 +437,6 @@ def build_fa_html() -> None:
       font-weight: 400;
       font-size: 12px;
     }}
-    .top-nav .nav-actions {{
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }}
     .top-nav .links {{
       display: flex;
       gap: 14px;
@@ -454,50 +451,22 @@ def build_fa_html() -> None:
     .top-nav a:hover {{
       color: var(--tiffany);
     }}
-    .lang-switch-btn {{
-      background: linear-gradient(135deg, var(--tiffany-deep), var(--tiffany));
-      color: var(--midnight) !important;
-      font-weight: 700 !important;
-      padding: 5px 14px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(255,255,255,0.4);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }}
-    .lang-switch-btn:hover {{
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(102,201,186,0.4);
-      color: var(--midnight) !important;
-    }}
-    .lang-floating-pill {{
-      position: fixed;
-      bottom: 24px;
-      left: 24px;
-      z-index: 1000;
-      box-shadow: 0 4px 16px rgba(0,43,73,0.22);
-      border-radius: 999px;
-    }}
-    .lang-floating-pill a {{
+    .site-footer {{
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      background: var(--midnight);
-      color: var(--white);
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 2px solid var(--tiffany);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13.5px;
-      transition: all 0.2s;
+      font-size: 11px;
+      color: var(--mute);
     }}
-    .lang-floating-pill a:hover {{
-      background: var(--tiffany-deep);
-      color: var(--white);
-      transform: translateY(-2px);
+    .site-footer a {{
+      color: var(--mute);
+      text-decoration: underline;
+    }}
+    .site-footer a:hover {{
+      color: var(--midnight);
     }}
     .container {{
       max-width: 1220px;
@@ -788,33 +757,19 @@ def build_fa_html() -> None:
 </head>
 <body>
 
-  <!-- FLOATING LANGUAGE TOGGLE -->
-  <div class="lang-floating-pill">
-    <a href="index.html" title="Switch to English Original Version">
-      <span>🇬🇧</span>
-      <span>English Version (EN)</span>
-    </a>
-  </div>
-
   <nav class="top-nav">
     <div class="brand">
       مصورسازی داده‌ها COM7021SCC
       <span>· پیش‌نویس بازخورد ارزیابی دانشجو (شناسه: 25199053)</span>
     </div>
-    <div class="nav-actions">
-      <div class="links">
-        <a href="#overview">نمای کلی</a>
-        <a href="#roadmap">توپولوژی فرآیند</a>
-        <a href="#task1">بخش ۱ (مصورسازی پایتون)</a>
-        <a href="#dashboard">داشبورد تعاملی</a>
-        <a href="#task2">بخش ۲ (گزارش انتقادی)</a>
-        <a href="#references">مراجع</a>
-        <a href="#appendix">ضمیمه کدها</a>
-      </div>
-      <a href="index.html" class="lang-switch-btn" title="تغییر به نگارش انگلیسی">
-        <span>🇬🇧</span>
-        <span>English</span>
-      </a>
+    <div class="links">
+      <a href="#overview">نمای کلی</a>
+      <a href="#roadmap">توپولوژی فرآیند</a>
+      <a href="#task1">بخش ۱ (مصورسازی پایتون)</a>
+      <a href="#dashboard">داشبورد تعاملی</a>
+      <a href="#task2">بخش ۲ (گزارش انتقادی)</a>
+      <a href="#references">مراجع</a>
+      <a href="#appendix">ضمیمه کدها</a>
     </div>
   </nav>
 
@@ -1115,6 +1070,11 @@ def build_fa_html() -> None:
       <p style="margin-top:0;">تمامی مراحل بارگذاری داده‌ها، پاک‌سازی، مهندسی ویژگی‌ها، محاسبات آماری، نمودارهای ۲۲۰ DPI و داشبورد تحلیلی در محیط پایتون ۳.۱۱ اجرا و تایید شده‌اند. برای مشاهده سورس‌کد کامل هر ماژول روی عنوان آن کلیک فرمایید.</p>
       {appendix_html}
     </section>
+
+    <footer class="site-footer">
+      <span>درس COM7021SCC · شماره دانشجویی: 25199053 · پیش‌نویس بازخورد تکوینی استاد احمد حسن</span>
+      <span>زبان: <strong>فارسی</strong> · <a href="index.html">English</a></span>
+    </footer>
 
   </div>
 
