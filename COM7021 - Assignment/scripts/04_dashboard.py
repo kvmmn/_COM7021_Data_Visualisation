@@ -579,12 +579,29 @@ def render_dashboard_capture_svg(
 
     # Main Workspace Header Banner (x = 264 to 1362, width = 1098)
     parts.extend([
-        f'<rect x="264" y="18" width="1098" height="58" rx="14" fill="{MIDNIGHT}"/>',
-        f'<text x="286" y="43" style="font:700 15.5px Aptos, Helvetica Neue, sans-serif; fill:{WHITE};">EcoMove City Transport Authority — Streamlit Executive Decision Dashboard</text>',
-        f'<text x="286" y="62" style="font:400 10.8px Aptos, Helvetica Neue, sans-serif; fill:{MIST};">{esc(subtitle)}</text>',
-        f'<rect x="1190" y="33" width="154" height="26" rx="13" fill="{TIFFANY_DEEP}"/>',
-        f'<text x="1267" y="50" text-anchor="middle" class="chip">Streamlit + Plotly</text>',
+        f'<rect x="264" y="18" width="1098" height="52" rx="12" fill="{MIDNIGHT}"/>',
+        f'<text x="284" y="40" style="font:700 15px Aptos, Helvetica Neue, sans-serif; fill:{WHITE};">EcoMove Mobility — Executive Streamlit Decision Dashboard</text>',
+        f'<text x="284" y="58" style="font:400 10.5px Aptos, Helvetica Neue, sans-serif; fill:{MIST};">{esc(subtitle)}</text>',
+        f'<rect x="1192" y="31" width="152" height="24" rx="12" fill="{TIFFANY_DEEP}"/>',
+        f'<text x="1268" y="47" text-anchor="middle" class="chip">COM7021 · 25199053</text>',
     ])
+
+    # Main-Canvas 1-Click Scenario Bar (6 Buttons across x = 264..1362)
+    scen_buttons = [
+        ("1. Full Baseline (Fig 9)", "1. Full" in preset_label),
+        ("2. Adverse Weather (Fig 10)", "2. Adverse" in preset_label),
+        ("3. Micromobility Audit", False),
+        ("4. Event Day Surge", False),
+        ("5. Suburban Access", False),
+        ("6. Rail Backbone", False),
+    ]
+    for b_idx, (b_lbl, b_act) in enumerate(scen_buttons):
+        bx = 264 + b_idx * 184
+        b_fill = TIFFANY_DEEP if b_act else WHITE
+        b_stroke = TIFFANY if b_act else LINE
+        b_txt = WHITE if b_act else MIDNIGHT
+        parts.append(f'<rect x="{bx}" y="76" width="176" height="24" rx="6" fill="{b_fill}" stroke="{b_stroke}" stroke-width="1.2"/>')
+        parts.append(f'<text x="{bx + 88}" y="92" text-anchor="middle" style="font:700 9.4px Aptos, sans-serif; fill:{b_txt};">{esc(b_lbl)}</text>')
 
     # Streamlit Tabs Bar (st.tabs)
     tabs = [
@@ -595,23 +612,23 @@ def render_dashboard_capture_svg(
         ("5. Accessibility & Carbon", False),
     ]
     tx = 264
-    parts.append(f'<rect x="264" y="86" width="1098" height="36" rx="9" fill="{WHITE}" stroke="{LINE}" stroke-width="1.2"/>')
+    parts.append(f'<rect x="264" y="106" width="1098" height="30" rx="8" fill="{WHITE}" stroke="{LINE}" stroke-width="1.2"/>')
     for t_label, is_act in tabs:
         tw = 216
         if is_act:
-            parts.append(f'<rect x="{tx + 3}" y="89" width="{tw - 6}" height="30" rx="7" fill="{MIST}"/>')
-            parts.append(f'<line x1="{tx + 8}" y1="119" x2="{tx + tw - 8}" y2="119" stroke="{TIFFANY_DEEP}" stroke-width="3"/>')
-            parts.append(f'<text x="{tx + tw/2}" y="108" text-anchor="middle" style="font:700 10.2px Aptos, sans-serif; fill:{MIDNIGHT};">{esc(t_label)}</text>')
+            parts.append(f'<rect x="{tx + 3}" y="108" width="{tw - 6}" height="26" rx="6" fill="{MIST}"/>')
+            parts.append(f'<line x1="{tx + 8}" y1="134" x2="{tx + tw - 8}" y2="134" stroke="{TIFFANY_DEEP}" stroke-width="2.6"/>')
+            parts.append(f'<text x="{tx + tw/2}" y="125" text-anchor="middle" style="font:700 9.8px Aptos, sans-serif; fill:{MIDNIGHT};">{esc(t_label)}</text>')
         else:
-            parts.append(f'<text x="{tx + tw/2}" y="108" text-anchor="middle" class="tiny">{esc(t_label)}</text>')
+            parts.append(f'<text x="{tx + tw/2}" y="125" text-anchor="middle" class="tiny">{esc(t_label)}</text>')
         tx += 219
 
     # KPI Strip (6 cards across x = 264..1362)
     margin_str = f"Rec Mean: {rec_mean_recovery:.1f}% · {'+' if net_margin >= 0 else '-'}€{abs(net_margin)/1e6:.2f}M"
     kpis = [
-        ("Total Passengers", f"{total_pax/1e6:.2f}M", f"{n_rec:,} daily records", False),
+        ("Total Ridership", f"{total_pax/1e6:.2f}M", f"{n_rec:,} daily records", False),
         ("On-Time Rate", f"{mean_ontime:.1f}%", "Authority target: 85.0%", False),
-        ("Mean Delay", f"{mean_delay:.2f} min", "Service reliability", True),
+        ("Service Delay", f"{mean_delay:.2f} min", "Service reliability", True),
         ("Cost Recovery", f"{recovery:.1f}%", margin_str, True),
         ("CO2 Mitigated", f"{total_co2:,.1f} t", "Decarbonisation output", False),
         ("Satisfaction", f"{mean_rating:.2f} / 5", f"{comp_10k:.2f} comp / 10k pax", False),
@@ -624,10 +641,10 @@ def render_dashboard_capture_svg(
         parts.append(
             f"""
         <g filter="url(#shadow)">
-          <rect x="{kx}" y="132" width="174" height="94" rx="12" fill="{k_fill}" stroke="{k_stroke}" stroke-width="{k_sw}"/>
-          <text x="{kx + 87}" y="154" text-anchor="middle" class="small" style="font-weight:700;">{esc(k_title)}</text>
-          <text x="{kx + 87}" y="187" text-anchor="middle" style="font:700 20.5px Aptos, Helvetica Neue, sans-serif; fill:{MIDNIGHT};">{esc(k_val)}</text>
-          <text x="{kx + 87}" y="209" text-anchor="middle" class="tiny">{esc(k_sub)}</text>
+          <rect x="{kx}" y="142" width="174" height="86" rx="11" fill="{k_fill}" stroke="{k_stroke}" stroke-width="{k_sw}"/>
+          <text x="{kx + 87}" y="162" text-anchor="middle" class="small" style="font-weight:700;">{esc(k_title)}</text>
+          <text x="{kx + 87}" y="191" text-anchor="middle" style="font:700 19.5px Aptos, Helvetica Neue, sans-serif; fill:{MIDNIGHT};">{esc(k_val)}</text>
+          <text x="{kx + 87}" y="213" text-anchor="middle" class="tiny">{esc(k_sub)}</text>
         </g>"""
         )
 

@@ -111,8 +111,8 @@ SCENARIO_PRESETS = {
         "day_regime": "All Days",
     },
     "🚇 6. Electric Rail Backbone": {
-        "short": "Metro & Tram Backbone (n = 1,683)",
-        "desc": "Isolates grade-separated Metro and electrified Tram lines carrying 78.6% of all passengers and 81.9% of total CO2 savings.",
+        "short": "Metro & Tram Backbone (n = 1,808)",
+        "desc": "Isolates grade-separated Metro and electrified Tram lines carrying 78.6% of all passengers and 86.7% of total CO2 savings.",
         "countries": [],
         "cities": [],
         "modes": ["Metro", "Tram"],
@@ -1024,7 +1024,7 @@ def chart_carbon_efficiency(df_sub: pd.DataFrame) -> go.Figure:
     _apply_arden_layout(
         fig,
         title="Figure 8 — Carbon Abatement Efficiency (kg CO2 / kWh) vs Energy Intensity",
-        subtitle="Bubble size = cumulative CO2 mitigated (Metro saves 2,911.4t at 2.19 kg/kWh — 2.05× Bus at 1.07 kg/kWh)",
+        subtitle="Bubble size = cumulative CO2 mitigated (Metro saves 3,150.9t at 2.19 kg/kWh — 2.05× Bus at 1.07 kg/kWh)",
         height=390,
     )
     fig.update_layout(showlegend=False)
@@ -1632,7 +1632,7 @@ def main() -> None:
         with c_right:
             with st.container(border=True):
                 st.markdown(
-                    "<div class='takeaway-strip'><b>Skewness Takeaway:</b> Metro carries <b>62.96% of passengers</b> on 16.5% of records, whereas Bike Share &amp; E-Scooter make up <b>24.64% of records</b> but only <b>1.06% of passengers</b>.</div>",
+                    "<div class='takeaway-strip'><b>Skewness Takeaway:</b> Metro carries <b>62.96% of passengers</b> on 20.94% of records, whereas Bike Share &amp; E-Scooter make up <b>24.64% of records</b> but only <b>1.06% of passengers</b>.</div>",
                     unsafe_allow_html=True,
                 )
                 st.plotly_chart(chart_modal_share_discrepancy(df_sub), width="stretch")
