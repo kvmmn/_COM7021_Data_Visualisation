@@ -2652,16 +2652,16 @@ if __name__ == &quot;__main__&quot;:
         <details class="code-block" open>
           <summary><code>scripts/04_streamlit_dashboard.py</code> — Reproducible Python Source</summary>
           <pre><code>#!/usr/bin/env python3
-&quot;&quot;&quot;Step 4 (Streamlit): Comprehensive Interactive Decision Dashboard for EcoMove Mobility.
+&quot;&quot;&quot;Step 4 (Streamlit): Intuitive, Executive-Grade Interactive Decision Dashboard for EcoMove Mobility.
 
 Launch command:
     .venv/bin/streamlit run &quot;COM7021 - Assignment/scripts/04_streamlit_dashboard.py&quot;
 
 Designed for COM7021 Data Visualisation (Student ID: 25199053, Arden University Berlin).
 Implements the locked Arden University palette (#002B49 Midnight, #66C9BA Tiffany, #3AA89A Tiffany Deep),
-1-click executive scenario presets (including Figure 9 Baseline and Figure 10 Adverse Weather Surface
-Scenario), 6 cascading sidebar filters, a 6-card Executive KPI strip with dual-basis cost recovery
-reconciliation, and 5 structured analytical decision tabs covering Figures 1 to 10.
+an intuitive 1-click scenario bar on the main canvas + collapsible sidebar filters, sleek KPI cards with
+dual-basis cost recovery reconciliation, dynamic executive insight pills, bordered chart cards, and
+native Streamlit progress-bar data tables covering Figures 1 to 10.
 &quot;&quot;&quot;
 
 from __future__ import annotations
@@ -2694,7 +2694,6 @@ from style.palette import (
 )
 
 SLATE = MUTE
-
 DATA_CSV = BASE_DIR / &quot;data&quot; / &quot;ecomove_cleaned.csv&quot;
 
 MODE_ORDER = [&quot;Metro&quot;, &quot;Tram&quot;, &quot;Bus&quot;, &quot;Park and Ride&quot;, &quot;Bike Share&quot;, &quot;E-Scooter&quot;]
@@ -2709,8 +2708,9 @@ ROUTE_ORDER = [
 ]
 
 SCENARIO_PRESETS = {
-    &quot;1. Full Network Baseline (Figure 9 — N = 5,000)&quot;: {
-        &quot;desc&quot;: &quot;Default unfiltered view across all 12 European cities, 6 modes, and 6 weather conditions (2024–2025).&quot;,
+    &quot;🌐 1. Full Network Baseline (Fig 9)&quot;: {
+        &quot;short&quot;: &quot;Full Network Baseline (N = 5,000)&quot;,
+        &quot;desc&quot;: &quot;Default unfiltered view across all 12 European cities, 6 transport modes, and 6 weather conditions (2024–2025).&quot;,
         &quot;countries&quot;: [],
         &quot;cities&quot;: [],
         &quot;modes&quot;: [],
@@ -2719,8 +2719,9 @@ SCENARIO_PRESETS = {
         &quot;event_day&quot;: &quot;All&quot;,
         &quot;day_regime&quot;: &quot;All Days&quot;,
     },
-    &quot;2. Adverse Weather Surface Transit (Figure 10 — n = 583)&quot;: {
-        &quot;desc&quot;: &quot;Executive stress-test isolating surface modes (Bus, Tram, Park &amp; Ride) under Rain and Snow conditions.&quot;,
+    &quot;🌧️ 2. Adverse Weather Surface (Fig 10)&quot;: {
+        &quot;short&quot;: &quot;Surface Transit in Rain &amp; Snow (n = 583)&quot;,
+        &quot;desc&quot;: &quot;Isolates surface modes (Bus, Tram, Park &amp; Ride) under Rain and Snow: delay rises +69.7% to 7.38 min while cost recovery stays positive (113.2%).&quot;,
         &quot;countries&quot;: [],
         &quot;cities&quot;: [],
         &quot;modes&quot;: [&quot;Bus&quot;, &quot;Tram&quot;, &quot;Park and Ride&quot;],
@@ -2729,8 +2730,9 @@ SCENARIO_PRESETS = {
         &quot;event_day&quot;: &quot;All&quot;,
         &quot;day_regime&quot;: &quot;All Days&quot;,
     },
-    &quot;3. Shared Micromobility Subsidy Audit (n = 1,232)&quot;: {
-        &quot;desc&quot;: &quot;Isolates Bike Share and E-Scooter operations to audit per-trip deficits (-€19.98 to -€20.84/pax) and complaint intensity.&quot;,
+    &quot;🛴 3. Micromobility Subsidy Audit&quot;: {
+        &quot;short&quot;: &quot;Bike Share &amp; E-Scooter (n = 1,232)&quot;,
+        &quot;desc&quot;: &quot;Isolates shared micromobility (24.64% of records but 1.06% of passengers) to audit unit deficits (-€19.98 to -€20.84/pax).&quot;,
         &quot;countries&quot;: [],
         &quot;cities&quot;: [],
         &quot;modes&quot;: [&quot;Bike Share&quot;, &quot;E-Scooter&quot;],
@@ -2739,8 +2741,9 @@ SCENARIO_PRESETS = {
         &quot;event_day&quot;: &quot;All&quot;,
         &quot;day_regime&quot;: &quot;All Days&quot;,
     },
-    &quot;4. Major Event Day Surge &amp; Delay Pressure (n = 510)&quot;: {
-        &quot;desc&quot;: &quot;Isolates Major Event Days (Event_Day = Yes), showing +26.2% ridership surge and +31.0% delay escalation.&quot;,
+    &quot;🏟️ 4. Major Event Day Surge&quot;: {
+        &quot;short&quot;: &quot;Major Event Days (n = 510)&quot;,
+        &quot;desc&quot;: &quot;Isolates Major Event Days (Event_Day = Yes), revealing a +26.2% ridership surge paired with +31.0% higher service delays.&quot;,
         &quot;countries&quot;: [],
         &quot;cities&quot;: [],
         &quot;modes&quot;: [],
@@ -2749,8 +2752,9 @@ SCENARIO_PRESETS = {
         &quot;event_day&quot;: &quot;Yes&quot;,
         &quot;day_regime&quot;: &quot;All Days&quot;,
     },
-    &quot;5. Suburban Feeder Accessibility Audit (n = 817)&quot;: {
-        &quot;desc&quot;: &quot;Isolates Suburban Feeder corridors, which record the highest normalised accessibility complaint rate (16.79 / 10k pax).&quot;,
+    &quot;♿ 5. Suburban Accessibility Audit&quot;: {
+        &quot;short&quot;: &quot;Suburban Feeder Routes (n = 817)&quot;,
+        &quot;desc&quot;: &quot;Isolates Suburban Feeder corridors, which record the highest passenger-normalised accessibility complaint rate (16.79 / 10k pax).&quot;,
         &quot;countries&quot;: [],
         &quot;cities&quot;: [],
         &quot;modes&quot;: [],
@@ -2759,8 +2763,9 @@ SCENARIO_PRESETS = {
         &quot;event_day&quot;: &quot;All&quot;,
         &quot;day_regime&quot;: &quot;All Days&quot;,
     },
-    &quot;6. High-Capacity Electric Rail Backbone (n = 1,683)&quot;: {
-        &quot;desc&quot;: &quot;Isolates grade-separated Metro and electrified Tram corridors driving 81.2% of total ridership and 78.6% of CO2 savings.&quot;,
+    &quot;🚇 6. Electric Rail Backbone&quot;: {
+        &quot;short&quot;: &quot;Metro &amp; Tram Backbone (n = 1,683)&quot;,
+        &quot;desc&quot;: &quot;Isolates grade-separated Metro and electrified Tram lines carrying 78.6% of all passengers and 81.9% of total CO2 savings.&quot;,
         &quot;countries&quot;: [],
         &quot;cities&quot;: [],
         &quot;modes&quot;: [&quot;Metro&quot;, &quot;Tram&quot;],
@@ -2935,31 +2940,49 @@ def compute_city_standardised_table(df_sub: pd.DataFrame, df_base: pd.DataFrame)
     city_df[&quot;Raw_Rank&quot;] = city_df[&quot;Raw_Margin_Rec&quot;].rank(ascending=False, method=&quot;min&quot;).astype(int)
     city_df[&quot;Adj_Rank&quot;] = city_df[&quot;Mix_Adj_Margin_Rec&quot;].rank(ascending=False, method=&quot;min&quot;).astype(int)
     city_df[&quot;Rank_Shift&quot;] = city_df[&quot;Raw_Rank&quot;] - city_df[&quot;Adj_Rank&quot;]
-    return city_df.sort_values(&quot;Raw_Margin_Rec&quot;, ascending=False).reset_index(drop=True)
+    return city_df.sort_values(&quot;Total_Pax&quot;, ascending=False).reset_index(drop=True)
 
 
 # ==============================================================================
-# PLOTLY CHART BUILDERS (LOCKED ARDEN PALETTE)
+# PLOTLY CHART BUILDERS (CLEAN, UNCLUTTERED, ARDEN PALETTE)
 # ==============================================================================
-def _apply_arden_layout(fig: go.Figure, title: str, subtitle: str = &quot;&quot;, height: int = 380) -&gt; go.Figure:
+def _apply_arden_layout(
+    fig: go.Figure,
+    title: str,
+    subtitle: str = &quot;&quot;,
+    height: int = 360,
+    left_margin: int = 60,
+    right_margin: int = 45,
+) -&gt; go.Figure:
     title_html = f&quot;&lt;b&gt;{title}&lt;/b&gt;&quot;
     if subtitle:
         title_html += f&quot;&lt;br&gt;&lt;span style=&#x27;font-size:11.5px;color:{MUTE};font-weight:400;&#x27;&gt;{subtitle}&lt;/span&gt;&quot;
     fig.update_layout(
-        title={&quot;text&quot;: title_html, &quot;font&quot;: {&quot;family&quot;: &quot;Aptos, Helvetica Neue, Arial, sans-serif&quot;, &quot;size&quot;: 14, &quot;color&quot;: MIDNIGHT}, &quot;x&quot;: 0.01},
-        font={&quot;family&quot;: &quot;Aptos, Helvetica Neue, Arial, sans-serif&quot;, &quot;size&quot;: 11.5, &quot;color&quot;: MIDNIGHT},
+        title={
+            &quot;text&quot;: title_html,
+            &quot;font&quot;: {&quot;family&quot;: &quot;Aptos, -apple-system, BlinkMacSystemFont, sans-serif&quot;, &quot;size&quot;: 14.5, &quot;color&quot;: MIDNIGHT},
+            &quot;x&quot;: 0.01,
+            &quot;y&quot;: 0.95,
+        },
+        font={&quot;family&quot;: &quot;Aptos, -apple-system, BlinkMacSystemFont, sans-serif&quot;, &quot;size&quot;: 11.5, &quot;color&quot;: MIDNIGHT},
         paper_bgcolor=WHITE,
         plot_bgcolor=PAPER,
         height=height,
-        margin={&quot;l&quot;: 55, &quot;r&quot;: 35, &quot;t&quot;: 68, &quot;b&quot;: 48},
-        hoverlabel={&quot;bgcolor&quot;: MIDNIGHT, &quot;font_size&quot;: 11.5, &quot;font_family&quot;: &quot;Aptos, sans-serif&quot;, &quot;font_color&quot;: WHITE},
+        margin={&quot;l&quot;: left_margin, &quot;r&quot;: right_margin, &quot;t&quot;: 68, &quot;b&quot;: 46},
+        hoverlabel={
+            &quot;bgcolor&quot;: MIDNIGHT,
+            &quot;font_size&quot;: 12,
+            &quot;font_family&quot;: &quot;Aptos, sans-serif&quot;,
+            &quot;font_color&quot;: WHITE,
+            &quot;bordercolor&quot;: TIFFANY,
+        },
     )
     fig.update_xaxes(showgrid=False, linecolor=LINE, tickfont={&quot;color&quot;: MUTE, &quot;size&quot;: 10.5})
     fig.update_yaxes(showgrid=True, gridcolor=GRID, linecolor=LINE, tickfont={&quot;color&quot;: MUTE, &quot;size&quot;: 10.5})
     return fig
 
 
-def chart_monthly_trend(df_sub: pd.DataFrame, split_regime: bool = True, height: int = 360) -&gt; go.Figure:
+def chart_monthly_trend(df_sub: pd.DataFrame, split_regime: bool = True, height: int = 350) -&gt; go.Figure:
     fig = go.Figure()
     m_all = df_sub.groupby(&quot;YearMonth&quot;, as_index=False)[&quot;Passengers&quot;].mean().sort_values(&quot;YearMonth&quot;)
 
@@ -2981,10 +3004,10 @@ def chart_monthly_trend(df_sub: pd.DataFrame, split_regime: bool = True, height:
                 x=m_wk[&quot;YearMonth&quot;],
                 y=m_wk[&quot;Passengers&quot;].round(0),
                 mode=&quot;lines+markers&quot;,
-                name=&quot;Weekday Mean&quot;,
-                line={&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 2.6},
-                marker={&quot;color&quot;: TIFFANY_DEEP, &quot;size&quot;: 6, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 1}},
-                hovertemplate=&quot;&lt;b&gt;%{x}&lt;/b&gt; (Weekday)&lt;br&gt;Mean Demand: %{y:,.0f} pax&lt;extra&gt;&lt;/extra&gt;&quot;,
+                name=&quot;Weekday Commute&quot;,
+                line={&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 2.8},
+                marker={&quot;color&quot;: TIFFANY_DEEP, &quot;size&quot;: 6.5, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 1.2}},
+                hovertemplate=&quot;&lt;b&gt;%{x}&lt;/b&gt; · Weekday&lt;br&gt;Mean Demand: &lt;b&gt;%{y:,.0f} pax/rec&lt;/b&gt;&lt;extra&gt;&lt;/extra&gt;&quot;,
             )
         )
         fig.add_trace(
@@ -2992,10 +3015,10 @@ def chart_monthly_trend(df_sub: pd.DataFrame, split_regime: bool = True, height:
                 x=m_we[&quot;YearMonth&quot;],
                 y=m_we[&quot;Passengers&quot;].round(0),
                 mode=&quot;lines+markers&quot;,
-                name=&quot;Weekend Mean&quot;,
-                line={&quot;color&quot;: TEAL, &quot;width&quot;: 2.0, &quot;dash&quot;: &quot;dot&quot;},
-                marker={&quot;color&quot;: TIFFANY, &quot;size&quot;: 5},
-                hovertemplate=&quot;&lt;b&gt;%{x}&lt;/b&gt; (Weekend)&lt;br&gt;Mean Demand: %{y:,.0f} pax&lt;extra&gt;&lt;/extra&gt;&quot;,
+                name=&quot;Weekend Leisure&quot;,
+                line={&quot;color&quot;: TEAL, &quot;width&quot;: 2.2, &quot;dash&quot;: &quot;dot&quot;},
+                marker={&quot;color&quot;: TIFFANY, &quot;size&quot;: 5.5},
+                hovertemplate=&quot;&lt;b&gt;%{x}&lt;/b&gt; · Weekend&lt;br&gt;Mean Demand: &lt;b&gt;%{y:,.0f} pax/rec&lt;/b&gt;&lt;extra&gt;&lt;/extra&gt;&quot;,
             )
         )
     else:
@@ -3004,10 +3027,10 @@ def chart_monthly_trend(df_sub: pd.DataFrame, split_regime: bool = True, height:
                 x=m_all[&quot;YearMonth&quot;],
                 y=m_all[&quot;Passengers&quot;].round(0),
                 mode=&quot;lines+markers&quot;,
-                name=&quot;Overall Mean Demand&quot;,
+                name=&quot;Mean Daily Demand&quot;,
                 line={&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 2.8},
-                marker={&quot;color&quot;: TIFFANY_DEEP, &quot;size&quot;: 6.5, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 1}},
-                hovertemplate=&quot;&lt;b&gt;%{x}&lt;/b&gt;&lt;br&gt;Mean Demand: %{y:,.0f} pax&lt;extra&gt;&lt;/extra&gt;&quot;,
+                marker={&quot;color&quot;: TIFFANY_DEEP, &quot;size&quot;: 6.5, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 1.2}},
+                hovertemplate=&quot;&lt;b&gt;%{x}&lt;/b&gt;&lt;br&gt;Mean Demand: &lt;b&gt;%{y:,.0f} pax/rec&lt;/b&gt;&lt;extra&gt;&lt;/extra&gt;&quot;,
             )
         )
 
@@ -3017,14 +3040,14 @@ def chart_monthly_trend(df_sub: pd.DataFrame, split_regime: bool = True, height:
         line_dash=&quot;dash&quot;,
         line_color=SLATE,
         line_width=1.2,
-        annotation_text=f&quot;Slice Mean: {overall_mean:,.0f} pax&quot;,
+        annotation_text=f&quot;Mean: {overall_mean:,.0f}&quot;,
         annotation_position=&quot;top right&quot;,
         annotation_font={&quot;size&quot;: 10, &quot;color&quot;: MUTE},
     )
     _apply_arden_layout(
         fig,
         title=&quot;Monthly Passenger Demand Trajectory (2024–2025)&quot;,
-        subtitle=&quot;Mean daily passengers per service record across months (with weekday vs weekend regime split)&quot;,
+        subtitle=&quot;Weekday commute regime (+34.1% premium) vs Weekend demand · Recurring October maintenance trough&quot;,
         height=height,
     )
     fig.update_layout(
@@ -3034,7 +3057,7 @@ def chart_monthly_trend(df_sub: pd.DataFrame, split_regime: bool = True, height:
     return fig
 
 
-def chart_mode_recovery(df_sub: pd.DataFrame, height: int = 360) -&gt; go.Figure:
+def chart_mode_recovery(df_sub: pd.DataFrame, height: int = 350) -&gt; go.Figure:
     mode_df = (
         df_sub.groupby(&quot;Transport_Mode&quot;, as_index=False)
         .agg(
@@ -3053,14 +3076,15 @@ def chart_mode_recovery(df_sub: pd.DataFrame, height: int = 360) -&gt; go.Figure
             y=mode_df[&quot;Transport_Mode&quot;],
             orientation=&quot;h&quot;,
             marker={&quot;color&quot;: colors, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 0.8}},
-            text=[f&quot;{r:.1f}%&quot; for r in mode_df[&quot;Overall_Rec&quot;]],
+            text=[f&quot;&lt;b&gt;{r:.1f}%&lt;/b&gt;&quot; for r in mode_df[&quot;Overall_Rec&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
             customdata=np.stack([mode_df[&quot;Rec_Mean&quot;], mode_df[&quot;Rev&quot;] - mode_df[&quot;Cost&quot;], mode_df[&quot;Pax&quot;]], axis=-1),
             hovertemplate=(
                 &quot;&lt;b&gt;%{y}&lt;/b&gt;&lt;br&gt;&quot;
                 &quot;Volume-Weighted Recovery: &lt;b&gt;%{x:.1f}%&lt;/b&gt;&lt;br&gt;&quot;
                 &quot;Unweighted Record Mean: %{customdata[0]:.1f}%&lt;br&gt;&quot;
-                &quot;Net Margin: €%{customdata[1]:,.0f}&lt;br&gt;&quot;
+                &quot;Net Operating Margin: €%{customdata[1]:,.0f}&lt;br&gt;&quot;
                 &quot;Total Passengers: %{customdata[2]:,.0f}&lt;extra&gt;&lt;/extra&gt;&quot;
             ),
         )
@@ -3074,19 +3098,21 @@ def chart_mode_recovery(df_sub: pd.DataFrame, height: int = 360) -&gt; go.Figure
         annotation_position=&quot;top right&quot;,
         annotation_font={&quot;size&quot;: 10, &quot;color&quot;: MIDNIGHT},
     )
-    max_x = max(float(mode_df[&quot;Overall_Rec&quot;].max()) * 1.18, 125.0) if not mode_df.empty else 130.0
+    max_x = max(float(mode_df[&quot;Overall_Rec&quot;].max()) * 1.24, 130.0) if not mode_df.empty else 135.0
     _apply_arden_layout(
         fig,
-        title=&quot;Commercial Cost Recovery Ratio (%) by Transport Mode&quot;,
-        subtitle=&quot;Cumulative Ticket Revenue ÷ Operating Cost (Tiffany bars &lt; 100% require operational subsidy)&quot;,
+        title=&quot;Commercial Cost Recovery Ratio (%) by Mode&quot;,
+        subtitle=&quot;Cumulative Revenue ÷ Cost · Tiffany bars (&lt;100%) require operational cross-subsidy&quot;,
         height=height,
+        left_margin=105,
+        right_margin=55,
     )
-    fig.update_xaxes(range=[0, max_x], title=&quot;Cost Recovery (%)&quot;, showgrid=True, gridcolor=GRID)
+    fig.update_xaxes(range=[0, max_x], title=&quot;Overall Cost Recovery (%)&quot;, showgrid=True, gridcolor=GRID)
     fig.update_yaxes(showgrid=False)
     return fig
 
 
-def chart_weather_delay(df_sub: pd.DataFrame, height: int = 360) -&gt; go.Figure:
+def chart_weather_delay(df_sub: pd.DataFrame, height: int = 350) -&gt; go.Figure:
     w_df = (
         df_sub.groupby(&quot;Weather&quot;, as_index=False)
         .agg(
@@ -3105,29 +3131,30 @@ def chart_weather_delay(df_sub: pd.DataFrame, height: int = 360) -&gt; go.Figure
             x=w_df[&quot;Weather&quot;],
             y=w_df[&quot;Mean_Delay&quot;].round(2),
             marker={&quot;color&quot;: colors, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 0.8}},
-            text=[f&quot;{v:.2f}m&quot; for v in w_df[&quot;Mean_Delay&quot;]],
+            text=[f&quot;&lt;b&gt;{v:.2f}m&lt;/b&gt;&quot; for v in w_df[&quot;Mean_Delay&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
             customdata=np.stack([w_df[&quot;Median_Delay&quot;], w_df[&quot;On_Time&quot;], w_df[&quot;Records&quot;]], axis=-1),
             hovertemplate=(
-                &quot;&lt;b&gt;%{x}&lt;/b&gt;&lt;br&gt;&quot;
+                &quot;&lt;b&gt;%{x} Weather&lt;/b&gt;&lt;br&gt;&quot;
                 &quot;Mean Delay: &lt;b&gt;%{y:.2f} min&lt;/b&gt; (Median: %{customdata[0]:.2f} min)&lt;br&gt;&quot;
                 &quot;Mean On-Time Rate: %{customdata[1]:.1f}%&lt;br&gt;&quot;
-                &quot;Records: %{customdata[2]:,.0f}&lt;extra&gt;&lt;/extra&gt;&quot;
+                &quot;Service Records: %{customdata[2]:,.0f}&lt;extra&gt;&lt;/extra&gt;&quot;
             ),
         )
     )
-    max_y = max(float(w_df[&quot;Mean_Delay&quot;].max()) * 1.22, 6.0) if not w_df.empty else 9.0
+    max_y = max(float(w_df[&quot;Mean_Delay&quot;].max()) * 1.25, 6.0) if not w_df.empty else 9.5
     _apply_arden_layout(
         fig,
-        title=&quot;Mean Service Delay (Minutes) by Weather Condition&quot;,
-        subtitle=&quot;Tiffany accent highlights precipitation-induced delay escalation (Rain &amp; Snow)&quot;,
+        title=&quot;Mean Service Delay (Minutes) by Weather Regime&quot;,
+        subtitle=&quot;Tiffany bars highlight precipitation-induced delay escalation (Rain &amp; Snow)&quot;,
         height=height,
     )
     fig.update_yaxes(range=[0, max_y], title=&quot;Mean Delay (Minutes)&quot;)
     return fig
 
 
-def chart_route_complaints(df_sub: pd.DataFrame, metric_mode: str = &quot;weighted&quot;, height: int = 360) -&gt; go.Figure:
+def chart_route_complaints(df_sub: pd.DataFrame, metric_mode: str = &quot;weighted&quot;, height: int = 350) -&gt; go.Figure:
     r_df = (
         df_sub.groupby(&quot;Route_Type&quot;, as_index=False)
         .agg(
@@ -3141,17 +3168,17 @@ def chart_route_complaints(df_sub: pd.DataFrame, metric_mode: str = &quot;weight
         col = &quot;Comp&quot;
         x_label = &quot;Total Raw Accessibility Complaints&quot;
         sub = &quot;Raw count (confounded by passenger volume exposure, r = 0.866)&quot;
-        fmt = &quot;{:,.0f}&quot;
+        fmt = &quot;&lt;b&gt;{:,.0f}&lt;/b&gt;&quot;
     elif metric_mode == &quot;record_mean&quot;:
         col = &quot;Rec_Rate&quot;
         x_label = &quot;Unweighted Record-Mean Complaints / 10k Pax&quot;
-        sub = &quot;Mean of daily record complaint rates (amplifies small-denominator micromobility trips)&quot;
-        fmt = &quot;{:.2f}&quot;
+        sub = &quot;Mean of daily record complaint rates across routes&quot;
+        fmt = &quot;&lt;b&gt;{:.2f}&lt;/b&gt;&quot;
     else:
         col = &quot;Weighted_Rate&quot;
         x_label = &quot;Volume-Weighted Complaints per 10,000 Passengers&quot;
         sub = &quot;Total Route Complaints ÷ Total Route Passengers × 10,000 (removes exposure bias)&quot;
-        fmt = &quot;{:.2f}&quot;
+        fmt = &quot;&lt;b&gt;{:.2f}&lt;/b&gt;&quot;
 
     r_df = r_df.sort_values(col, ascending=True)
     max_val = float(r_df[col].max()) if not r_df.empty else 1.0
@@ -3165,6 +3192,7 @@ def chart_route_complaints(df_sub: pd.DataFrame, metric_mode: str = &quot;weight
             marker={&quot;color&quot;: colors, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 0.8}},
             text=[fmt.format(v) for v in r_df[col]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
             customdata=np.stack([r_df[&quot;Weighted_Rate&quot;], r_df[&quot;Rec_Rate&quot;], r_df[&quot;Comp&quot;], r_df[&quot;Pax&quot;]], axis=-1),
             hovertemplate=(
                 &quot;&lt;b&gt;%{y}&lt;/b&gt;&lt;br&gt;&quot;
@@ -3179,8 +3207,10 @@ def chart_route_complaints(df_sub: pd.DataFrame, metric_mode: str = &quot;weight
         title=&quot;Accessibility Complaint Intensity by Route Topology&quot;,
         subtitle=sub,
         height=height,
+        left_margin=130,
+        right_margin=55,
     )
-    fig.update_xaxes(range=[0, max_val * 1.20 if max_val &gt; 0 else 20], title=x_label, showgrid=True, gridcolor=GRID)
+    fig.update_xaxes(range=[0, max_val * 1.24 if max_val &gt; 0 else 20], title=x_label, showgrid=True, gridcolor=GRID)
     fig.update_yaxes(showgrid=False)
     return fig
 
@@ -3193,12 +3223,11 @@ def chart_modal_share_discrepancy(df_sub: pd.DataFrame) -&gt; go.Figure:
             Records=(&quot;Record_ID&quot;, &quot;count&quot;),
             Pax=(&quot;Passengers&quot;, &quot;sum&quot;),
             Cost=(&quot;Operating_Cost_EUR&quot;, &quot;sum&quot;),
-            Rev=(&quot;Ticket_Revenue_EUR&quot;, &quot;sum&quot;),
         )
     )
-    m_df[&quot;Record_Share&quot;] = m_df[&quot;Records&quot;] / m_df[&quot;Records&quot;].sum() * 100.0
-    m_df[&quot;Pax_Share&quot;] = m_df[&quot;Pax&quot;] / m_df[&quot;Pax&quot;].sum() * 100.0
-    m_df[&quot;Cost_Share&quot;] = m_df[&quot;Cost&quot;] / m_df[&quot;Cost&quot;].sum() * 100.0
+    m_df[&quot;Record_Share&quot;] = m_df[&quot;Records&quot;] / max(m_df[&quot;Records&quot;].sum(), 1) * 100.0
+    m_df[&quot;Pax_Share&quot;] = m_df[&quot;Pax&quot;] / max(m_df[&quot;Pax&quot;].sum(), 1) * 100.0
+    m_df[&quot;Cost_Share&quot;] = m_df[&quot;Cost&quot;] / max(m_df[&quot;Cost&quot;].sum(), 1) * 100.0
     m_df = m_df.set_index(&quot;Transport_Mode&quot;).reindex([m for m in MODE_ORDER if m in m_df[&quot;Transport_Mode&quot;].values]).reset_index()
 
     fig = go.Figure()
@@ -3206,43 +3235,46 @@ def chart_modal_share_discrepancy(df_sub: pd.DataFrame) -&gt; go.Figure:
         go.Bar(
             name=&quot;Share of Daily Records (%)&quot;,
             x=m_df[&quot;Transport_Mode&quot;],
-            y=m_df[&quot;Record_Share&quot;].round(2),
+            y=m_df[&quot;Record_Share&quot;].round(1),
             marker_color=SLATE,
             text=[f&quot;{v:.1f}%&quot; for v in m_df[&quot;Record_Share&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
         )
     )
     fig.add_trace(
         go.Bar(
             name=&quot;Share of Total Passengers (%)&quot;,
             x=m_df[&quot;Transport_Mode&quot;],
-            y=m_df[&quot;Pax_Share&quot;].round(2),
+            y=m_df[&quot;Pax_Share&quot;].round(1),
             marker_color=MIDNIGHT,
             text=[f&quot;{v:.1f}%&quot; for v in m_df[&quot;Pax_Share&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
         )
     )
     fig.add_trace(
         go.Bar(
             name=&quot;Share of Operating Cost (%)&quot;,
             x=m_df[&quot;Transport_Mode&quot;],
-            y=m_df[&quot;Cost_Share&quot;].round(2),
+            y=m_df[&quot;Cost_Share&quot;].round(1),
             marker_color=TIFFANY_DEEP,
             text=[f&quot;{v:.1f}%&quot; for v in m_df[&quot;Cost_Share&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
         )
     )
-    max_y = max(float(m_df[[&quot;Record_Share&quot;, &quot;Pax_Share&quot;, &quot;Cost_Share&quot;]].max().max()) * 1.20, 30.0) if not m_df.empty else 75.0
+    max_y = max(float(m_df[[&quot;Record_Share&quot;, &quot;Pax_Share&quot;, &quot;Cost_Share&quot;]].max().max()) * 1.24, 30.0) if not m_df.empty else 75.0
     _apply_arden_layout(
         fig,
         title=&quot;Compositional Discrepancy: Record Share vs Ridership Share vs Cost Share&quot;,
-        subtitle=&quot;Why unweighted record means (84.12% recovery) diverge from volume-weighted network totals (99.58% recovery)&quot;,
-        height=390,
+        subtitle=&quot;Why unweighted record means (84.12% recovery) diverge from volume-weighted totals (99.58% recovery)&quot;,
+        height=380,
     )
     fig.update_layout(
         barmode=&quot;group&quot;,
         legend={&quot;orientation&quot;: &quot;h&quot;, &quot;yanchor&quot;: &quot;bottom&quot;, &quot;y&quot;: 1.02, &quot;xanchor&quot;: &quot;right&quot;, &quot;x&quot;: 1.0},
-        yaxis={&quot;range&quot;: [0, max_y], &quot;title&quot;: &quot;Percentage of Network Total (%)&quot;},
+        yaxis={&quot;range&quot;: [0, max_y], &quot;title&quot;: &quot;Percentage of Slice Total (%)&quot;},
     )
     return fig
 
@@ -3258,7 +3290,7 @@ def chart_simpsons_paradox_dumbbell(city_df: pd.DataFrame) -&gt; go.Figure:
                 x=[row.Raw_Margin_Rec, row.Mix_Adj_Margin_Rec],
                 y=[row.City, row.City],
                 mode=&quot;lines&quot;,
-                line={&quot;color&quot;: LINE, &quot;width&quot;: 3.0},
+                line={&quot;color&quot;: LINE, &quot;width&quot;: 3.2},
                 showlegend=False,
                 hoverinfo=&quot;skip&quot;,
             )
@@ -3269,7 +3301,7 @@ def chart_simpsons_paradox_dumbbell(city_df: pd.DataFrame) -&gt; go.Figure:
             x=cdf[&quot;Raw_Margin_Rec&quot;].round(2),
             y=cdf[&quot;City&quot;],
             mode=&quot;markers+text&quot;,
-            name=&quot;Raw Mean Margin (€/record)&quot;,
+            name=&quot;Raw Mean Margin (€/rec)&quot;,
             marker={&quot;color&quot;: MIDNIGHT, &quot;size&quot;: 11, &quot;line&quot;: {&quot;color&quot;: WHITE, &quot;width&quot;: 1.2}},
             text=[f&quot;#{r}&quot; for r in cdf[&quot;Raw_Rank&quot;]],
             textposition=&quot;middle left&quot;,
@@ -3289,7 +3321,7 @@ def chart_simpsons_paradox_dumbbell(city_df: pd.DataFrame) -&gt; go.Figure:
             x=cdf[&quot;Mix_Adj_Margin_Rec&quot;].round(2),
             y=cdf[&quot;City&quot;],
             mode=&quot;markers+text&quot;,
-            name=&quot;Modal-Mix Adjusted Margin (€/record)&quot;,
+            name=&quot;Modal-Mix Adjusted (€/rec)&quot;,
             marker={&quot;color&quot;: TIFFANY, &quot;size&quot;: 12, &quot;symbol&quot;: &quot;diamond&quot;, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 1.2}},
             text=[f&quot;#{r}&quot; for r in cdf[&quot;Adj_Rank&quot;]],
             textposition=&quot;middle right&quot;,
@@ -3306,9 +3338,11 @@ def chart_simpsons_paradox_dumbbell(city_df: pd.DataFrame) -&gt; go.Figure:
     fig.add_vline(x=0.0, line_dash=&quot;dash&quot;, line_color=MIDNIGHT, line_width=1.3, annotation_text=&quot;Break-Even (€0)&quot;)
     _apply_arden_layout(
         fig,
-        title=&quot;Figure 2 Interactive — Simpson’s Paradox in City Financial Rankings&quot;,
-        subtitle=&quot;Raw mean net margin vs direct modal-mix standardised margin (€/record; r = -0.795 confounding with micromobility share)&quot;,
-        height=430,
+        title=&quot;Figure 2 — Simpson’s Paradox in City Financial Rankings&quot;,
+        subtitle=&quot;Raw mean net margin vs direct modal-mix standardised margin (€/record; r = -0.795 confounding)&quot;,
+        height=420,
+        left_margin=95,
+        right_margin=45,
     )
     fig.update_layout(
         legend={&quot;orientation&quot;: &quot;h&quot;, &quot;yanchor&quot;: &quot;bottom&quot;, &quot;y&quot;: 1.02, &quot;xanchor&quot;: &quot;right&quot;, &quot;x&quot;: 1.0},
@@ -3331,7 +3365,6 @@ def chart_unit_economics(df_sub: pd.DataFrame) -&gt; go.Figure:
     )
     m_df[&quot;Fare_Pax&quot;] = np.where(m_df[&quot;Pax&quot;] &gt; 0, m_df[&quot;Rev&quot;] / m_df[&quot;Pax&quot;], 0.0)
     m_df[&quot;Cost_Pax&quot;] = np.where(m_df[&quot;Pax&quot;] &gt; 0, m_df[&quot;Cost&quot;] / m_df[&quot;Pax&quot;], 0.0)
-    m_df[&quot;Net_Pax&quot;] = m_df[&quot;Fare_Pax&quot;] - m_df[&quot;Cost_Pax&quot;]
     m_df[&quot;Return_per_tCO2&quot;] = np.where(m_df[&quot;CO2_KG&quot;] &gt; 0, (m_df[&quot;Rev&quot;] - m_df[&quot;Cost&quot;]) / (m_df[&quot;CO2_KG&quot;] / 1000.0), 0.0)
     m_df = m_df.set_index(&quot;Transport_Mode&quot;).reindex([m for m in MODE_ORDER if m in m_df[&quot;Transport_Mode&quot;].values]).reset_index()
 
@@ -3339,10 +3372,10 @@ def chart_unit_economics(df_sub: pd.DataFrame) -&gt; go.Figure:
         rows=1,
         cols=2,
         subplot_titles=(
-            &quot;Unit Economics: Fare vs Cost per Passenger (€/pax)&quot;,
-            &quot;Net Financial Return per Tonne of CO2 Saved (€/tCO2)&quot;,
+            &quot;Fare vs Operating Cost per Passenger (€/pax)&quot;,
+            &quot;Net Return per Tonne of CO2 Saved (€/tCO2)&quot;,
         ),
-        horizontal_spacing=0.14,
+        horizontal_spacing=0.18,
     )
 
     fig.add_trace(
@@ -3350,10 +3383,11 @@ def chart_unit_economics(df_sub: pd.DataFrame) -&gt; go.Figure:
             y=m_df[&quot;Transport_Mode&quot;],
             x=m_df[&quot;Fare_Pax&quot;].round(2),
             orientation=&quot;h&quot;,
-            name=&quot;Fare Revenue / Pax (€)&quot;,
+            name=&quot;Ticket Fare / Pax (€)&quot;,
             marker_color=MIDNIGHT,
             text=[f&quot;€{v:.2f}&quot; for v in m_df[&quot;Fare_Pax&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
         ),
         row=1,
         col=1,
@@ -3367,6 +3401,7 @@ def chart_unit_economics(df_sub: pd.DataFrame) -&gt; go.Figure:
             marker_color=TIFFANY,
             text=[f&quot;€{v:.2f}&quot; for v in m_df[&quot;Cost_Pax&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
         ),
         row=1,
         col=1,
@@ -3383,6 +3418,7 @@ def chart_unit_economics(df_sub: pd.DataFrame) -&gt; go.Figure:
             showlegend=False,
             text=[f&quot;{&#x27;+&#x27; if v &gt;= 0 else &#x27;&#x27;}€{v:,.0f}/t&quot; for v in m_df[&quot;Return_per_tCO2&quot;]],
             textposition=&quot;outside&quot;,
+            cliponaxis=False,
         ),
         row=1,
         col=2,
@@ -3390,26 +3426,30 @@ def chart_unit_economics(df_sub: pd.DataFrame) -&gt; go.Figure:
 
     _apply_arden_layout(
         fig,
-        title=&quot;Figure 3 Interactive — Modal Unit Economics &amp; Carbon Abatement Cost-Effectiveness&quot;,
-        subtitle=&quot;Left: Volume-weighted fare vs operating cost per passenger (€/pax) · Right: Net financial surplus/deficit per tonne of CO2 mitigated&quot;,
-        height=430,
+        title=&quot;Figure 3 — Modal Unit Economics &amp; Carbon Abatement Cost-Effectiveness&quot;,
+        subtitle=&quot;Fixed-route transit generates a net surplus while shared micromobility loses €19.98–€20.84 per passenger trip&quot;,
+        height=420,
+        left_margin=100,
+        right_margin=65,
     )
     fig.update_layout(
         barmode=&quot;group&quot;,
         legend={&quot;orientation&quot;: &quot;h&quot;, &quot;yanchor&quot;: &quot;bottom&quot;, &quot;y&quot;: 1.04, &quot;xanchor&quot;: &quot;right&quot;, &quot;x&quot;: 1.0},
     )
-    fig.update_xaxes(title_text=&quot;€ per Passenger&quot;, range=[0, 30], row=1, col=1, showgrid=True, gridcolor=GRID)
-    fig.update_xaxes(title_text=&quot;€ per Tonne CO2 Saved&quot;, row=1, col=2, showgrid=True, gridcolor=GRID)
+    fig.update_xaxes(title_text=&quot;€ per Passenger&quot;, range=[0, 29], row=1, col=1, showgrid=True, gridcolor=GRID)
+    min_r = min(float(m_df[&quot;Return_per_tCO2&quot;].min()) * 1.30, -1000.0) if not m_df.empty else -120000.0
+    max_r = max(float(m_df[&quot;Return_per_tCO2&quot;].max()) * 1.35, 5000.0) if not m_df.empty else 15000.0
+    fig.update_xaxes(title_text=&quot;€ per Tonne CO2&quot;, range=[min_r, max_r], row=1, col=2, showgrid=True, gridcolor=GRID)
     return fig
 
 
 def chart_delay_violin(df_sub: pd.DataFrame) -&gt; go.Figure:
     &quot;&quot;&quot;Figure 4 Interactive: Delay Distribution (Violin + Embedded Boxplot) across Modes.&quot;&quot;&quot;
     fig = go.Figure()
-    modes_present = [m for m in [&quot;Bus&quot;, &quot;Tram&quot;, &quot;Park and Ride&quot;, &quot;E-Scooter&quot;, &quot;Bike Share&quot;, &quot;Metro&quot;] if m in df_sub[&quot;Transport_Mode&quot;].unique()]
+    modes_present = [m for m in [&quot;Bus&quot;, &quot;Park and Ride&quot;, &quot;Tram&quot;, &quot;Metro&quot;, &quot;E-Scooter&quot;, &quot;Bike Share&quot;] if m in df_sub[&quot;Transport_Mode&quot;].unique()]
     for m in modes_present:
         sub = df_sub[df_sub[&quot;Transport_Mode&quot;] == m][&quot;Average_Delay_Minutes&quot;]
-        color = TIFFANY if m == &quot;Bus&quot; else (TIFFANY_DEEP if m in (&quot;Tram&quot;, &quot;Metro&quot;) else MIDNIGHT_SOFT)
+        color = TIFFANY if m == &quot;Bus&quot; else (TIFFANY_DEEP if m in (&quot;Tram&quot;, &quot;Park and Ride&quot;) else MIDNIGHT_SOFT)
         fig.add_trace(
             go.Violin(
                 x=sub,
@@ -3420,15 +3460,16 @@ def chart_delay_violin(df_sub: pd.DataFrame) -&gt; go.Figure:
                 meanline_visible=True,
                 fillcolor=color,
                 line_color=MIDNIGHT,
-                opacity=0.82,
+                opacity=0.84,
                 points=False,
             )
         )
     _apply_arden_layout(
         fig,
-        title=&quot;Figure 4 Interactive — Service Delay Distribution by Transport Mode&quot;,
-        subtitle=&quot;Violin density + embedded median/IQR boxplot (Bus exhibits widest right-skewed tail at 6.58 min mean; Metro tightest at 2.13 min)&quot;,
-        height=400,
+        title=&quot;Figure 4 — Service Delay Distribution by Transport Mode&quot;,
+        subtitle=&quot;Violin density + embedded Tukey median/IQR boxplot (Bus widest at 6.58 min mean; max 12.50 min)&quot;,
+        height=390,
+        left_margin=105,
     )
     fig.update_layout(showlegend=False)
     fig.update_xaxes(title=&quot;Average Service Delay (Minutes)&quot;, showgrid=True, gridcolor=GRID)
@@ -3439,13 +3480,13 @@ def chart_delay_violin(df_sub: pd.DataFrame) -&gt; go.Figure:
 def chart_delay_vs_satisfaction_joint(df_sub: pd.DataFrame) -&gt; go.Figure:
     &quot;&quot;&quot;Figure 5 Interactive: Bivariate Scatter &amp; OLS Trendline of Delay vs Customer Rating.&quot;&quot;&quot;
     fig = go.Figure()
-    if len(df_sub) &gt; 1:
+    if len(df_sub) &gt; 1 and df_sub[&quot;Average_Delay_Minutes&quot;].std() &gt; 0:
         r_val = float(df_sub[&quot;Average_Delay_Minutes&quot;].corr(df_sub[&quot;Customer_Rating&quot;]))
         slope, intercept = np.polyfit(df_sub[&quot;Average_Delay_Minutes&quot;], df_sub[&quot;Customer_Rating&quot;], 1)
     else:
         r_val, slope, intercept = 0.0, 0.0, 4.0
 
-    for ev_val, label, col, sz in [(&quot;No&quot;, &quot;Standard Day (No)&quot;, MIDNIGHT_SOFT, 5.5), (&quot;Yes&quot;, &quot;Major Event Day (Yes)&quot;, TIFFANY, 7.5)]:
+    for ev_val, label, col, sz in [(&quot;No&quot;, &quot;Standard Day&quot;, MIDNIGHT_SOFT, 5.5), (&quot;Yes&quot;, &quot;Major Event Day&quot;, TIFFANY, 7.5)]:
         sub = df_sub[df_sub[&quot;Event_Day&quot;] == ev_val]
         if sub.empty:
             continue
@@ -3458,7 +3499,7 @@ def chart_delay_vs_satisfaction_joint(df_sub: pd.DataFrame) -&gt; go.Figure:
                 marker={&quot;color&quot;: col, &quot;size&quot;: sz, &quot;opacity&quot;: 0.65, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 0.4}},
                 customdata=np.stack([sub[&quot;City&quot;], sub[&quot;Transport_Mode&quot;], sub[&quot;Weather&quot;], sub[&quot;Passengers&quot;]], axis=-1),
                 hovertemplate=(
-                    &quot;&lt;b&gt;%{customdata[0]} — %{customdata[1]}&lt;/b&gt;&lt;br&gt;&quot;
+                    &quot;&lt;b&gt;%{customdata[0]} · %{customdata[1]}&lt;/b&gt;&lt;br&gt;&quot;
                     &quot;Delay: &lt;b&gt;%{x:.2f} min&lt;/b&gt; · Rating: &lt;b&gt;%{y:.2f} / 5.00&lt;/b&gt;&lt;br&gt;&quot;
                     &quot;Weather: %{customdata[2]} · Passengers: %{customdata[3]:,.0f}&lt;extra&gt;&lt;/extra&gt;&quot;
                 ),
@@ -3473,22 +3514,22 @@ def chart_delay_vs_satisfaction_joint(df_sub: pd.DataFrame) -&gt; go.Figure:
                 x=x_line,
                 y=y_line,
                 mode=&quot;lines&quot;,
-                name=f&quot;OLS Linear Fit (r = {r_val:.3f}, R² = {r_val**2:.3f})&quot;,
-                line={&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 2.5, &quot;dash&quot;: &quot;solid&quot;},
+                name=f&quot;OLS Fit (r = {r_val:.3f})&quot;,
+                line={&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 2.6},
             )
         )
 
     fig.add_vline(x=6.0, line_dash=&quot;dot&quot;, line_color=TIFFANY_DEEP, annotation_text=&quot;6.0m Threshold&quot;)
-    fig.add_hline(y=3.5, line_dash=&quot;dot&quot;, line_color=SLATE, annotation_text=&quot;3.5★ Satisfaction Floor&quot;)
+    fig.add_hline(y=3.5, line_dash=&quot;dot&quot;, line_color=SLATE, annotation_text=&quot;3.5★ Floor&quot;)
     _apply_arden_layout(
         fig,
-        title=f&quot;Figure 5 Interactive — Service Delay vs Customer Satisfaction (r = {r_val:.3f})&quot;,
-        subtitle=f&quot;Associative OLS gradient: {slope:.3f} rating points per minute of delay (Non-causal observational association)&quot;,
-        height=400,
+        title=f&quot;Figure 5 — Delay vs Customer Satisfaction Association (r = {r_val:.3f})&quot;,
+        subtitle=f&quot;OLS slope: {slope:.3f}★ per min delay · Observational association (non-causal)&quot;,
+        height=390,
     )
     fig.update_layout(legend={&quot;orientation&quot;: &quot;h&quot;, &quot;yanchor&quot;: &quot;bottom&quot;, &quot;y&quot;: 1.02, &quot;xanchor&quot;: &quot;right&quot;, &quot;x&quot;: 1.0})
     fig.update_xaxes(title=&quot;Average Service Delay (Minutes)&quot;, showgrid=True, gridcolor=GRID)
-    fig.update_yaxes(title=&quot;Customer Rating (1.0 – 5.0 Scale)&quot;, range=[0.8, 5.2])
+    fig.update_yaxes(title=&quot;Customer Rating (1.0 – 5.0)&quot;, range=[0.8, 5.2])
     return fig
 
 
@@ -3500,7 +3541,7 @@ def chart_weather_mode_heatmap(df_sub: pd.DataFrame, mode_type: str = &quot;abs&
     piv_ontime = df_sub.pivot_table(
         index=&quot;Transport_Mode&quot;, columns=&quot;Weather&quot;, values=&quot;On_Time_Percentage&quot;, aggfunc=&quot;mean&quot;
     )
-    modes = [m for m in [&quot;Bus&quot;, &quot;Tram&quot;, &quot;Park and Ride&quot;, &quot;E-Scooter&quot;, &quot;Bike Share&quot;, &quot;Metro&quot;] if m in piv_delay.index]
+    modes = [m for m in [&quot;Bus&quot;, &quot;Park and Ride&quot;, &quot;Tram&quot;, &quot;Metro&quot;, &quot;E-Scooter&quot;, &quot;Bike Share&quot;] if m in piv_delay.index]
     weathers = [w for w in WEATHER_ORDER if w in piv_delay.columns]
     piv_delay = piv_delay.reindex(index=modes, columns=weathers)
     piv_ontime = piv_ontime.reindex(index=modes, columns=weathers)
@@ -3509,17 +3550,17 @@ def chart_weather_mode_heatmap(df_sub: pd.DataFrame, mode_type: str = &quot;abs&
         clear_base = piv_delay[&quot;Clear&quot;].replace(0, np.nan)
         z_mat = piv_delay.divide(clear_base, axis=0).subtract(1.0).multiply(100.0)
         text_mat = [[f&quot;{v:+.0f}%&quot; if pd.notna(v) else &quot;-&quot; for v in row] for row in z_mat.values]
-        title = &quot;Figure 6 Interactive — Relative Delay Escalation (%) vs Clear-Weather Baseline&quot;
+        title = &quot;Figure 6 — Relative Delay Escalation (%) vs Clear-Weather Baseline&quot;
         cbar_title = &quot;Δ% vs Clear&quot;
     elif mode_type == &quot;ontime&quot;:
         z_mat = piv_ontime
         text_mat = [[f&quot;{v:.1f}%&quot; if pd.notna(v) else &quot;-&quot; for v in row] for row in z_mat.values]
-        title = &quot;Figure 6 Interactive — Mean On-Time Performance (%) across Weather × Mode&quot;
+        title = &quot;Figure 6 — Mean On-Time Performance (%) across Weather × Mode&quot;
         cbar_title = &quot;On-Time %&quot;
     else:
         z_mat = piv_delay
         text_mat = [[f&quot;{v:.2f}m&quot; if pd.notna(v) else &quot;-&quot; for v in row] for row in z_mat.values]
-        title = &quot;Figure 6 Interactive — Mean Service Delay (Minutes) across Weather × Mode&quot;
+        title = &quot;Figure 6 — Mean Service Delay (Minutes) across Weather × Mode&quot;
         cbar_title = &quot;Delay (min)&quot;
 
     fig = go.Figure(
@@ -3531,14 +3572,15 @@ def chart_weather_mode_heatmap(df_sub: pd.DataFrame, mode_type: str = &quot;abs&
             texttemplate=&quot;&lt;b&gt;%{text}&lt;/b&gt;&quot;,
             colorscale=[[0.0, MIST], [0.5, TIFFANY], [1.0, MIDNIGHT]],
             colorbar={&quot;title&quot;: cbar_title},
-            hovertemplate=&quot;&lt;b&gt;%{y} · %{x}&lt;/b&gt;&lt;br&gt;Value: &lt;b&gt;%{text}&lt;/b&gt;&lt;extra&gt;&lt;/extra&gt;&quot;,
+            hovertemplate=&quot;&lt;b&gt;%{y} · %{x}&lt;/b&gt;&lt;br&gt;Metric: &lt;b&gt;%{text}&lt;/b&gt;&lt;extra&gt;&lt;/extra&gt;&quot;,
         )
     )
     _apply_arden_layout(
         fig,
         title=title,
-        subtitle=&quot;Surface modes (Bus 11.49m, Tram 8.95m in Snow) experience severe precipitation shocks vs underground Metro (3.85m)&quot;,
-        height=400,
+        subtitle=&quot;Surface modes experience severe Snow/Rain delay escalation compared with grade-separated Metro&quot;,
+        height=390,
+        left_margin=105,
     )
     fig.update_yaxes(autorange=&quot;reversed&quot;, showgrid=False)
     return fig
@@ -3554,16 +3596,16 @@ def chart_accessibility_route_mode_heatmap(df_sub: pd.DataFrame, norm_mode: str 
             index=&quot;Route_Type&quot;, columns=&quot;Transport_Mode&quot;, values=&quot;Accessibility_Complaints&quot;, aggfunc=&quot;sum&quot;
         ).reindex(index=routes, columns=modes)
         text_mat = [[f&quot;{v:,.0f}&quot; if pd.notna(v) else &quot;-&quot; for v in row] for row in piv.values]
-        title = &quot;Figure 7 Interactive — Raw Accessibility Complaint Counts (Confounded by Ridership Volume)&quot;
-        sub = &quot;Raw complaint totals correlate with passenger volume (r = 0.866), masking low-volume micromobility friction&quot;
+        title = &quot;Figure 7 — Raw Accessibility Complaint Counts (Confounded by Ridership, r = 0.866)&quot;
+        sub = &quot;Raw complaint totals mirror passenger volume rather than per-rider accessibility friction&quot;
         cbar = &quot;Raw Count&quot;
     elif norm_mode == &quot;record_mean&quot;:
         piv = df_sub.pivot_table(
             index=&quot;Route_Type&quot;, columns=&quot;Transport_Mode&quot;, values=&quot;Complaints_per_10k_Pax&quot;, aggfunc=&quot;mean&quot;
         ).reindex(index=routes, columns=modes)
         text_mat = [[f&quot;{v:.1f}&quot; if pd.notna(v) else &quot;-&quot; for v in row] for row in piv.values]
-        title = &quot;Figure 7 Interactive — Unweighted Record-Mean Complaints per 10,000 Passengers&quot;
-        sub = &quot;Average of daily record complaint rates across Route × Mode cells&quot;
+        title = &quot;Figure 7 — Unweighted Record-Mean Complaints per 10,000 Passengers&quot;
+        sub = &quot;Simple average of daily record complaint rates across Route × Mode cells&quot;
         cbar = &quot;Mean / 10k&quot;
     else:
         comp_piv = df_sub.pivot_table(
@@ -3574,8 +3616,8 @@ def chart_accessibility_route_mode_heatmap(df_sub: pd.DataFrame, norm_mode: str 
         ).reindex(index=routes, columns=modes)
         piv = (comp_piv / pax_piv.replace(0, np.nan)) * 10000.0
         text_mat = [[f&quot;{v:.1f}&quot; if pd.notna(v) else &quot;-&quot; for v in row] for row in piv.values]
-        title = &quot;Figure 7 Interactive — Volume-Weighted Accessibility Complaints per 10,000 Passengers&quot;
-        sub = &quot;Normalising by cumulative cell ridership reveals high friction on Suburban Feeder E-Scooter (54.0) &amp; Bike Share (49.3)&quot;
+        title = &quot;Figure 7 — Volume-Weighted Complaints per 10,000 Passengers (Exposure-Corrected)&quot;
+        sub = &quot;Isolates acute friction on Suburban Feeder E-Scooter (54.0/10k) and Bike Share (49.3/10k)&quot;
         cbar = &quot;Rate / 10k&quot;
 
     fig = go.Figure(
@@ -3587,10 +3629,10 @@ def chart_accessibility_route_mode_heatmap(df_sub: pd.DataFrame, norm_mode: str 
             texttemplate=&quot;&lt;b&gt;%{text}&lt;/b&gt;&quot;,
             colorscale=[[0.0, MIST], [0.45, TIFFANY], [1.0, MIDNIGHT]],
             colorbar={&quot;title&quot;: cbar},
-            hovertemplate=&quot;&lt;b&gt;%{y} · %{x}&lt;/b&gt;&lt;br&gt;Metric: &lt;b&gt;%{text}&lt;/b&gt;&lt;extra&gt;&lt;/extra&gt;&quot;,
+            hovertemplate=&quot;&lt;b&gt;%{y} · %{x}&lt;/b&gt;&lt;br&gt;Value: &lt;b&gt;%{text}&lt;/b&gt;&lt;extra&gt;&lt;/extra&gt;&quot;,
         )
     )
-    _apply_arden_layout(fig, title=title, subtitle=sub, height=400)
+    _apply_arden_layout(fig, title=title, subtitle=sub, height=390, left_margin=130)
     fig.update_yaxes(autorange=&quot;reversed&quot;, showgrid=False)
     return fig
 
@@ -3603,7 +3645,6 @@ def chart_carbon_efficiency(df_sub: pd.DataFrame) -&gt; go.Figure:
             CO2_KG=(&quot;CO2_Saved_KG&quot;, &quot;sum&quot;),
             KWh=(&quot;Energy_Consumption_KWh&quot;, &quot;sum&quot;),
             Pax=(&quot;Passengers&quot;, &quot;sum&quot;),
-            Records=(&quot;Record_ID&quot;, &quot;count&quot;),
         )
     )
     m_df[&quot;CO2_per_kWh&quot;] = np.where(m_df[&quot;KWh&quot;] &gt; 0, m_df[&quot;CO2_KG&quot;] / m_df[&quot;KWh&quot;], 0.0)
@@ -3613,16 +3654,16 @@ def chart_carbon_efficiency(df_sub: pd.DataFrame) -&gt; go.Figure:
     fig = go.Figure()
     for row in m_df.itertuples():
         col = TIFFANY if row.Transport_Mode in (&quot;Metro&quot;, &quot;Tram&quot;) else (SLATE if row.Transport_Mode == &quot;Bus&quot; else MIDNIGHT_SOFT)
-        sz = max(min(np.sqrt(row.CO2_Tonnes) * 1.15, 58.0), 16.0)
+        sz = max(min(np.sqrt(row.CO2_Tonnes) * 1.15, 56.0), 18.0)
         fig.add_trace(
             go.Scatter(
                 x=[row.kWh_per_Pax],
                 y=[row.CO2_per_kWh],
                 mode=&quot;markers+text&quot;,
                 name=row.Transport_Mode,
-                text=[f&quot;&lt;b&gt;{row.Transport_Mode}&lt;/b&gt;&lt;br&gt;({row.CO2_per_kWh:.2f} kg/kWh)&quot;],
+                text=[f&quot;&lt;b&gt;{row.Transport_Mode}&lt;/b&gt; ({row.CO2_per_kWh:.2f})&quot;],
                 textposition=&quot;top center&quot;,
-                marker={&quot;size&quot;: sz, &quot;color&quot;: col, &quot;opacity&quot;: 0.88, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 1.5}},
+                marker={&quot;size&quot;: sz, &quot;color&quot;: col, &quot;opacity&quot;: 0.88, &quot;line&quot;: {&quot;color&quot;: MIDNIGHT, &quot;width&quot;: 1.6}},
                 hovertemplate=(
                     f&quot;&lt;b&gt;{row.Transport_Mode}&lt;/b&gt;&lt;br&gt;&quot;
                     f&quot;Carbon Efficiency: &lt;b&gt;{row.CO2_per_kWh:.2f} kg CO2 / kWh&lt;/b&gt;&lt;br&gt;&quot;
@@ -3635,156 +3676,232 @@ def chart_carbon_efficiency(df_sub: pd.DataFrame) -&gt; go.Figure:
 
     _apply_arden_layout(
         fig,
-        title=&quot;Figure 8 Interactive — Decarbonisation Efficiency (kg CO2 / kWh) vs Energy Intensity&quot;,
-        subtitle=&quot;Bubble area proportional to total CO2 saved (Metro saves 2,911.4t at 2.19 kg CO2/kWh — 2.05× Bus at 1.07 kg CO2/kWh)&quot;,
-        height=400,
+        title=&quot;Figure 8 — Carbon Abatement Efficiency (kg CO2 / kWh) vs Energy Intensity&quot;,
+        subtitle=&quot;Bubble size = cumulative CO2 mitigated (Metro saves 2,911.4t at 2.19 kg/kWh — 2.05× Bus at 1.07 kg/kWh)&quot;,
+        height=390,
     )
+    fig.update_layout(showlegend=False)
     fig.update_xaxes(title=&quot;Energy Consumption per Passenger (kWh / Pax)&quot;, showgrid=True, gridcolor=GRID)
-    fig.update_yaxes(title=&quot;Carbon Abatement Efficiency (kg CO2 Saved per kWh)&quot;, range=[0.5, 4.3])
+    fig.update_yaxes(title=&quot;Carbon Efficiency (kg CO2 Saved per kWh)&quot;, range=[0.5, 4.3])
     return fig
 
 
 # ==============================================================================
-# STREAMLIT APPLICATION LAYOUT &amp; INTERACTIVITY
+# CUSTOM CSS &amp; UI COMPONENTS
 # ==============================================================================
 def inject_custom_css() -&gt; None:
     st.markdown(
         f&quot;&quot;&quot;
         &lt;style&gt;
           .block-container {{
-              padding-top: 1.4rem !important;
-              padding-bottom: 2.5rem !important;
-              max-width: 1440px !important;
+              padding-top: 1.1rem !important;
+              padding-bottom: 2.2rem !important;
+              max-width: 1460px !important;
           }}
-          .arden-banner {{
+          .exec-header {{
               background: linear-gradient(135deg, {MIDNIGHT} 0%, {MIDNIGHT_SOFT} 100%);
               color: {WHITE};
               padding: 18px 24px;
               border-radius: 14px;
               border-bottom: 4px solid {TIFFANY};
-              margin-bottom: 14px;
+              margin-bottom: 12px;
               display: flex;
               justify-content: space-between;
               align-items: center;
-              box-shadow: 0 3px 10px rgba(0, 43, 73, 0.10);
+              flex-wrap: wrap;
+              gap: 12px;
+              box-shadow: 0 4px 14px rgba(0, 43, 73, 0.10);
           }}
-          .arden-banner h1 {{
+          .exec-header h1 {{
               margin: 0 !important;
               padding: 0 !important;
-              font-size: 1.38rem !important;
-              font-weight: 700 !important;
+              font-size: 1.35rem !important;
+              font-weight: 800 !important;
               color: {WHITE} !important;
               letter-spacing: -0.2px;
           }}
-          .arden-banner .sub {{
-              font-size: 0.84rem;
+          .exec-header .sub {{
+              font-size: 0.83rem;
               color: {MIST};
-              margin-top: 4px;
+              margin-top: 3px;
           }}
-          .arden-badge {{
-              background: {TIFFANY_DEEP};
+          .header-badges {{
+              display: flex;
+              gap: 8px;
+              align-items: center;
+          }}
+          .h-badge {{
+              background: rgba(255,255,255,0.12);
               color: {WHITE};
-              padding: 6px 14px;
+              padding: 5px 12px;
               border-radius: 20px;
-              font-size: 0.78rem;
-              font-weight: 700;
-              white-space: nowrap;
-              border: 1px solid {TIFFANY};
+              font-size: 0.76rem;
+              font-weight: 600;
+              border: 1px solid rgba(102, 201, 186, 0.45);
           }}
-          .slice-bar {{
+          .h-badge.tiffany {{
+              background: {TIFFANY_DEEP};
+              border-color: {TIFFANY};
+              font-weight: 700;
+          }}
+          .status-strip {{
               background: {WHITE};
               border: 1.5px solid {LINE};
               border-left: 5px solid {TIFFANY_DEEP};
               border-radius: 10px;
-              padding: 10px 16px;
-              margin-bottom: 16px;
+              padding: 9px 16px;
+              margin-bottom: 14px;
               display: flex;
               flex-wrap: wrap;
               justify-content: space-between;
               align-items: center;
               gap: 10px;
-              font-size: 0.85rem;
+              font-size: 0.83rem;
+              box-shadow: 0 1px 4px rgba(0,43,73,0.04);
           }}
-          .filter-pill {{
+          .chip-pill {{
               display: inline-block;
-              background: {MIDNIGHT_SOFT};
-              color: {WHITE};
-              padding: 3px 10px;
+              background: {PAPER};
+              color: {MIDNIGHT_SOFT};
+              border: 1px solid {LINE};
+              padding: 2px 9px;
               border-radius: 12px;
-              font-size: 0.75rem;
+              font-size: 0.74rem;
               font-weight: 600;
-              margin-right: 6px;
+              margin-right: 5px;
           }}
-          .filter-pill.active {{
+          .chip-pill.active {{
               background: {TIFFANY_DEEP};
               color: {WHITE};
+              border-color: {TIFFANY_DEEP};
           }}
           .kpi-grid {{
               display: grid;
               grid-template-columns: repeat(6, 1fr);
               gap: 12px;
-              margin-bottom: 18px;
+              margin-bottom: 14px;
           }}
-          @media (max-width: 1100px) {{
+          @media (max-width: 1150px) {{
               .kpi-grid {{ grid-template-columns: repeat(3, 1fr); }}
+          }}
+          @media (max-width: 700px) {{
+              .kpi-grid {{ grid-template-columns: repeat(2, 1fr); }}
           }}
           .kpi-card {{
               background: {WHITE};
               border: 1.5px solid {LINE};
               border-radius: 12px;
-              padding: 13px 12px;
-              text-align: center;
-              box-shadow: 0 2px 6px rgba(0, 43, 73, 0.05);
+              padding: 13px 14px;
+              box-shadow: 0 2px 6px rgba(0, 43, 73, 0.04);
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
           }}
           .kpi-card.focal {{
-              background: {MIST};
+              background: linear-gradient(180deg, {WHITE} 0%, {MIST} 100%);
               border: 2px solid {TIFFANY};
           }}
-          .kpi-label {{
-              font-size: 0.74rem;
+          .kpi-top {{
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 6px;
+          }}
+          .kpi-title {{
+              font-size: 0.73rem;
               font-weight: 700;
               text-transform: uppercase;
               letter-spacing: 0.4px;
               color: {MUTE};
-              margin-bottom: 4px;
           }}
-          .kpi-val {{
-              font-size: 1.48rem;
-              font-weight: 800;
-              color: {MIDNIGHT};
-              line-height: 1.15;
-              font-variant-numeric: tabular-nums;
-          }}
-          .kpi-sub {{
-              font-size: 0.73rem;
-              color: {MUTE};
-              margin-top: 4px;
-              line-height: 1.25;
-          }}
-          .kpi-delta {{
-              display: inline-block;
-              margin-top: 4px;
-              padding: 1px 7px;
-              border-radius: 8px;
-              font-size: 0.70rem;
+          .kpi-tag {{
+              font-size: 0.66rem;
               font-weight: 700;
+              padding: 1px 6px;
+              border-radius: 6px;
               background: {PAPER};
               color: {MIDNIGHT_SOFT};
               border: 1px solid {LINE};
           }}
-          .note-callout {{
+          .kpi-tag.good {{
               background: {MIST};
-              border-left: 4px solid {TIFFANY_DEEP};
-              border-radius: 8px;
-              padding: 11px 15px;
-              font-size: 0.84rem;
+              color: {TIFFANY_DEEP};
+              border-color: {TIFFANY};
+          }}
+          .kpi-main {{
+              font-size: 1.55rem;
+              font-weight: 800;
               color: {MIDNIGHT};
-              margin: 8px 0 14px 0;
+              line-height: 1.15;
+              font-variant-numeric: tabular-nums;
+              margin-bottom: 8px;
+          }}
+          .kpi-foot {{
+              border-top: 1px solid {GRID};
+              padding-top: 6px;
+              display: flex;
+              justify-content: space-between;
+              font-size: 0.72rem;
+              color: {MUTE};
+              font-variant-numeric: tabular-nums;
+          }}
+          .pulse-grid {{
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 12px;
+              margin-bottom: 14px;
+          }}
+          @media (max-width: 950px) {{
+              .pulse-grid {{ grid-template-columns: 1fr; }}
+          }}
+          .pulse-card {{
+              background: {WHITE};
+              border: 1px solid {LINE};
+              border-top: 3px solid {MIDNIGHT_SOFT};
+              border-radius: 10px;
+              padding: 10px 14px;
+              font-size: 0.81rem;
+              line-height: 1.4;
+              color: {MIDNIGHT};
+          }}
+          .pulse-card.accent {{
+              border-top-color: {TIFFANY_DEEP};
+              background: {MIST};
+          }}
+          .pulse-head {{
+              font-weight: 700;
+              font-size: 0.75rem;
+              text-transform: uppercase;
+              letter-spacing: 0.3px;
+              color: {MIDNIGHT_SOFT};
+              margin-bottom: 3px;
+          }}
+          .takeaway-strip {{
+              background: {PAPER};
+              border-left: 4px solid {TIFFANY_DEEP};
+              padding: 7px 12px;
+              border-radius: 6px;
+              font-size: 0.81rem;
+              color: {MIDNIGHT};
+              margin-bottom: 8px;
           }}
         &lt;/style&gt;
         &quot;&quot;&quot;,
         unsafe_allow_html=True,
     )
+
+
+def apply_preset_to_session(preset_key: str) -&gt; None:
+    st.session_state[&quot;active_preset&quot;] = preset_key
+    if preset_key in SCENARIO_PRESETS:
+        cfg = SCENARIO_PRESETS[preset_key]
+        st.session_state[&quot;f_regime&quot;] = cfg[&quot;day_regime&quot;]
+        st.session_state[&quot;f_countries&quot;] = list(cfg[&quot;countries&quot;])
+        st.session_state[&quot;f_cities&quot;] = list(cfg[&quot;cities&quot;])
+        st.session_state[&quot;f_modes&quot;] = list(cfg[&quot;modes&quot;])
+        st.session_state[&quot;f_routes&quot;] = list(cfg[&quot;routes&quot;])
+        st.session_state[&quot;f_weathers&quot;] = list(cfg[&quot;weathers&quot;])
+        st.session_state[&quot;f_event&quot;] = cfg[&quot;event_day&quot;]
 
 
 def main() -&gt; None:
@@ -3803,6 +3920,7 @@ def main() -&gt; None:
         )
     if &quot;Day_Type&quot; not in df_base.columns:
         df_base[&quot;Day_Type&quot;] = np.where(df_base[&quot;Date_ISO&quot;].dt.dayofweek &gt;= 5, &quot;Weekend&quot;, &quot;Weekday&quot;)
+
     all_countries = sorted(df_base[&quot;Country&quot;].unique().tolist())
     all_modes = [m for m in MODE_ORDER if m in df_base[&quot;Transport_Mode&quot;].unique()]
     all_routes = sorted(df_base[&quot;Route_Type&quot;].unique().tolist())
@@ -3810,128 +3928,96 @@ def main() -&gt; None:
     min_date = df_base[&quot;Date_Only&quot;].min()
     max_date = df_base[&quot;Date_Only&quot;].max()
 
+    preset_names = list(SCENARIO_PRESETS.keys()) + [&quot;🎛️ 7. Custom Filter Exploration&quot;]
+    if &quot;active_preset&quot; not in st.session_state:
+        apply_preset_to_session(preset_names[0])
+
     # --------------------------------------------------------------------------
-    # SIDEBAR: SCENARIO PRESETS &amp; 6 COORDINATED FILTERS
+    # SIDEBAR: ORGANISED, COLLAPSIBLE &amp; EASY TO SCAN
     # --------------------------------------------------------------------------
     with st.sidebar:
         st.markdown(
             f&quot;&lt;div style=&#x27;background:{MIDNIGHT};color:{WHITE};padding:12px 14px;border-radius:10px;&quot;
-            f&quot;border-left:4px solid {TIFFANY};margin-bottom:12px;&#x27;&gt;&quot;
-            f&quot;&lt;div style=&#x27;font-weight:700;font-size:0.95rem;&#x27;&gt;🎛️ Executive Filter Console&lt;/div&gt;&quot;
-            f&quot;&lt;div style=&#x27;font-size:0.75rem;color:{MIST};&#x27;&gt;COM7021 · Student ID: 25199053&lt;/div&gt;&lt;/div&gt;&quot;,
+            f&quot;border-left:4px solid {TIFFANY};margin-bottom:10px;&#x27;&gt;&quot;
+            f&quot;&lt;div style=&#x27;font-weight:700;font-size:0.95rem;&#x27;&gt;🎛️ Filter &amp;amp; Scenario Console&lt;/div&gt;&quot;
+            f&quot;&lt;div style=&#x27;font-size:0.74rem;color:{MIST};&#x27;&gt;COM7021 · Student ID: 25199053&lt;/div&gt;&lt;/div&gt;&quot;,
             unsafe_allow_html=True,
         )
 
-        preset_names = list(SCENARIO_PRESETS.keys()) + [&quot;7. Custom Interactive Exploration&quot;]
+        st.button(
+            &quot;🔄 Reset All Filters to Full Baseline&quot;,
+            width=&quot;stretch&quot;,
+            on_click=apply_preset_to_session,
+            args=(preset_names[0],),
+        )
 
-        if &quot;active_preset&quot; not in st.session_state:
-            st.session_state[&quot;active_preset&quot;] = preset_names[0]
-            st.session_state[&quot;f_regime&quot;] = &quot;All Days&quot;
-            st.session_state[&quot;f_countries&quot;] = []
-            st.session_state[&quot;f_cities&quot;] = []
-            st.session_state[&quot;f_modes&quot;] = []
-            st.session_state[&quot;f_routes&quot;] = []
-            st.session_state[&quot;f_weathers&quot;] = []
-            st.session_state[&quot;f_event&quot;] = &quot;All&quot;
-
-        def _on_preset_change() -&gt; None:
-            chosen = st.session_state[&quot;active_preset&quot;]
-            if chosen in SCENARIO_PRESETS:
-                cfg = SCENARIO_PRESETS[chosen]
-                st.session_state[&quot;f_regime&quot;] = cfg[&quot;day_regime&quot;]
-                st.session_state[&quot;f_countries&quot;] = list(cfg[&quot;countries&quot;])
-                st.session_state[&quot;f_cities&quot;] = list(cfg[&quot;cities&quot;])
-                st.session_state[&quot;f_modes&quot;] = list(cfg[&quot;modes&quot;])
-                st.session_state[&quot;f_routes&quot;] = list(cfg[&quot;routes&quot;])
-                st.session_state[&quot;f_weathers&quot;] = list(cfg[&quot;weathers&quot;])
-                st.session_state[&quot;f_event&quot;] = cfg[&quot;event_day&quot;]
+        def _on_sidebar_preset_change() -&gt; None:
+            apply_preset_to_session(st.session_state[&quot;active_preset&quot;])
 
         selected_preset = st.selectbox(
-            &quot;1-Click Executive Scenario Preset&quot;,
+            &quot;Quick Scenario Preset&quot;,
             options=preset_names,
             key=&quot;active_preset&quot;,
-            on_change=_on_preset_change,
-            help=&quot;Jump directly to the exact report scenarios (Figure 9 Full Baseline or Figure 10 Adverse Weather Surface Scenario) or explore custom slices.&quot;,
+            on_change=_on_sidebar_preset_change,
         )
 
-        if selected_preset in SCENARIO_PRESETS:
-            st.caption(f&quot;📌 *{SCENARIO_PRESETS[selected_preset][&#x27;desc&#x27;]}*&quot;)
-        else:
-            st.caption(&quot;📌 *Custom exploration mode: combine any filters below.*&quot;)
+        with st.expander(&quot;📍 Geography &amp; Transport Mode&quot;, expanded=True):
+            sel_countries = st.multiselect(
+                &quot;Country (6 European Countries)&quot;,
+                options=all_countries,
+                key=&quot;f_countries&quot;,
+                placeholder=&quot;All 6 Countries&quot;,
+            )
+            avail_cities = sorted(
+                df_base[df_base[&quot;Country&quot;].isin(sel_countries)][&quot;City&quot;].unique().tolist()
+                if sel_countries
+                else df_base[&quot;City&quot;].unique().tolist()
+            )
+            st.session_state[&quot;f_cities&quot;] = [c for c in st.session_state.get(&quot;f_cities&quot;, []) if c in avail_cities]
+            sel_cities = st.multiselect(
+                &quot;City (12 Cities)&quot;,
+                options=avail_cities,
+                key=&quot;f_cities&quot;,
+                placeholder=f&quot;All {len(avail_cities)} Cities&quot;,
+            )
+            sel_modes = st.multiselect(
+                &quot;Transport Mode (6 Modes)&quot;,
+                options=all_modes,
+                key=&quot;f_modes&quot;,
+                placeholder=&quot;All 6 Modes&quot;,
+            )
+            sel_routes = st.multiselect(
+                &quot;Route Topology (6 Routes)&quot;,
+                options=all_routes,
+                key=&quot;f_routes&quot;,
+                placeholder=&quot;All 6 Route Types&quot;,
+            )
 
-        st.markdown(&quot;---&quot;)
-        st.markdown(&quot;**Granular Multi-Dimensional Filters**&quot;)
-
-        date_range = st.date_input(
-            &quot;1. Date Window (2024–2025)&quot;,
-            value=(min_date, max_date),
-            min_value=min_date,
-            max_value=max_date,
-            key=&quot;f_dates&quot;,
-        )
-
-        day_regime = st.selectbox(
-            &quot;Day Regime (Weekday / Weekend)&quot;,
-            options=[&quot;All Days&quot;, &quot;Weekday&quot;, &quot;Weekend&quot;],
-            key=&quot;f_regime&quot;,
-        )
-
-        sel_countries = st.multiselect(
-            &quot;2. Country (Leave empty for All 6)&quot;,
-            options=all_countries,
-            key=&quot;f_countries&quot;,
-            placeholder=&quot;All 6 European Countries&quot;,
-        )
-
-        avail_cities = sorted(
-            df_base[df_base[&quot;Country&quot;].isin(sel_countries)][&quot;City&quot;].unique().tolist()
-            if sel_countries
-            else df_base[&quot;City&quot;].unique().tolist()
-        )
-        # Ensure selected cities remain valid if country filter narrowed
-        st.session_state[&quot;f_cities&quot;] = [c for c in st.session_state.get(&quot;f_cities&quot;, []) if c in avail_cities]
-        sel_cities = st.multiselect(
-            &quot;3. City (Leave empty for All)&quot;,
-            options=avail_cities,
-            key=&quot;f_cities&quot;,
-            placeholder=f&quot;All {len(avail_cities)} Cities&quot;,
-        )
-
-        sel_modes = st.multiselect(
-            &quot;4. Transport Mode (Leave empty for All 6)&quot;,
-            options=all_modes,
-            key=&quot;f_modes&quot;,
-            placeholder=&quot;All 6 Transport Modes&quot;,
-        )
-
-        sel_routes = st.multiselect(
-            &quot;5. Route Topology (Leave empty for All 6)&quot;,
-            options=all_routes,
-            key=&quot;f_routes&quot;,
-            placeholder=&quot;All 6 Route Types&quot;,
-        )
-
-        sel_weathers = st.multiselect(
-            &quot;6. Weather Condition (Leave empty for All 6)&quot;,
-            options=all_weathers,
-            key=&quot;f_weathers&quot;,
-            placeholder=&quot;All 6 Weather Regimes&quot;,
-        )
-
-        sel_event = st.selectbox(
-            &quot;Major Event Day&quot;,
-            options=[&quot;All&quot;, &quot;No&quot;, &quot;Yes&quot;],
-            key=&quot;f_event&quot;,
-            format_func=lambda x: &quot;All Days&quot; if x == &quot;All&quot; else (&quot;Event Day (Yes)&quot; if x == &quot;Yes&quot; else &quot;Standard Day (No)&quot;),
-        )
-
-        st.markdown(&quot;---&quot;)
-        fin_basis = st.selectbox(
-            &quot;Financial Table Basis&quot;,
-            options=[&quot;Per-Record Mean (€/record)&quot;, &quot;Cumulative Total (€)&quot;, &quot;Per-Passenger Unit Rate (€/pax)&quot;],
-            index=0,
-            help=&quot;Reconciles per-record, cumulative total, and per-passenger financial views.&quot;,
-        )
+        with st.expander(&quot;🌦️ Weather, Events &amp; Calendar&quot;, expanded=True):
+            sel_weathers = st.multiselect(
+                &quot;Weather Condition&quot;,
+                options=all_weathers,
+                key=&quot;f_weathers&quot;,
+                placeholder=&quot;All 6 Weather Regimes&quot;,
+            )
+            sel_event = st.selectbox(
+                &quot;Major Event Day&quot;,
+                options=[&quot;All&quot;, &quot;No&quot;, &quot;Yes&quot;],
+                key=&quot;f_event&quot;,
+                format_func=lambda x: &quot;All Days&quot; if x == &quot;All&quot; else (&quot;Major Event Day (Yes)&quot; if x == &quot;Yes&quot; else &quot;Standard Day (No)&quot;),
+            )
+            day_regime = st.selectbox(
+                &quot;Day Regime (Weekday / Weekend)&quot;,
+                options=[&quot;All Days&quot;, &quot;Weekday&quot;, &quot;Weekend&quot;],
+                key=&quot;f_regime&quot;,
+            )
+            date_range = st.date_input(
+                &quot;Date Window (2024–2025)&quot;,
+                value=(min_date, max_date),
+                min_value=min_date,
+                max_value=max_date,
+                key=&quot;f_dates&quot;,
+            )
 
     # --------------------------------------------------------------------------
     # APPLY FILTER MASK
@@ -3958,46 +4044,73 @@ def main() -&gt; None:
     df_sub = df_base[mask].copy()
 
     # --------------------------------------------------------------------------
-    # TOP BANNER &amp; ACTIVE FILTER STATUS STRIP
+    # TOP EXECUTIVE HEADER
     # --------------------------------------------------------------------------
     st.markdown(
-        f&quot;&quot;&quot;
-        &lt;div class=&quot;arden-banner&quot;&gt;
+        &quot;&quot;&quot;
+        &lt;div class=&quot;exec-header&quot;&gt;
           &lt;div&gt;
-            &lt;h1&gt;EcoMove City Transport Authority — Executive Decision Dashboard&lt;/h1&gt;
-            &lt;div class=&quot;sub&quot;&gt;Interactive Streamlit &amp;amp; Plotly Visualisation Framework · European Urban Mobility Network (2024–2025) · Arden Palette&lt;/div&gt;
+            &lt;h1&gt;🚊 EcoMove Mobility — Executive Decision Dashboard&lt;/h1&gt;
+            &lt;div class=&quot;sub&quot;&gt;European Urban Mobility Network (12 Cities · 6 Countries · 2024–2025) · Interactive Visualisation Suite&lt;/div&gt;
           &lt;/div&gt;
-          &lt;div class=&quot;arden-badge&quot;&gt;Student ID: 25199053 · COM7021&lt;/div&gt;
+          &lt;div class=&quot;header-badges&quot;&gt;
+            &lt;span class=&quot;h-badge&quot;&gt;N = 5,000 Daily Records&lt;/span&gt;
+            &lt;span class=&quot;h-badge tiffany&quot;&gt;COM7021 · ID: 25199053&lt;/span&gt;
+          &lt;/div&gt;
         &lt;/div&gt;
         &quot;&quot;&quot;,
         unsafe_allow_html=True,
     )
 
+    # --------------------------------------------------------------------------
+    # MAIN-CANVAS 1-CLICK SCENARIO BAR (NO SIDEBAR HUNTING REQUIRED)
+    # --------------------------------------------------------------------------
+    btn_cols = st.columns(6)
+    for idx, p_key in enumerate(SCENARIO_PRESETS.keys()):
+        is_current = st.session_state.get(&quot;active_preset&quot;) == p_key
+        with btn_cols[idx]:
+            st.button(
+                p_key,
+                key=f&quot;main_btn_{idx}&quot;,
+                type=&quot;primary&quot; if is_current else &quot;secondary&quot;,
+                width=&quot;stretch&quot;,
+                help=SCENARIO_PRESETS[p_key][&quot;desc&quot;],
+                on_click=apply_preset_to_session,
+                args=(p_key,),
+            )
+
     if df_sub.empty:
-        st.warning(&quot;No records match the currently selected filter combination. Please broaden one or more sidebar filters.&quot;)
+        st.warning(&quot;No records match the currently selected filter combination. Click &#x27;Reset All Filters&#x27; in the sidebar.&quot;)
         return
 
     m = compute_metrics(df_sub, df_base)
+    city_summary_df = compute_city_standardised_table(df_sub, df_base)
 
+    # Active Filter Status Bar
     chips = [
         (&quot;Country&quot;, f&quot;{len(sel_countries)} sel&quot; if sel_countries else &quot;All (6)&quot;, bool(sel_countries)),
         (&quot;City&quot;, f&quot;{len(sel_cities)} sel&quot; if sel_cities else &quot;All (12)&quot;, bool(sel_cities)),
-        (&quot;Mode&quot;, &quot;, &quot;.join(sel_modes) if len(sel_modes) &lt;= 2 and sel_modes else (f&quot;Surface ({len(sel_modes)})&quot; if sel_modes else &quot;All (6)&quot;), bool(sel_modes)),
-        (&quot;Route&quot;, &quot;, &quot;.join(sel_routes) if len(sel_routes) == 1 else (f&quot;{len(sel_routes)} sel&quot; if sel_routes else &quot;All (6)&quot;), bool(sel_routes)),
+        (&quot;Mode&quot;, &quot;, &quot;.join(sel_modes) if len(sel_modes) &lt;= 2 and sel_modes else (f&quot;{len(sel_modes)} modes&quot; if sel_modes else &quot;All (6)&quot;), bool(sel_modes)),
+        (&quot;Route&quot;, &quot;, &quot;.join(sel_routes) if len(sel_routes) == 1 else (f&quot;{len(sel_routes)} routes&quot; if sel_routes else &quot;All (6)&quot;), bool(sel_routes)),
         (&quot;Weather&quot;, &quot; + &quot;.join(sel_weathers) if sel_weathers else &quot;All (6)&quot;, bool(sel_weathers)),
-        (&quot;Event Day&quot;, sel_event, sel_event != &quot;All&quot;),
+        (&quot;Event&quot;, sel_event, sel_event != &quot;All&quot;),
     ]
     pills_html = &quot;&quot;.join(
-        f&#x27;&lt;span class=&quot;filter-pill {&quot;active&quot; if act else &quot;&quot;}&quot;&gt;{lbl}: {val}&lt;/span&gt;&#x27;
+        f&#x27;&lt;span class=&quot;chip-pill {&quot;active&quot; if act else &quot;&quot;}&quot;&gt;{lbl}: {val}&lt;/span&gt;&#x27;
         for lbl, val, act in chips
+    )
+    active_desc = (
+        SCENARIO_PRESETS[selected_preset][&quot;desc&quot;]
+        if selected_preset in SCENARIO_PRESETS
+        else &quot;Custom multi-dimensional filter slice active.&quot;
     )
     st.markdown(
         f&quot;&quot;&quot;
-        &lt;div class=&quot;slice-bar&quot;&gt;
-          &lt;div&gt;&lt;strong&gt;ACTIVE FILTER SLICE:&lt;/strong&gt; &amp;nbsp; {pills_html}&lt;/div&gt;
+        &lt;div class=&quot;status-strip&quot;&gt;
+          &lt;div&gt;&lt;strong&gt;ACTIVE VIEW:&lt;/strong&gt; &amp;nbsp;{pills_html} &lt;span style=&quot;color:{MUTE};font-size:0.78rem;margin-left:6px;&quot;&gt;{active_desc}&lt;/span&gt;&lt;/div&gt;
           &lt;div style=&quot;color:{MIDNIGHT};font-weight:700;&quot;&gt;
-            Showing &lt;code&gt;{m[&#x27;n_rec&#x27;]:,}&lt;/code&gt; / 5,000 records ({m[&#x27;rec_share_pct&#x27;]:.1f}%) &amp;nbsp;·&amp;nbsp;
-            &lt;code&gt;{m[&#x27;total_pax&#x27;]/1e6:.2f}M&lt;/code&gt; / 40.91M passengers ({m[&#x27;pax_share_pct&#x27;]:.1f}%)
+            &lt;code&gt;{m[&#x27;n_rec&#x27;]:,}&lt;/code&gt; / 5,000 records ({m[&#x27;rec_share_pct&#x27;]:.1f}%) &amp;nbsp;·&amp;nbsp;
+            &lt;code&gt;{m[&#x27;total_pax&#x27;]/1e6:.2f}M&lt;/code&gt; / 40.91M pax ({m[&#x27;pax_share_pct&#x27;]:.1f}%)
           &lt;/div&gt;
         &lt;/div&gt;
         &quot;&quot;&quot;,
@@ -4005,47 +4118,45 @@ def main() -&gt; None:
     )
 
     # --------------------------------------------------------------------------
-    # 6-CARD EXECUTIVE KPI STRIP (WITH DUAL-BASIS COST RECOVERY &amp; BASELINE DELTAS)
+    # SLEEK 6-CARD EXECUTIVE KPI STRIP
     # --------------------------------------------------------------------------
     net_sign = &quot;+&quot; if m[&quot;net_margin&quot;] &gt;= 0 else &quot;-&quot;
+    ontime_status = &quot;ON TARGET&quot; if m[&quot;mean_ontime&quot;] &gt;= 85.0 else &quot;BELOW 85%&quot;
+    delay_status = &quot;ELEVATED&quot; if m[&quot;mean_delay&quot;] &gt; 5.0 else &quot;NOMINAL&quot;
+    rec_status = &quot;SURPLUS&quot; if m[&quot;overall_recovery&quot;] &gt;= 100.0 else &quot;NEAR EVEN&quot; if m[&quot;overall_recovery&quot;] &gt;= 95.0 else &quot;SUBSIDISED&quot;
+
     st.markdown(
         f&quot;&quot;&quot;
         &lt;div class=&quot;kpi-grid&quot;&gt;
           &lt;div class=&quot;kpi-card&quot;&gt;
-            &lt;div class=&quot;kpi-label&quot;&gt;Total Passengers&lt;/div&gt;
-            &lt;div class=&quot;kpi-val&quot;&gt;{m[&#x27;total_pax&#x27;]/1e6:.2f}M&lt;/div&gt;
-            &lt;div class=&quot;kpi-sub&quot;&gt;Mean: {m[&#x27;mean_pax&#x27;]:,.0f}/rec · Med: {m[&#x27;median_pax&#x27;]:,.0f}&lt;/div&gt;
-            &lt;div class=&quot;kpi-delta&quot;&gt;Δ Mean vs Base: {m[&#x27;delta_pax_pct&#x27;]:+.1f}%&lt;/div&gt;
+            &lt;div class=&quot;kpi-top&quot;&gt;&lt;span class=&quot;kpi-title&quot;&gt;👥 Ridership&lt;/span&gt;&lt;span class=&quot;kpi-tag&quot;&gt;{m[&#x27;pax_share_pct&#x27;]:.1f}% of net&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;kpi-main&quot;&gt;{m[&#x27;total_pax&#x27;]/1e6:.2f}M&lt;/div&gt;
+            &lt;div class=&quot;kpi-foot&quot;&gt;&lt;span&gt;Mean: {m[&#x27;mean_pax&#x27;]:,.0f}/rec&lt;/span&gt;&lt;span&gt;Med: {m[&#x27;median_pax&#x27;]:,.0f}&lt;/span&gt;&lt;/div&gt;
           &lt;/div&gt;
           &lt;div class=&quot;kpi-card&quot;&gt;
-            &lt;div class=&quot;kpi-label&quot;&gt;Mean On-Time Rate&lt;/div&gt;
-            &lt;div class=&quot;kpi-val&quot;&gt;{m[&#x27;mean_ontime&#x27;]:.1f}%&lt;/div&gt;
-            &lt;div class=&quot;kpi-sub&quot;&gt;Authority Target: 85.0%&lt;/div&gt;
-            &lt;div class=&quot;kpi-delta&quot;&gt;Δ vs Base (82.1%): {m[&#x27;delta_ontime_pp&#x27;]:+.1f} pp&lt;/div&gt;
+            &lt;div class=&quot;kpi-top&quot;&gt;&lt;span class=&quot;kpi-title&quot;&gt;🎯 On-Time Rate&lt;/span&gt;&lt;span class=&quot;kpi-tag&quot;&gt;{ontime_status}&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;kpi-main&quot;&gt;{m[&#x27;mean_ontime&#x27;]:.1f}%&lt;/div&gt;
+            &lt;div class=&quot;kpi-foot&quot;&gt;&lt;span&gt;Target: 85.0%&lt;/span&gt;&lt;span&gt;Δ Base: {m[&#x27;delta_ontime_pp&#x27;]:+.1f}pp&lt;/span&gt;&lt;/div&gt;
           &lt;/div&gt;
           &lt;div class=&quot;kpi-card focal&quot;&gt;
-            &lt;div class=&quot;kpi-label&quot;&gt;Mean Service Delay&lt;/div&gt;
-            &lt;div class=&quot;kpi-val&quot;&gt;{m[&#x27;mean_delay&#x27;]:.2f} min&lt;/div&gt;
-            &lt;div class=&quot;kpi-sub&quot;&gt;Med: {m[&#x27;median_delay&#x27;]:.2f}m · IQR: {m[&#x27;iqr_delay&#x27;]:.2f}m&lt;/div&gt;
-            &lt;div class=&quot;kpi-delta&quot;&gt;Δ vs Base (4.35m): {m[&#x27;delta_delay_pct&#x27;]:+.1f}%&lt;/div&gt;
+            &lt;div class=&quot;kpi-top&quot;&gt;&lt;span class=&quot;kpi-title&quot;&gt;⏱️ Service Delay&lt;/span&gt;&lt;span class=&quot;kpi-tag good&quot;&gt;{delay_status}&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;kpi-main&quot;&gt;{m[&#x27;mean_delay&#x27;]:.2f} min&lt;/div&gt;
+            &lt;div class=&quot;kpi-foot&quot;&gt;&lt;span&gt;Med: {m[&#x27;median_delay&#x27;]:.1f}m (IQR {m[&#x27;iqr_delay&#x27;]:.1f})&lt;/span&gt;&lt;span&gt;Δ: {m[&#x27;delta_delay_pct&#x27;]:+.1f}%&lt;/span&gt;&lt;/div&gt;
           &lt;/div&gt;
           &lt;div class=&quot;kpi-card focal&quot;&gt;
-            &lt;div class=&quot;kpi-label&quot;&gt;Cost Recovery (Overall)&lt;/div&gt;
-            &lt;div class=&quot;kpi-val&quot;&gt;{m[&#x27;overall_recovery&#x27;]:.1f}%&lt;/div&gt;
-            &lt;div class=&quot;kpi-sub&quot;&gt;Record Mean: &lt;b&gt;{m[&#x27;record_mean_recovery&#x27;]:.1f}%&lt;/b&gt; · {net_sign}€{abs(m[&#x27;net_margin&#x27;])/1e6:.2f}M&lt;/div&gt;
-            &lt;div class=&quot;kpi-delta&quot;&gt;Fare €{m[&#x27;fare_per_pax&#x27;]:.2f} vs Cost €{m[&#x27;cost_per_pax&#x27;]:.2f}/pax&lt;/div&gt;
+            &lt;div class=&quot;kpi-top&quot;&gt;&lt;span class=&quot;kpi-title&quot;&gt;💶 Cost Recovery&lt;/span&gt;&lt;span class=&quot;kpi-tag good&quot;&gt;{rec_status}&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;kpi-main&quot;&gt;{m[&#x27;overall_recovery&#x27;]:.1f}%&lt;/div&gt;
+            &lt;div class=&quot;kpi-foot&quot;&gt;&lt;span&gt;Rec Mean: &lt;b&gt;{m[&#x27;record_mean_recovery&#x27;]:.1f}%&lt;/b&gt;&lt;/span&gt;&lt;span&gt;Net: {net_sign}€{abs(m[&#x27;net_margin&#x27;])/1e6:.2f}M&lt;/span&gt;&lt;/div&gt;
           &lt;/div&gt;
           &lt;div class=&quot;kpi-card&quot;&gt;
-            &lt;div class=&quot;kpi-label&quot;&gt;Total CO2 Mitigated&lt;/div&gt;
-            &lt;div class=&quot;kpi-val&quot;&gt;{m[&#x27;total_co2_t&#x27;]:,.1f} t&lt;/div&gt;
-            &lt;div class=&quot;kpi-sub&quot;&gt;Efficiency: {m[&#x27;agg_co2_kwh&#x27;]:.2f} kg CO2/kWh&lt;/div&gt;
-            &lt;div class=&quot;kpi-delta&quot;&gt;Δ Efficiency: {m[&#x27;delta_co2_kwh&#x27;]:+.2f} kg/kWh&lt;/div&gt;
+            &lt;div class=&quot;kpi-top&quot;&gt;&lt;span class=&quot;kpi-title&quot;&gt;🌱 CO2 Mitigated&lt;/span&gt;&lt;span class=&quot;kpi-tag&quot;&gt;GREEN KPI&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;kpi-main&quot;&gt;{m[&#x27;total_co2_t&#x27;]:,.1f} t&lt;/div&gt;
+            &lt;div class=&quot;kpi-foot&quot;&gt;&lt;span&gt;{m[&#x27;agg_co2_kwh&#x27;]:.2f} kg CO2/kWh&lt;/span&gt;&lt;span&gt;Δ: {m[&#x27;delta_co2_kwh&#x27;]:+.2f}&lt;/span&gt;&lt;/div&gt;
           &lt;/div&gt;
           &lt;div class=&quot;kpi-card&quot;&gt;
-            &lt;div class=&quot;kpi-label&quot;&gt;Customer Satisfaction&lt;/div&gt;
-            &lt;div class=&quot;kpi-val&quot;&gt;{m[&#x27;mean_rating&#x27;]:.2f} / 5&lt;/div&gt;
-            &lt;div class=&quot;kpi-sub&quot;&gt;Complaints: &lt;b&gt;{m[&#x27;weighted_comp_10k&#x27;]:.2f} / 10k pax&lt;/b&gt;&lt;/div&gt;
-            &lt;div class=&quot;kpi-delta&quot;&gt;Δ Rating vs Base: {m[&#x27;delta_rating&#x27;]:+.2f}★&lt;/div&gt;
+            &lt;div class=&quot;kpi-top&quot;&gt;&lt;span class=&quot;kpi-title&quot;&gt;⭐ Satisfaction&lt;/span&gt;&lt;span class=&quot;kpi-tag&quot;&gt;EQUITY&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;kpi-main&quot;&gt;{m[&#x27;mean_rating&#x27;]:.2f} / 5&lt;/div&gt;
+            &lt;div class=&quot;kpi-foot&quot;&gt;&lt;span&gt;&lt;b&gt;{m[&#x27;weighted_comp_10k&#x27;]:.2f}&lt;/b&gt; comp/10k&lt;/span&gt;&lt;span&gt;Δ: {m[&#x27;delta_rating&#x27;]:+.2f}★&lt;/span&gt;&lt;/div&gt;
           &lt;/div&gt;
         &lt;/div&gt;
         &quot;&quot;&quot;,
@@ -4053,340 +4164,377 @@ def main() -&gt; None:
     )
 
     # --------------------------------------------------------------------------
-    # FIVE STRUCTURED DECISION TABS
+    # DYNAMIC 3-PILLAR EXECUTIVE PULSE (PLAIN-ENGLISH INSIGHTS FOR CURRENT SLICE)
+    # --------------------------------------------------------------------------
+    top_mode_row = (
+        df_sub.groupby(&quot;Transport_Mode&quot;, as_index=False)[&quot;Passengers&quot;].sum().sort_values(&quot;Passengers&quot;, ascending=False).iloc[0]
+    )
+    worst_delay_row = (
+        df_sub.groupby(&quot;Transport_Mode&quot;, as_index=False)[&quot;Average_Delay_Minutes&quot;].mean().sort_values(&quot;Average_Delay_Minutes&quot;, ascending=False).iloc[0]
+    )
+    st.markdown(
+        f&quot;&quot;&quot;
+        &lt;div class=&quot;pulse-grid&quot;&gt;
+          &lt;div class=&quot;pulse-card&quot;&gt;
+            &lt;div class=&quot;pulse-head&quot;&gt;📌 Demand &amp;amp; Modal Backbone&lt;/div&gt;
+            &lt;b&gt;{top_mode_row[&#x27;Transport_Mode&#x27;]}&lt;/b&gt; leads current ridership with &lt;b&gt;{top_mode_row[&#x27;Passengers&#x27;]/1e6:.2f}M passengers&lt;/b&gt;
+            ({top_mode_row[&#x27;Passengers&#x27;]/max(m[&#x27;total_pax&#x27;],1)*100:.1f}% of slice volume) across {m[&#x27;n_rec&#x27;]:,} service records.
+          &lt;/div&gt;
+          &lt;div class=&quot;pulse-card accent&quot;&gt;
+            &lt;div class=&quot;pulse-head&quot;&gt;💶 Commercial Dual-Basis Check&lt;/div&gt;
+            Volume-weighted recovery is &lt;b&gt;{m[&#x27;overall_recovery&#x27;]:.2f}%&lt;/b&gt; (€{m[&#x27;fare_per_pax&#x27;]:.2f} fare vs €{m[&#x27;cost_per_pax&#x27;]:.2f} cost/pax),
+            whereas unweighted record-mean recovery is &lt;b&gt;{m[&#x27;record_mean_recovery&#x27;]:.2f}%&lt;/b&gt;.
+          &lt;/div&gt;
+          &lt;div class=&quot;pulse-card&quot;&gt;
+            &lt;div class=&quot;pulse-head&quot;&gt;⏱️ Reliability &amp;amp; Accessibility Pulse&lt;/div&gt;
+            &lt;b&gt;{worst_delay_row[&#x27;Transport_Mode&#x27;]}&lt;/b&gt; records the highest mean delay (&lt;b&gt;{worst_delay_row[&#x27;Average_Delay_Minutes&#x27;]:.2f} min&lt;/b&gt;);
+            volume-normalised accessibility complaints average &lt;b&gt;{m[&#x27;weighted_comp_10k&#x27;]:.2f} per 10k pax&lt;/b&gt;.
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &quot;&quot;&quot;,
+        unsafe_allow_html=True,
+    )
+
+    # --------------------------------------------------------------------------
+    # FIVE CLEAN, VISUAL ANALYTICAL TABS
     # --------------------------------------------------------------------------
     tab1, tab2, tab3, tab4, tab5 = st.tabs(
         [
             &quot;📊 1. Executive Overview (Figs 9 &amp; 10)&quot;,
-            &quot;📈 2. Demand &amp; Modal Regimes (Fig 1)&quot;,
+            &quot;📈 2. Demand &amp; Regimes (Fig 1)&quot;,
             &quot;💶 3. Financials &amp; Simpson&#x27;s Paradox (Figs 2 &amp; 3)&quot;,
-            &quot;⏱️ 4. Reliability, Weather &amp; Satisfaction (Figs 4–6)&quot;,
-            &quot;♿ 5. Accessibility, Carbon &amp; Data Explorer (Figs 7 &amp; 8)&quot;,
+            &quot;⏱️ 4. Reliability &amp; Weather (Figs 4–6)&quot;,
+            &quot;♿ 5. Accessibility, Carbon &amp; Data (Figs 7 &amp; 8)&quot;,
         ]
     )
 
-    city_summary_df = compute_city_standardised_table(df_sub, df_base)
-
     # === TAB 1: EXECUTIVE OVERVIEW (FIGURES 9 &amp; 10) ===
     with tab1:
-        st.markdown(
-            f&quot;&lt;div class=&#x27;note-callout&#x27;&gt;&lt;strong&gt;Executive Decision Workspace (Figures 9 &amp;amp; 10):&lt;/strong&gt; &quot;
-            f&quot;Coordinated 4-panel view updating live across all sidebar filters. Use the sidebar preset &quot;
-            f&quot;&lt;em&gt;&#x27;1. Full Network Baseline&#x27;&lt;/em&gt; to inspect &lt;strong&gt;Figure 9&lt;/strong&gt; (N = 5,000; 99.6% overall recovery, 4.35 min delay, 40.91M pax) &quot;
-            f&quot;or &lt;em&gt;&#x27;2. Adverse Weather Surface Transit&#x27;&lt;/em&gt; to inspect &lt;strong&gt;Figure 10&lt;/strong&gt; (n = 583; 2.80M pax; 7.38 min delay, +69.7% above baseline; &quot;
-            f&quot;72.2% on-time rate; 113.2% overall recovery, +€0.84M net surplus; 17.46 / 10k complaints).&lt;/div&gt;&quot;,
-            unsafe_allow_html=True,
-        )
         r1c1, r1c2 = st.columns(2)
         with r1c1:
-            st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=340), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=340), width=&quot;stretch&quot;)
         with r1c2:
-            st.plotly_chart(chart_mode_recovery(df_sub, height=340), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.plotly_chart(chart_mode_recovery(df_sub, height=340), width=&quot;stretch&quot;)
 
         r2c1, r2c2 = st.columns(2)
         with r2c1:
-            st.plotly_chart(chart_weather_delay(df_sub, height=340), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.plotly_chart(chart_weather_delay(df_sub, height=340), width=&quot;stretch&quot;)
         with r2c2:
-            st.plotly_chart(chart_route_complaints(df_sub, metric_mode=&quot;weighted&quot;, height=340), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.plotly_chart(chart_route_complaints(df_sub, metric_mode=&quot;weighted&quot;, height=340), width=&quot;stretch&quot;)
 
-        st.markdown(&quot;#### City-Level Executive Decision Summary (Live Filtered Slice)&quot;)
-        disp_city = city_summary_df[
-            [
-                &quot;City&quot;,
-                &quot;Country&quot;,
-                &quot;Records&quot;,
-                &quot;Total_Pax&quot;,
-                &quot;Mean_Delay&quot;,
-                &quot;On_Time_Pct&quot;,
-                &quot;Overall_Recovery_Pct&quot;,
-                &quot;Rec_Mean_Recovery&quot;,
-                &quot;Net_Margin&quot;,
-                &quot;Raw_Margin_Rec&quot;,
-                &quot;Mix_Adj_Margin_Rec&quot;,
-                &quot;CO2_Tonnes&quot;,
-                &quot;Mean_Rating&quot;,
-                &quot;Comp_per_10k_Pax&quot;,
-            ]
-        ].rename(
-            columns={
-                &quot;Total_Pax&quot;: &quot;Passengers&quot;,
-                &quot;Mean_Delay&quot;: &quot;Delay (min)&quot;,
-                &quot;On_Time_Pct&quot;: &quot;On-Time (%)&quot;,
-                &quot;Overall_Recovery_Pct&quot;: &quot;Overall Rec (%)&quot;,
-                &quot;Rec_Mean_Recovery&quot;: &quot;Record Mean Rec (%)&quot;,
-                &quot;Net_Margin&quot;: &quot;Total Net (€)&quot;,
-                &quot;Raw_Margin_Rec&quot;: &quot;Raw Margin (€/rec)&quot;,
-                &quot;Mix_Adj_Margin_Rec&quot;: &quot;Mix-Adj Margin (€/rec)&quot;,
-                &quot;CO2_Tonnes&quot;: &quot;CO2 Saved (t)&quot;,
-                &quot;Mean_Rating&quot;: &quot;Rating (/5)&quot;,
-                &quot;Comp_per_10k_Pax&quot;: &quot;Comp / 10k Pax&quot;,
-            }
-        )
-        st.dataframe(
-            disp_city.style.format(
-                {
-                    &quot;Records&quot;: &quot;{:,}&quot;,
-                    &quot;Passengers&quot;: &quot;{:,.0f}&quot;,
-                    &quot;Delay (min)&quot;: &quot;{:.2f}&quot;,
-                    &quot;On-Time (%)&quot;: &quot;{:.1f}%&quot;,
-                    &quot;Overall Rec (%)&quot;: &quot;{:.1f}%&quot;,
-                    &quot;Record Mean Rec (%)&quot;: &quot;{:.1f}%&quot;,
-                    &quot;Total Net (€)&quot;: &quot;€{:,.0f}&quot;,
-                    &quot;Raw Margin (€/rec)&quot;: &quot;€{:,.2f}&quot;,
-                    &quot;Mix-Adj Margin (€/rec)&quot;: &quot;€{:,.2f}&quot;,
-                    &quot;CO2 Saved (t)&quot;: &quot;{:,.1f}&quot;,
-                    &quot;Rating (/5)&quot;: &quot;{:.2f}&quot;,
-                    &quot;Comp / 10k Pax&quot;: &quot;{:.2f}&quot;,
-                }
-            ),
-            width=&quot;stretch&quot;,
-            hide_index=True,
-        )
+        with st.container(border=True):
+            st.markdown(&quot;##### 🏙️ 12-City Executive Performance Scorecard (With Visual Progress Bars &amp; Mix-Adjusted Margins)&quot;)
+            disp_city = city_summary_df[
+                [
+                    &quot;City&quot;,
+                    &quot;Country&quot;,
+                    &quot;Records&quot;,
+                    &quot;Total_Pax&quot;,
+                    &quot;Mean_Delay&quot;,
+                    &quot;On_Time_Pct&quot;,
+                    &quot;Overall_Recovery_Pct&quot;,
+                    &quot;Rec_Mean_Recovery&quot;,
+                    &quot;Net_Margin&quot;,
+                    &quot;Raw_Margin_Rec&quot;,
+                    &quot;Mix_Adj_Margin_Rec&quot;,
+                    &quot;Mean_Rating&quot;,
+                    &quot;Comp_per_10k_Pax&quot;,
+                ]
+            ].copy()
+            st.dataframe(
+                disp_city,
+                column_config={
+                    &quot;City&quot;: st.column_config.TextColumn(&quot;City&quot;, width=&quot;small&quot;),
+                    &quot;Country&quot;: st.column_config.TextColumn(&quot;Country&quot;, width=&quot;small&quot;),
+                    &quot;Records&quot;: st.column_config.NumberColumn(&quot;Records&quot;, format=&quot;%d&quot;),
+                    &quot;Total_Pax&quot;: st.column_config.NumberColumn(&quot;Passengers&quot;, format=&quot;%d&quot;),
+                    &quot;Mean_Delay&quot;: st.column_config.NumberColumn(&quot;Delay (min)&quot;, format=&quot;%.2f m&quot;),
+                    &quot;On_Time_Pct&quot;: st.column_config.ProgressColumn(
+                        &quot;On-Time Rate&quot;, format=&quot;%.1f%%&quot;, min_value=50.0, max_value=100.0
+                    ),
+                    &quot;Overall_Recovery_Pct&quot;: st.column_config.ProgressColumn(
+                        &quot;Overall Recovery&quot;, format=&quot;%.1f%%&quot;, min_value=0.0, max_value=130.0
+                    ),
+                    &quot;Rec_Mean_Recovery&quot;: st.column_config.NumberColumn(&quot;Record Mean Rec&quot;, format=&quot;%.1f%%&quot;),
+                    &quot;Net_Margin&quot;: st.column_config.NumberColumn(&quot;Total Net (€)&quot;, format=&quot;€%.0f&quot;),
+                    &quot;Raw_Margin_Rec&quot;: st.column_config.NumberColumn(&quot;Raw Margin (/rec)&quot;, format=&quot;€%.2f&quot;),
+                    &quot;Mix_Adj_Margin_Rec&quot;: st.column_config.NumberColumn(&quot;Mix-Adj Margin (/rec)&quot;, format=&quot;€%.2f&quot;),
+                    &quot;Mean_Rating&quot;: st.column_config.ProgressColumn(
+                        &quot;Rating (/5)&quot;, format=&quot;%.2f ★&quot;, min_value=1.0, max_value=5.0
+                    ),
+                    &quot;Comp_per_10k_Pax&quot;: st.column_config.NumberColumn(&quot;Complaints / 10k&quot;, format=&quot;%.2f&quot;),
+                },
+                width=&quot;stretch&quot;,
+                hide_index=True,
+            )
 
     # === TAB 2: DEMAND &amp; MODAL REGIMES (FIGURE 1) ===
     with tab2:
-        st.markdown(
-            &quot;&lt;div class=&#x27;note-callout&#x27;&gt;&lt;strong&gt;Temporal Regime &amp;amp; Modal Skewness Analysis (Figure 1 &amp;amp; Section 1.2):&lt;/strong&gt; &quot;
-            &quot;Weekday commuting generates a &lt;strong&gt;+34.1% demand premium&lt;/strong&gt; over weekends (8,802.88 vs 6,562.86 pax/record), while &quot;
-            &quot;the recurring &lt;strong&gt;October trough (-27.2% at 6,805.48 pax/record)&lt;/strong&gt; identifies the optimal low-disruption window for &quot;
-            &quot;capital infrastructure maintenance. Right panel explains why pooling Metro (62.96% of passengers) with shared micromobility &quot;
-            &quot;(24.64% of records but 1.06% of passengers) creates severe positive skewness (+1.90).&lt;/div&gt;&quot;,
-            unsafe_allow_html=True,
-        )
-        c_left, c_right = st.columns([1.15, 1.0])
+        c_left, c_right = st.columns([1.1, 1.0])
         with c_left:
-            st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=390), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.markdown(
+                    &quot;&lt;div class=&#x27;takeaway-strip&#x27;&gt;&lt;b&gt;Figure 1 Takeaway:&lt;/b&gt; Weekdays generate a &lt;b&gt;+34.1% commute premium&lt;/b&gt; (8,803 vs 6,563 pax/rec), while the recurring &lt;b&gt;October trough (-27.2%)&lt;/b&gt; marks the optimal window for capital track maintenance.&lt;/div&gt;&quot;,
+                    unsafe_allow_html=True,
+                )
+                st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=370), width=&quot;stretch&quot;)
         with c_right:
-            st.plotly_chart(chart_modal_share_discrepancy(df_sub), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.markdown(
+                    &quot;&lt;div class=&#x27;takeaway-strip&#x27;&gt;&lt;b&gt;Skewness Takeaway:&lt;/b&gt; Metro carries &lt;b&gt;62.96% of passengers&lt;/b&gt; on 16.5% of records, whereas Bike Share &amp;amp; E-Scooter make up &lt;b&gt;24.64% of records&lt;/b&gt; but only &lt;b&gt;1.06% of passengers&lt;/b&gt;.&lt;/div&gt;&quot;,
+                    unsafe_allow_html=True,
+                )
+                st.plotly_chart(chart_modal_share_discrepancy(df_sub), width=&quot;stretch&quot;)
 
-        # Day of week breakdown table
-        dow_order = [&quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;, &quot;Sunday&quot;]
-        dow_df = (
-            df_sub.groupby([&quot;DayOfWeek&quot;, &quot;Day_Type&quot;], as_index=False)
-            .agg(
-                Records=(&quot;Record_ID&quot;, &quot;count&quot;),
-                Total_Pax=(&quot;Passengers&quot;, &quot;sum&quot;),
-                Mean_Pax=(&quot;Passengers&quot;, &quot;mean&quot;),
-                Median_Pax=(&quot;Passengers&quot;, &quot;median&quot;),
-                Mean_Delay=(&quot;Average_Delay_Minutes&quot;, &quot;mean&quot;),
-                Overall_Rec=(&quot;Ticket_Revenue_EUR&quot;, lambda s: s.sum() / df_sub.loc[s.index, &quot;Operating_Cost_EUR&quot;].sum() * 100.0),
+        with st.container(border=True):
+            st.markdown(&quot;##### 📅 Day-of-Week Operational Regime Profile&quot;)
+            dow_order = [&quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;, &quot;Sunday&quot;]
+            dow_df = (
+                df_sub.groupby([&quot;DayOfWeek&quot;, &quot;Day_Type&quot;], as_index=False)
+                .agg(
+                    Records=(&quot;Record_ID&quot;, &quot;count&quot;),
+                    Total_Pax=(&quot;Passengers&quot;, &quot;sum&quot;),
+                    Mean_Pax=(&quot;Passengers&quot;, &quot;mean&quot;),
+                    Median_Pax=(&quot;Passengers&quot;, &quot;median&quot;),
+                    Mean_Delay=(&quot;Average_Delay_Minutes&quot;, &quot;mean&quot;),
+                    Overall_Rec=(
+                        &quot;Ticket_Revenue_EUR&quot;,
+                        lambda s: s.sum() / max(df_sub.loc[s.index, &quot;Operating_Cost_EUR&quot;].sum(), 1) * 100.0,
+                    ),
+                )
             )
-        )
-        dow_df[&quot;Order&quot;] = dow_df[&quot;DayOfWeek&quot;].apply(lambda d: dow_order.index(d) if d in dow_order else 99)
-        dow_df = dow_df.sort_values(&quot;Order&quot;).drop(columns=[&quot;Order&quot;])
-        st.markdown(&quot;#### Day-of-Week Operational Regime Breakdown&quot;)
-        st.dataframe(
-            dow_df.style.format(
-                {
-                    &quot;Records&quot;: &quot;{:,}&quot;,
-                    &quot;Total_Pax&quot;: &quot;{:,.0f}&quot;,
-                    &quot;Mean_Pax&quot;: &quot;{:,.2f}&quot;,
-                    &quot;Median_Pax&quot;: &quot;{:,.1f}&quot;,
-                    &quot;Mean_Delay&quot;: &quot;{:.2f} min&quot;,
-                    &quot;Overall_Rec&quot;: &quot;{:.2f}%&quot;,
-                }
-            ),
-            width=&quot;stretch&quot;,
-            hide_index=True,
-        )
+            dow_df[&quot;Order&quot;] = dow_df[&quot;DayOfWeek&quot;].apply(lambda d: dow_order.index(d) if d in dow_order else 99)
+            dow_df = dow_df.sort_values(&quot;Order&quot;).drop(columns=[&quot;Order&quot;])
+            st.dataframe(
+                dow_df,
+                column_config={
+                    &quot;DayOfWeek&quot;: &quot;Day of Week&quot;,
+                    &quot;Day_Type&quot;: &quot;Regime&quot;,
+                    &quot;Records&quot;: st.column_config.NumberColumn(&quot;Records&quot;, format=&quot;%d&quot;),
+                    &quot;Total_Pax&quot;: st.column_config.NumberColumn(&quot;Total Passengers&quot;, format=&quot;%d&quot;),
+                    &quot;Mean_Pax&quot;: st.column_config.ProgressColumn(
+                        &quot;Mean Pax / Record&quot;, format=&quot;%.0f pax&quot;, min_value=0.0, max_value=11000.0
+                    ),
+                    &quot;Median_Pax&quot;: st.column_config.NumberColumn(&quot;Median Pax&quot;, format=&quot;%.0f&quot;),
+                    &quot;Mean_Delay&quot;: st.column_config.NumberColumn(&quot;Mean Delay&quot;, format=&quot;%.2f min&quot;),
+                    &quot;Overall_Rec&quot;: st.column_config.ProgressColumn(
+                        &quot;Overall Cost Recovery&quot;, format=&quot;%.1f%%&quot;, min_value=0.0, max_value=120.0
+                    ),
+                },
+                width=&quot;stretch&quot;,
+                hide_index=True,
+            )
 
     # === TAB 3: FINANCIALS &amp; SIMPSON&#x27;S PARADOX (FIGURES 2 &amp; 3) ===
     with tab3:
-        st.markdown(
-            &quot;&lt;div class=&#x27;note-callout&#x27;&gt;&lt;strong&gt;Financial Reconciliation &amp;amp; Simpson’s Paradox (Figures 2 &amp;amp; 3):&lt;/strong&gt; &quot;
-            &quot;Reconciles &lt;strong&gt;cumulative totals&lt;/strong&gt; (€111.64M rev vs €112.11M cost = -€0.47M), &lt;strong&gt;per-record means&lt;/strong&gt; &quot;
-            &quot;(€22,328.12 vs €22,422.00 = -€93.88/record), and &lt;strong&gt;per-passenger rates&lt;/strong&gt; (€2.73 vs €2.74 = -€0.01/pax). &quot;
-            &quot;Crucially, &lt;strong&gt;volume-weighted overall cost recovery is 99.58%&lt;/strong&gt;, whereas the &lt;strong&gt;unweighted average of daily &quot;
-            &quot;record cost-recovery ratios is 84.12%&lt;/strong&gt; (median 102.26%) because low-recovery Bike Share (15.13%) and E-Scooter (14.57%) &quot;
-            &quot;represent 24.64% of daily records.&lt;/div&gt;&quot;,
-            unsafe_allow_html=True,
-        )
+        # 3-card financial basis reconciler
+        b1, b2, b3 = st.columns(3)
+        with b1:
+            with st.container(border=True):
+                st.markdown(&quot;###### 1️⃣ Cumulative Network Totals (€)&quot;)
+                st.metric(
+                    &quot;Cumulative Net Operating Margin&quot;,
+                    f&quot;{&#x27;+&#x27; if m[&#x27;net_margin&#x27;] &gt;= 0 else &#x27;-&#x27;}€{abs(m[&#x27;net_margin&#x27;])/1e6:.2f}M&quot;,
+                    f&quot;Rev €{m[&#x27;total_rev&#x27;]/1e6:.2f}M vs Cost €{m[&#x27;total_cost&#x27;]/1e6:.2f}M&quot;,
+                )
+        with b2:
+            with st.container(border=True):
+                st.markdown(&quot;###### 2️⃣ Per-Record Mean Basis (€/record)&quot;)
+                st.metric(
+                    &quot;Mean Margin per Daily Record&quot;,
+                    f&quot;{&#x27;+&#x27; if m[&#x27;mean_margin_rec&#x27;] &gt;= 0 else &#x27;-&#x27;}€{abs(m[&#x27;mean_margin_rec&#x27;]):,.2f} / rec&quot;,
+                    f&quot;Rev €{m[&#x27;mean_rev_rec&#x27;]:,.0f} vs Cost €{m[&#x27;mean_cost_rec&#x27;]:,.0f}/rec&quot;,
+                )
+        with b3:
+            with st.container(border=True):
+                st.markdown(&quot;###### 3️⃣ Per-Passenger &amp; Dual Recovery Basis&quot;)
+                st.metric(
+                    f&quot;Overall Recovery: {m[&#x27;overall_recovery&#x27;]:.2f}%&quot;,
+                    f&quot;Record Mean: {m[&#x27;record_mean_recovery&#x27;]:.2f}%&quot;,
+                    f&quot;Fare €{m[&#x27;fare_per_pax&#x27;]:.2f} vs Cost €{m[&#x27;cost_per_pax&#x27;]:.2f}/pax (Med {m[&#x27;record_median_recovery&#x27;]:.1f}%)&quot;,
+                )
 
-        f1, f2 = st.columns([1.05, 1.15])
+        f1, f2 = st.columns([1.0, 1.15])
         with f1:
-            st.plotly_chart(chart_simpsons_paradox_dumbbell(city_summary_df), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.markdown(
+                    &quot;&lt;div class=&#x27;takeaway-strip&#x27;&gt;&lt;b&gt;Simpson’s Paradox (Fig 2):&lt;/b&gt; Standardising modal weights shifts Berlin from &lt;b&gt;Rank #4 (+€35.65/rec)&lt;/b&gt; to &lt;b&gt;Rank #11 (-€353.87/rec)&lt;/b&gt; and cuts Madrid’s deficit by 62%.&lt;/div&gt;&quot;,
+                    unsafe_allow_html=True,
+                )
+                st.plotly_chart(chart_simpsons_paradox_dumbbell(city_summary_df), width=&quot;stretch&quot;)
         with f2:
-            st.plotly_chart(chart_unit_economics(df_sub), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.markdown(
+                    &quot;&lt;div class=&#x27;takeaway-strip&#x27;&gt;&lt;b&gt;Unit Economics (Fig 3):&lt;/b&gt; Park &amp;amp; Ride (121.5%), Tram (117.3%), and Metro (106.2%) cross-subsidise Bike Share (5.2% overall) and E-Scooter (7.4% overall).&lt;/div&gt;&quot;,
+                    unsafe_allow_html=True,
+                )
+                st.plotly_chart(chart_unit_economics(df_sub), width=&quot;stretch&quot;)
 
-        st.markdown(f&quot;#### Multi-Basis Modal Financial Reconciliation Ledger ({fin_basis})&quot;)
-        mode_fin = (
-            df_sub.groupby(&quot;Transport_Mode&quot;, as_index=False)
-            .agg(
-                Records=(&quot;Record_ID&quot;, &quot;count&quot;),
-                Passengers=(&quot;Passengers&quot;, &quot;sum&quot;),
-                Total_Rev=(&quot;Ticket_Revenue_EUR&quot;, &quot;sum&quot;),
-                Total_Cost=(&quot;Operating_Cost_EUR&quot;, &quot;sum&quot;),
-                Total_Net=(&quot;Net_Margin_EUR&quot;, &quot;sum&quot;),
-                Rev_per_Rec=(&quot;Ticket_Revenue_EUR&quot;, &quot;mean&quot;),
-                Cost_per_Rec=(&quot;Operating_Cost_EUR&quot;, &quot;mean&quot;),
-                Net_per_Rec=(&quot;Net_Margin_EUR&quot;, &quot;mean&quot;),
-                Unweighted_Rec_Mean_Pct=(&quot;Cost_Recovery_Pct&quot;, &quot;mean&quot;),
-                Unweighted_Rec_Median_Pct=(&quot;Cost_Recovery_Pct&quot;, &quot;median&quot;),
+        with st.container(border=True):
+            st.markdown(&quot;##### 💶 Reconciled Modal Financial Ledger (Cumulative, Per-Record, and Per-Passenger)&quot;)
+            mode_fin = (
+                df_sub.groupby(&quot;Transport_Mode&quot;, as_index=False)
+                .agg(
+                    Records=(&quot;Record_ID&quot;, &quot;count&quot;),
+                    Passengers=(&quot;Passengers&quot;, &quot;sum&quot;),
+                    Total_Rev=(&quot;Ticket_Revenue_EUR&quot;, &quot;sum&quot;),
+                    Total_Cost=(&quot;Operating_Cost_EUR&quot;, &quot;sum&quot;),
+                    Total_Net=(&quot;Net_Margin_EUR&quot;, &quot;sum&quot;),
+                    Net_per_Rec=(&quot;Net_Margin_EUR&quot;, &quot;mean&quot;),
+                    Unweighted_Rec_Mean_Pct=(&quot;Cost_Recovery_Pct&quot;, &quot;mean&quot;),
+                )
             )
-        )
-        mode_fin[&quot;Overall_Weighted_Rec_Pct&quot;] = mode_fin[&quot;Total_Rev&quot;] / mode_fin[&quot;Total_Cost&quot;] * 100.0
-        mode_fin[&quot;Fare_per_Pax&quot;] = mode_fin[&quot;Total_Rev&quot;] / mode_fin[&quot;Passengers&quot;]
-        mode_fin[&quot;Cost_per_Pax&quot;] = mode_fin[&quot;Total_Cost&quot;] / mode_fin[&quot;Passengers&quot;]
-        mode_fin[&quot;Net_per_Pax&quot;] = mode_fin[&quot;Total_Net&quot;] / mode_fin[&quot;Passengers&quot;]
-        mode_fin = mode_fin.set_index(&quot;Transport_Mode&quot;).reindex([m_name for m_name in MODE_ORDER if m_name in mode_fin[&quot;Transport_Mode&quot;].values]).reset_index()
-
-        st.dataframe(
-            mode_fin[
-                [
-                    &quot;Transport_Mode&quot;,
-                    &quot;Records&quot;,
-                    &quot;Passengers&quot;,
-                    &quot;Total_Rev&quot;,
-                    &quot;Total_Cost&quot;,
-                    &quot;Total_Net&quot;,
-                    &quot;Rev_per_Rec&quot;,
-                    &quot;Cost_per_Rec&quot;,
-                    &quot;Net_per_Rec&quot;,
-                    &quot;Fare_per_Pax&quot;,
-                    &quot;Cost_per_Pax&quot;,
-                    &quot;Net_per_Pax&quot;,
-                    &quot;Overall_Weighted_Rec_Pct&quot;,
-                    &quot;Unweighted_Rec_Mean_Pct&quot;,
-                    &quot;Unweighted_Rec_Median_Pct&quot;,
-                ]
-            ]
-            .rename(
-                columns={
-                    &quot;Transport_Mode&quot;: &quot;Mode&quot;,
-                    &quot;Total_Rev&quot;: &quot;Total Rev (€)&quot;,
-                    &quot;Total_Cost&quot;: &quot;Total Cost (€)&quot;,
-                    &quot;Total_Net&quot;: &quot;Total Net (€)&quot;,
-                    &quot;Rev_per_Rec&quot;: &quot;Rev / Rec (€)&quot;,
-                    &quot;Cost_per_Rec&quot;: &quot;Cost / Rec (€)&quot;,
-                    &quot;Net_per_Rec&quot;: &quot;Net / Rec (€)&quot;,
-                    &quot;Fare_per_Pax&quot;: &quot;Fare / Pax (€)&quot;,
-                    &quot;Cost_per_Pax&quot;: &quot;Cost / Pax (€)&quot;,
-                    &quot;Net_per_Pax&quot;: &quot;Net / Pax (€)&quot;,
-                    &quot;Overall_Weighted_Rec_Pct&quot;: &quot;Overall Recovery (%)&quot;,
-                    &quot;Unweighted_Rec_Mean_Pct&quot;: &quot;Record Mean Rec (%)&quot;,
-                    &quot;Unweighted_Rec_Median_Pct&quot;: &quot;Record Median Rec (%)&quot;,
-                }
+            mode_fin[&quot;Overall_Weighted_Rec_Pct&quot;] = mode_fin[&quot;Total_Rev&quot;] / mode_fin[&quot;Total_Cost&quot;] * 100.0
+            mode_fin[&quot;Fare_per_Pax&quot;] = mode_fin[&quot;Total_Rev&quot;] / mode_fin[&quot;Passengers&quot;]
+            mode_fin[&quot;Cost_per_Pax&quot;] = mode_fin[&quot;Total_Cost&quot;] / mode_fin[&quot;Passengers&quot;]
+            mode_fin[&quot;Net_per_Pax&quot;] = mode_fin[&quot;Total_Net&quot;] / mode_fin[&quot;Passengers&quot;]
+            mode_fin = (
+                mode_fin.set_index(&quot;Transport_Mode&quot;)
+                .reindex([m_name for m_name in MODE_ORDER if m_name in mode_fin[&quot;Transport_Mode&quot;].values])
+                .reset_index()
             )
-            .style.format(
-                {
-                    &quot;Records&quot;: &quot;{:,}&quot;,
-                    &quot;Passengers&quot;: &quot;{:,.0f}&quot;,
-                    &quot;Total Rev (€)&quot;: &quot;€{:,.0f}&quot;,
-                    &quot;Total Cost (€)&quot;: &quot;€{:,.0f}&quot;,
-                    &quot;Total Net (€)&quot;: &quot;€{:,.0f}&quot;,
-                    &quot;Rev / Rec (€)&quot;: &quot;€{:,.2f}&quot;,
-                    &quot;Cost / Rec (€)&quot;: &quot;€{:,.2f}&quot;,
-                    &quot;Net / Rec (€)&quot;: &quot;€{:,.2f}&quot;,
-                    &quot;Fare / Pax (€)&quot;: &quot;€{:.2f}&quot;,
-                    &quot;Cost / Pax (€)&quot;: &quot;€{:.2f}&quot;,
-                    &quot;Net / Pax (€)&quot;: &quot;€{:+.2f}&quot;,
-                    &quot;Overall Recovery (%)&quot;: &quot;{:.2f}%&quot;,
-                    &quot;Record Mean Rec (%)&quot;: &quot;{:.2f}%&quot;,
-                    &quot;Record Median Rec (%)&quot;: &quot;{:.2f}%&quot;,
-                }
-            ),
-            width=&quot;stretch&quot;,
-            hide_index=True,
-        )
+            st.dataframe(
+                mode_fin[
+                    [
+                        &quot;Transport_Mode&quot;,
+                        &quot;Records&quot;,
+                        &quot;Passengers&quot;,
+                        &quot;Total_Rev&quot;,
+                        &quot;Total_Cost&quot;,
+                        &quot;Total_Net&quot;,
+                        &quot;Net_per_Rec&quot;,
+                        &quot;Fare_per_Pax&quot;,
+                        &quot;Cost_per_Pax&quot;,
+                        &quot;Net_per_Pax&quot;,
+                        &quot;Overall_Weighted_Rec_Pct&quot;,
+                        &quot;Unweighted_Rec_Mean_Pct&quot;,
+                    ]
+                ],
+                column_config={
+                    &quot;Transport_Mode&quot;: &quot;Transport Mode&quot;,
+                    &quot;Records&quot;: st.column_config.NumberColumn(&quot;Records&quot;, format=&quot;%d&quot;),
+                    &quot;Passengers&quot;: st.column_config.NumberColumn(&quot;Passengers&quot;, format=&quot;%d&quot;),
+                    &quot;Total_Rev&quot;: st.column_config.NumberColumn(&quot;Total Revenue&quot;, format=&quot;€%.0f&quot;),
+                    &quot;Total_Cost&quot;: st.column_config.NumberColumn(&quot;Total Cost&quot;, format=&quot;€%.0f&quot;),
+                    &quot;Total_Net&quot;: st.column_config.NumberColumn(&quot;Total Net Margin&quot;, format=&quot;€%.0f&quot;),
+                    &quot;Net_per_Rec&quot;: st.column_config.NumberColumn(&quot;Net / Record&quot;, format=&quot;€%.2f&quot;),
+                    &quot;Fare_per_Pax&quot;: st.column_config.NumberColumn(&quot;Fare / Pax&quot;, format=&quot;€%.2f&quot;),
+                    &quot;Cost_per_Pax&quot;: st.column_config.NumberColumn(&quot;Cost / Pax&quot;, format=&quot;€%.2f&quot;),
+                    &quot;Net_per_Pax&quot;: st.column_config.NumberColumn(&quot;Net / Pax&quot;, format=&quot;€%+.2f&quot;),
+                    &quot;Overall_Weighted_Rec_Pct&quot;: st.column_config.ProgressColumn(
+                        &quot;Overall Recovery (Weighted)&quot;, format=&quot;%.2f%%&quot;, min_value=0.0, max_value=130.0
+                    ),
+                    &quot;Unweighted_Rec_Mean_Pct&quot;: st.column_config.NumberColumn(&quot;Record Mean Rec&quot;, format=&quot;%.2f%%&quot;),
+                },
+                width=&quot;stretch&quot;,
+                hide_index=True,
+            )
 
     # === TAB 4: RELIABILITY, WEATHER &amp; SATISFACTION (FIGURES 4, 5 &amp; 6) ===
     with tab4:
-        st.markdown(
-            &quot;&lt;div class=&#x27;note-callout&#x27;&gt;&lt;strong&gt;Service Reliability, Weather Sensitivity &amp;amp; Non-Causal Satisfaction Association (Figures 4–6):&lt;/strong&gt; &quot;
-            &quot;Average delay correlates strongly and negatively with customer rating (&lt;em&gt;r&lt;/em&gt; = -0.821, &lt;em&gt;R&lt;/em&gt;² = 0.674, slope = -0.172★/min). &quot;
-            &quot;&lt;strong&gt;Statistical Caveat:&lt;/strong&gt; Because the dataset is observational, this correlation does not establish direct causation; &quot;
-            &quot;unmeasured operational factors (peak crowding, vehicle age, transfer friction) may jointly influence both delays and satisfaction.&lt;/div&gt;&quot;,
-            unsafe_allow_html=True,
-        )
-
         col_v, col_s = st.columns(2)
         with col_v:
-            st.plotly_chart(chart_delay_violin(df_sub), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.markdown(
+                    &quot;&lt;div class=&#x27;takeaway-strip&#x27;&gt;&lt;b&gt;Delay Dispersion (Fig 4):&lt;/b&gt; Bus exhibits the widest delay tail (6.58m mean, 12.5m max, 74.9% on-time) vs grade-separated Metro (3.73m mean, 84.1% on-time).&lt;/div&gt;&quot;,
+                    unsafe_allow_html=True,
+                )
+                st.plotly_chart(chart_delay_violin(df_sub), width=&quot;stretch&quot;)
         with col_s:
-            st.plotly_chart(chart_delay_vs_satisfaction_joint(df_sub), width=&quot;stretch&quot;)
+            with st.container(border=True):
+                st.markdown(
+                    &quot;&lt;div class=&#x27;takeaway-strip&#x27;&gt;&lt;b&gt;Non-Causal Association (Fig 5):&lt;/b&gt; Delay and satisfaction co-vary strongly (&lt;em&gt;r&lt;/em&gt; = -0.821), though observational data cannot isolate delay from crowding or transfer confounders.&lt;/div&gt;&quot;,
+                    unsafe_allow_html=True,
+                )
+                st.plotly_chart(chart_delay_vs_satisfaction_joint(df_sub), width=&quot;stretch&quot;)
 
-        hm_mode = st.radio(
-            &quot;Figure 6 Matrix Metric Toggle:&quot;,
-            options=[&quot;abs&quot;, &quot;pct&quot;, &quot;ontime&quot;],
-            format_func=lambda x: (
-                &quot;Absolute Mean Delay (Minutes)&quot;
-                if x == &quot;abs&quot;
-                else (&quot;Relative Delay Escalation vs Clear Weather (%)&quot; if x == &quot;pct&quot; else &quot;Mean On-Time Performance (%)&quot;)
-            ),
-            horizontal=True,
-        )
-        st.plotly_chart(chart_weather_mode_heatmap(df_sub, mode_type=hm_mode), width=&quot;stretch&quot;)
+        with st.container(border=True):
+            hm_col1, hm_col2 = st.columns([1.4, 1.0])
+            with hm_col1:
+                st.markdown(
+                    &quot;&lt;div class=&#x27;takeaway-strip&#x27;&gt;&lt;b&gt;Weather Sensitivity (Fig 6):&lt;/b&gt; Snow escalates network delay by &lt;b&gt;+119.4%&lt;/b&gt; vs Clear weather (8.14m vs 3.71m), led by surface Bus (10.33m) and Park &amp;amp; Ride (8.21m).&lt;/div&gt;&quot;,
+                    unsafe_allow_html=True,
+                )
+            with hm_col2:
+                hm_mode = st.radio(
+                    &quot;Matrix Display Metric:&quot;,
+                    options=[&quot;abs&quot;, &quot;pct&quot;, &quot;ontime&quot;],
+                    format_func=lambda x: (
+                        &quot;Mean Delay (min)&quot;
+                        if x == &quot;abs&quot;
+                        else (&quot;Δ% vs Clear Weather&quot; if x == &quot;pct&quot; else &quot;On-Time Rate (%)&quot;)
+                    ),
+                    horizontal=True,
+                )
+            st.plotly_chart(chart_weather_mode_heatmap(df_sub, mode_type=hm_mode), width=&quot;stretch&quot;)
 
     # === TAB 5: ACCESSIBILITY, CARBON &amp; DATA EXPLORER (FIGURES 7 &amp; 8) ===
     with tab5:
-        st.markdown(
-            &quot;&lt;div class=&#x27;note-callout&#x27;&gt;&lt;strong&gt;Accessibility Normalisation (Figure 7) &amp;amp; Decarbonisation Efficiency (Figure 8):&lt;/strong&gt; &quot;
-            &quot;Raw complaint counts correlate strongly with passenger volume (&lt;em&gt;r&lt;/em&gt; = 0.866), creating exposure bias where high-ridership &quot;
-            &quot;Metro appears worst (38,248 raw complaints). Normalising per 10,000 passengers reveals that Metro has the lowest complaint rate &quot;
-            &quot;(14.85 / 10k pax), whereas &lt;strong&gt;Suburban Feeder corridors (16.79 / 10k)&lt;/strong&gt; and &lt;strong&gt;Suburban E-Scooters (54.02 / 10k)&lt;/strong&gt; &quot;
-            &quot;exhibit the highest passenger-normalised accessibility friction.&lt;/div&gt;&quot;,
-            unsafe_allow_html=True,
-        )
-
-        norm_choice = st.radio(
-            &quot;Figure 7 Accessibility Matrix Normalisation Toggle (Exposure Bias Demonstration):&quot;,
-            options=[&quot;weighted&quot;, &quot;record_mean&quot;, &quot;raw&quot;],
-            format_func=lambda x: (
-                &quot;Volume-Weighted Rate per 10,000 Passengers (Recommended — Removes Exposure Bias)&quot;
-                if x == &quot;weighted&quot;
-                else (
-                    &quot;Unweighted Record-Mean Rate per 10,000 Passengers&quot;
-                    if x == &quot;record_mean&quot;
-                    else &quot;Raw Complaint Counts (Confounded by Ridership Volume, r = 0.866)&quot;
-                )
-            ),
-            horizontal=True,
-        )
-
-        c_acc, c_carb = st.columns(2)
-        with c_acc:
-            st.plotly_chart(chart_accessibility_route_mode_heatmap(df_sub, norm_mode=norm_choice), width=&quot;stretch&quot;)
-        with c_carb:
-            st.plotly_chart(chart_carbon_efficiency(df_sub), width=&quot;stretch&quot;)
-
-        st.markdown(&quot;#### Interactive Record Browser &amp; CSV Export&quot;)
-        dl_col1, dl_col2 = st.columns([1, 3])
-        with dl_col1:
-            csv_bytes = df_sub.to_csv(index=False).encode(&quot;utf-8&quot;)
-            st.download_button(
-                label=f&quot;⬇️ Download Filtered Records CSV (n = {len(df_sub):,})&quot;,
-                data=csv_bytes,
-                file_name=&quot;ecomove_filtered_slice_25199053.csv&quot;,
-                mime=&quot;text/csv&quot;,
-                width=&quot;stretch&quot;,
+        with st.container(border=True):
+            norm_choice = st.radio(
+                &quot;🔍 Figure 7 Exposure-Bias Normalisation Toggle:&quot;,
+                options=[&quot;weighted&quot;, &quot;record_mean&quot;, &quot;raw&quot;],
+                format_func=lambda x: (
+                    &quot;✅ Volume-Weighted Rate per 10,000 Passengers (Removes Volume Exposure Bias)&quot;
+                    if x == &quot;weighted&quot;
+                    else (
+                        &quot;📊 Unweighted Record-Mean Rate per 10,000 Passengers&quot;
+                        if x == &quot;record_mean&quot;
+                        else &quot;⚠️ Raw Complaint Counts (Confounded by Ridership Volume, r = 0.866)&quot;
+                    )
+                ),
+                horizontal=True,
             )
-        st.dataframe(
-            df_sub[
-                [
-                    &quot;Record_ID&quot;,
-                    &quot;Date_Only&quot;,
-                    &quot;City&quot;,
-                    &quot;Country&quot;,
-                    &quot;Transport_Mode&quot;,
-                    &quot;Route_Type&quot;,
-                    &quot;Weather&quot;,
-                    &quot;Event_Day&quot;,
-                    &quot;Passengers&quot;,
-                    &quot;Average_Delay_Minutes&quot;,
-                    &quot;On_Time_Percentage&quot;,
-                    &quot;Ticket_Revenue_EUR&quot;,
-                    &quot;Operating_Cost_EUR&quot;,
-                    &quot;Net_Margin_EUR&quot;,
-                    &quot;Cost_Recovery_Pct&quot;,
-                    &quot;CO2_Saved_KG&quot;,
-                    &quot;Customer_Rating&quot;,
-                    &quot;Accessibility_Complaints&quot;,
-                    &quot;Complaints_per_10k_Pax&quot;,
-                ]
-            ].head(250),
-            width=&quot;stretch&quot;,
-            hide_index=True,
-        )
+
+            c_acc, c_carb = st.columns(2)
+            with c_acc:
+                st.plotly_chart(chart_accessibility_route_mode_heatmap(df_sub, norm_mode=norm_choice), width=&quot;stretch&quot;)
+            with c_carb:
+                st.plotly_chart(chart_carbon_efficiency(df_sub), width=&quot;stretch&quot;)
+
+        with st.container(border=True):
+            dl_c1, dl_c2 = st.columns([2.2, 1.0])
+            with dl_c1:
+                st.markdown(f&quot;##### 🗂️ Interactive Record Explorer (Showing top 200 of `{len(df_sub):,}` filtered records)&quot;)
+            with dl_c2:
+                csv_bytes = df_sub.to_csv(index=False).encode(&quot;utf-8&quot;)
+                st.download_button(
+                    label=f&quot;⬇️ Export Filtered Slice CSV ({len(df_sub):,} rows)&quot;,
+                    data=csv_bytes,
+                    file_name=&quot;ecomove_filtered_slice_25199053.csv&quot;,
+                    mime=&quot;text/csv&quot;,
+                    width=&quot;stretch&quot;,
+                )
+            st.dataframe(
+                df_sub[
+                    [
+                        &quot;Record_ID&quot;,
+                        &quot;Date_Only&quot;,
+                        &quot;City&quot;,
+                        &quot;Country&quot;,
+                        &quot;Transport_Mode&quot;,
+                        &quot;Route_Type&quot;,
+                        &quot;Weather&quot;,
+                        &quot;Event_Day&quot;,
+                        &quot;Passengers&quot;,
+                        &quot;Average_Delay_Minutes&quot;,
+                        &quot;On_Time_Percentage&quot;,
+                        &quot;Ticket_Revenue_EUR&quot;,
+                        &quot;Operating_Cost_EUR&quot;,
+                        &quot;Net_Margin_EUR&quot;,
+                        &quot;Cost_Recovery_Pct&quot;,
+                        &quot;CO2_Saved_KG&quot;,
+                        &quot;Customer_Rating&quot;,
+                        &quot;Complaints_per_10k_Pax&quot;,
+                    ]
+                ].head(200),
+                width=&quot;stretch&quot;,
+                hide_index=True,
+            )
 
 
 if __name__ == &quot;__main__&quot;:
