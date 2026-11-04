@@ -126,6 +126,11 @@ SCENARIO_PRESETS = {
 def load_dataset() -> pd.DataFrame:
     df = pd.read_csv(DATA_CSV, parse_dates=["Date_ISO"])
     df["Date_Only"] = df["Date_ISO"].dt.date
+    if "DayOfWeek" not in df.columns:
+        if "Day_of_Week" in df.columns:
+            df["DayOfWeek"] = df["Day_of_Week"]
+        else:
+            df["DayOfWeek"] = df["Date_ISO"].dt.day_name()
     if "Day_Type" not in df.columns:
         if "Is_Weekend" in df.columns:
             df["Day_Type"] = np.where(df["Is_Weekend"].astype(bool), "Weekend", "Weekday")
@@ -1138,7 +1143,13 @@ def main() -> None:
     )
     inject_custom_css()
 
-    df_base = load_dataset()
+    df_base = load_dataset().copy()
+    if "DayOfWeek" not in df_base.columns:
+        df_base["DayOfWeek"] = (
+            df_base["Day_of_Week"] if "Day_of_Week" in df_base.columns else df_base["Date_ISO"].dt.day_name()
+        )
+    if "Day_Type" not in df_base.columns:
+        df_base["Day_Type"] = np.where(df_base["Date_ISO"].dt.dayofweek >= 5, "Weekend", "Weekday")
     all_countries = sorted(df_base["Country"].unique().tolist())
     all_modes = [m for m in MODE_ORDER if m in df_base["Transport_Mode"].unique()]
     all_routes = sorted(df_base["Route_Type"].unique().tolist())
@@ -1159,32 +1170,41 @@ def main() -> None:
         )
 
         preset_names = list(SCENARIO_PRESETS.keys()) + ["7. Custom Interactive Exploration"]
+
+        if "active_preset" not in st.session_state:
+            st.session_state["active_preset"] = preset_names[0]
+            st.session_state["f_regime"] = "All Days"
+            st.session_state["f_countries"] = []
+            st.session_state["f_cities"] = []
+            st.session_state["f_modes"] = []
+            st.session_state["f_routes"] = []
+            st.session_state["f_weathers"] = []
+            st.session_state["f_event"] = "All"
+
+        def _on_preset_change() -> None:
+            chosen = st.session_state["active_preset"]
+            if chosen in SCENARIO_PRESETS:
+                cfg = SCENARIO_PRESETS[chosen]
+                st.session_state["f_regime"] = cfg["day_regime"]
+                st.session_state["f_countries"] = list(cfg["countries"])
+                st.session_state["f_cities"] = list(cfg["cities"])
+                st.session_state["f_modes"] = list(cfg["modes"])
+                st.session_state["f_routes"] = list(cfg["routes"])
+                st.session_state["f_weathers"] = list(cfg["weathers"])
+                st.session_state["f_event"] = cfg["event_day"]
+
         selected_preset = st.selectbox(
             "1-Click Executive Scenario Preset",
             options=preset_names,
-            index=0,
+            key="active_preset",
+            on_change=_on_preset_change,
             help="Jump directly to the exact report scenarios (Figure 9 Full Baseline or Figure 10 Adverse Weather Surface Scenario) or explore custom slices.",
         )
 
         if selected_preset in SCENARIO_PRESETS:
-            preset_cfg = SCENARIO_PRESETS[selected_preset]
-            st.caption(f"📌 *{preset_cfg['desc']}*")
-            default_countries = preset_cfg["countries"]
-            default_cities = preset_cfg["cities"]
-            default_modes = preset_cfg["modes"]
-            default_routes = preset_cfg["routes"]
-            default_weathers = preset_cfg["weathers"]
-            default_event = preset_cfg["event_day"]
-            default_regime = preset_cfg["day_regime"]
+            st.caption(f"📌 *{SCENARIO_PRESETS[selected_preset]['desc']}*")
         else:
             st.caption("📌 *Custom exploration mode: combine any filters below.*")
-            default_countries = []
-            default_cities = []
-            default_modes = []
-            default_routes = []
-            default_weathers = []
-            default_event = "All"
-            default_regime = "All Days"
 
         st.markdown("---")
         st.markdown("**Granular Multi-Dimensional Filters**")
@@ -1194,18 +1214,19 @@ def main() -> None:
             value=(min_date, max_date),
             min_value=min_date,
             max_value=max_date,
+            key="f_dates",
         )
 
         day_regime = st.selectbox(
             "Day Regime (Weekday / Weekend)",
             options=["All Days", "Weekday", "Weekend"],
-            index=["All Days", "Weekday", "Weekend"].index(default_regime),
+            key="f_regime",
         )
 
         sel_countries = st.multiselect(
             "2. Country (Leave empty for All 6)",
             options=all_countries,
-            default=default_countries,
+            key="f_countries",
             placeholder="All 6 European Countries",
         )
 
@@ -1214,38 +1235,40 @@ def main() -> None:
             if sel_countries
             else df_base["City"].unique().tolist()
         )
+        # Ensure selected cities remain valid if country filter narrowed
+        st.session_state["f_cities"] = [c for c in st.session_state.get("f_cities", []) if c in avail_cities]
         sel_cities = st.multiselect(
             "3. City (Leave empty for All)",
             options=avail_cities,
-            default=[c for c in default_cities if c in avail_cities],
+            key="f_cities",
             placeholder=f"All {len(avail_cities)} Cities",
         )
 
         sel_modes = st.multiselect(
             "4. Transport Mode (Leave empty for All 6)",
             options=all_modes,
-            default=default_modes,
+            key="f_modes",
             placeholder="All 6 Transport Modes",
         )
 
         sel_routes = st.multiselect(
             "5. Route Topology (Leave empty for All 6)",
             options=all_routes,
-            default=default_routes,
+            key="f_routes",
             placeholder="All 6 Route Types",
         )
 
         sel_weathers = st.multiselect(
             "6. Weather Condition (Leave empty for All 6)",
             options=all_weathers,
-            default=default_weathers,
+            key="f_weathers",
             placeholder="All 6 Weather Regimes",
         )
 
         sel_event = st.selectbox(
             "Major Event Day",
             options=["All", "No", "Yes"],
-            index=["All", "No", "Yes"].index(default_event),
+            key="f_event",
             format_func=lambda x: "All Days" if x == "All" else ("Event Day (Yes)" if x == "Yes" else "Standard Day (No)"),
         )
 
@@ -1403,15 +1426,15 @@ def main() -> None:
         )
         r1c1, r1c2 = st.columns(2)
         with r1c1:
-            st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=340), use_container_width=True)
+            st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=340), width="stretch")
         with r1c2:
-            st.plotly_chart(chart_mode_recovery(df_sub, height=340), use_container_width=True)
+            st.plotly_chart(chart_mode_recovery(df_sub, height=340), width="stretch")
 
         r2c1, r2c2 = st.columns(2)
         with r2c1:
-            st.plotly_chart(chart_weather_delay(df_sub, height=340), use_container_width=True)
+            st.plotly_chart(chart_weather_delay(df_sub, height=340), width="stretch")
         with r2c2:
-            st.plotly_chart(chart_route_complaints(df_sub, metric_mode="weighted", height=340), use_container_width=True)
+            st.plotly_chart(chart_route_complaints(df_sub, metric_mode="weighted", height=340), width="stretch")
 
         st.markdown("#### City-Level Executive Decision Summary (Live Filtered Slice)")
         disp_city = city_summary_df[
@@ -1463,7 +1486,7 @@ def main() -> None:
                     "Comp / 10k Pax": "{:.2f}",
                 }
             ),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -1479,9 +1502,9 @@ def main() -> None:
         )
         c_left, c_right = st.columns([1.15, 1.0])
         with c_left:
-            st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=390), use_container_width=True)
+            st.plotly_chart(chart_monthly_trend(df_sub, split_regime=True, height=390), width="stretch")
         with c_right:
-            st.plotly_chart(chart_modal_share_discrepancy(df_sub), use_container_width=True)
+            st.plotly_chart(chart_modal_share_discrepancy(df_sub), width="stretch")
 
         # Day of week breakdown table
         dow_order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -1510,7 +1533,7 @@ def main() -> None:
                     "Overall_Rec": "{:.2f}%",
                 }
             ),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -1528,9 +1551,9 @@ def main() -> None:
 
         f1, f2 = st.columns([1.05, 1.15])
         with f1:
-            st.plotly_chart(chart_simpsons_paradox_dumbbell(city_summary_df), use_container_width=True)
+            st.plotly_chart(chart_simpsons_paradox_dumbbell(city_summary_df), width="stretch")
         with f2:
-            st.plotly_chart(chart_unit_economics(df_sub), use_container_width=True)
+            st.plotly_chart(chart_unit_economics(df_sub), width="stretch")
 
         st.markdown(f"#### Multi-Basis Modal Financial Reconciliation Ledger ({fin_basis})")
         mode_fin = (
@@ -1609,7 +1632,7 @@ def main() -> None:
                     "Record Median Rec (%)": "{:.2f}%",
                 }
             ),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
@@ -1625,9 +1648,9 @@ def main() -> None:
 
         col_v, col_s = st.columns(2)
         with col_v:
-            st.plotly_chart(chart_delay_violin(df_sub), use_container_width=True)
+            st.plotly_chart(chart_delay_violin(df_sub), width="stretch")
         with col_s:
-            st.plotly_chart(chart_delay_vs_satisfaction_joint(df_sub), use_container_width=True)
+            st.plotly_chart(chart_delay_vs_satisfaction_joint(df_sub), width="stretch")
 
         hm_mode = st.radio(
             "Figure 6 Matrix Metric Toggle:",
@@ -1639,7 +1662,7 @@ def main() -> None:
             ),
             horizontal=True,
         )
-        st.plotly_chart(chart_weather_mode_heatmap(df_sub, mode_type=hm_mode), use_container_width=True)
+        st.plotly_chart(chart_weather_mode_heatmap(df_sub, mode_type=hm_mode), width="stretch")
 
     # === TAB 5: ACCESSIBILITY, CARBON & DATA EXPLORER (FIGURES 7 & 8) ===
     with tab5:
@@ -1669,9 +1692,9 @@ def main() -> None:
 
         c_acc, c_carb = st.columns(2)
         with c_acc:
-            st.plotly_chart(chart_accessibility_route_mode_heatmap(df_sub, norm_mode=norm_choice), use_container_width=True)
+            st.plotly_chart(chart_accessibility_route_mode_heatmap(df_sub, norm_mode=norm_choice), width="stretch")
         with c_carb:
-            st.plotly_chart(chart_carbon_efficiency(df_sub), use_container_width=True)
+            st.plotly_chart(chart_carbon_efficiency(df_sub), width="stretch")
 
         st.markdown("#### Interactive Record Browser & CSV Export")
         dl_col1, dl_col2 = st.columns([1, 3])
@@ -1682,7 +1705,7 @@ def main() -> None:
                 data=csv_bytes,
                 file_name="ecomove_filtered_slice_25199053.csv",
                 mime="text/csv",
-                use_container_width=True,
+                width="stretch",
             )
         st.dataframe(
             df_sub[
@@ -1708,7 +1731,7 @@ def main() -> None:
                     "Complaints_per_10k_Pax",
                 ]
             ].head(250),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
