@@ -846,7 +846,7 @@ def build_word_document() -> None:
         ["<strong>Module Code &amp; Title</strong>", "COM7021 (COM7021SCC) — Data Visualisation"],
         ["<strong>Degree Programme</strong>", "MSc Data Science (Arden University Berlin)"],
         ["<strong>Module Tutor</strong>", "Ahmed Hassan"],
-        ["<strong>Assignment Format</strong>", "Single Word Report (<code>.docx</code>) with Python Verification Appendix"],
+        ["<strong>Assignment Deliverables</strong>", "Single Word Report (<code>.docx</code>), Live Streamlit Dashboard (<code>https://visualisation.streamlit.app/</code>), and GitHub Repository (<code>https://github.com/kvmmn/_COM7021_Data_Visualisation</code>)"],
         ["<strong>Authoritative Dataset</strong>", "<code>[5442] EcoMoveMobility.xlsx</code> (5,000 daily records × 18 columns; 12 European cities, 2024–2025)"],
         [
             "<strong>Task 1 Allocation (70 Marks · LO1 &amp; LO2)</strong>",
@@ -1059,7 +1059,7 @@ def build_word_document() -> None:
 
     doc.add_heading("1.4 Interactive Streamlit &amp; Plotly Decision Dashboard (Figures 9 &amp; 10)", level=2)
     doc.add_paragraph_html(
-        "<p>The interactive decision dashboard is built in <strong>Streamlit and Plotly</strong> (<code>scripts/04_streamlit_dashboard.py</code>, launched via <code>streamlit run \"COM7021 - Assignment/scripts/04_streamlit_dashboard.py\"</code>) and mirrored in the standalone HTML deliverable (<code>output/dashboard/ecomove_interactive_dashboard.html</code>). It links one-click executive scenario presets and six sidebar filters (Country, City, Transport Mode, Route Topology, Weather Condition, and Major Event Day) to six KPI cards—explicitly reporting both volume-weighted overall cost recovery (99.58%) and unweighted record-mean recovery (84.12%)—and five analytical tabs. <strong>Figure 9</strong> (unfiltered network baseline, <code>N = 5,000</code>) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario, <code>n = 583</code>) provide the static screenshot evidence below.</p>"
+        "<p>The interactive decision dashboard is built in <strong>Streamlit and Plotly</strong> (<code>scripts/04_streamlit_dashboard.py</code>, deployed live at <code>https://visualisation.streamlit.app/</code>, version-controlled on GitHub at <code>https://github.com/kvmmn/_COM7021_Data_Visualisation</code>, and executable locally via <code>streamlit run \"COM7021 - Assignment/scripts/04_streamlit_dashboard.py\"</code>). It links six one-click executive scenario presets and six sidebar filters (Country, City, Transport Mode, Route Topology, Weather Condition, and Major Event Day) to six KPI cards—explicitly reporting both volume-weighted overall cost recovery (99.58%) and unweighted record-mean recovery (84.12%)—and five analytical tabs. <strong>Figure 9</strong> (unfiltered network baseline, <code>N = 5,000</code>) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario, <code>n = 583</code>) provide the static screenshot evidence below.</p>"
     )
     doc.add_image(
         "fig09_dashboard_overview.png",

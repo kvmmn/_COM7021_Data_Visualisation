@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
-"""Step 4: Interactive Python Decision Dashboard for EcoMove City Transport Authority.
-Produces:
-1. Self-contained interactive HTML dashboard (Plotly + interactive filter controls)
-   at output/dashboard/ecomove_interactive_dashboard.html
-2. High-resolution dashboard state captures (SVG + PNG) for report evidence:
-   - fig09_dashboard_overview.png (Full network baseline: N = 5,000 records)
-   - fig10_dashboard_filtered_scenario.png (Filtered executive scenario: Rain & Snow on Surface Transit)
+"""Step 4b: High-Resolution Streamlit & Plotly Dashboard State Renderer for EcoMove Mobility.
+
+Produces publication-grade 220 DPI dashboard state captures (SVG + PNG) for the Word report:
+- fig09_dashboard_overview.png (Full network baseline state: N = 5,000 records)
+- fig10_dashboard_filtered_scenario.png (Filtered executive scenario: Rain & Snow on Surface Transit, n = 583)
+
+Companion to the live interactive Streamlit application:
+- Script: scripts/04_streamlit_dashboard.py
+- Live Deployment: https://visualisation.streamlit.app/
+- Repository: https://github.com/kvmmn/_COM7021_Data_Visualisation
 """
 
 from __future__ import annotations
 
-import json
 import os
 import subprocess
 import sys
 from pathlib import Path
 
-import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -39,7 +40,6 @@ from style.palette import (
 )
 
 DATA_CSV = BASE_DIR / "data" / "ecomove_cleaned.csv"
-DASH_DIR = BASE_DIR / "output" / "dashboard"
 FIG_DIR = BASE_DIR / "output" / "figures"
 
 
@@ -185,377 +185,6 @@ def build_plotly_dashboard_figure(df: pd.DataFrame, title_suffix: str = "All Net
     fig.update_xaxes(showgrid=False, linecolor=GRID, tickfont={"color": MUTE})
     fig.update_yaxes(showgrid=True, gridcolor=GRID, linecolor=GRID, tickfont={"color": MUTE})
     return fig
-
-
-def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
-    """Export a standalone interactive HTML dashboard with multi-filter controls and Plotly views."""
-    DASH_DIR.mkdir(parents=True, exist_ok=True)
-    out_html = DASH_DIR / "ecomove_interactive_dashboard.html"
-
-    records = df[
-        [
-            "Date_ISO",
-            "YearMonth",
-            "Country",
-            "City",
-            "Transport_Mode",
-            "Route_Type",
-            "Weather",
-            "Event_Day",
-            "Passengers",
-            "Trips",
-            "Average_Delay_Minutes",
-            "On_Time_Percentage",
-            "Ticket_Revenue_EUR",
-            "Operating_Cost_EUR",
-            "Net_Margin_EUR",
-            "Cost_Recovery_Pct",
-            "CO2_Saved_KG",
-            "Energy_Consumption_KWh",
-            "Customer_Rating",
-            "Accessibility_Complaints",
-        ]
-    ].copy()
-    records["Date_ISO"] = records["Date_ISO"].dt.strftime("%Y-%m-%d")
-    data_json = json.dumps(records.to_dict(orient="records"))
-
-    countries = sorted(df["Country"].unique().tolist())
-    cities = sorted(df["City"].unique().tolist())
-    modes = sorted(df["Transport_Mode"].unique().tolist())
-    routes = sorted(df["Route_Type"].unique().tolist())
-    weathers = ["Clear", "Cloudy", "Windy", "Heatwave", "Rain", "Snow"]
-
-    def opts(items: list[str]) -> str:
-        return '<option value="ALL">All</option>' + "".join(
-            f'<option value="{esc(x)}">{esc(x)}</option>' for x in items
-        )
-
-    html = f"""<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <title>EcoMove Transport Authority — Interactive Decision Dashboard (Student ID: 25199053)</title>
-  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
-  <style>
-    :root {{
-      --midnight: {MIDNIGHT};
-      --tiffany: {TIFFANY};
-      --tiffany-deep: {TIFFANY_DEEP};
-      --midnight-soft: {MIDNIGHT_SOFT};
-      --mist: {MIST};
-      --paper: {PAPER};
-      --mute: {MUTE};
-      --line: {LINE};
-      --white: {WHITE};
-    }}
-    * {{ box-sizing: border-box; }}
-    body {{
-      margin: 0;
-      padding: 24px 32px;
-      background: var(--paper);
-      color: var(--midnight);
-      font-family: Aptos, "Helvetica Neue", Arial, sans-serif;
-    }}
-    .header {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--midnight);
-      color: var(--white);
-      padding: 16px 24px;
-      border-radius: 14px;
-      margin-bottom: 18px;
-    }}
-    .header h1 {{ margin: 0; font-size: 19px; font-weight: 700; }}
-    .header .meta {{ font-size: 12px; color: var(--mist); }}
-    .presets {{
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }}
-    .preset-btn {{
-      background: var(--white);
-      color: var(--midnight);
-      border: 1.5px solid var(--line);
-      border-radius: 9px;
-      padding: 9px 8px;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.15s;
-    }}
-    .preset-btn:hover {{
-      border-color: var(--tiffany);
-      background: var(--mist);
-    }}
-    .preset-btn.active {{
-      background: var(--tiffany-deep);
-      color: var(--white);
-      border-color: var(--tiffany);
-    }}
-    .filters {{
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-      background: var(--white);
-      border: 1.5px solid var(--line);
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 2px 6px rgba(0,43,73,0.06);
-    }}
-    .filter-group label {{
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--mute);
-      margin-bottom: 4px;
-    }}
-    .filter-group select {{
-      width: 100%;
-      padding: 7px 10px;
-      border-radius: 8px;
-      border: 1.5px solid var(--line);
-      font-family: inherit;
-      font-size: 12px;
-      color: var(--midnight);
-      background: var(--paper);
-    }}
-    .kpi-strip {{
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 14px;
-      margin-bottom: 18px;
-    }}
-    .kpi-card {{
-      background: var(--white);
-      border: 1.5px solid var(--line);
-      border-radius: 14px;
-      padding: 14px 12px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,43,73,0.08);
-    }}
-    .kpi-card.claim {{
-      background: var(--mist);
-      border: 2px solid var(--tiffany);
-    }}
-    .kpi-title {{ font-size: 11px; color: var(--mute); margin-bottom: 6px; }}
-    .kpi-value {{ font-size: 24px; font-weight: 700; color: var(--midnight); margin-bottom: 4px; }}
-    .kpi-sub {{ font-size: 10px; color: var(--mute); }}
-    .grid-charts {{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }}
-    .chart-card {{
-      background: var(--white);
-      border: 1.5px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      box-shadow: 0 2px 6px rgba(0,43,73,0.06);
-    }}
-  </style>
-</head>
-<body>
-  <div class="header">
-    <div>
-      <h1>EcoMove City Transport Authority — Executive Decision Dashboard</h1>
-      <div class="meta">Interactive Python Visualisation Framework · Arden Palette · 2024–2025 Operations</div>
-    </div>
-    <div class="meta">COM7021 Data Visualisation · Student ID: 25199053</div>
-  </div>
-
-  <div class="presets">
-    <button type="button" class="preset-btn active" id="pbtn-1" onclick="applyPreset(1)">🌐 1. Full Baseline</button>
-    <button type="button" class="preset-btn" id="pbtn-2" onclick="applyPreset(2)">🌧️ 2. Rain &amp; Snow</button>
-    <button type="button" class="preset-btn" id="pbtn-3" onclick="applyPreset(3)">🛴 3. Micromobility</button>
-    <button type="button" class="preset-btn" id="pbtn-4" onclick="applyPreset(4)">🏟️ 4. Event Surge</button>
-    <button type="button" class="preset-btn" id="pbtn-5" onclick="applyPreset(5)">♿ 5. Suburban Access</button>
-    <button type="button" class="preset-btn" id="pbtn-6" onclick="applyPreset(6)">🚇 6. Rail Backbone</button>
-  </div>
-
-  <div class="filters">
-    <div class="filter-group"><label>Country</label><select id="f-country" onchange="onManualFilter()">{opts(countries)}</select></div>
-    <div class="filter-group"><label>City</label><select id="f-city" onchange="onManualFilter()">{opts(cities)}</select></div>
-    <div class="filter-group"><label>Transport Mode</label><select id="f-mode" onchange="onManualFilter()">{opts(modes)}<option value="SURFACE">Surface (Bus+Tram+P&amp;R)</option><option value="MICRO">Micromobility (Bike+Scooter)</option><option value="RAIL">Electric Rail (Metro+Tram)</option></select></div>
-    <div class="filter-group"><label>Route Type</label><select id="f-route" onchange="onManualFilter()">{opts(routes)}</select></div>
-    <div class="filter-group"><label>Weather Condition</label><select id="f-weather" onchange="onManualFilter()">{opts(weathers)}<option value="RAINSNOW">Rain + Snow (Adverse)</option></select></div>
-    <div class="filter-group"><label>Major Event Day</label><select id="f-event" onchange="onManualFilter()"><option value="ALL">All</option><option value="No">Standard Day (No)</option><option value="Yes">Event Day (Yes)</option></select></div>
-  </div>
-
-  <div class="kpi-strip">
-    <div class="kpi-card"><div class="kpi-title">Total Passengers</div><div class="kpi-value" id="k-pax">-</div><div class="kpi-sub" id="k-records">-</div></div>
-    <div class="kpi-card"><div class="kpi-title">Mean On-Time %</div><div class="kpi-value" id="k-ontime">-</div><div class="kpi-sub">Reliability target: 85%</div></div>
-    <div class="kpi-card claim"><div class="kpi-title">Mean Service Delay</div><div class="kpi-value" id="k-delay">-</div><div class="kpi-sub">Minutes per service</div></div>
-    <div class="kpi-card claim"><div class="kpi-title">Cost Recovery Ratio</div><div class="kpi-value" id="k-recovery">-</div><div class="kpi-sub" id="k-margin">-</div></div>
-    <div class="kpi-card"><div class="kpi-title">Total CO2 Saved</div><div class="kpi-value" id="k-co2">-</div><div class="kpi-sub">Tonnes mitigated</div></div>
-    <div class="kpi-card"><div class="kpi-title">Customer Rating</div><div class="kpi-value" id="k-rating">-</div><div class="kpi-sub" id="k-comp">-</div></div>
-  </div>
-
-  <div class="grid-charts">
-    <div class="chart-card"><div id="c-trend" style="height:310px;"></div></div>
-    <div class="chart-card"><div id="c-mode" style="height:310px;"></div></div>
-    <div class="chart-card"><div id="c-weather" style="height:310px;"></div></div>
-    <div class="chart-card"><div id="c-route" style="height:310px;"></div></div>
-  </div>
-
-  <script>
-    const RAW_DATA = {data_json};
-    function applyPreset(id) {{
-      for (let i = 1; i <= 6; i++) {{
-        const b = document.getElementById('pbtn-' + i);
-        if (b) b.classList.toggle('active', i === id);
-      }}
-      document.getElementById('f-country').value = 'ALL';
-      document.getElementById('f-city').value = 'ALL';
-      document.getElementById('f-mode').value = id === 2 ? 'SURFACE' : (id === 3 ? 'MICRO' : (id === 6 ? 'RAIL' : 'ALL'));
-      document.getElementById('f-route').value = id === 5 ? 'Suburban Feeder' : 'ALL';
-      document.getElementById('f-weather').value = id === 2 ? 'RAINSNOW' : 'ALL';
-      document.getElementById('f-event').value = id === 4 ? 'Yes' : 'ALL';
-      updateDashboard();
-    }}
-    function onManualFilter() {{
-      for (let i = 1; i <= 6; i++) {{
-        const b = document.getElementById('pbtn-' + i);
-        if (b) b.classList.remove('active');
-      }}
-      updateDashboard();
-    }}
-    function updateDashboard() {{
-      const country = document.getElementById('f-country').value;
-      const city = document.getElementById('f-city').value;
-      const mode = document.getElementById('f-mode').value;
-      const route = document.getElementById('f-route').value;
-      const weather = document.getElementById('f-weather').value;
-      const eventDay = document.getElementById('f-event').value;
-
-      const rows = RAW_DATA.filter(r => {{
-        const mOk = mode === 'ALL' ? true :
-          mode === 'SURFACE' ? (r.Transport_Mode === 'Bus' || r.Transport_Mode === 'Tram' || r.Transport_Mode === 'Park and Ride') :
-          mode === 'MICRO' ? (r.Transport_Mode === 'Bike Share' || r.Transport_Mode === 'E-Scooter') :
-          mode === 'RAIL' ? (r.Transport_Mode === 'Metro' || r.Transport_Mode === 'Tram') :
-          r.Transport_Mode === mode;
-        const wOk = weather === 'ALL' ? true :
-          weather === 'RAINSNOW' ? (r.Weather === 'Rain' || r.Weather === 'Snow') :
-          r.Weather === weather;
-        return (country === 'ALL' || r.Country === country) &&
-               (city === 'ALL' || r.City === city) &&
-               mOk &&
-               (route === 'ALL' || r.Route_Type === route) &&
-               wOk &&
-               (eventDay === 'ALL' || r.Event_Day === eventDay);
-      }});
-
-      const n = rows.length || 1;
-      const totalPax = rows.reduce((s, r) => s + r.Passengers, 0);
-      const meanOnTime = rows.reduce((s, r) => s + r.On_Time_Percentage, 0) / n;
-      const meanDelay = rows.reduce((s, r) => s + r.Average_Delay_Minutes, 0) / n;
-      const totalRev = rows.reduce((s, r) => s + r.Ticket_Revenue_EUR, 0);
-      const totalCost = rows.reduce((s, r) => s + r.Operating_Cost_EUR, 0);
-      const netMargin = totalRev - totalCost;
-      const recovery = totalCost > 0 ? (totalRev / totalCost * 100) : 0;
-      const recMean = rows.reduce((s, r) => s + (r.Cost_Recovery_Pct || 0), 0) / n;
-      const totalCO2 = rows.reduce((s, r) => s + r.CO2_Saved_KG, 0) / 1000.0;
-      const meanRating = rows.reduce((s, r) => s + r.Customer_Rating, 0) / n;
-      const totalComp = rows.reduce((s, r) => s + r.Accessibility_Complaints, 0);
-      const compRate = totalPax > 0 ? (totalComp / totalPax * 10000) : 0;
-
-      document.getElementById('k-pax').textContent = (totalPax / 1e6).toFixed(2) + 'M';
-      document.getElementById('k-records').textContent = rows.length.toLocaleString() + ' daily records';
-      document.getElementById('k-ontime').textContent = meanOnTime.toFixed(1) + '%';
-      document.getElementById('k-delay').textContent = meanDelay.toFixed(2) + 'm';
-      document.getElementById('k-recovery').textContent = recovery.toFixed(1) + '%';
-      document.getElementById('k-margin').textContent = 'Rec Mean: ' + recMean.toFixed(1) + '% · ' + (netMargin >= 0 ? '+€' : '-€') + (Math.abs(netMargin)/1e6).toFixed(2) + 'M';
-      document.getElementById('k-co2').textContent = totalCO2.toFixed(1) + 't';
-      document.getElementById('k-rating').textContent = meanRating.toFixed(2);
-      document.getElementById('k-comp').textContent = compRate.toFixed(2) + ' complaints / 10k pax';
-
-      // 1. Monthly trend
-      const byMonth = {{}};
-      rows.forEach(r => {{
-        if (!byMonth[r.YearMonth]) byMonth[r.YearMonth] = {{sum: 0, cnt: 0}};
-        byMonth[r.YearMonth].sum += r.Passengers;
-        byMonth[r.YearMonth].cnt += 1;
-      }});
-      const mKeys = Object.keys(byMonth).sort();
-      Plotly.react('c-trend', [{{
-        x: mKeys,
-        y: mKeys.map(k => byMonth[k].sum / byMonth[k].cnt),
-        mode: 'lines+markers',
-        line: {{color: '{MIDNIGHT}', width: 2.5}},
-        marker: {{color: '{TIFFANY_DEEP}', size: 6}}
-      }}], {{
-        title: {{text: 'Mean Daily Passengers by Month', font: {{size: 13, color: '{MIDNIGHT}'}}}},
-        paper_bgcolor: '{WHITE}', plot_bgcolor: '{PAPER}',
-        margin: {{l: 50, r: 20, t: 40, b: 40}}
-      }}, {{displayModeBar: false}});
-
-      // 2. Mode cost recovery
-      const byMode = {{}};
-      rows.forEach(r => {{
-        if (!byMode[r.Transport_Mode]) byMode[r.Transport_Mode] = {{rev: 0, cost: 0}};
-        byMode[r.Transport_Mode].rev += r.Ticket_Revenue_EUR;
-        byMode[r.Transport_Mode].cost += r.Operating_Cost_EUR;
-      }});
-      const modeKeys = Object.keys(byMode).sort((a,b) => (byMode[a].rev/byMode[a].cost) - (byMode[b].rev/byMode[b].cost));
-      const modeVals = modeKeys.map(k => byMode[k].rev / byMode[k].cost * 100);
-      Plotly.react('c-mode', [{{
-        x: modeVals, y: modeKeys, orientation: 'h', type: 'bar',
-        marker: {{color: modeVals.map(v => v < 100 ? '{TIFFANY}' : '{MIDNIGHT_SOFT}')}}
-      }}], {{
-        title: {{text: 'Cost Recovery Ratio (%) by Mode', font: {{size: 13, color: '{MIDNIGHT}'}}}},
-        paper_bgcolor: '{WHITE}', plot_bgcolor: '{PAPER}',
-        margin: {{l: 100, r: 20, t: 40, b: 40}}
-      }}, {{displayModeBar: false}});
-
-      // 3. Weather delay
-      const wOrder = ['Clear', 'Cloudy', 'Windy', 'Heatwave', 'Rain', 'Snow'];
-      const byW = {{}};
-      rows.forEach(r => {{
-        if (!byW[r.Weather]) byW[r.Weather] = {{d: 0, c: 0}};
-        byW[r.Weather].d += r.Average_Delay_Minutes;
-        byW[r.Weather].c += 1;
-      }});
-      const wKeys = wOrder.filter(k => byW[k]);
-      const wVals = wKeys.map(k => byW[k].d / byW[k].c);
-      Plotly.react('c-weather', [{{
-        x: wKeys, y: wVals, type: 'bar',
-        marker: {{color: wKeys.map(k => (k === 'Rain' || k === 'Snow') ? '{TIFFANY}' : '{MIDNIGHT_SOFT}')}}
-      }}], {{
-        title: {{text: 'Mean Delay (min) by Weather', font: {{size: 13, color: '{MIDNIGHT}'}}}},
-        paper_bgcolor: '{WHITE}', plot_bgcolor: '{PAPER}',
-        margin: {{l: 50, r: 20, t: 40, b: 40}}
-      }}, {{displayModeBar: false}});
-
-      // 4. Route accessibility complaints per 10k pax
-      const byR = {{}};
-      rows.forEach(r => {{
-        if (!byR[r.Route_Type]) byR[r.Route_Type] = {{comp: 0, pax: 0}};
-        byR[r.Route_Type].comp += r.Accessibility_Complaints;
-        byR[r.Route_Type].pax += r.Passengers;
-      }});
-      const rKeys = Object.keys(byR).sort((a,b) => (byR[a].comp/byR[a].pax) - (byR[b].comp/byR[b].pax));
-      const rVals = rKeys.map(k => byR[k].comp / byR[k].pax * 10000);
-      const maxR = Math.max(...rVals);
-      Plotly.react('c-route', [{{
-        x: rVals, y: rKeys, orientation: 'h', type: 'bar',
-        marker: {{color: rVals.map(v => v === maxR ? '{TIFFANY}' : '{MIDNIGHT_SOFT}')}}
-      }}], {{
-        title: {{text: 'Complaints per 10k Pax by Route Type', font: {{size: 13, color: '{MIDNIGHT}'}}}},
-        paper_bgcolor: '{WHITE}', plot_bgcolor: '{PAPER}',
-        margin: {{l: 120, r: 20, t: 40, b: 40}}
-      }}, {{displayModeBar: false}});
-    }}
-    updateDashboard();
-  </script>
-</body>
-</html>
-"""
-    out_html.write_text(html, encoding="utf-8")
-    print(f"Exported standalone interactive HTML dashboard: {out_html}")
-    return out_html
 
 
 def render_dashboard_capture_svg(
@@ -809,14 +438,10 @@ def render_dashboard_capture_svg(
 
 def main() -> None:
     FIG_DIR.mkdir(parents=True, exist_ok=True)
-    DASH_DIR.mkdir(parents=True, exist_ok=True)
 
     df = pd.read_csv(DATA_CSV, parse_dates=["Date_ISO"])
 
-    # 1. Export interactive HTML application
-    export_interactive_html_dashboard(df)
-
-    # 2. Render default full-network Streamlit dashboard state capture (Figure 9)
+    # 1. Render default full-network Streamlit dashboard state capture (Figure 9)
     render_dashboard_capture_svg(
         df_sub=df,
         filter_chips=[
