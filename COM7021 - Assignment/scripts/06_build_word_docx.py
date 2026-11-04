@@ -904,14 +904,14 @@ def build_word_document() -> None:
         ["Section 1.1", "Data Importing, Hygiene Audit, and Feature Engineering (Figure A)", "LO2", "Data Preparation Pipeline"],
         ["Section 1.2", "Initial Descriptive Statistics and Financial Aggregation Basis (Table 1)", "LO2", "Parametric &amp; Non-Parametric EDA"],
         ["Section 1.3", "Visualisation Investigation and Decision Justification (Figures 1 to 8)", "LO1, LO2", "8 Distinct Non-Repeating Charts"],
-        ["Section 1.4", "Interactive Python Decision Dashboard (Figures 9 and 10)", "LO1, LO2, LO3", "Multi-Filter Plotly Application"],
+        ["Section 1.4", "Interactive Streamlit &amp; Plotly Decision Dashboard (Figures 9 and 10)", "LO1, LO2, LO3", "Multi-Filter Streamlit Application"],
         ["<strong>Task 2</strong>", "<strong>Critical Report on Visualisation and Decision-Making</strong>", "<strong>LO1, LO2, LO3, LO4</strong>", "<strong>30 Marks (~900 words)</strong>"],
         ["Section 2.1", "Critical Justification of Visualisation Design for Technical &amp; Non-Technical Audiences", "LO1, LO3", "Perceptual Psychology &amp; Encoding"],
         ["Section 2.2", "Critical Synthesis of Findings and Methodological Reflections (Table 2)", "LO2, LO3", "Financial, Compositional &amp; Causal Rigour"],
         ["Section 2.3", "Critical Evaluation of Dashboard Effectiveness and Analytical Limitations", "LO1, LO3", "Shneiderman Mantra &amp; Constraints"],
         ["Section 2.4", "Evidence-Supported Recommendations and Decision-Making Value (Table 3)", "LO3, LO4", "Pilot &amp; Feasibility Appraisal"],
         ["<strong>References</strong>", "<strong>Arden University Harvard (AU Harvard) Reference List</strong>", "<strong>LO1, LO4</strong>", "<strong>12 Peer-Reviewed &amp; Policy Sources</strong>"],
-        ["<strong>Appendix</strong>", "<strong>Complete Reproducible Python Source Code (5 Modules)</strong>", "<strong>LO2</strong>", "<strong>Full Verification Code</strong>"],
+        ["<strong>Appendix</strong>", "<strong>Complete Reproducible Python &amp; Streamlit Source Code (6 Modules)</strong>", "<strong>LO2</strong>", "<strong>Full Verification Code</strong>"],
     ]
     doc.add_table(
         toc_headers,
@@ -935,8 +935,8 @@ def build_word_document() -> None:
         ["<strong>Figure 6</strong>", "Dual-Encoded 6×6 Interaction Heatmap", "<em>Requirement 3 (Multivariate Interaction):</em> Weather × Mode delay escalation (+119.4% in Snow)."],
         ["<strong>Figure 7</strong>", "Two-Way Normalised Rate Bar + 6×6 Matrix", "<em>Requirement 2 &amp; 5 (Route Accessibility):</em> Volume-weighted complaints per 10,000 passengers."],
         ["<strong>Figure 8</strong>", "Multi-Dimensional Modal Performance Matrix", "<em>Requirement 5 (Performance Indicator):</em> Cross-modal synthesis of demand, delay, recovery &amp; CO<sub>2</sub>/kWh."],
-        ["<strong>Figure 9</strong>", "Interactive Dashboard Screenshot (Unfiltered)", "<em>Requirement 6 (Dashboard Overview):</em> Default baseline state (<em>N</em> = 5,000 records across 12 cities)."],
-        ["<strong>Figure 10</strong>", "Interactive Dashboard Screenshot (Filtered Scenario)", "<em>Requirement 6 (Dashboard Scenario):</em> Surface modes under Rain &amp; Snow (<em>n</em> = 583 records)."],
+        ["<strong>Figure 9</strong>", "Streamlit Dashboard Screenshot (Unfiltered)", "<em>Requirement 6 (Dashboard Overview):</em> Default baseline state (<em>N</em> = 5,000 records across 12 cities)."],
+        ["<strong>Figure 10</strong>", "Streamlit Dashboard Screenshot (Filtered Scenario)", "<em>Requirement 6 (Dashboard Scenario):</em> Surface modes under Rain &amp; Snow (<em>n</em> = 583 records)."],
         ["<strong>Table 1</strong>", "Parametric &amp; Non-Parametric Summary Table", "Initial descriptive statistics (Mean, SD, Median, Q25, Q75, IQR, Min, Max, Skewness) for 15 variables."],
         ["<strong>Table 2</strong>", "12-City Comparative Performance Table", "Cumulative vs per-record city margins and volume-weighted vs record-mean cost recovery."],
         ["<strong>Table 3</strong>", "Evidence-Supported Policy Appraisal Matrix", "Links empirical visual findings to candidate interventions for pilot evaluation and feasibility appraisal."],
@@ -1057,17 +1057,17 @@ def build_word_document() -> None:
         "<strong>Figure 8 (Multi-Dimensional Modal Performance Matrix):</strong> Cross-modal summary comparing passenger demand share, mean service delay, overall cost-recovery ratio, environmental efficiency (<code>CO2 / kWh</code>), and aggregate accessibility complaints per 10,000 passengers.",
     )
 
-    doc.add_heading("1.4 Interactive Python Decision Dashboard (Figures 9 &amp; 10)", level=2)
+    doc.add_heading("1.4 Interactive Streamlit &amp; Plotly Decision Dashboard (Figures 9 &amp; 10)", level=2)
     doc.add_paragraph_html(
-        "<p>The interactive Plotly decision dashboard (<code>output/dashboard/ecomove_interactive_dashboard.html</code> and live web report) links six categorical filter dimensions (Country, City, Transport Mode, Route Type, Weather Condition, and Major Event Day) to six KPI cards and four coordinated charts. <strong>Figure 9</strong> (unfiltered network baseline) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario) provide the static screenshot evidence below.</p>"
+        "<p>The interactive decision dashboard is built in <strong>Streamlit and Plotly</strong> (<code>scripts/04_streamlit_dashboard.py</code>, launched via <code>streamlit run \"COM7021 - Assignment/scripts/04_streamlit_dashboard.py\"</code>) and mirrored in the standalone HTML deliverable (<code>output/dashboard/ecomove_interactive_dashboard.html</code>). It links one-click executive scenario presets and six sidebar filters (Country, City, Transport Mode, Route Topology, Weather Condition, and Major Event Day) to six KPI cards—explicitly reporting both volume-weighted overall cost recovery (99.58%) and unweighted record-mean recovery (84.12%)—and five analytical tabs. <strong>Figure 9</strong> (unfiltered network baseline, <code>N = 5,000</code>) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario, <code>n = 583</code>) provide the static screenshot evidence below.</p>"
     )
     doc.add_image(
         "fig09_dashboard_overview.png",
-        "<strong>Figure 9 (Dashboard Screenshot Evidence — Default Unfiltered View):</strong> Full-network baseline state (<code>N = 5,000</code> records across all 12 European cities), displaying top-level KPIs (40.91M passengers, 82.1% on-time, 4.35 min delay, 99.6% overall cost recovery), modal delay and recovery bars, route-level accessibility complaint rates, and top city summary metrics.",
+        "<strong>Figure 9 (Streamlit Dashboard Screenshot Evidence — Default Unfiltered View):</strong> Full-network baseline state (<code>N = 5,000</code> records across all 12 European cities), showing the <code>st.sidebar</code> filter console, 5-tab workspace, 6 KPI cards (40.91M passengers, 82.1% on-time, 4.35 min delay, 99.6% overall cost recovery vs 84.1% record mean), modal delay/recovery bars, route accessibility complaint rates, and top city summary cards.",
     )
     doc.add_image(
         "fig10_dashboard_filtered_scenario.png",
-        "<strong>Figure 10 (Dashboard Screenshot Evidence — Filtered Adverse Weather Surface Scenario):</strong> Filtered decision state isolating surface transit modes (<code>Bus, Tram, Park &amp; Ride</code>) under <code>Rain &amp; Snow</code> (<code>n = 583</code> records). Mean delay rises to 7.38 min (+69.7% above baseline), on-time performance drops to 72.2%, and customer rating falls to 3.46 / 5.00, while surface cost recovery remains positive at 113.2%.",
+        "<strong>Figure 10 (Streamlit Dashboard Screenshot Evidence — Filtered Adverse Weather Surface Scenario):</strong> Filtered decision state isolating surface transit modes (<code>Bus, Tram, Park &amp; Ride</code>) under <code>Rain &amp; Snow</code> (<code>n = 583</code> records, 2.80M passengers). Mean delay rises to 7.38 min (+69.7% above baseline), on-time performance drops to 72.2%, and customer rating falls to 3.46 / 5.00, while surface cost recovery remains positive at 113.2% (+€0.84M net surplus).",
     )
 
     doc.add_page_break()
@@ -1192,17 +1192,18 @@ def build_word_document() -> None:
     doc.add_page_break()
 
     # ==========================================================================
-    # APPENDIX — REPRODUCIBLE PYTHON SOURCE CODE
+    # APPENDIX — REPRODUCIBLE PYTHON & STREAMLIT SOURCE CODE
     # ==========================================================================
-    doc.add_heading("Appendix — Reproducible Python Source Code", level=1)
+    doc.add_heading("Appendix — Reproducible Python &amp; Streamlit Source Code", level=1)
     doc.add_paragraph_html(
-        "<p>Complete, self-contained Python 3.11 scripts used to ingest and validate <code>[5442] EcoMoveMobility.xlsx</code>, compute parametric, non-parametric, and directly standardised statistics, render the 220 DPI static visualisation suite (Figures 0, A, and 1 to 10), and build the interactive Plotly decision dashboard.</p>"
+        "<p>Complete, self-contained Python 3.11 scripts used to ingest and validate <code>[5442] EcoMoveMobility.xlsx</code>, compute parametric, non-parametric, and directly standardised statistics, render the 220 DPI static visualisation suite (Figures 0, A, and 1 to 10), and execute the interactive <strong>Streamlit + Plotly</strong> decision dashboard (<code>scripts/04_streamlit_dashboard.py</code>).</p>"
     )
     code_files = [
         ("style/palette.py", BASE_DIR / "style" / "palette.py"),
         ("scripts/01_data_prep_and_eda.py", BASE_DIR / "scripts" / "01_data_prep_and_eda.py"),
         ("scripts/02_charts.py", BASE_DIR / "scripts" / "02_charts.py"),
         ("scripts/03_diagrams.py", BASE_DIR / "scripts" / "03_diagrams.py"),
+        ("scripts/04_streamlit_dashboard.py", BASE_DIR / "scripts" / "04_streamlit_dashboard.py"),
         ("scripts/04_dashboard.py", BASE_DIR / "scripts" / "04_dashboard.py"),
     ]
     for title, path in code_files:

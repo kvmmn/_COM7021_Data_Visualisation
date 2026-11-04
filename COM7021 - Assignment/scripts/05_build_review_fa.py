@@ -348,6 +348,7 @@ def build_fa_html() -> None:
         ("scripts/01_data_prep_and_eda.py", BASE_DIR / "scripts" / "01_data_prep_and_eda.py"),
         ("scripts/02_charts.py", BASE_DIR / "scripts" / "02_charts.py"),
         ("scripts/03_diagrams.py", BASE_DIR / "scripts" / "03_diagrams.py"),
+        ("scripts/04_streamlit_dashboard.py", BASE_DIR / "scripts" / "04_streamlit_dashboard.py"),
         ("scripts/04_dashboard.py", BASE_DIR / "scripts" / "04_dashboard.py"),
     ]
     appendix_snippets = []

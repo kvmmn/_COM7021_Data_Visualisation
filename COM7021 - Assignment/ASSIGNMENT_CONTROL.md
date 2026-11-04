@@ -52,14 +52,15 @@
    - **Figure 6 (`fig06_weather_mode_delay_heatmap.png`):** Dual-encoded Weather × Mode delay interaction heatmap.
    - **Figure 7 (`fig07_route_accessibility_rate.png`):** Two-way volume-weighted accessibility complaint rate matrix per 10,000 passengers across routes and modes.
    - **Figure 8 (`fig08_mode_performance_matrix.png`):** Multi-dimensional modal performance matrix synthesising demand share, delay, overall cost recovery, carbon efficiency, and complaint rates.
-   - **Figure 9 (`fig09_dashboard_overview.png`):** Interactive dashboard screenshot — default unfiltered network baseline ($N = 5,000$).
-   - **Figure 10 (`fig10_dashboard_filtered_scenario.png`):** Interactive dashboard screenshot — filtered adverse-weather surface transit scenario ($n = 583$).
-4. **Interactive Dashboard (`Plotly` + Multi-Filter HTML Application):**
-   - Filters: Country, City, Transport Mode, Route Type, Weather Condition, Major Event Day.
-   - Views: 6 KPI cards + 4 coordinated charts + static screenshot evidence (Figures 9 and 10).
+   - **Figure 9 (`fig09_dashboard_overview.png`):** Streamlit interactive dashboard screenshot — default unfiltered network baseline ($N = 5,000$).
+   - **Figure 10 (`fig10_dashboard_filtered_scenario.png`):** Streamlit interactive dashboard screenshot — filtered adverse-weather surface transit scenario ($n = 583$).
+4. **Interactive Dashboard (`Streamlit + Plotly` Application — `scripts/04_streamlit_dashboard.py` + `scripts/04_dashboard.py`):**
+   - Scenario Presets: 6 1-click executive scenario presets (including Figure 9 Baseline and Figure 10 Adverse Weather Surface Scenario) + Custom Exploration mode.
+   - Sidebar Filters: Date Range & Day Regime, Country, City, Transport Mode, Route Topology, Weather Condition, Major Event Day, and Financial Basis Toggle.
+   - Views: 6 KPI cards with live baseline deltas & dual-basis cost recovery (`99.58%` overall vs `84.12%` record mean) + 5 structured analytical decision tabs + static screenshot evidence (Figures 9 and 10).
 5. **Process Evidence & Appendix:**
    - Final `.docx` submission (`COM7021_Assessment_25199053.docx`) and synchronised HTML reports (`COM7021_Draft_Review_25199053.html`, `index.html`).
-   - Complete, clean, reproducible Python code in the Appendix.
+   - Complete, clean, reproducible Python & Streamlit source code (6 modules) in the Appendix.
 
 ---
 
@@ -81,4 +82,4 @@
 | **3. Financial Analysis** | Reconciled cumulative totals (€111.64M rev, €112.11M cost, −€0.47M net), per-record means (€22,328.12 rev, €22,422.00 cost, −€93.88 net), and per-passenger figures (€2.73 vs €2.74/pax), and explained the difference between unweighted record-mean cost recovery (`84.12%`, median `102.26%`) and volume-weighted overall recovery (`99.58%`). |
 | **4. Recommendations** | Framed all four policy interventions (contract rebalancing audits, corridor bus priority appraisal, weather/event timetable buffers, suburban feeder site audits) as evidence-supported options for pilot evaluation and feasibility appraisal rather than established solutions. |
 | **5. Presentation** | Removed all 13 personal reflection callout boxes and the "Project Working Topology & Status Overview" banner; integrated key methodological reflections directly into the academic discussion. |
-| **6. Word Count & Conciseness** | Eliminated cross-section repetition; Task 1 prose is `617 words` (target ~600w) and Task 2 report is `934 words` (target ~900w), totalling `1,551 words` of written prose. |
+| **6. Word Count & Conciseness** | Eliminated cross-section repetition; Task 1 prose is `618 words` (target ~600w) and Task 2 report is `945 words` (target ~900w), totalling `1,563 words` of written prose. |

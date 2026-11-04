@@ -71,7 +71,7 @@ TASK1_FIG5_TEXT = """
 """
 
 TASK1_FIG6_8_TEXT = """
-<p><strong>6. Weather Shocks, Accessibility &amp; Synthesis (Figures 6–8):</strong> Figure 6 shows Snow coincides with +119.4% higher delay vs Clear weather (8.14 vs 3.71 min; Bus 10.33 min). Figure 7 corrects exposure bias in accessibility complaints: raw counts track ridership (<em>r</em> = 0.866), making Metro appear highest (36.52/record), but rates per 10,000 passengers (Panel A) show Metro is lowest (14.85/10k) and Suburban Feeders highest (16.79/10k), led by Suburban Feeder E-Scooter (54.02/10k aggregate; 66.87/10k record mean) and Bike Share (49.26/10k aggregate; 55.26/10k record mean; Panel B). Figure 8 synthesises modal KPIs; Figures 9–10 present the dashboard.</p>
+<p><strong>6. Weather Shocks, Accessibility &amp; Synthesis (Figures 6–8):</strong> Figure 6 shows Snow coincides with +119.4% higher delay vs Clear weather (8.14 vs 3.71 min; Bus 10.33 min). Figure 7 corrects exposure bias in accessibility complaints: raw counts track ridership (<em>r</em> = 0.866), making Metro appear highest (36.52/record), but rates per 10,000 passengers (Panel A) show Metro is lowest (14.85/10k) and Suburban Feeders highest (16.79/10k), led by Suburban Feeder E-Scooter (54.02/10k aggregate; 66.87/10k record mean) and Bike Share (49.26/10k aggregate; 55.26/10k record mean; Panel B). Figure 8 synthesises modal KPIs; Figures 9–10 present the Streamlit dashboard.</p>
 """
 
 
@@ -97,7 +97,7 @@ TASK2_SEC_2_2 = """
 
 TASK2_SEC_2_3 = """
 <h3>2.3 Critical Evaluation of Dashboard Effectiveness and Analytical Limitations (LO1 &amp; LO3)</h3>
-<p>The interactive dashboard (Section 1.4; Figures 9 and 10) implements Shneiderman’s (1996) visual information-seeking mantra (<em>overview first, zoom and filter, then details-on-demand</em>) by linking six filters to six KPI cards and four charts. Its core strength is scenario isolation: whereas the unfiltered view (Figure 9, <em>N</em> = 5,000) shows near-balanced recovery (99.6%) and 4.35-minute mean delay, filtering to surface transit under Rain and Snow (Figure 10, <em>n</em> = 583) isolates elevated delays (7.38 min), lower on-time rates (72.2%), and lower ratings (3.46/5) alongside positive surface recovery (113.2%). Three limitations apply: (i) static Word screenshots forfeit live tooltips; (ii) daily aggregation masks intra-day peak congestion (07:00–09:00, 16:30–19:00); and (iii) operating costs exclude capital depreciation.</p>
+<p>The interactive Streamlit decision dashboard (Section 1.4; Figures 9 and 10) implements Shneiderman’s (1996) visual information-seeking mantra (<em>overview first, zoom and filter, then details-on-demand</em>) by linking six sidebar filters to six KPI cards and coordinated Plotly tabs. Its core strength is scenario isolation: whereas the unfiltered view (Figure 9, <em>N</em> = 5,000) shows near-balanced recovery (99.6%) and 4.35-minute mean delay, filtering to surface transit under Rain and Snow (Figure 10, <em>n</em> = 583) isolates elevated delays (7.38 min), lower on-time rates (72.2%), and lower ratings (3.46/5) alongside positive surface recovery (113.2%). Three limitations apply: (i) static Word screenshots forfeit live tooltips; (ii) daily aggregation masks intra-day peak congestion (07:00–09:00, 16:30–19:00); and (iii) operating costs exclude capital depreciation.</p>
 """
 
 TASK2_SEC_2_4 = """
@@ -228,6 +228,7 @@ def build_html() -> None:
         ("scripts/01_data_prep_and_eda.py", BASE_DIR / "scripts" / "01_data_prep_and_eda.py"),
         ("scripts/02_charts.py", BASE_DIR / "scripts" / "02_charts.py"),
         ("scripts/03_diagrams.py", BASE_DIR / "scripts" / "03_diagrams.py"),
+        ("scripts/04_streamlit_dashboard.py", BASE_DIR / "scripts" / "04_streamlit_dashboard.py"),
         ("scripts/04_dashboard.py", BASE_DIR / "scripts" / "04_dashboard.py"),
     ]
     appendix_html = ""
@@ -723,10 +724,10 @@ def build_html() -> None:
     <!-- INTERACTIVE DASHBOARD SECTION -->
     <section id="dashboard" class="section-card">
       <h2>
-        <span>1.4 Interactive Python Decision Dashboard (Live Filterable App + Figures 9 &amp; 10)</span>
-        <span class="badge">Live Interactive View + Report Screenshots</span>
+        <span>1.4 Interactive Streamlit &amp; Plotly Decision Dashboard (Live App + Figures 9 &amp; 10)</span>
+        <span class="badge">Streamlit App + Live Web View + Report Screenshots</span>
       </h2>
-      <p style="margin-top:0;">The interactive Plotly decision dashboard below links six categorical filter dimensions (Country, City, Transport Mode, Route Type, Weather Condition, and Major Event Day) to six KPI cards and four coordinated views. Beneath the live application, <strong>Figure 9</strong> (unfiltered network baseline) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario) provide the static screenshot evidence embedded in the Word submission.</p>
+      <p style="margin-top:0;">The interactive decision dashboard is implemented in <strong>Streamlit + Plotly</strong> (<code>scripts/04_streamlit_dashboard.py</code>, launched via <code>streamlit run "COM7021 - Assignment/scripts/04_streamlit_dashboard.py"</code>) and mirrored below as a live browser widget. It links executive scenario presets and six sidebar filters (Country, City, Transport Mode, Route Type, Weather Condition, and Major Event Day) to six KPI cards (reporting both volume-weighted overall and unweighted record-mean cost recovery) and five analytical tabs. Beneath the live widget, <strong>Figure 9</strong> (unfiltered network baseline) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario) provide the static Streamlit screenshot evidence embedded in the Word submission.</p>
 
       <div class="dash-shell">
         <div class="dash-filters">
