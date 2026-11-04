@@ -209,6 +209,7 @@ def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
             "Ticket_Revenue_EUR",
             "Operating_Cost_EUR",
             "Net_Margin_EUR",
+            "Cost_Recovery_Pct",
             "CO2_Saved_KG",
             "Energy_Consumption_KWh",
             "Customer_Rating",
@@ -267,6 +268,33 @@ def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
     }}
     .header h1 {{ margin: 0; font-size: 19px; font-weight: 700; }}
     .header .meta {{ font-size: 12px; color: var(--mist); }}
+    .presets {{
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }}
+    .preset-btn {{
+      background: var(--white);
+      color: var(--midnight);
+      border: 1.5px solid var(--line);
+      border-radius: 9px;
+      padding: 9px 8px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }}
+    .preset-btn:hover {{
+      border-color: var(--tiffany);
+      background: var(--mist);
+    }}
+    .preset-btn.active {{
+      background: var(--tiffany-deep);
+      color: var(--white);
+      border-color: var(--tiffany);
+    }}
     .filters {{
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -339,13 +367,22 @@ def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
     <div class="meta">COM7021 Data Visualisation · Student ID: 25199053</div>
   </div>
 
+  <div class="presets">
+    <button type="button" class="preset-btn active" id="pbtn-1" onclick="applyPreset(1)">🌐 1. Full Baseline</button>
+    <button type="button" class="preset-btn" id="pbtn-2" onclick="applyPreset(2)">🌧️ 2. Rain &amp; Snow</button>
+    <button type="button" class="preset-btn" id="pbtn-3" onclick="applyPreset(3)">🛴 3. Micromobility</button>
+    <button type="button" class="preset-btn" id="pbtn-4" onclick="applyPreset(4)">🏟️ 4. Event Surge</button>
+    <button type="button" class="preset-btn" id="pbtn-5" onclick="applyPreset(5)">♿ 5. Suburban Access</button>
+    <button type="button" class="preset-btn" id="pbtn-6" onclick="applyPreset(6)">🚇 6. Rail Backbone</button>
+  </div>
+
   <div class="filters">
-    <div class="filter-group"><label>Country</label><select id="f-country" onchange="updateDashboard()">{opts(countries)}</select></div>
-    <div class="filter-group"><label>City</label><select id="f-city" onchange="updateDashboard()">{opts(cities)}</select></div>
-    <div class="filter-group"><label>Transport Mode</label><select id="f-mode" onchange="updateDashboard()">{opts(modes)}</select></div>
-    <div class="filter-group"><label>Route Type</label><select id="f-route" onchange="updateDashboard()">{opts(routes)}</select></div>
-    <div class="filter-group"><label>Weather Condition</label><select id="f-weather" onchange="updateDashboard()">{opts(weathers)}</select></div>
-    <div class="filter-group"><label>Major Event Day</label><select id="f-event" onchange="updateDashboard()"><option value="ALL">All</option><option value="No">Standard Day (No)</option><option value="Yes">Event Day (Yes)</option></select></div>
+    <div class="filter-group"><label>Country</label><select id="f-country" onchange="onManualFilter()">{opts(countries)}</select></div>
+    <div class="filter-group"><label>City</label><select id="f-city" onchange="onManualFilter()">{opts(cities)}</select></div>
+    <div class="filter-group"><label>Transport Mode</label><select id="f-mode" onchange="onManualFilter()">{opts(modes)}<option value="SURFACE">Surface (Bus+Tram+P&amp;R)</option><option value="MICRO">Micromobility (Bike+Scooter)</option><option value="RAIL">Electric Rail (Metro+Tram)</option></select></div>
+    <div class="filter-group"><label>Route Type</label><select id="f-route" onchange="onManualFilter()">{opts(routes)}</select></div>
+    <div class="filter-group"><label>Weather Condition</label><select id="f-weather" onchange="onManualFilter()">{opts(weathers)}<option value="RAINSNOW">Rain + Snow (Adverse)</option></select></div>
+    <div class="filter-group"><label>Major Event Day</label><select id="f-event" onchange="onManualFilter()"><option value="ALL">All</option><option value="No">Standard Day (No)</option><option value="Yes">Event Day (Yes)</option></select></div>
   </div>
 
   <div class="kpi-strip">
@@ -366,6 +403,26 @@ def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
 
   <script>
     const RAW_DATA = {data_json};
+    function applyPreset(id) {{
+      for (let i = 1; i <= 6; i++) {{
+        const b = document.getElementById('pbtn-' + i);
+        if (b) b.classList.toggle('active', i === id);
+      }}
+      document.getElementById('f-country').value = 'ALL';
+      document.getElementById('f-city').value = 'ALL';
+      document.getElementById('f-mode').value = id === 2 ? 'SURFACE' : (id === 3 ? 'MICRO' : (id === 6 ? 'RAIL' : 'ALL'));
+      document.getElementById('f-route').value = id === 5 ? 'Suburban Feeder' : 'ALL';
+      document.getElementById('f-weather').value = id === 2 ? 'RAINSNOW' : 'ALL';
+      document.getElementById('f-event').value = id === 4 ? 'Yes' : 'ALL';
+      updateDashboard();
+    }}
+    function onManualFilter() {{
+      for (let i = 1; i <= 6; i++) {{
+        const b = document.getElementById('pbtn-' + i);
+        if (b) b.classList.remove('active');
+      }}
+      updateDashboard();
+    }}
     function updateDashboard() {{
       const country = document.getElementById('f-country').value;
       const city = document.getElementById('f-city').value;
@@ -374,14 +431,22 @@ def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
       const weather = document.getElementById('f-weather').value;
       const eventDay = document.getElementById('f-event').value;
 
-      const rows = RAW_DATA.filter(r =>
-        (country === 'ALL' || r.Country === country) &&
-        (city === 'ALL' || r.City === city) &&
-        (mode === 'ALL' || r.Transport_Mode === mode) &&
-        (route === 'ALL' || r.Route_Type === route) &&
-        (weather === 'ALL' || r.Weather === weather) &&
-        (eventDay === 'ALL' || r.Event_Day === eventDay)
-      );
+      const rows = RAW_DATA.filter(r => {{
+        const mOk = mode === 'ALL' ? true :
+          mode === 'SURFACE' ? (r.Transport_Mode === 'Bus' || r.Transport_Mode === 'Tram' || r.Transport_Mode === 'Park and Ride') :
+          mode === 'MICRO' ? (r.Transport_Mode === 'Bike Share' || r.Transport_Mode === 'E-Scooter') :
+          mode === 'RAIL' ? (r.Transport_Mode === 'Metro' || r.Transport_Mode === 'Tram') :
+          r.Transport_Mode === mode;
+        const wOk = weather === 'ALL' ? true :
+          weather === 'RAINSNOW' ? (r.Weather === 'Rain' || r.Weather === 'Snow') :
+          r.Weather === weather;
+        return (country === 'ALL' || r.Country === country) &&
+               (city === 'ALL' || r.City === city) &&
+               mOk &&
+               (route === 'ALL' || r.Route_Type === route) &&
+               wOk &&
+               (eventDay === 'ALL' || r.Event_Day === eventDay);
+      }});
 
       const n = rows.length || 1;
       const totalPax = rows.reduce((s, r) => s + r.Passengers, 0);
@@ -391,6 +456,7 @@ def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
       const totalCost = rows.reduce((s, r) => s + r.Operating_Cost_EUR, 0);
       const netMargin = totalRev - totalCost;
       const recovery = totalCost > 0 ? (totalRev / totalCost * 100) : 0;
+      const recMean = rows.reduce((s, r) => s + (r.Cost_Recovery_Pct || 0), 0) / n;
       const totalCO2 = rows.reduce((s, r) => s + r.CO2_Saved_KG, 0) / 1000.0;
       const meanRating = rows.reduce((s, r) => s + r.Customer_Rating, 0) / n;
       const totalComp = rows.reduce((s, r) => s + r.Accessibility_Complaints, 0);
@@ -401,7 +467,7 @@ def export_interactive_html_dashboard(df: pd.DataFrame) -> Path:
       document.getElementById('k-ontime').textContent = meanOnTime.toFixed(1) + '%';
       document.getElementById('k-delay').textContent = meanDelay.toFixed(2) + 'm';
       document.getElementById('k-recovery').textContent = recovery.toFixed(1) + '%';
-      document.getElementById('k-margin').textContent = 'Net: ' + (netMargin >= 0 ? '+€' : '-€') + (Math.abs(netMargin)/1e6).toFixed(2) + 'M';
+      document.getElementById('k-margin').textContent = 'Rec Mean: ' + recMean.toFixed(1) + '% · ' + (netMargin >= 0 ? '+€' : '-€') + (Math.abs(netMargin)/1e6).toFixed(2) + 'M';
       document.getElementById('k-co2').textContent = totalCO2.toFixed(1) + 't';
       document.getElementById('k-rating').textContent = meanRating.toFixed(2);
       document.getElementById('k-comp').textContent = compRate.toFixed(2) + ' complaints / 10k pax';

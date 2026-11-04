@@ -225,6 +225,7 @@ def build_fa_html() -> None:
             "Passengers",
             "Ticket_Revenue_EUR",
             "Operating_Cost_EUR",
+            "Cost_Recovery_Pct",
             "Average_Delay_Minutes",
             "On_Time_Percentage",
             "CO2_Saved_KG",
@@ -677,6 +678,36 @@ def build_fa_html() -> None:
       padding: 20px;
       margin: 20px 0;
     }}
+    .dash-presets {{
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }}
+    .dash-preset-btn {{
+      background: var(--white);
+      color: var(--midnight);
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 6px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }}
+    .dash-preset-btn:hover {{
+      border-color: var(--tiffany);
+      background: var(--mist);
+    }}
+    .dash-preset-btn.active {{
+      background: var(--tiffany-deep);
+      color: var(--white);
+      border-color: var(--tiffany);
+    }}
     .dash-filters {{
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -929,13 +960,22 @@ def build_fa_html() -> None:
       <p style="margin-top:0;">با انتخاب فیلترهای زیر می‌توانید تأثیر کشور، شهر، وسیله نقلیه، نوع مسیر، آب‌وهوا و روزهای رویداد را بر شاخص‌های عملکردی به صورت زنده بررسی کنید. در زیر داشبورد زنده، <strong>شکل ۹</strong> (نمای پیش‌فرض کل شبکه) و <strong>شکل ۱۰</strong> (سناریوی فیلترشده ناوگان سطحی در باران و برف) قرار دارند.</p>
 
       <div class="dash-shell">
+        <div class="dash-presets">
+          <button type="button" class="dash-preset-btn active" id="pbtn-1" onclick="applyPreset(1)">🌐 ۱. کل شبکه (پایه)</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-2" onclick="applyPreset(2)">🌧️ ۲. باران و برف</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-3" onclick="applyPreset(3)">🛴 ۳. دوچرخه و اسکوتر</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-4" onclick="applyPreset(4)">🏟️ ۴. روزهای رویداد</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-5" onclick="applyPreset(5)">♿ ۵. خطوط حومه‌ای</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-6" onclick="applyPreset(6)">🚇 ۶. مترو و تراموا</button>
+        </div>
+
         <div class="dash-filters">
-          <div><label>کشور</label><select id="f-country" onchange="updateDash()">{opts_fa(countries, COUNTRY_FA)}</select></div>
-          <div><label>شهر</label><select id="f-city" onchange="updateDash()">{opts_fa(cities, CITY_FA)}</select></div>
-          <div><label>وسیله نقلیه</label><select id="f-mode" onchange="updateDash()">{opts_fa(modes, MODE_FA)}</select></div>
-          <div><label>نوع مسیر</label><select id="f-route" onchange="updateDash()">{opts_fa(routes, ROUTE_FA)}</select></div>
-          <div><label>آب‌وهوا</label><select id="f-weather" onchange="updateDash()">{opts_fa(weathers, WEATHER_FA)}</select></div>
-          <div><label>روز رویداد خاص</label><select id="f-event" onchange="updateDash()"><option value="ALL">همه روزها</option><option value="No">روز عادی</option><option value="Yes">روز رویداد و شلوغی</option></select></div>
+          <div><label>کشور</label><select id="f-country" onchange="onManualFilter()">{opts_fa(countries, COUNTRY_FA)}</select></div>
+          <div><label>شهر</label><select id="f-city" onchange="onManualFilter()">{opts_fa(cities, CITY_FA)}</select></div>
+          <div><label>وسیله نقلیه</label><select id="f-mode" onchange="onManualFilter()">{opts_fa(modes, MODE_FA)}<option value="SURFACE">ناوگان سطحی (اتوبوس+تراموا+پارکینگ)</option><option value="MICRO">حمل‌ونقل خرد (دوچرخه+اسکوتر)</option><option value="RAIL">ریلی برقی (مترو+تراموا)</option></select></div>
+          <div><label>نوع مسیر</label><select id="f-route" onchange="onManualFilter()">{opts_fa(routes, ROUTE_FA)}</select></div>
+          <div><label>آب‌وهوا</label><select id="f-weather" onchange="onManualFilter()">{opts_fa(weathers, WEATHER_FA)}<option value="RAINSNOW">بارانی + برفی</option></select></div>
+          <div><label>روز رویداد خاص</label><select id="f-event" onchange="onManualFilter()"><option value="ALL">همه روزها</option><option value="No">روز عادی</option><option value="Yes">روز رویداد و شلوغی</option></select></div>
         </div>
 
         <div class="dash-kpis">
@@ -1110,6 +1150,26 @@ def build_fa_html() -> None:
       'Suburban Feeder': 'حومه‌ای'
     }};
 
+    function applyPreset(id) {{
+      for (let i = 1; i <= 6; i++) {{
+        const b = document.getElementById('pbtn-' + i);
+        if (b) b.classList.toggle('active', i === id);
+      }}
+      document.getElementById('f-country').value = 'ALL';
+      document.getElementById('f-city').value = 'ALL';
+      document.getElementById('f-mode').value = id === 2 ? 'SURFACE' : (id === 3 ? 'MICRO' : (id === 6 ? 'RAIL' : 'ALL'));
+      document.getElementById('f-route').value = id === 5 ? 'Suburban Feeder' : 'ALL';
+      document.getElementById('f-weather').value = id === 2 ? 'RAINSNOW' : 'ALL';
+      document.getElementById('f-event').value = id === 4 ? 'Yes' : 'ALL';
+      updateDash();
+    }}
+    function onManualFilter() {{
+      for (let i = 1; i <= 6; i++) {{
+        const b = document.getElementById('pbtn-' + i);
+        if (b) b.classList.remove('active');
+      }}
+      updateDash();
+    }}
     function updateDash() {{
       const country = document.getElementById('f-country').value;
       const city = document.getElementById('f-city').value;
@@ -1118,14 +1178,22 @@ def build_fa_html() -> None:
       const weather = document.getElementById('f-weather').value;
       const eventDay = document.getElementById('f-event').value;
 
-      const rows = RAW_DATA.filter(r =>
-        (country === 'ALL' || r.Country === country) &&
-        (city === 'ALL' || r.City === city) &&
-        (mode === 'ALL' || r.Transport_Mode === mode) &&
-        (route === 'ALL' || r.Route_Type === route) &&
-        (weather === 'ALL' || r.Weather === weather) &&
-        (eventDay === 'ALL' || r.Event_Day === eventDay)
-      );
+      const rows = RAW_DATA.filter(r => {{
+        const mOk = mode === 'ALL' ? true :
+          mode === 'SURFACE' ? (r.Transport_Mode === 'Bus' || r.Transport_Mode === 'Tram' || r.Transport_Mode === 'Park and Ride') :
+          mode === 'MICRO' ? (r.Transport_Mode === 'Bike Share' || r.Transport_Mode === 'E-Scooter') :
+          mode === 'RAIL' ? (r.Transport_Mode === 'Metro' || r.Transport_Mode === 'Tram') :
+          r.Transport_Mode === mode;
+        const wOk = weather === 'ALL' ? true :
+          weather === 'RAINSNOW' ? (r.Weather === 'Rain' || r.Weather === 'Snow') :
+          r.Weather === weather;
+        return (country === 'ALL' || r.Country === country) &&
+               (city === 'ALL' || r.City === city) &&
+               mOk &&
+               (route === 'ALL' || r.Route_Type === route) &&
+               wOk &&
+               (eventDay === 'ALL' || r.Event_Day === eventDay);
+      }});
 
       const n = rows.length || 1;
       const totalPax = rows.reduce((s, r) => s + r.Passengers, 0);
@@ -1135,6 +1203,7 @@ def build_fa_html() -> None:
       const totalCost = rows.reduce((s, r) => s + r.Operating_Cost_EUR, 0);
       const netMargin = totalRev - totalCost;
       const recovery = totalCost > 0 ? (totalRev / totalCost * 100) : 0;
+      const recMean = rows.reduce((s, r) => s + (r.Cost_Recovery_Pct || 0), 0) / n;
       const totalCO2 = rows.reduce((s, r) => s + r.CO2_Saved_KG, 0) / 1000.0;
       const meanRating = rows.reduce((s, r) => s + r.Customer_Rating, 0) / n;
       const totalComp = rows.reduce((s, r) => s + r.Accessibility_Complaints, 0);
@@ -1145,7 +1214,7 @@ def build_fa_html() -> None:
       document.getElementById('k-ontime').textContent = meanOnTime.toFixed(1) + '٪';
       document.getElementById('k-delay').textContent = meanDelay.toFixed(2) + ' دقیقه';
       document.getElementById('k-recovery').textContent = recovery.toFixed(1) + '٪';
-      document.getElementById('k-margin').textContent = 'تراز: ' + (netMargin >= 0 ? '+' : '-') + (Math.abs(netMargin)/1e6).toFixed(2) + 'M €';
+      document.getElementById('k-margin').textContent = 'میانگین: ' + recMean.toFixed(1) + '٪ · ' + (netMargin >= 0 ? '+' : '-') + (Math.abs(netMargin)/1e6).toFixed(2) + 'M €';
       document.getElementById('k-co2').textContent = totalCO2.toFixed(1) + ' تن';
       document.getElementById('k-rating').textContent = meanRating.toFixed(2);
       document.getElementById('k-comp').textContent = compRate.toFixed(2) + ' در ۱۰ هزار';

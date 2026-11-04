@@ -165,6 +165,7 @@ def build_html() -> None:
             "On_Time_Percentage",
             "Ticket_Revenue_EUR",
             "Operating_Cost_EUR",
+            "Cost_Recovery_Pct",
             "CO2_Saved_KG",
             "Customer_Rating",
             "Accessibility_Complaints",
@@ -496,6 +497,50 @@ def build_html() -> None:
       padding: 20px;
       margin: 22px 0;
     }}
+    .dash-presets {{
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }}
+    .dash-preset-btn {{
+      background: var(--white);
+      color: var(--midnight);
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 6px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }}
+    .dash-preset-btn:hover {{
+      border-color: var(--tiffany);
+      background: var(--mist);
+    }}
+    .dash-preset-btn.active {{
+      background: var(--tiffany-deep);
+      color: var(--white);
+      border-color: var(--tiffany);
+    }}
+    .dash-status {{
+      background: var(--white);
+      border: 1.5px solid var(--line);
+      border-left: 4px solid var(--tiffany-deep);
+      border-radius: 9px;
+      padding: 8px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12.5px;
+    }}
     .dash-filters {{
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
@@ -730,22 +775,36 @@ def build_html() -> None:
       <p style="margin-top:0;">The interactive decision dashboard is implemented in <strong>Streamlit + Plotly</strong> (<code>scripts/04_streamlit_dashboard.py</code>, launched via <code>streamlit run "COM7021 - Assignment/scripts/04_streamlit_dashboard.py"</code>) and mirrored below as a live browser widget. It links executive scenario presets and six sidebar filters (Country, City, Transport Mode, Route Type, Weather Condition, and Major Event Day) to six KPI cards (reporting both volume-weighted overall and unweighted record-mean cost recovery) and five analytical tabs. Beneath the live widget, <strong>Figure 9</strong> (unfiltered network baseline) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario) provide the static Streamlit screenshot evidence embedded in the Word submission.</p>
 
       <div class="dash-shell">
+        <div class="dash-presets">
+          <button type="button" class="dash-preset-btn active" id="pbtn-1" onclick="applyPreset(1)">🌐 1. Full Baseline</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-2" onclick="applyPreset(2)">🌧️ 2. Rain &amp; Snow</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-3" onclick="applyPreset(3)">🛴 3. Micromobility</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-4" onclick="applyPreset(4)">🏟️ 4. Event Surge</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-5" onclick="applyPreset(5)">♿ 5. Suburban Access</button>
+          <button type="button" class="dash-preset-btn" id="pbtn-6" onclick="applyPreset(6)">🚇 6. Rail Backbone</button>
+        </div>
+
         <div class="dash-filters">
-          <div><label>Country</label><select id="f-country" onchange="updateDash()">{opts(countries)}</select></div>
-          <div><label>City</label><select id="f-city" onchange="updateDash()">{opts(cities)}</select></div>
-          <div><label>Transport Mode</label><select id="f-mode" onchange="updateDash()">{opts(modes)}</select></div>
-          <div><label>Route Type</label><select id="f-route" onchange="updateDash()">{opts(routes)}</select></div>
-          <div><label>Weather Condition</label><select id="f-weather" onchange="updateDash()">{opts(weathers)}</select></div>
-          <div><label>Major Event Day</label><select id="f-event" onchange="updateDash()"><option value="ALL">All</option><option value="No">Standard Day (No)</option><option value="Yes">Event Day (Yes)</option></select></div>
+          <div><label>Country</label><select id="f-country" onchange="onManualFilter()">{opts(countries)}</select></div>
+          <div><label>City</label><select id="f-city" onchange="onManualFilter()">{opts(cities)}</select></div>
+          <div><label>Transport Mode</label><select id="f-mode" onchange="onManualFilter()">{opts(modes)}<option value="SURFACE">Surface (Bus+Tram+P&amp;R)</option><option value="MICRO">Micromobility (Bike+Scooter)</option><option value="RAIL">Electric Rail (Metro+Tram)</option></select></div>
+          <div><label>Route Type</label><select id="f-route" onchange="onManualFilter()">{opts(routes)}</select></div>
+          <div><label>Weather Condition</label><select id="f-weather" onchange="onManualFilter()">{opts(weathers)}<option value="RAINSNOW">Rain + Snow (Adverse)</option></select></div>
+          <div><label>Major Event Day</label><select id="f-event" onchange="onManualFilter()"><option value="ALL">All</option><option value="No">Standard Day (No)</option><option value="Yes">Event Day (Yes)</option></select></div>
+        </div>
+
+        <div class="dash-status">
+          <span id="dash-desc"><strong>Active Scenario:</strong> Default unfiltered view across all 12 European cities, 6 transport modes, and 6 weather conditions (2024–2025).</span>
+          <span id="dash-slice" style="font-weight:700;color:var(--midnight);">5,000 / 5,000 records (100.0%)</span>
         </div>
 
         <div class="dash-kpis">
-          <div class="dash-kpi"><div class="t">Passengers</div><div class="v" id="k-pax">-</div><div class="s" id="k-records">-</div></div>
-          <div class="dash-kpi"><div class="t">On-Time Rate</div><div class="v" id="k-ontime">-</div><div class="s">Target: 85.0%</div></div>
-          <div class="dash-kpi claim"><div class="t">Mean Delay</div><div class="v" id="k-delay">-</div><div class="s">Service reliability</div></div>
-          <div class="dash-kpi claim"><div class="t">Overall Recovery</div><div class="v" id="k-recovery">-</div><div class="s" id="k-margin">-</div></div>
-          <div class="dash-kpi"><div class="t">CO2 Saved</div><div class="v" id="k-co2">-</div><div class="s">Tonnes mitigated</div></div>
-          <div class="dash-kpi"><div class="t">Satisfaction</div><div class="v" id="k-rating">-</div><div class="s" id="k-comp">-</div></div>
+          <div class="dash-kpi"><div class="t">👥 Ridership</div><div class="v" id="k-pax">-</div><div class="s" id="k-records">-</div></div>
+          <div class="dash-kpi"><div class="t">🎯 On-Time</div><div class="v" id="k-ontime">-</div><div class="s">Target: 85.0%</div></div>
+          <div class="dash-kpi claim"><div class="t">⏱️ Delay</div><div class="v" id="k-delay">-</div><div class="s">Service reliability</div></div>
+          <div class="dash-kpi claim"><div class="t">💶 Recovery</div><div class="v" id="k-recovery">-</div><div class="s" id="k-margin">-</div></div>
+          <div class="dash-kpi"><div class="t">🌱 CO2 Saved</div><div class="v" id="k-co2">-</div><div class="s">Tonnes mitigated</div></div>
+          <div class="dash-kpi"><div class="t">⭐ Rating</div><div class="v" id="k-rating">-</div><div class="s" id="k-comp">-</div></div>
         </div>
 
         <div class="dash-grid">
@@ -878,6 +937,36 @@ def build_html() -> None:
 
   <script>
     const RAW_DATA = {data_json};
+    const PRESET_DESCS = {{
+      1: "Default unfiltered view across all 12 European cities, 6 transport modes, and 6 weather conditions (N = 5,000).",
+      2: "Figure 10 Scenario: Surface modes (Bus, Tram, Park & Ride) under Rain & Snow (n = 583; delay 7.38m, recovery 113.2%).",
+      3: "Micromobility Subsidy Audit: Bike Share & E-Scooter (n = 1,232; 24.64% of records but 1.06% of pax; unit loss -€19.98 to -€20.84).",
+      4: "Major Event Day Surge (Event_Day = Yes; n = 510): +26.2% ridership surge paired with +31.0% higher service delay.",
+      5: "Suburban Accessibility Audit (Suburban Feeder; n = 817): Highest passenger-normalised complaint intensity (16.79 / 10k pax).",
+      6: "Electric Rail Backbone (Metro & Tram; n = 1,808): Carries 78.6% of total passengers and 86.7% of total CO2 savings."
+    }};
+    function applyPreset(id) {{
+      for (let i = 1; i <= 6; i++) {{
+        const b = document.getElementById('pbtn-' + i);
+        if (b) b.classList.toggle('active', i === id);
+      }}
+      document.getElementById('f-country').value = 'ALL';
+      document.getElementById('f-city').value = 'ALL';
+      document.getElementById('f-mode').value = id === 2 ? 'SURFACE' : (id === 3 ? 'MICRO' : (id === 6 ? 'RAIL' : 'ALL'));
+      document.getElementById('f-route').value = id === 5 ? 'Suburban Feeder' : 'ALL';
+      document.getElementById('f-weather').value = id === 2 ? 'RAINSNOW' : 'ALL';
+      document.getElementById('f-event').value = id === 4 ? 'Yes' : 'ALL';
+      document.getElementById('dash-desc').innerHTML = '<strong>Active Scenario:</strong> ' + PRESET_DESCS[id];
+      updateDash();
+    }}
+    function onManualFilter() {{
+      for (let i = 1; i <= 6; i++) {{
+        const b = document.getElementById('pbtn-' + i);
+        if (b) b.classList.remove('active');
+      }}
+      document.getElementById('dash-desc').innerHTML = '<strong>Active Scenario:</strong> Custom multi-dimensional filter slice.';
+      updateDash();
+    }}
     function updateDash() {{
       const country = document.getElementById('f-country').value;
       const city = document.getElementById('f-city').value;
@@ -886,14 +975,22 @@ def build_html() -> None:
       const weather = document.getElementById('f-weather').value;
       const eventDay = document.getElementById('f-event').value;
 
-      const rows = RAW_DATA.filter(r =>
-        (country === 'ALL' || r.Country === country) &&
-        (city === 'ALL' || r.City === city) &&
-        (mode === 'ALL' || r.Transport_Mode === mode) &&
-        (route === 'ALL' || r.Route_Type === route) &&
-        (weather === 'ALL' || r.Weather === weather) &&
-        (eventDay === 'ALL' || r.Event_Day === eventDay)
-      );
+      const rows = RAW_DATA.filter(r => {{
+        const mOk = mode === 'ALL' ? true :
+          mode === 'SURFACE' ? (r.Transport_Mode === 'Bus' || r.Transport_Mode === 'Tram' || r.Transport_Mode === 'Park and Ride') :
+          mode === 'MICRO' ? (r.Transport_Mode === 'Bike Share' || r.Transport_Mode === 'E-Scooter') :
+          mode === 'RAIL' ? (r.Transport_Mode === 'Metro' || r.Transport_Mode === 'Tram') :
+          r.Transport_Mode === mode;
+        const wOk = weather === 'ALL' ? true :
+          weather === 'RAINSNOW' ? (r.Weather === 'Rain' || r.Weather === 'Snow') :
+          r.Weather === weather;
+        return (country === 'ALL' || r.Country === country) &&
+               (city === 'ALL' || r.City === city) &&
+               mOk &&
+               (route === 'ALL' || r.Route_Type === route) &&
+               wOk &&
+               (eventDay === 'ALL' || r.Event_Day === eventDay);
+      }});
 
       const n = rows.length || 1;
       const totalPax = rows.reduce((s, r) => s + r.Passengers, 0);
@@ -903,17 +1000,19 @@ def build_html() -> None:
       const totalCost = rows.reduce((s, r) => s + r.Operating_Cost_EUR, 0);
       const netMargin = totalRev - totalCost;
       const recovery = totalCost > 0 ? (totalRev / totalCost * 100) : 0;
+      const recMean = rows.reduce((s, r) => s + (r.Cost_Recovery_Pct || 0), 0) / n;
       const totalCO2 = rows.reduce((s, r) => s + r.CO2_Saved_KG, 0) / 1000.0;
       const meanRating = rows.reduce((s, r) => s + r.Customer_Rating, 0) / n;
       const totalComp = rows.reduce((s, r) => s + r.Accessibility_Complaints, 0);
       const compRate = totalPax > 0 ? (totalComp / totalPax * 10000) : 0;
 
+      document.getElementById('dash-slice').textContent = rows.length.toLocaleString() + ' / 5,000 records (' + (rows.length / 50).toFixed(1) + '%) · ' + (totalPax / 1e6).toFixed(2) + 'M pax';
       document.getElementById('k-pax').textContent = (totalPax / 1e6).toFixed(2) + 'M';
       document.getElementById('k-records').textContent = rows.length.toLocaleString() + ' records';
       document.getElementById('k-ontime').textContent = meanOnTime.toFixed(1) + '%';
       document.getElementById('k-delay').textContent = meanDelay.toFixed(2) + 'm';
       document.getElementById('k-recovery').textContent = recovery.toFixed(1) + '%';
-      document.getElementById('k-margin').textContent = 'Net: ' + (netMargin >= 0 ? '+€' : '-€') + (Math.abs(netMargin)/1e6).toFixed(2) + 'M';
+      document.getElementById('k-margin').textContent = 'Rec Mean: ' + recMean.toFixed(1) + '% · ' + (netMargin >= 0 ? '+€' : '-€') + (Math.abs(netMargin)/1e6).toFixed(2) + 'M';
       document.getElementById('k-co2').textContent = totalCO2.toFixed(1) + 't';
       document.getElementById('k-rating').textContent = meanRating.toFixed(2);
       document.getElementById('k-comp').textContent = compRate.toFixed(2) + ' / 10k pax';

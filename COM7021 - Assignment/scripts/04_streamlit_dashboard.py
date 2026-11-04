@@ -56,6 +56,7 @@ ROUTE_ORDER = [
 
 SCENARIO_PRESETS = {
     "🌐 1. Full Network Baseline (Fig 9)": {
+        "btn": "🌐 1. Full Baseline",
         "short": "Full Network Baseline (N = 5,000)",
         "desc": "Default unfiltered view across all 12 European cities, 6 transport modes, and 6 weather conditions (2024–2025).",
         "countries": [],
@@ -67,6 +68,7 @@ SCENARIO_PRESETS = {
         "day_regime": "All Days",
     },
     "🌧️ 2. Adverse Weather Surface (Fig 10)": {
+        "btn": "🌧️ 2. Rain & Snow",
         "short": "Surface Transit in Rain & Snow (n = 583)",
         "desc": "Isolates surface modes (Bus, Tram, Park & Ride) under Rain and Snow: delay rises +69.7% to 7.38 min while cost recovery stays positive (113.2%).",
         "countries": [],
@@ -78,6 +80,7 @@ SCENARIO_PRESETS = {
         "day_regime": "All Days",
     },
     "🛴 3. Micromobility Subsidy Audit": {
+        "btn": "🛴 3. Micromobility",
         "short": "Bike Share & E-Scooter (n = 1,232)",
         "desc": "Isolates shared micromobility (24.64% of records but 1.06% of passengers) to audit unit deficits (-€19.98 to -€20.84/pax).",
         "countries": [],
@@ -89,6 +92,7 @@ SCENARIO_PRESETS = {
         "day_regime": "All Days",
     },
     "🏟️ 4. Major Event Day Surge": {
+        "btn": "🏟️ 4. Event Surge",
         "short": "Major Event Days (n = 510)",
         "desc": "Isolates Major Event Days (Event_Day = Yes), revealing a +26.2% ridership surge paired with +31.0% higher service delays.",
         "countries": [],
@@ -100,6 +104,7 @@ SCENARIO_PRESETS = {
         "day_regime": "All Days",
     },
     "♿ 5. Suburban Accessibility Audit": {
+        "btn": "♿ 5. Suburban Access",
         "short": "Suburban Feeder Routes (n = 817)",
         "desc": "Isolates Suburban Feeder corridors, which record the highest passenger-normalised accessibility complaint rate (16.79 / 10k pax).",
         "countries": [],
@@ -111,6 +116,7 @@ SCENARIO_PRESETS = {
         "day_regime": "All Days",
     },
     "🚇 6. Electric Rail Backbone": {
+        "btn": "🚇 6. Rail Backbone",
         "short": "Metro & Tram Backbone (n = 1,808)",
         "desc": "Isolates grade-separated Metro and electrified Tram lines carrying 78.6% of all passengers and 86.7% of total CO2 savings.",
         "countries": [],
@@ -1041,8 +1047,8 @@ def inject_custom_css() -> None:
         f"""
         <style>
           .block-container {{
-              padding-top: 1.1rem !important;
-              padding-bottom: 2.2rem !important;
+              padding-top: 3.8rem !important;
+              padding-bottom: 2.4rem !important;
               max-width: 1460px !important;
           }}
           .exec-header {{
@@ -1051,6 +1057,7 @@ def inject_custom_css() -> None:
               padding: 18px 24px;
               border-radius: 14px;
               border-bottom: 4px solid {TIFFANY};
+              margin-top: 0.35rem;
               margin-bottom: 12px;
               display: flex;
               justify-content: space-between;
@@ -1152,23 +1159,28 @@ def inject_custom_css() -> None:
               display: flex;
               justify-content: space-between;
               align-items: center;
+              gap: 6px;
               margin-bottom: 6px;
+              white-space: nowrap;
           }}
           .kpi-title {{
-              font-size: 0.73rem;
+              font-size: 0.72rem;
               font-weight: 700;
               text-transform: uppercase;
-              letter-spacing: 0.4px;
+              letter-spacing: 0.3px;
               color: {MUTE};
+              white-space: nowrap;
           }}
           .kpi-tag {{
-              font-size: 0.66rem;
+              font-size: 0.64rem;
               font-weight: 700;
               padding: 1px 6px;
               border-radius: 6px;
               background: {PAPER};
               color: {MIDNIGHT_SOFT};
               border: 1px solid {LINE};
+              white-space: nowrap;
+              flex-shrink: 0;
           }}
           .kpi-tag.good {{
               background: {MIST};
@@ -1417,7 +1429,7 @@ def main() -> None:
         is_current = st.session_state.get("active_preset") == p_key
         with btn_cols[idx]:
             st.button(
-                p_key,
+                SCENARIO_PRESETS[p_key]["btn"],
                 key=f"main_btn_{idx}",
                 type="primary" if is_current else "secondary",
                 width="stretch",
@@ -1476,32 +1488,32 @@ def main() -> None:
         f"""
         <div class="kpi-grid">
           <div class="kpi-card">
-            <div class="kpi-top"><span class="kpi-title">👥 Ridership</span><span class="kpi-tag">{m['pax_share_pct']:.1f}% of net</span></div>
+            <div class="kpi-top"><span class="kpi-title">👥 Ridership</span><span class="kpi-tag">{m['pax_share_pct']:.0f}% Share</span></div>
             <div class="kpi-main">{m['total_pax']/1e6:.2f}M</div>
             <div class="kpi-foot"><span>Mean: {m['mean_pax']:,.0f}/rec</span><span>Med: {m['median_pax']:,.0f}</span></div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-top"><span class="kpi-title">🎯 On-Time Rate</span><span class="kpi-tag">{ontime_status}</span></div>
+            <div class="kpi-top"><span class="kpi-title">🎯 On-Time</span><span class="kpi-tag">{ontime_status}</span></div>
             <div class="kpi-main">{m['mean_ontime']:.1f}%</div>
             <div class="kpi-foot"><span>Target: 85.0%</span><span>Δ Base: {m['delta_ontime_pp']:+.1f}pp</span></div>
           </div>
           <div class="kpi-card focal">
-            <div class="kpi-top"><span class="kpi-title">⏱️ Service Delay</span><span class="kpi-tag good">{delay_status}</span></div>
+            <div class="kpi-top"><span class="kpi-title">⏱️ Delay</span><span class="kpi-tag good">{delay_status}</span></div>
             <div class="kpi-main">{m['mean_delay']:.2f} min</div>
             <div class="kpi-foot"><span>Med: {m['median_delay']:.1f}m (IQR {m['iqr_delay']:.1f})</span><span>Δ: {m['delta_delay_pct']:+.1f}%</span></div>
           </div>
           <div class="kpi-card focal">
-            <div class="kpi-top"><span class="kpi-title">💶 Cost Recovery</span><span class="kpi-tag good">{rec_status}</span></div>
+            <div class="kpi-top"><span class="kpi-title">💶 Recovery</span><span class="kpi-tag good">{rec_status}</span></div>
             <div class="kpi-main">{m['overall_recovery']:.1f}%</div>
             <div class="kpi-foot"><span>Rec Mean: <b>{m['record_mean_recovery']:.1f}%</b></span><span>Net: {net_sign}€{abs(m['net_margin'])/1e6:.2f}M</span></div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-top"><span class="kpi-title">🌱 CO2 Mitigated</span><span class="kpi-tag">GREEN KPI</span></div>
+            <div class="kpi-top"><span class="kpi-title">🌱 CO2 Saved</span><span class="kpi-tag">GREEN KPI</span></div>
             <div class="kpi-main">{m['total_co2_t']:,.1f} t</div>
             <div class="kpi-foot"><span>{m['agg_co2_kwh']:.2f} kg CO2/kWh</span><span>Δ: {m['delta_co2_kwh']:+.2f}</span></div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-top"><span class="kpi-title">⭐ Satisfaction</span><span class="kpi-tag">EQUITY</span></div>
+            <div class="kpi-top"><span class="kpi-title">⭐ Rating</span><span class="kpi-tag">EQUITY</span></div>
             <div class="kpi-main">{m['mean_rating']:.2f} / 5</div>
             <div class="kpi-foot"><span><b>{m['weighted_comp_10k']:.2f}</b> comp/10k</span><span>Δ: {m['delta_rating']:+.2f}★</span></div>
           </div>
