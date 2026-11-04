@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
-"""Step 5: Build a single, self-contained HTML draft review file for tutor feedback.
-Embeds all figures as Base64 data URIs, includes the live interactive dashboard,
-tracks exact word counts for Task 1 (~600 words) and Task 2 (~900 words),
-and includes the full reproducible Python code in the Appendix.
+"""Step 5: Build a single, self-contained HTML assessment report and synchronized root index.html.
+Incorporates all formative feedback from Tutor Ahmed Hassan:
+1. Unified sequential Figure numbering (Figures 1 to 10) across filenames, captions, and in-text references.
+2. Rigorous non-causal statistical language (observational associations, covariance, and unmeasured confounders).
+3. Explicit financial reconciliation across per-record, per-passenger, and cumulative totals, plus unweighted average (84.12%) vs volume-weighted aggregate (99.58%) cost recovery.
+4. Evidence-proportionate recommendations framed as targeted options for pilot evaluation and feasibility appraisal.
+5. Removal of repeated personal reflection boxes and project progress banners; insights integrated into academic prose.
+6. Strict word count compliance (~600 words Task 1 prose; ~900 words Task 2 report) and reduced repetition across tasks.
 """
 
 from __future__ import annotations
@@ -11,6 +15,7 @@ import base64
 import html
 import json
 import re
+import shutil
 from pathlib import Path
 import pandas as pd
 
@@ -19,6 +24,7 @@ DATA_CSV = BASE_DIR / "data" / "ecomove_cleaned.csv"
 TABLES_DIR = BASE_DIR / "output" / "tables"
 FIG_DIR = BASE_DIR / "output" / "figures"
 OUT_HTML = BASE_DIR / "COM7021_Draft_Review_25199053.html"
+ROOT_INDEX = BASE_DIR.parent / "index.html"
 
 
 def b64_img(filename: str) -> str:
@@ -37,35 +43,35 @@ def count_words(html_fragment: str) -> int:
 # TASK 1 PROSE (~600 WORDS TARGET)
 # ==============================================================================
 TASK1_SEC_1_1 = """
-<p>The investigation examines <code>[5442] EcoMoveMobility.xlsx</code>, comprising 5,000 daily records across 18 attributes for public and shared mobility across 12 European cities (6 countries) from 1 January 2024 to 31 December 2025. Data hygiene audits confirmed all 5,000 <code>Record_ID</code> keys are unique with zero missing or negative values. During ingestion, raw <code>Date</code> values stored as Excel serial integers (<code>45292</code>–<code>46022</code>) were converted to ISO dates via <code>origin='1899-12-30'</code>. Six normalised metrics were engineered for rigorous multi-modal comparison: net margin (<code>Net_Margin_EUR</code>), farebox recovery ratio (<code>Cost_Recovery_Pct</code>), unit costs and fares per passenger (<code>Cost_per_Pax_EUR</code>, <code>Fare_per_Pax_EUR</code>), volume-normalised complaints per 10,000 passengers (<code>Complaints_per_10k_Pax</code>), and carbon efficiency (<code>CO2_per_kWh</code>).</p>
+<p>The investigation examines <code>[5442] EcoMoveMobility.xlsx</code> (5,000 daily records, 18 columns) across 12 European cities (6 countries) for 2024–2025 (Figure A). All <code>Record_ID</code> keys are unique with zero missing or negative values. Excel serial dates (<code>45292</code>–<code>46022</code>) were converted to ISO dates (<code>origin='1899-12-30'</code>), and six normalised features were derived: <code>Net_Margin_EUR</code>, <code>Cost_Recovery_Pct</code>, <code>Fare_per_Pax_EUR</code>, <code>Cost_per_Pax_EUR</code>, <code>Complaints_per_10k_Pax</code>, and <code>CO2_per_kWh</code>.</p>
 """
 
 TASK1_SEC_1_2 = """
-<p>Initial statistics (Table 1) show pronounced positive skewness in volume-linked variables—<code>Passengers</code> (mean 8,181.94, SD 10,018.72, median 4,398.00, IQR 8,665.75, skewness +1.90), <code>Ticket_Revenue_EUR</code> (mean €22,328.12, median €11,190.02, skewness +1.95), and <code>CO2_Saved_KG</code> (mean 896.39 kg, median 338.30 kg, skewness +2.09)—because high-capacity <code>Metro</code> (mean 24,601.26 passengers; 62.96% of ridership) is pooled with single-rider <code>Bike Share</code> (mean 354.10) and <code>E-Scooter</code> (mean 346.60). Operational reliability metrics exhibit near-symmetric distributions: <code>Average_Delay_Minutes</code> (mean 4.35 min, SD 2.39, median 4.40), <code>On_Time_Percentage</code> (mean 82.06%, SD 7.93%), and <code>Customer_Rating</code> (mean 4.01/5.0, SD 0.40).</p>
+<p>Initial statistics (Table 1) show positive skewness in volume-linked variables—<code>Passengers</code> (mean 8,181.94, SD 10,018.72, median 4,398.00, IQR 8,665.75, skewness +1.90), <code>Ticket_Revenue_EUR</code> (mean €22,328.12, median €11,190.02, skewness +1.95), and <code>CO2_Saved_KG</code> (mean 896.39 kg, median 338.30 kg, skewness +2.09)—because high-capacity <code>Metro</code> (mean 24,601.26 pax; 62.96% of ridership) is pooled with single-rider <code>Bike Share</code> (354.10) and <code>E-Scooter</code> (346.60). Medians and IQRs are thus reported alongside means. Cumulative revenue (€111.64M; €2.73/pax) and cost (€112.11M; €2.74/pax) yield 99.58% overall recovery (net &minus;€0.47M; &minus;€93.88/record), whereas daily record recovery averages 84.12% (median 102.26%) because low-recovery micromobility comprises 24.64% of records but 1.06% of passengers.</p>
 """
 
 TASK1_FIG1_TEXT = """
-<p><strong>1. Seasonal Regime &amp; Demand Decomposition (Figure 1):</strong> A dual-series time-series visualization with shaded bands tracks monthly mean daily demand across 2024–2025. The shaded corridor quantifies a structural +34.1% weekday commute premium (8,802.88 vs 6,562.86 weekend passengers/record). Recurring March–April spring peaks (March 2024: 9,412.22; April 2025: 10,285.47 mean pax) contrast with a &minus;27.2% seasonal drop to the October trough (6,805.48 mean), defining the operational window for heavy fleet maintenance.</p>
+<p><strong>1. Seasonal &amp; Weekday Regime (Figure 1):</strong> A dual-series line chart tracks monthly mean demand across 2024–2025, separating weekday and weekend regimes (+34.1% weekday premium: 8,802.88 vs 6,562.86 pax/record). Spring peaks (March 2024: 9,412.22; April 2025: 10,285.47) contrast with a &minus;27.2% October trough (6,805.48), identifying October for low-disruption maintenance.</p>
 """
 
 TASK1_FIG2_TEXT = """
-<p><strong>2. Simpson’s Paradox in City Margins (Figure 2):</strong> A connected dumbbell plot contrasts raw city margins against modal-mix-adjusted margins via direct standardization. Unbalanced modal sampling across cities (micromobility share ranging from 22.2% in Amsterdam to 28.6% in Madrid; <em>r</em> = &minus;0.795 with city net margin) severely distorts municipal rankings. When standardized by network-average modal weights, Berlin plunges from Rank #4 (+€35.65 raw) to Rank #11 (&minus;€353.87 mix-adjusted) due to heavy micromobility deficits, whereas Madrid recovers 62% of its deficit (&minus;€702.29 raw to &minus;€268.04 adjusted) while ranking #3 in adjusted demand (9,275 pax/record).</p>
+<p><strong>2. Simpson’s Paradox in City Margins (Figure 2):</strong> A connected dumbbell plot compares raw per-record city margins against modal-mix-adjusted margins via direct standardisation. Because micromobility record shares vary across cities (22.18% Amsterdam to 28.61% Madrid) and correlate negatively with raw margins (<em>r</em> = &minus;0.795), unadjusted rankings are confounded: standardising modal weights shifts Berlin from Rank #4 (+€35.65/record raw; +€14.54k total) to Rank #11 (&minus;€353.87/record adjusted) and cuts Madrid’s deficit by 62% (&minus;€702.29 to &minus;€268.04/record).</p>
 """
 
 TASK1_FIG3_TEXT = """
-<p><strong>3. Unit Economics &amp; Marginal Carbon Abatement (Figure 3):</strong> A two-panel graphic decomposes passenger unit economics alongside public-finance decarbonisation returns. Linear cost decomposition (<code>Cost = Fixed + b·Pax</code>) proves micromobility suffers from an inverted unit-cost structure: variable logistics costs scale at ~€21–€22 per trip against fares of €1.15 (Bike Share) and €1.59 (E-Scooter), yielding a negative contribution margin (&minus;€20/trip). Conversely, Metro (+€0.17/pax), Tram (+€0.36/pax), and Park &amp; Ride (+€0.55/pax) generate surpluses. On carbon abatement, Metro saves 3,150.9 tonnes CO<sub>2</sub> while earning +€1,366/tCO<sub>2</sub>, whereas subsidising micromobility costs €114k–€151k per tonne of CO<sub>2</sub> abated.</p>
+<p><strong>3. Unit Economics &amp; Carbon Abatement (Figure 3):</strong> A two-panel bar chart pairs per-passenger unit economics (Panel A) with cumulative net margins and carbon returns (Panel B). Park &amp; Ride (€3.08 fare vs €2.54 cost; +€0.55/pax), Tram (€2.46 vs €2.09; +€0.36/pax), and Metro (€2.85 vs €2.68; +€0.17/pax) earn positive margins, while Bus breaks even (€2.37 vs €2.36). Bike Share (€1.15 vs €22.00; &minus;€20.84/pax, 5.25% recovery) and E-Scooter (€1.59 vs €21.57; &minus;€19.98/pax, 7.39% recovery) incur steep losses. Metro abates 3,150.92 tCO<sub>2</sub> (+€4.30M surplus; +€1,366/tCO<sub>2</sub>), whereas micromobility requires €114k–€151k/tCO<sub>2</sub> in subsidy.</p>
 """
 
 TASK1_FIG4_TEXT = """
-<p><strong>4. Delay Distribution Raincloud Plot (Figure 4):</strong> A raincloud plot combines half-violin Gaussian KDE densities, Tukey box plots, and jittered observations across modes. Bus is highlighted in Tiffany as the network bottleneck, displaying the highest median delay (6.50 min; mean 6.58 min, max 12.50 min) and lowest on-time rate (74.92%). Grade-separated Metro maintains a tight median of 3.60 min (84.09% on-time), while unpowered Bike Share (1.50 min) and E-Scooter (1.70 min) avoid street congestion.</p>
+<p><strong>4. Service Delay Distribution (Figure 4):</strong> A raincloud plot combining half-violin KDEs, Tukey boxplots, and jittered points exposes tail risks hidden by means. Bus shows the widest delay spread (median 6.50 min, IQR 2.00 min, mean 6.58 min, max 12.50 min; 74.92% on-time), above Park &amp; Ride (median 5.00 min) and Tram (4.70 min), whereas Metro remains compact (median 3.60 min, mean 3.73 min; 84.09% on-time).</p>
 """
 
 TASK1_FIG5_TEXT = """
-<p><strong>5. Joint Bivariate OLS &amp; Marginal Density Shifts (Figure 5):</strong> A joint scatter plot with marginal KDE distributions details the coupling between service delay and customer satisfaction (<em>r</em> = &minus;0.821, slope &minus;0.14 pts/min; <em>N</em> = 5,000). The shaded zone marks severe satisfaction erosion when delays exceed 6.0 minutes. Marginal top and right KDE strips prove that Major Event Days (<em>n</em> = 510) systematically shift delay rightward by +31.0% (5.53 vs 4.22 min) and compress ratings from 4.02 to 3.87, despite lifting ridership by +26.2%.</p>
+<p><strong>5. Delay, Satisfaction &amp; Event-Day Associations (Figure 5):</strong> A joint scatter plot with OLS regression and marginal KDEs examines the association between delay and rating (<em>r</em> = &minus;0.821, slope &minus;0.14 pts/min; <em>N</em> = 5,000). Because correlation cannot establish causation, lower ratings may also reflect co-occurring crowding or transfer friction. Major Event Days (<em>n</em> = 510) coincide with +26.2% higher ridership, +31.0% higher delay (5.53 vs 4.22 min), and lower ratings (3.87 vs 4.02).</p>
 """
 
-TASK1_FIG6_7_TEXT = """
-<p><strong>6. Interaction Matrices: Weather Shocks &amp; Feeder Accessibility (Figures 6–8):</strong> The weather heatmap (Figure 6) exposes non-linear escalation: Snow increases mean delay by +119.4% (Bus: 10.33 min, +74%; Tram: 8.99 min, +121%). The route accessibility matrix (Figure 7) resolves an aggregation paradox: while raw complaints track passenger volume (<em>r</em> = 0.866), making Metro seem worst (36.52/day), volume normalisation per 10,000 passengers reveals Suburban Feeders have the highest rate (16.79/10k pax). Crucially, Panel B identifies an acute structural interaction: E-Scooter (66.87/10k) and Bike Share (55.26/10k) complaints spike 5-fold strictly on Suburban Feeders due to dockless footway obstructions. Figure 8 synthesises these cross-modal metrics.</p>
+TASK1_FIG6_8_TEXT = """
+<p><strong>6. Weather Shocks, Accessibility &amp; Synthesis (Figures 6–8):</strong> Figure 6 shows Snow coincides with +119.4% higher delay vs Clear weather (8.14 vs 3.71 min; Bus 10.33 min). Figure 7 corrects exposure bias in accessibility complaints: raw counts track ridership (<em>r</em> = 0.866), making Metro appear highest (36.52/record), but rates per 10,000 passengers (Panel A) show Metro is lowest (14.85/10k) and Suburban Feeders highest (16.79/10k), led by Suburban Feeder E-Scooter (54.02/10k aggregate; 66.87/10k record mean) and Bike Share (49.26/10k aggregate; 55.26/10k record mean; Panel B). Figure 8 synthesises modal KPIs; Figures 9–10 present the dashboard.</p>
 """
 
 
@@ -73,128 +79,42 @@ TASK1_FIG6_7_TEXT = """
 # TASK 2 PROSE (~900 WORDS TARGET)
 # ==============================================================================
 TASK2_SEC_2_1 = """
-<h3>2.1 Critical Appraisal of Visualisation Methodologies and Perceptual Alignment (LO1 &amp; LO3)</h3>
-<p>Communicating transport performance across EcoMove requires serving two cognitive profiles: technical analysts—who demand distributional spread, covariance structures, and denominator-adjusted rates—and policymakers, who require immediate exception detection and capital trade-off clarity (Munzner, 2014; Few, 2013). Rejecting low-precision encodings such as pie charts, 3D graphics, radar charts, or dual y-axes, the visual system operationalises Cleveland and McGill’s (1984) perceptual hierarchy. Position along common scales is prioritised across all primary comparisons: the Simpson’s Paradox dumbbell plot (Figure 2), unit economics bars (Figure 3), and route-level accessibility bars (Figure 7) align on continuous Cartesian axes, minimising decoding error.</p>
-<p>To eliminate cognitive friction, the graphics apply Tufte’s (2001) data-ink maximisation and Ware’s (2021) pre-attentive processing theory. A disciplined palette (Arden Midnight <code>#002B49</code> for structural geometry; Tiffany <code>#66C9BA</code> / <code>#3AA89A</code> reserved strictly for focal claims) creates immediate figure-ground pop-out. In Figures 2 and 3, hue contrast directs executive gaze instantly to mix-adjusted rank reversals and negative micromobility margins without sequential scanning. Gestalt principles of proximity, similarity, and common region (Wertheimer, 1923; Few, 2012) govern the shaded regime bands in Figures 1 and 5 and the coordinated cards in the decision dashboard (Figures 9 and 10). Advancing from basic charts to advanced visualisations—such as the Raincloud plot (Figure 4, integrating KDE density, Tukey quartiles, and raw observation jitter) and joint bivariate regression with marginal density projections (Figure 5)—bridges executive intuition with rigorous non-parametric evidence while preserving 4.5:1 WCAG luminance contrast.</p>
+<h3>2.1 Critical Justification of Visualisation Design for Technical and Non-Technical Audiences (LO1 &amp; LO3)</h3>
+<p>Communicating transport performance across EcoMove requires serving two cognitive profiles: technical analysts—who inspect distributional skew, covariance, and denominator-adjusted rates—and non-technical executives, who require rapid anomaly detection and policy trade-offs (Munzner, 2014; Few, 2013). Rejecting low-precision encodings such as pie charts, 3D graphics, radar plots, or dual y-axes, the visual suite operationalises Cleveland and McGill’s (1984) perceptual hierarchy. Spatial position along a common scale governs all primary comparisons: the city dumbbell plot (Figure 2), unit-economics bars (Figure 3), and route accessibility chart (Figure 7) align metrics on shared Cartesian axes to minimise decoding error.</p>
+<p>To limit cognitive load across multidimensional data, the graphics apply Tufte’s (2001) data-ink maximisation and Ware’s (2021) pre-attentive processing principles. A restrained semantic palette—Arden Midnight (<code>#002B49</code>) for structural context paired with Tiffany accents (<code>#66C9BA</code> / <code>#3AA89A</code>) reserved for focal anomalies—creates pre-attentive pop-out while preserving WCAG 4.5:1 contrast. For non-technical audiences, selective hue contrast and direct callouts in Figures 2, 3, and 8 highlight municipal rank reversals and modal deficits without legend scanning. Simultaneously, technical analysts are served by multi-layered encodings: the raincloud plot (Figure 4) integrates kernel density estimation, Tukey quartiles, and observation jitter, while the joint plot (Figure 5) pairs bivariate regression with marginal density strips. Gestalt principles of proximity, similarity, and common region (Wertheimer, 1923; Few, 2012) group shaded regimes and dashboard panels into coherent zones.</p>
 """
 
 TASK2_SEC_2_2 = """
-<h3>2.2 Synthesis of Empirical Findings Across Operational Domains (LO2 &amp; LO3)</h3>
-<p>A critical synthesis of the empirical evidence reveals that EcoMove operates a structurally bifurcated network governed by four core operational tensions:</p>
+<h3>2.2 Critical Synthesis of Findings and Methodological Reflections (LO2 &amp; LO3)</h3>
+<p>Synthesising the evidence without repeating raw descriptions highlights four methodological conclusions:</p>
 <ol>
-  <li><strong>Inverted Unit Economics &amp; The Micromobility Subsidy Trap:</strong> Fixed electric transit anchors capacity and decarbonisation. Metro carries 62.96% of passengers (25.76M) and generates 70.30% of carbon savings (3,150.92 of 4,481.97 tonnes CO<sub>2</sub>) at 2.19 kg CO<sub>2</sub>/kWh while returning +€1,366 per tonne of CO<sub>2</sub> abated (Figures 3 and 8). Together, Metro, Tram, and Park &amp; Ride yield a +€8.40M operating surplus. Conversely, Bike Share and E-Scooter represent 24.64% of operational records (1,232 rows) yet serve only 1.06% of ridership (432,707 passengers) while accumulating an &minus;€8.88M deficit. OLS cost decomposition proves that variable servicing costs scale at ~€21–€22 per trip against fares of €1.15–€1.59, creating a negative contribution margin (&minus;€20 per trip). Thus, marketing to increase ridership under current contracts merely deepens municipal losses.</li>
-  <li><strong>Simpson’s Paradox &amp; City-Level Modal Sampling Confounding:</strong> Raw financial totals misleadingly portray Madrid (&minus;€272.49k) and Barcelona (&minus;€152.69k) as severe underperformers while showing Berlin (+€14.54k) in surplus. Confounding analysis demonstrates that micromobility record share correlates heavily with raw city deficits (<em>r</em> = &minus;0.795). Direct standardisation (Figure 2) reveals that Berlin plunges from Rank #4 to Rank #11 (&minus;€353.87/record mix-adjusted) due to unmasked micromobility rebalancing costs, while Madrid recovers 62% of its deficit (&minus;€268.04/record adjusted) and rises to Rank #3 in true European passenger demand.</li>
-  <li><strong>Surface Congestion, Adverse Weather, and Capacity Shocks:</strong> Surface transit reliability is tightly coupled to road congestion (Figure 5: delay vs rating <em>r</em> = &minus;0.821; delay vs on-time <em>r</em> = &minus;0.968). Bus operates as the primary reliability bottleneck (6.58 min mean delay, 74.92% on-time, 3.74/5 rating, and lowest motorised carbon efficiency at 1.07 kg CO<sub>2</sub>/kWh; Figures 4 and 8). Adverse weather severely compounds this vulnerability (Figure 6): Snow doubles network delay to 8.14 minutes (Bus: 10.33 min) and depresses ratings to 3.36. Major Event Days surge demand by +26.2% and revenue by +25.3%, but lacking headway buffers, delays spike by +31.0% (5.53 vs 4.22 min).</li>
-  <li><strong>Suburban Feeder Accessibility Anomaly:</strong> Raw complaints correlate with volume (<em>r</em> = 0.866), creating an illusion that Metro is the primary accessibility offender (38,240 complaints; 36.52/day). Normalising per 10,000 passengers (Figure 7) reverses this: Metro achieves the lowest complaint rate (14.85/10k pax). Crucially, cross-tabulating route by mode reveals that complaint intensity surges specifically on Suburban Feeders for E-Scooter (66.87/10k) and Bike Share (55.26/10k) because dockless vehicles dumped on outer pavements lack dedicated parking infrastructure.</li>
+  <li><strong>Reconciling Per-Record, Per-Passenger, and Overall Financial Metrics:</strong> Aggregation basis alters financial interpretation. Whereas the unweighted mean of daily record cost-recovery ratios is 84.12% because low-recovery micromobility represents 24.64% of records (1,232 rows), volume-weighted overall recovery (<code>Sum Revenue / Sum Cost</code>) reaches 99.58% (€111.64M vs €112.11M; &minus;€0.47M total or &minus;€93.88/record). Fixed-route modes—Metro (+€4.30M, +€0.17/pax, 106.24% overall vs 107.00% record mean), Tram (+€2.31M, +€0.36/pax, 117.30% vs 117.99%), and Park &amp; Ride (+€1.78M, +€0.55/pax, 121.53% vs 122.21%)—cross-subsidise Bike Share (&minus;€5.60M, &minus;€20.84/pax, 5.25% overall vs 5.99% record mean) and E-Scooter (&minus;€3.28M, &minus;€19.98/pax, 7.39% vs 8.63%), where servicing costs (~€21.57–€22.00/pax) exceed fares (€1.15–€1.59/pax; Figure 3).</li>
+  <li><strong>Controlling for Compositional Confounding Across Cities:</strong> Unadjusted city totals (Table 2) exhibit Simpson’s Paradox because modal record shares vary across cities and correlate negatively with raw margins (<em>r</em> = &minus;0.795). Direct standardisation (Figure 2) shows Berlin’s raw surplus (+€14.54k total; +€35.65/record) masks per-day micromobility losses (&minus;€353.87/record adjusted, Rank #11), whereas Madrid’s deficit (&minus;€272.49k total; &minus;€702.29/record) narrows by 62% (&minus;€268.04/record adjusted) under equal modal weights.</li>
+  <li><strong>Distinguishing Correlation from Causation in Operational Quality:</strong> Although surface delays (Figure 4), adverse weather (Figure 6), and event surges (Figure 5) co-vary with lower on-time rates (<em>r</em> = &minus;0.968) and lower ratings (<em>r</em> = &minus;0.821), observational data cannot prove single-variable causation. Unmeasured confounders—such as vehicle crowding during event surges, platform discomfort during snow, or fleet age—likely co-occur with delays to reduce satisfaction.</li>
+  <li><strong>Correcting Exposure Bias in Accessibility Evaluation:</strong> Raw accessibility complaints scale with ridership (<em>r</em> = 0.866), making high-capacity Metro appear worst in raw terms. Volume-weighted normalisation per 10,000 passengers (Figure 7) removes this exposure bias, showing Metro achieves the lowest complaint rate (14.85/10k) while Suburban Feeders exhibit the highest intensity (16.79/10k), concentrated in peripheral E-Scooter (54.02/10k) and Bike Share (49.26/10k) operations.</li>
 </ol>
 """
 
 TASK2_SEC_2_3 = """
-<h3>2.3 Critical Evaluation of Dashboard Effectiveness and Limitations (LO1 &amp; LO3)</h3>
-<p>The interactive dashboard (Figures 9 and 10) operationalises Shneiderman’s (1996) visual information seeking mantra: <em>overview first, zoom and filter, then details-on-demand</em>. Synchronising six dynamic filter dimensions with six KPI tiles and four coordinated Plotly charts overcomes static aggregation bias. While the unfiltered baseline (Figure 9) indicates near-balanced network finances (99.6% recovery) and moderate delay (4.35 min), filtering to surface transit under Rain and Snow (Figure 10, <em>n</em> = 583) immediately isolates acute operational degradation (72.2% on-time, 7.38 min delay, 3.46 rating) alongside robust surface cost recovery (113.2%). Three technical limitations must be noted: (i) static document screenshots forfeit interactive tooltip inspection; (ii) daily record granularity masks intra-day peak-hour congestion spikes (07:00–09:00 and 16:30–19:00); and (iii) accounting cost fields omit rolling capital asset depreciation. Future iterations should incorporate real-time API telemetry and GIS spatial layers.</p>
+<h3>2.3 Critical Evaluation of Dashboard Effectiveness and Analytical Limitations (LO1 &amp; LO3)</h3>
+<p>The interactive dashboard (Section 1.4; Figures 9 and 10) implements Shneiderman’s (1996) visual information-seeking mantra (<em>overview first, zoom and filter, then details-on-demand</em>) by linking six filters to six KPI cards and four charts. Its core strength is scenario isolation: whereas the unfiltered view (Figure 9, <em>N</em> = 5,000) shows near-balanced recovery (99.6%) and 4.35-minute mean delay, filtering to surface transit under Rain and Snow (Figure 10, <em>n</em> = 583) isolates elevated delays (7.38 min), lower on-time rates (72.2%), and lower ratings (3.46/5) alongside positive surface recovery (113.2%). Three limitations apply: (i) static Word screenshots forfeit live tooltips; (ii) daily aggregation masks intra-day peak congestion (07:00–09:00, 16:30–19:00); and (iii) operating costs exclude capital depreciation.</p>
 """
 
 TASK2_SEC_2_4 = """
-<h3>2.4 Evidence-Based Recommendations and Decision-Making Value (LO4)</h3>
-<p>In public-sector mobility administration, data visualisation serves as the analytical conduit integrating commercial viability, social accessibility, and climate mandates into transparent evidence for multi-stakeholder governance (European Commission, 2021; Banister, 2008). Four evidence-based interventions are recommended:</p>
+<h3>2.4 Evidence-Supported Recommendations and Decision-Making Value (LO4)</h3>
+<p>Within European sustainable mobility governance (European Commission, 2021; Banister, 2008), visual evidence supports policy appraisal across commercial, environmental, and social domains. Because findings derive from observational records rather than controlled trials, four targeted interventions are proposed for pilot evaluation and feasibility appraisal rather than presented as established solutions (Table 3):</p>
 <ol>
-  <li><strong>Restructure Micromobility Contracts to Eliminate Inverted Margins (Commercial Viability — Madrid, Barcelona, Berlin, Milan):</strong> Halt ridership marketing under current cost structures. Replace fixed per-trip vendor rebalancing fees with performance-capped logistics models, scale back fleet deployment during the August–October trough (Figure 1), and bundle shared bikes/scooters as first-mile feeders within unified transit subscriptions.</li>
-  <li><strong>Deploy Segregated Bus Corridors and Fleet Electrification (Operational &amp; Environmental — All 12 Cities):</strong> Resolve the 6.58-minute Bus bottleneck and 1.07 kg CO<sub>2</sub>/kWh energy deficit by establishing physical bus rapid transit (BRT) lanes and automated traffic-signal priority on Central and Commuter corridors to compress average delay below 5.0 minutes (Figure 5).</li>
-  <li><strong>Institutionalise Dynamic Weather and Event Buffering Protocols (Public Sector Resilience — Network-Wide):</strong> Formalise automated operating protocols triggered by meteorological forecasts: inject headway buffers and surface pre-salting during Snow (8.14 min delay) and Rain (5.40 min; Figure 6), and mobilise +25% scheduled reserve train sets on Major Event Days (+26.2% demand surge).</li>
-  <li><strong>Target Suburban Feeder Accessibility Infrastructure (Social Equity — Peripheral Zones):</strong> Reallocate municipal accessibility capital away from raw volume counts toward normalised hotspot metrics. Invest in dedicated pavement micromobility corrals, dropped kerbs, and step-free feeder boarding islands across Suburban Feeder corridors to eradicate the 66.9/10k complaint spike (Figure 7).</li>
+  <li><strong>Audit Micromobility Contracts and Seasonal Scaling (Commercial):</strong> Given negative unit margins (&minus;€19.98 to &minus;€20.84/trip; Figure 3) and compositional city deficits (Figure 2), authorities in Madrid, Barcelona, Milan, and Berlin should audit vendor rebalancing fees, evaluate seasonal scaling during the August–October trough (Figure 1), and pilot fare bundling before expanding fleets.</li>
+  <li><strong>Appraise Bus Priority on High-Delay Corridors (Operational &amp; Environmental):</strong> Because Bus shows the widest delay spread (6.58 min mean; Figure 4) and lowest motorised carbon efficiency (1.07 vs Metro’s 2.19 kg CO<sub>2</sub>/kWh; Figure 8), planners should appraise signal priority or bus lanes where delays exceed 6.0 minutes (Figure 5), alongside phased electric bus renewal.</li>
+  <li><strong>Pilot Weather and Event-Day Timetable Buffers (Resilience):</strong> Based on elevated delays during Snow (8.14 min) and Rain (5.40 min; Figures 6, 10) and on Major Event Days (+31.0% delay, +26.2% ridership; Figure 5), operators should trial weather-triggered headway buffers and evaluate reserve rail/tram deployment during scheduled events.</li>
+  <li><strong>Conduct Site Audits on Suburban Feeder Corridors (Social Equity):</strong> Guided by normalised complaint rates (Figure 7) rather than raw counts, municipalities should conduct site audits along Suburban Feeder corridors to test whether docking corrals and step-free kerb upgrades reduce micromobility complaint rates (49.3–54.0/10k pax).</li>
 </ol>
 """
-
-
-# ==============================================================================
-# AUTHOR'S ANALYTICAL REFLECTIONS (AUTHENTIC FIRST-PERSON VOICE)
-# ==============================================================================
-REFLECTIONS = {
-    "sec1_1": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Data Hygiene &amp; Ingestion</div>
-        <p>"When I first inspected the raw Excel file, the immediate trap was the integer serial dates (like 45292) and the massive volume asymmetry between Metro and micromobility. If I had simply run aggregate averages on raw fares and costs without normalizing per passenger and deriving true farebox recovery ratios, every subsequent visualization would have been fundamentally flawed. Cleansing the ISO timeline and building first-principles unit metrics before touching any plotting library was the single most crucial sanity check in this entire project."</p>
-      </div>
-    """,
-    "sec1_2": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Statistical Asymmetry &amp; Distributional Spread</div>
-        <p>"The summary statistics immediately showed me that standard parametric thinking (mean and standard deviation) would mislead us. With passenger counts skewing at +1.90 and Metro soaking up over 62% of all riders, an 'average' passenger simply does not exist across EcoMove. Focusing on medians and interquartile ranges (IQR) revealed that while ridership and revenues are hyper-concentrated in heavy rail, operational reliability (delays and ratings) follows a much tighter, Gaussian distribution that affects every commuter daily."</p>
-      </div>
-    """,
-    "fig1": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Commute Premium &amp; Maintenance Windows</div>
-        <p>"My goal with Figure 1 wasn't just to show monthly lines, but to isolate the structural heartbeat of European urban transit. By shading the +34.1% weekday commute premium band and tracking the spring peak against the October drop (&minus;27.2%), I wanted to give network planners an undeniable operational calendar: you cannot run heavy fleet overhauls in April, but October presents a clear, low-risk window for maintenance without disrupting peak commuter revenue."</p>
-      </div>
-    """,
-    "fig2": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · The Simpson's Paradox Breakthrough</div>
-        <p>"This was my favourite eureka moment of the investigation. When I first plotted raw municipal margins, Berlin appeared pleasantly profitable (+€35k) and Madrid looked like a financial sinkhole (&minus;€702k). But digging deeper revealed a severe sampling confounding: cities with higher proportions of single-rider micromobility records were being penalized simply by data composition. Once I standardized all 12 cities against network-wide modal weights, the illusion vanished: Berlin plummeted to 11th place, while Madrid proved to be one of our highest true-demand backbones."</p>
-      </div>
-    """,
-    "fig3": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Unmasking Inverted Micromobility Economics</div>
-        <p>"In public transit discussions, shared bikes and e-scooters are often marketed as cheap, green panaceas. Running the OLS cost regression forced me to face the hard economic reality: each e-scooter trip costs EcoMove €21.72 to service against a €1.59 ticket—a net loss of €20 per ride. More strikingly, when calculated per tonne of CO<sub>2</sub> abated, Metro yields a net surplus of +€1,366/t, whereas subsidising e-scooters costs an astronomical €151,000 per tonne saved. Visualising this trade-off side-by-side transforms a feel-good policy into an evidence-based fiscal intervention."</p>
-      </div>
-    """,
-    "fig4": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Choosing Distributional Honesty</div>
-        <p>"I deliberately avoided simple bar charts of mean delays here because means hide the pain of public transit commuters. By engineering a publication-grade Raincloud plot—combining the raw probability density (half-violin KDE), Tukey boxplot quartiles, and jittered individual trip records—I wanted the viewer to immediately see why Bus is the network's true bottleneck (median 6.5 min, with a tail reaching 12.5 min), while rail and grade-separated modes remain predictable."</p>
-      </div>
-    """,
-    "fig5": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Delays as Passenger Rating Poison</div>
-        <p>"Mapping delay directly against customer satisfaction (<em>r</em> = &minus;0.82) proved that commuter goodwill erodes non-linearly once delays cross the 6-minute threshold. But what fascinated me most were the marginal density projections: Major Event days boost ridership by +26%, yet because our systems lack headway shock-buffers, the entire delay curve shifts rightward by +31%, visibly dragging customer satisfaction down. High demand without surge buffers directly damages brand equity."</p>
-      </div>
-    """,
-    "fig6_7": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · The Denominator Problem &amp; Feeder Accessibility</div>
-        <p>"If you look only at absolute complaint volumes, Metro looks terrible simply because it moves 25 million people. But the moment I normalized complaints per 10,000 passengers, the truth emerged: Suburban Feeder routes are the real crisis points. Specifically, cross-tabulating mode by route exposed a glaring operational failure: e-scooter and bike complaints spike 5-fold strictly in suburban feeder zones (66.9 and 55.3 per 10k pax) because dockless vehicles get abandoned across outer-suburban footpaths where dropped kerbs and dedicated corrals are virtually non-existent."</p>
-      </div>
-    """,
-    "dash": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Beyond Static Screenshots to Active Exploration</div>
-        <p>"Static charts can only demonstrate fixed hypotheses. I built this interactive Plotly client-side engine because I wanted any executive or policymaker to test their own operational scenarios in real time. Being able to instantly filter to surface transit under adverse weather (Rain &amp; Snow) and watch on-time reliability plunge to 72% while reviewing live cost recovery gives decision-makers immediate, tangible agency over the data."</p>
-      </div>
-    """,
-    "sec2_1": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · The Discipline of Perceptual Alignment</div>
-        <p>"My guiding philosophy throughout this design was cognitive respect for the reader. Following Cleveland &amp; McGill's perceptual hierarchy, I strictly banned pie charts, 3D extrusions, and dual y-axes—all of which introduce decoding distortion. By restricting the visual language to aligned spatial positions and using Arden Midnight with surgical Tiffany accents, every visual element exists solely to convey mathematical truth with minimal cognitive friction."</p>
-      </div>
-    """,
-    "sec2_2": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Connecting Economics, Operations, and Climate</div>
-        <p>"Synthesising these findings made me realize that EcoMove is not running one cohesive network; it is operating two divergent businesses under one banner. On one side stands a remarkably robust, decarbonising rail backbone that funds itself; on the other sits an unviable micromobility subsidy trap and a congested bus network. True strategic leadership requires acknowledging this duality rather than averaging them out into comfortable corporate slogans."</p>
-      </div>
-    """,
-    "sec2_3": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Intellectual Honesty in Data Visualization</div>
-        <p>"As much as I am proud of the dashboard's responsiveness, academic integrity demands acknowledging its boundaries. Daily aggregated records inherently mask morning and evening rush-hour spikes, and financial accounting costs don't account for rolling capital depreciation. Recognizing these limitations is not a weakness; it is what defines rigorous data science and outlines the exact roadmap for future telemetry and GIS integration."</p>
-      </div>
-    """,
-    "sec2_4": """
-      <div class="reflection-box">
-        <div class="tag"><span>✍️</span> Student's Analytical Reflection · Translating Data into Boardroom Action</div>
-        <p>"If I were presenting these findings to the EcoMove board of commissioners, I wouldn't recommend marginal marketing campaigns. I would advocate four immediate structural interventions: renegotiate micromobility rebalancing contracts to stop the €20/trip hemorrhage, build dedicated bus rapid transit corridors, automate weather-headway reserves, and invest accessibility funds into peripheral feeder drop-zones. Data visualization is only as valuable as the decisions it empowers."</p>
-      </div>
-    """,
-}
 
 
 def build_html() -> None:
     df = pd.read_csv(DATA_CSV, parse_dates=["Date_ISO"])
     stats_df = pd.read_csv(TABLES_DIR / "table01_initial_statistics.csv")
-    mode_df = pd.read_csv(TABLES_DIR / "table02_mode_summary.csv")
     city_df = pd.read_csv(TABLES_DIR / "table03_city_summary.csv")
 
     t1_words = (
@@ -205,7 +125,7 @@ def build_html() -> None:
         + count_words(TASK1_FIG3_TEXT)
         + count_words(TASK1_FIG4_TEXT)
         + count_words(TASK1_FIG5_TEXT)
-        + count_words(TASK1_FIG6_7_TEXT)
+        + count_words(TASK1_FIG6_8_TEXT)
     )
     t2_words = (
         count_words(TASK2_SEC_2_1)
@@ -266,7 +186,7 @@ def build_html() -> None:
           <td class="num">{r['Skewness']:+.2f}</td>
         </tr>"""
 
-    # Format City Table HTML
+    # Format City Table HTML (including both Total and Per-Record Mean Margin & Overall vs Mean Recovery)
     city_rows_html = ""
     for _, r in city_df.iterrows():
         margin_cls = "pos" if r["Net_Margin_EUR"] >= 0 else "neg"
@@ -280,7 +200,8 @@ def build_html() -> None:
           <td class="num">{r['Mean_Delay_Min']:.2f}</td>
           <td class="num">{r['Mean_OnTime_Pct']:.2f}%</td>
           <td class="num {margin_cls}">€{r['Net_Margin_EUR']:,.2f}</td>
-          <td class="num">{r['Cost_Recovery_Pct']:.2f}%</td>
+          <td class="num {margin_cls}">€{r['Mean_Margin_EUR']:,.2f}</td>
+          <td class="num">{r['Cost_Recovery_Pct']:.2f}% <span style="color:var(--mute);font-size:11px;">({r['Mean_Record_Cost_Recovery_Pct']:.1f}%)</span></td>
           <td class="num">{r['Mean_Rating']:.2f}</td>
           <td class="num">{r['Complaints_per_10k_Pax']:.2f}</td>
         </tr>"""
@@ -307,7 +228,7 @@ def build_html() -> None:
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>COM7021 Assessment — Tutor Feedback Draft (Student ID: 25199053)</title>
+  <title>COM7021 Assessment — Final Submission Report (Student ID: 25199053)</title>
   <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
   <style>
     :root {{
@@ -356,11 +277,6 @@ def build_html() -> None:
       color: var(--tiffany);
       margin-left: 8px;
       font-weight: 600;
-    }}
-    .top-nav .nav-actions {{
-      display: flex;
-      align-items: center;
-      gap: 16px;
     }}
     .top-nav .links a {{
       color: var(--mist);
@@ -556,7 +472,6 @@ def build_html() -> None:
     }}
     td.pos {{ color: #0E7C8B; font-weight: 600; }}
     td.neg {{ color: #002B49; font-weight: 600; background: var(--mist) !important; }}
-    /* Interactive dashboard embedded box */
     .dash-shell {{
       background: var(--paper);
       border: 2px solid var(--tiffany);
@@ -656,134 +571,6 @@ def build_html() -> None:
       margin-bottom: 10px;
       font-size: 13.5px;
     }}
-    /* R&D Workflow & Roadmap Styles */
-    .roadmap-grid {{
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 20px;
-      margin-top: 20px;
-    }}
-    .stage-card-list {{
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }}
-    .stage-item {{
-      background: var(--paper);
-      border: 1.5px solid var(--line);
-      border-left: 4px solid var(--midnight);
-      border-radius: 10px;
-      padding: 12px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }}
-    .stage-item.active {{
-      background: var(--mist);
-      border-color: var(--tiffany);
-      border-left: 4px solid var(--tiffany-deep);
-    }}
-    .stage-item.pending {{
-      border-left: 4px dashed var(--mute);
-      background: var(--white);
-    }}
-    .stage-head {{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2px;
-    }}
-    .stage-title {{
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--midnight);
-    }}
-    .stage-pill {{
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-    }}
-    .stage-pill.done {{ background: var(--midnight); color: var(--white); }}
-    .stage-pill.review {{ background: var(--tiffany-deep); color: var(--white); }}
-    .stage-pill.wait {{ background: var(--mute); color: var(--white); }}
-    .stage-desc {{
-      font-size: 12.5px;
-      color: var(--midnight-soft);
-      line-height: 1.45;
-      margin: 0;
-    }}
-    .stage-bullets {{
-      margin: 4px 0 0 0;
-      padding-left: 18px;
-      font-size: 12px;
-      color: var(--mute);
-    }}
-    .stage-bullets li {{ margin-bottom: 2px; }}
-    .remaining-card {{
-      background: #FAFDFF;
-      border: 1.5px solid var(--tiffany);
-      border-radius: 12px;
-      padding: 18px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }}
-    .remaining-card h4 {{
-      margin: 0 0 6px 0;
-      font-size: 15px;
-      color: var(--midnight);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }}
-    .rubric-box {{
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 12px;
-    }}
-    .rubric-box .target-band {{
-      font-weight: 700;
-      color: var(--teal);
-      margin-bottom: 4px;
-      display: block;
-    }}
-    /* Student's Personal Analytical Reflection Callout */
-    .reflection-box {{
-      background: #F9FCFB;
-      border: 1px solid #D5E5E2;
-      border-left: 4px solid var(--tiffany-deep);
-      border-radius: 0 10px 10px 0;
-      padding: 12px 18px;
-      margin: 16px 0 22px;
-      box-shadow: 0 1px 4px rgba(0, 43, 73, 0.04);
-    }}
-    .reflection-box .tag {{
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--tiffany-deep);
-      margin-bottom: 6px;
-    }}
-    .reflection-box p {{
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.58;
-      color: #0E364F;
-      font-style: italic;
-      text-align: left;
-    }}
-    @media (max-width: 860px) {{
-      .roadmap-grid {{ grid-template-columns: 1fr; }}
-    }}
     @media (max-width: 820px) {{
       .dash-kpis {{ grid-template-columns: repeat(2, 1fr); }}
       .dash-grid {{ grid-template-columns: 1fr; }}
@@ -793,10 +580,9 @@ def build_html() -> None:
 <body>
 
   <nav class="top-nav">
-    <div class="brand">COM7021SCC Data Visualisation <span>· Tutor Feedback Draft (Student ID: 25199053)</span></div>
+    <div class="brand">COM7021SCC Data Visualisation <span>· Assessment Submission Report (Student ID: 25199053)</span></div>
     <div class="links">
       <a href="#overview">Overview</a>
-      <a href="#roadmap">R&amp;D Roadmap</a>
       <a href="#task1">Task 1 (70 Marks)</a>
       <a href="#dashboard">Interactive Dashboard</a>
       <a href="#task2">Task 2 Report (30 Marks)</a>
@@ -810,7 +596,7 @@ def build_html() -> None:
     <!-- HERO / ASSESSMENT METADATA -->
     <section id="overview" class="hero-card">
       <h1>Sustainable Urban Mobility Performance Across European Cities: A Python Data Visualisation Investigation and Critical Report</h1>
-      <div class="sub">Assessment Submission Draft for Tutor Review · Dataset: <code>[5442] EcoMoveMobility.xlsx</code> (EcoMove City Transport Authority, 2024–2025)</div>
+      <div class="sub">COM7021 Assessment Submission · Dataset: <code>[5442] EcoMoveMobility.xlsx</code> (EcoMove City Transport Authority, 2024–2025)</div>
       <div class="meta-grid">
         <div class="meta-item"><div class="label">Student ID</div><div class="val">25199053</div></div>
         <div class="meta-item"><div class="label">Module &amp; Programme</div><div class="val">COM7021SCC · MSc Data Science</div></div>
@@ -822,27 +608,7 @@ def build_html() -> None:
 
       <div class="fig-box" style="margin-top:22px; margin-bottom:4px;">
         <img src="{b64_img('fig00_executive_kpi_strip.png')}" alt="Executive KPI Strip"/>
-        <div class="fig-caption"><strong>Figure 0 (Executive Summary Strip):</strong> Baseline 2024–2025 operational metrics across 5,000 daily records in 12 European cities. Tiffany-bordered tiles isolate the two primary strategic tensions: surface delay bottlenecks (mean 4.35 min; Bus 6.58 min) and micromobility farebox deficits (99.6% network recovery; Bike Share 5.2%).</div>
-      </div>
-    </section>
-
-    <!-- SECTION 0: PROJECT TOPOLOGY & STATUS -->
-    <section id="roadmap" class="section-card" style="padding: 22px 28px; margin-bottom: 24px;">
-      <h2>
-        <span>Project Working Topology &amp; Status Overview</span>
-        <span><span class="badge navy">Status: 85% Completed</span> <span class="badge">Awaiting Tutor Review</span></span>
-      </h2>
-
-      <p style="margin: 0 0 10px 0; font-size: 13.5px; color: var(--mute);">A symbolic overview of the iterative research progression across the six project phases, capturing recursive feedback loops between data validation, metric modeling, visual analytics, and formative tutor review.</p>
-
-      <div class="fig-box" style="margin: 8px 0 12px 0; padding: 8px; background: var(--paper); border: 1.5px solid var(--line);">
-        <img src="{b64_img('fig00_workflow_roadmap.png')}" alt="Project Working Topology &amp; Status Overview"/>
-      </div>
-
-      <div style="display: flex; justify-content: space-between; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 10px 18px; font-size: 12.5px; flex-wrap: wrap; gap: 8px;">
-        <div><strong>Verified Working Nodes (85%):</strong> <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 01 Ingestion &amp; Hygiene · <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 02 Features &amp; Ratios · <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 03 Visual Analytics · <span style="color:var(--tiffany-deep); font-weight:700;">✓</span> 04 Interactive Dashboard</div>
-        <div><strong>Current Focus:</strong> <span class="badge" style="background:var(--tiffany-deep);">05 Academic Review Draft</span></div>
-        <div><strong>Next Step:</strong> <span style="color:var(--mute); font-weight:600;">06 Ahmed Hassan Formative Feedback &amp; Word Export</span></div>
+        <div class="fig-caption"><strong>Figure 0 (Executive Summary Strip):</strong> Baseline 2024–2025 operational metrics across 5,000 daily records in 12 European cities. Tiffany-bordered tiles highlight surface delay bottlenecks (mean 4.35 min; Bus 6.58 min) and aggregate vs modal cost-recovery divergence (99.6% overall network recovery; Bike Share 5.2%).</div>
       </div>
     </section>
 
@@ -857,12 +623,11 @@ def build_html() -> None:
       {TASK1_SEC_1_1}
 
       <div class="fig-box">
-        <img src="{b64_img('fig08_methodology_pipeline.png')}" alt="Methodology Pipeline"/>
+        <img src="{b64_img('fig00_methodology_pipeline.png')}" alt="Methodology Pipeline"/>
         <div class="fig-caption"><strong>Figure A (Investigation Workflow):</strong> Five-stage Python analytical pipeline from raw Excel ingestion and serial-date conversion (<code>origin='1899-12-30'</code>) to normalised feature engineering, static 220 DPI chart generation, and interactive multi-filter dashboard deployment.</div>
       </div>
-      {REFLECTIONS['sec1_1']}
 
-      <h3>1.2 Initial Descriptive Statistics</h3>
+      <h3>1.2 Initial Descriptive Statistics and Financial Aggregation Basis</h3>
       {TASK1_SEC_1_2}
 
       <div class="table-wrap">
@@ -888,71 +653,64 @@ def build_html() -> None:
           </tbody>
         </table>
       </div>
-      <div class="fig-caption" style="margin-top:-14px; margin-bottom:12px;"><strong>Table 1:</strong> Initial parametric and non-parametric descriptive statistics for raw and derived numerical variables across all <code>N = 5,000</code> records (generated via <code>scripts/01_data_prep_and_eda.py</code>).</div>
-      {REFLECTIONS['sec1_2']}
+      <div class="fig-caption" style="margin-top:-14px; margin-bottom:12px;"><strong>Table 1:</strong> Initial parametric and non-parametric descriptive statistics for raw and derived numerical variables across all <code>N = 5,000</code> daily records (generated via <code>scripts/01_data_prep_and_eda.py</code>). Note that <code>Cost_Recovery_Pct</code> mean (84.12%) reflects the unweighted average of daily record ratios, whereas volume-weighted overall cost recovery (<code>Sum Revenue / Sum Cost</code>) is 99.58%.</div>
 
-      <h3>1.3 Visualisation Investigation and Decision Justification (Figures 1 to 7)</h3>
+      <h3>1.3 Visualisation Investigation and Decision Justification (Figures 1 to 8)</h3>
 
       {TASK1_FIG1_TEXT}
       <div class="fig-box">
         <img src="{b64_img('fig01_monthly_demand_trend.png')}" alt="Figure 1 Monthly Demand Trend"/>
-        <div class="fig-caption"><strong>Figure 1 (Time-Series &amp; Regime Decomposition):</strong> Monthly mean daily passenger demand across 2024–2025, decomposing the structural +34.1% weekday commute premium (shaded ribbon) and contrasting the recurring March–April spring peaks with the &minus;27.2% October trough.</div>
+        <div class="fig-caption"><strong>Figure 1 (Time-Series &amp; Regime Decomposition):</strong> Monthly mean daily passenger demand across 2024–2025, decomposing the +34.1% weekday commute premium (shaded ribbon) and contrasting recurring March–April spring peaks with the &minus;27.2% October trough.</div>
       </div>
-      {REFLECTIONS['fig1']}
 
       {TASK1_FIG2_TEXT}
       <div class="fig-box">
         <img src="{b64_img('fig02_city_demand_comparison.png')}" alt="Figure 2 City Demand Comparison"/>
-        <div class="fig-caption"><strong>Figure 2 (Connected Dumbbell Plot — Simpson's Paradox):</strong> Unadjusted raw mean margin versus modal-mix-adjusted margin across the 12 European cities. Direct standardization eliminates modal sampling confounding (<em>r</em> = &minus;0.795), showing Berlin plunge 7 ranks to #11 while Madrid recovers 62% of its deficit.</div>
+        <div class="fig-caption"><strong>Figure 2 (Connected Dumbbell Plot — Simpson's Paradox):</strong> Unadjusted raw mean net margin per record versus modal-mix-adjusted net margin per record across the 12 European cities. Direct standardisation controls for modal sampling share (<em>r</em> = &minus;0.795), shifting Berlin from Rank #4 (+€35.65/record) to Rank #11 (&minus;€353.87/record) while Madrid improves from &minus;€702.29 to &minus;€268.04/record.</div>
       </div>
-      {REFLECTIONS['fig2']}
 
       {TASK1_FIG3_TEXT}
       <div class="fig-box">
         <img src="{b64_img('fig03_mode_cost_recovery.png')}" alt="Figure 3 Mode Cost Recovery"/>
-        <div class="fig-caption"><strong>Figure 3 (Two-Panel Unit Economics &amp; Carbon Abatement Return):</strong> Panel A decomposes per-passenger fare versus variable operating cost, demonstrating inverted unit economics (&minus;€20/trip) in micromobility. Panel B details cumulative net margin and marginal public-finance return per tonne of CO<sub>2</sub> saved (+€1,366/t on Metro vs &minus;€114k to &minus;€151k/t on micromobility).</div>
+        <div class="fig-caption"><strong>Figure 3 (Two-Panel Unit Economics &amp; Carbon Abatement Return):</strong> Panel A compares aggregate per-passenger ticket fare against operating cost across modes, illustrating negative per-trip unit margins in Bike Share (&minus;€20.84/trip; 5.25% overall recovery) and E-Scooter (&minus;€19.98/trip; 7.39% recovery). Panel B reports cumulative 2-year net margins (€M) and net public-finance return per tonne of CO<sub>2</sub> saved.</div>
       </div>
-      {REFLECTIONS['fig3']}
 
       {TASK1_FIG4_TEXT}
       <div class="fig-box">
         <img src="{b64_img('fig04_delay_distribution_boxplot.png')}" alt="Figure 4 Delay Distribution Boxplot"/>
-        <div class="fig-caption"><strong>Figure 4 (Distribution Visualisation — Raincloud Plot):</strong> Publication-grade raincloud distribution combining half-violin Gaussian KDE densities, Tukey box plots, and raw jittered observations. Bus is highlighted in Tiffany as the network bottleneck (median 6.50 min, mean 6.58 min, max 12.50 min).</div>
+        <div class="fig-caption"><strong>Figure 4 (Distribution Visualisation — Raincloud Plot):</strong> Raincloud distribution combining half-violin Gaussian KDE densities, Tukey boxplots (median and IQR), and jittered daily observations across modes. Bus exhibits the highest delay distribution (median 6.50 min, mean 6.58 min, max 12.50 min).</div>
       </div>
-      {REFLECTIONS['fig4']}
 
       {TASK1_FIG5_TEXT}
       <div class="fig-box">
         <img src="{b64_img('fig05_delay_rating_relationship.png')}" alt="Figure 5 Delay vs Customer Rating"/>
-        <div class="fig-caption"><strong>Figure 5 (Joint Bivariate Relationship &amp; Marginal Density Projections):</strong> Service delay versus customer satisfaction (<em>r</em> = &minus;0.821, slope &minus;0.14 pts/min; <em>N</em> = 5,000) with top and right marginal KDE projections illustrating the rightward delay shift (+31.0%) on Major Event Days (<em>n</em> = 510).</div>
+        <div class="fig-caption"><strong>Figure 5 (Joint Bivariate Relationship &amp; Marginal Density Projections):</strong> Observational association between average service delay and customer satisfaction rating (<em>r</em> = &minus;0.821, OLS slope &minus;0.14 pts/min; <em>N</em> = 5,000), with top and right marginal KDE strips comparing Standard Days (<em>n</em> = 4,490) against Major Event Days (<em>n</em> = 510).</div>
       </div>
-      {REFLECTIONS['fig5']}
 
-      {TASK1_FIG6_7_TEXT}
+      {TASK1_FIG6_8_TEXT}
       <div class="fig-box">
         <img src="{b64_img('fig06_weather_mode_delay_heatmap.png')}" alt="Figure 6 Weather x Mode Delay Heatmap"/>
-        <div class="fig-caption"><strong>Figure 6 (Dual-Encoded Interaction Matrix):</strong> Mean service delay (minutes) and % escalation over Clear weather baseline across transport modes and weather conditions, highlighting compound network vulnerability during Snow (+119% overall, Bus: 10.33 min) and Rain.</div>
+        <div class="fig-caption"><strong>Figure 6 (Dual-Encoded Weather × Mode Interaction Heatmap):</strong> Mean service delay (minutes) and percentage escalation relative to Clear weather across transport modes and weather conditions.</div>
       </div>
 
       <div class="fig-box">
         <img src="{b64_img('fig07_route_accessibility_rate.png')}" alt="Figure 7 Route Accessibility Rate"/>
-        <div class="fig-caption"><strong>Figure 7 (Two-Way Accessibility Interaction Matrix):</strong> Volume-normalised accessibility complaints per 10,000 passengers by route type (Panel A) and 6×6 Route × Mode interaction heatmap (Panel B), exposing the acute 5-fold complaint spike on Suburban Feeder micromobility (E-Scooter: 66.87/10k; Bike Share: 55.26/10k).</div>
+        <div class="fig-caption"><strong>Figure 7 (Two-Way Accessibility Complaint Rate Matrix):</strong> Volume-weighted aggregate accessibility complaints per 10,000 passengers by route type (Panel A) and across the 6×6 Route × Mode interaction matrix (Panel B), isolating elevated complaint intensity on Suburban Feeder micromobility services (E-Scooter: 54.02/10k aggregate; Bike Share: 49.26/10k aggregate).</div>
       </div>
 
       <div class="fig-box">
-        <img src="{b64_img('fig09_mode_performance_matrix.png')}" alt="Figure 9 Mode Performance Matrix"/>
-        <div class="fig-caption"><strong>Figure 8 (Multi-Dimensional Synthesis Matrix):</strong> Cross-modal comparison matrix across demand share, reliability, cost recovery, environmental efficiency (<code>CO2 / kWh</code>), and normalised accessibility complaints, highlighting Metro as the high-efficiency network backbone (70.3% of CO<sub>2</sub> savings at 2.19 kg CO<sub>2</sub>/kWh).</div>
+        <img src="{b64_img('fig08_mode_performance_matrix.png')}" alt="Figure 8 Mode Performance Matrix"/>
+        <div class="fig-caption"><strong>Figure 8 (Multi-Dimensional Modal Performance Matrix):</strong> Cross-modal summary comparing passenger demand share, mean service delay, overall cost-recovery ratio, environmental efficiency (<code>CO2 / kWh</code>), and aggregate accessibility complaints per 10,000 passengers.</div>
       </div>
-      {REFLECTIONS['fig6_7']}
     </section>
 
     <!-- INTERACTIVE DASHBOARD SECTION -->
     <section id="dashboard" class="section-card">
       <h2>
-        <span>1.4 Interactive Python Decision Dashboard (Live Filterable App + State Evidence)</span>
+        <span>1.4 Interactive Python Decision Dashboard (Live Filterable App + Figures 9 &amp; 10)</span>
         <span class="badge">Live Interactive View + Report Screenshots</span>
       </h2>
-      <p style="margin-top:0;">Use the six interactive filter dropdowns below to explore how demand, service delays, farebox cost recovery, carbon mitigation, and normalised accessibility complaints respond across countries, cities, transport modes, route types, weather conditions, and major event days. Beneath the live dashboard, Figures 10 and 11 provide the static state captures prepared for the Word report submission.</p>
+      <p style="margin-top:0;">The interactive Plotly decision dashboard below links six categorical filter dimensions (Country, City, Transport Mode, Route Type, Weather Condition, and Major Event Day) to six KPI cards and four coordinated views. Beneath the live application, <strong>Figure 9</strong> (unfiltered network baseline) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario) provide the static screenshot evidence embedded in the Word submission.</p>
 
       <div class="dash-shell">
         <div class="dash-filters">
@@ -968,7 +726,7 @@ def build_html() -> None:
           <div class="dash-kpi"><div class="t">Passengers</div><div class="v" id="k-pax">-</div><div class="s" id="k-records">-</div></div>
           <div class="dash-kpi"><div class="t">On-Time Rate</div><div class="v" id="k-ontime">-</div><div class="s">Target: 85.0%</div></div>
           <div class="dash-kpi claim"><div class="t">Mean Delay</div><div class="v" id="k-delay">-</div><div class="s">Service reliability</div></div>
-          <div class="dash-kpi claim"><div class="t">Cost Recovery</div><div class="v" id="k-recovery">-</div><div class="s" id="k-margin">-</div></div>
+          <div class="dash-kpi claim"><div class="t">Overall Recovery</div><div class="v" id="k-recovery">-</div><div class="s" id="k-margin">-</div></div>
           <div class="dash-kpi"><div class="t">CO2 Saved</div><div class="v" id="k-co2">-</div><div class="s">Tonnes mitigated</div></div>
           <div class="dash-kpi"><div class="t">Satisfaction</div><div class="v" id="k-rating">-</div><div class="s" id="k-comp">-</div></div>
         </div>
@@ -982,15 +740,14 @@ def build_html() -> None:
       </div>
 
       <div class="fig-box">
-        <img src="{b64_img('fig10_dashboard_overview.png')}" alt="Figure 10 Dashboard Overview"/>
-        <div class="fig-caption"><strong>Figure 9 (Dashboard Screenshot Evidence — Default Unfiltered View):</strong> Full-network baseline state (<code>N = 5,000</code> records across all 12 European cities), displaying top-level KPIs, modal delay and cost recovery bars, route-level accessibility complaint rates, and top city performance cards.</div>
+        <img src="{b64_img('fig09_dashboard_overview.png')}" alt="Figure 9 Dashboard Overview"/>
+        <div class="fig-caption"><strong>Figure 9 (Dashboard Screenshot Evidence — Default Unfiltered View):</strong> Full-network baseline state (<code>N = 5,000</code> records across all 12 European cities), displaying top-level KPIs (40.91M passengers, 82.1% on-time, 4.35 min delay, 99.6% overall cost recovery), modal delay and recovery bars, route-level accessibility complaint rates, and top city summary cards.</div>
       </div>
 
       <div class="fig-box">
-        <img src="{b64_img('fig11_dashboard_filtered_scenario.png')}" alt="Figure 11 Dashboard Filtered Scenario"/>
-        <div class="fig-caption"><strong>Figure 10 (Dashboard Screenshot Evidence — Filtered Decision Scenario):</strong> Executive scenario filtering to <code>Mode = Surface (Bus, Tram, Park &amp; Ride)</code> and <code>Weather = Rain + Snow</code> (<code>n = 583</code> records). Isolating surface modes under adverse precipitation reveals that mean delay surges to 7.38 min, on-time rate drops to 72.2%, satisfaction falls to 3.46/5, and Suburban Feeder accessibility complaints escalate to 20.41 per 10,000 passengers.</div>
+        <img src="{b64_img('fig10_dashboard_filtered_scenario.png')}" alt="Figure 10 Dashboard Filtered Scenario"/>
+        <div class="fig-caption"><strong>Figure 10 (Dashboard Screenshot Evidence — Filtered Decision Scenario):</strong> Executive scenario filtering to <code>Mode = Surface (Bus, Tram, Park &amp; Ride)</code> and <code>Weather = Rain + Snow</code> (<code>n = 583</code> records). Isolating surface modes under precipitation shows mean delay rising to 7.38 min, on-time rate dropping to 72.2%, customer rating falling to 3.46/5, overall surface cost recovery at 113.2% (+€0.84M net), and Suburban Feeder accessibility complaints reaching 20.41 per 10,000 passengers.</div>
       </div>
-      {REFLECTIONS['dash']}
     </section>
 
     <!-- TASK 2 SECTION -->
@@ -1001,7 +758,6 @@ def build_html() -> None:
       </h2>
 
       {TASK2_SEC_2_1}
-      {REFLECTIONS['sec2_1']}
 
       {TASK2_SEC_2_2}
 
@@ -1016,8 +772,9 @@ def build_html() -> None:
               <th class="num">Mean Pax</th>
               <th class="num">Mean Delay (m)</th>
               <th class="num">On-Time (%)</th>
-              <th class="num">Net Margin (€)</th>
-              <th class="num">Cost Recovery</th>
+              <th class="num">Total Net Margin (€)</th>
+              <th class="num">Mean Margin / Rec (€)</th>
+              <th class="num">Overall (Mean) Recovery</th>
               <th class="num">Rating</th>
               <th class="num">Complaints / 10k</th>
             </tr>
@@ -1027,11 +784,9 @@ def build_html() -> None:
           </tbody>
         </table>
       </div>
-      <div class="fig-caption" style="margin-top:-14px; margin-bottom:12px;"><strong>Table 2:</strong> City-level cumulative and mean operational performance across all 12 European cities (2024–2025), ordered by total passenger demand. Shaded cells in Net Margin denote cities operating in aggregate financial deficit due to shared micromobility costs.</div>
-      {REFLECTIONS['sec2_2']}
+      <div class="fig-caption" style="margin-top:-14px; margin-bottom:12px;"><strong>Table 2:</strong> Reconciled city-level cumulative and per-record operational performance across all 12 European cities (2024–2025), ordered by total passenger demand. Both cumulative <code>Total Net Margin (€)</code> and <code>Mean Margin / Rec (€)</code> (used in Figure 2) are reported alongside volume-weighted <code>Overall Recovery</code> (<code>Sum Rev / Sum Cost</code>) and unweighted per-record mean recovery in parentheses.</div>
 
       {TASK2_SEC_2_3}
-      {REFLECTIONS['sec2_3']}
 
       {TASK2_SEC_2_4}
 
@@ -1040,41 +795,40 @@ def build_html() -> None:
           <thead>
             <tr>
               <th>Decision Domain</th>
-              <th>Target Mode / Corridor / City</th>
-              <th>Empirical Evidence from Visual Investigation</th>
-              <th>Recommended Managerial Intervention</th>
+              <th>Target Scope</th>
+              <th>Supporting Empirical Evidence</th>
+              <th>Proposed Option for Pilot Evaluation &amp; Appraisal</th>
             </tr>
           </thead>
           <tbody>
             <tr class="hi">
-              <td><strong>1. Financial Sustainability (Business)</strong></td>
-              <td>Bike Share &amp; E-Scooter (especially Madrid, Barcelona, Milan, Hamburg)</td>
-              <td>Bike Share recovers 5.25% (&minus;€5.60M) and E-Scooter 7.39% (&minus;€3.28M) of operating costs across 1,232 records while serving only 1.06% of passengers (Figure 3).</td>
-              <td>Renegotiate fleet-rebalancing vendor contracts, consolidate low-demand docks in Aug–Oct (Figure 1), and bundle micromobility into Metro/Tram passes.</td>
+              <td><strong>1. Commercial Viability (Business)</strong></td>
+              <td>Shared Bike Share &amp; E-Scooter (focused on Madrid, Barcelona, Milan, Berlin)</td>
+              <td>Bike Share recovers 5.25% overall (5.99% record mean; &minus;€5.60M total, &minus;€20.84/trip) and E-Scooter 7.39% overall (8.63% record mean; &minus;€3.28M total, &minus;€19.98/trip) across 1,232 records (1.06% of pax; Figures 2 &amp; 3).</td>
+              <td>Audit vendor rebalancing fee structures, evaluate seasonal fleet scaling during the Aug–Oct demand trough (Figure 1), and pilot integrated multimodal pass bundling prior to any fleet expansion.</td>
             </tr>
             <tr>
-              <td><strong>2. Service Reliability &amp; Decarbonisation (Environmental)</strong></td>
-              <td>Bus Network (all 12 cities) &amp; Central/Commuter Corridors</td>
-              <td>Bus has the highest delay (6.58 min mean, 74.92% on-time; Figure 4), lowest rating (3.74), and lowest motorised carbon efficiency (1.07 kg CO<sub>2</sub>/kWh vs Metro 2.19; Figure 8).</td>
-              <td>Install segregated bus lanes and automated traffic-signal priority on high-load corridors; accelerate electric bus fleet conversion to reduce delay below 5.0 min.</td>
+              <td><strong>2. Service Reliability &amp; Efficiency (Environmental)</strong></td>
+              <td>Bus Network &amp; High-Delay Surface Corridors (12 cities)</td>
+              <td>Bus exhibits the highest delay distribution (6.58 min mean, 6.50 min median, 74.92% on-time; Figure 4), lowest rating (3.74/5), and lowest motorised carbon efficiency (1.07 kg CO<sub>2</sub>/kWh vs Metro 2.19; Figure 8).</td>
+              <td>Conduct corridor feasibility studies for traffic-signal priority or segregated bus lanes on routes exceeding 6.0 min delay (Figure 5), alongside capital appraisal for phased electric bus renewal.</td>
             </tr>
             <tr class="hi">
               <td><strong>3. Weather &amp; Event Resilience (Public Sector)</strong></td>
-              <td>Surface Transit (Bus, Tram, Park &amp; Ride) during Rain/Snow &amp; Event Days</td>
-              <td>Snow elevates network delay to 8.14 min (Bus 10.33 min; Figure 6); Rain + Snow on surface modes drops rating to 3.46 (Figure 10); Event Days surge demand +26.2% and delay +31.0% (Figure 5).</td>
-              <td>Deploy meteorological trigger protocols (pre-salting, headway buffering) and pre-position +25% reserve Metro/Tram capacity on scheduled major event days.</td>
+              <td>Surface Modes (Bus, Tram, Park &amp; Ride) during Rain/Snow &amp; Major Event Days</td>
+              <td>Snow is associated with an 8.14 min mean delay (Bus 10.33 min; Figure 6); Rain + Snow on surface modes coincides with 7.38 min delay and 3.46 rating (Figure 10); Event Days show +26.2% ridership and +31.0% delay (Figure 5).</td>
+              <td>Pilot weather-triggered timetable headway buffers during precipitation warnings and evaluate deploying reserve rail/tram sets on scheduled major event days to test delay mitigation.</td>
             </tr>
             <tr>
               <td><strong>4. Inclusive Mobility (Social Equity)</strong></td>
-              <td>Suburban Feeder Routes &amp; Surface Boarding Stops</td>
-              <td>Volume normalisation exposes Suburban Feeder as the highest complaint corridor (16.79/10k pax overall; 20.41/10k in rain/snow; Figures 7 &amp; 10), reversing raw Metro volume bias.</td>
-              <td>Reallocate accessibility capital using per-capita complaint metrics to fund step-free kerb ramps, tactile paving, and sheltered feeder stops in outer zones.</td>
+              <td>Suburban Feeder Routes &amp; Peripheral Micromobility Zones</td>
+              <td>Volume-normalised complaint rates identify Suburban Feeders as the highest-friction route (16.79/10k pax overall; 54.02/10k on E-Scooter and 49.26/10k on Bike Share aggregate; Figures 7 &amp; 10), reversing raw Metro volume bias.</td>
+              <td>Use per-10k-passenger complaint metrics to prioritise physical site audits on Suburban Feeders, testing designated micromobility parking corrals and step-free kerb upgrades in high-complaint zones.</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="fig-caption" style="margin-top:-14px; margin-bottom:12px;"><strong>Table 3:</strong> Summary of evidence-based strategic recommendations linked to empirical visual findings across business, environmental, public-sector, and social dimensions.</div>
-      {REFLECTIONS['sec2_4']}
+      <div class="fig-caption" style="margin-top:-14px; margin-bottom:12px;"><strong>Table 3:</strong> Summary of evidence-informed managerial options linked to empirical visual findings across business, environmental, public-sector, and social dimensions.</div>
     </section>
 
     <!-- REFERENCES SECTION -->
@@ -1108,7 +862,7 @@ def build_html() -> None:
     </section>
 
     <footer class="site-footer">
-      <span>COM7021SCC · Student ID: 25199053 · MSc Data Science · Ahmed Hassan Formative Feedback Draft</span>
+      <span>COM7021SCC · Student ID: 25199053 · MSc Data Science · Arden University Berlin</span>
       <span>Language: <strong>English</strong> · <a href="index_fa.html">فارسی</a></span>
     </footer>
 
@@ -1189,7 +943,7 @@ def build_html() -> None:
         x: modeVals, y: modeKeys, orientation: 'h', type: 'bar',
         marker: {{color: modeVals.map(v => v < 100 ? '#66C9BA' : '#1A4A6B')}}
       }}], {{
-        title: {{text: 'Cost Recovery Ratio (%) by Mode', font: {{size: 13, color: '#002B49'}}}},
+        title: {{text: 'Overall Cost Recovery (%) by Mode', font: {{size: 13, color: '#002B49'}}}},
         paper_bgcolor: '#FFFFFF', plot_bgcolor: '#F7FAFB',
         margin: {{l: 95, r: 16, t: 38, b: 36}}
       }}, {{displayModeBar: false, responsive: true}});
@@ -1242,7 +996,8 @@ def build_html() -> None:
 </html>
 """
     OUT_HTML.write_text(page_html, encoding="utf-8")
-    print(f"Built self-contained review HTML: {OUT_HTML}")
+    shutil.copyfile(OUT_HTML, ROOT_INDEX)
+    print(f"Built self-contained review HTML: {OUT_HTML} and {ROOT_INDEX}")
     print(f"Task 1 written explanation word count: {t1_words} words (target ~600)")
     print(f"Task 2 written report word count:      {t2_words} words (target ~900)")
     print(f"Total written prose word count:        {t1_words + t2_words} words (target ~1,500)")

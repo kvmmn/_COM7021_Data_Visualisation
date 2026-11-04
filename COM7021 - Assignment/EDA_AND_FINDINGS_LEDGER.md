@@ -69,22 +69,23 @@ Volume-linked variables (`Passengers`, `Trips`, `Ticket_Revenue_EUR`, `Operating
 - **Mass Transit Dominance:** Across all 5,000 records (`40,909,721` total passengers), **Metro** accounts for **62.96% of total ridership** (`25,757,522` passengers; mean `24,601.26` pax/record, `528.72` pax/trip), followed by **Tram** (`15.60%`, `6,380,878` pax; mean `8,384.86`), **Bus** (`12.40%`, `5,073,394` pax; mean `3,689.74`), and **Park and Ride** (`7.98%`, `3,265,220` pax; mean `5,581.57`).
 - **Micromobility Niche:** **Bike Share** (`0.66%` of passengers, `268,765` total; mean `354.10` pax/record) and **E-Scooter** (`0.40%` of passengers, `163,942` total; mean `346.60` pax/record) together represent **24.64% of operational records** (`1,232` rows) but only **1.06% of total passengers** (`1.00` passenger per trip).
 
-| Transport Mode | Records | Total Passengers | Share of Pax (%) | Mean Pax | Mean Delay (min) | On-Time (%) | Total Rev (€M) | Total Cost (€M) | Net Margin (€M) | Cost Recovery (%) | Total $\text{CO}_2$ (t) | Mean Rating | Raw Complaints (mean) | Complaints / 10k Pax |
+| Transport Mode | Records | Total Passengers | Share of Pax (%) | Mean Pax | Mean Delay (min) | On-Time (%) | Total Rev (€M) | Total Cost (€M) | Net Margin (€M) | Overall Recovery % (Record Mean %) | Total $\text{CO}_2$ (t) | Mean Rating | Raw Complaints (mean) | Aggregate Comp/10k (Record Mean) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| **Metro** | 1,047 | 25,757,522 | 62.96% | 24,601.3 | 3.73 | 84.09% | 73.33 | 69.03 | **+4.30** | **106.24%** | 3,150.92 | 4.09 | 36.52 | **14.87** |
-| **Tram** | 761 | 6,380,878 | 15.60% | 8,384.9 | 4.79 | 80.63% | 15.67 | 13.36 | **+2.31** | **117.30%** | 646.92 | 3.94 | 12.64 | 15.19 |
-| **Bus** | 1,375 | 5,073,394 | 12.40% | 3,689.7 | **6.58** | **74.92%** | 12.00 | 11.99 | **+0.01** | **100.08%** | 414.16 | **3.74** | 6.44 | 18.16 |
-| **Park and Ride** | 585 | 3,265,220 | 7.98% | 5,581.6 | 5.17 | 79.46% | 10.07 | 8.28 | **+1.78** | **121.53%** | 199.19 | 3.90 | 8.86 | 16.18 |
-| **Bike Share** | 759 | 268,765 | 0.66% | 354.1 | **1.62** | **90.85%** | 0.31 | 5.91 | **-5.60** | **5.25%** | 49.13 | **4.35** | 0.60 | 17.58 |
-| **E-Scooter** | 473 | 163,942 | 0.40% | 346.6 | 1.94 | 89.71% | 0.26 | 3.54 | **-3.28** | **7.39%** | 21.65 | 4.29 | 0.64 | **20.88** |
+| **Metro** | 1,047 | 25,757,522 | 62.96% | 24,601.3 | 3.73 | 84.09% | 73.33 | 69.03 | **+4.30** | **106.24%** (107.00%) | 3,150.92 | 4.09 | 36.52 | **14.85** (14.87) |
+| **Tram** | 761 | 6,380,878 | 15.60% | 8,384.9 | 4.79 | 80.63% | 15.67 | 13.36 | **+2.31** | **117.30%** (117.99%) | 646.92 | 3.94 | 12.64 | 15.07 (15.19) |
+| **Bus** | 1,375 | 5,073,394 | 12.40% | 3,689.7 | **6.58** | **74.92%** | 12.00 | 11.99 | **+0.01** | **100.08%** (100.62%) | 414.16 | **3.74** | 6.44 | 17.46 (18.16) |
+| **Park and Ride** | 585 | 3,265,220 | 7.98% | 5,581.6 | 5.17 | 79.46% | 10.07 | 8.28 | **+1.78** | **121.53%** (122.21%) | 199.19 | 3.90 | 8.86 | 15.88 (16.18) |
+| **Bike Share** | 759 | 268,765 | 0.66% | 354.1 | **1.62** | **90.85%** | 0.31 | 5.91 | **-5.60** | **5.25%** (5.99%) | 49.13 | **4.35** | 0.60 | 16.82 (17.58) |
+| **E-Scooter** | 473 | 163,942 | 0.40% | 346.6 | 1.94 | 89.71% | 0.26 | 3.54 | **-3.28** | **7.39%** (8.63%) | 21.65 | 4.29 | 0.64 | **18.42** (20.88) |
 
 ---
 
-### Finding 2: Financial Performance — The Micromobility Subsidy Trap
-- Across the entire authority, total revenue is **`€111.64M`** against total operating cost of **`€112.11M`**, yielding a slight aggregate deficit of **`-€0.47M`** (`-€93.88` mean per record).
-- However, disaggregating by `Transport_Mode` reveals a stark structural split:
-  - **Profitable Fixed/Mass Modes (+€8.40M combined surplus):** `Metro` generates **`+€4.30M`** net surplus (`106.24%` aggregate cost recovery), `Tram` generates **`+€2.31M`** (`117.30%` recovery), `Park and Ride` generates **`+€1.78M`** (`121.53%` recovery), and `Bus` breaks even at **`+€0.01M`** (`100.08%` recovery).
-  - **Loss-Making Shared Micromobility (-€8.88M combined deficit):** `Bike Share` earns only `€408.90` mean daily revenue against `€7,789.57` operating cost (**`5.25%` aggregate cost recovery**, losing **`-€5.60M`** overall). `E-Scooter` earns `€552.39` mean daily revenue against `€7,477.72` operating cost (**`7.39%` cost recovery**, losing **`-€3.28M`** overall).
+### Finding 2: Financial Performance — Reconciling Per-Record, Per-Passenger, and Overall Cost Recovery
+- Across the entire authority, cumulative 2-year revenue is **`€111,640,614.26` (`€111.64M`; mean `€22,328.12/record`, overall `€2.73/pax`)** against cumulative operating cost of **`€112,110,015.97` (`€112.11M`; mean `€22,422.00/record`, overall `€2.74/pax`)**, yielding a cumulative net deficit of **`-€469,401.71` (`-€0.47M`; mean `-€93.88/record`, overall `-€0.01/pax`)**.
+- **Average vs Overall Cost-Recovery Percentage:** Volume-weighted overall cost recovery (`Sum Revenue / Sum Cost`) is **`99.58%`** (`99.6%`), whereas the unweighted average of the 5,000 daily record cost-recovery percentages (`mean(Rev_i / Cost_i)`) is **`84.12%`** (median `102.26%`). This divergence occurs because low-recovery shared micromobility (`Bike Share` and `E-Scooter`) represents `24.64%` of daily records (`1,232` rows) where each row carries equal weight (`1/5000`), but only `1.06%` of total passengers and `8.43%` of total operating costs.
+- Disaggregating by `Transport_Mode` reveals a stark structural split:
+  - **Profitable Fixed/Mass Modes (+€8.40M combined surplus):** `Metro` generates **`+€4.30M`** net surplus (`106.24%` overall recovery; `107.00%` record mean), `Tram` generates **`+€2.31M`** (`117.30%` overall; `117.99%` record mean), `Park and Ride` generates **`+€1.78M`** (`121.53%` overall; `122.21%` record mean), and `Bus` breaks even at **`+€0.01M`** (`100.08%` overall; `100.62%` record mean).
+  - **Loss-Making Shared Micromobility (-€8.88M combined deficit):** `Bike Share` earns only `€408.90` mean daily revenue against `€7,789.57` operating cost (**`5.25%` overall cost recovery**, `5.99%` record mean, losing **`-€5.60M`** overall). `E-Scooter` earns `€552.39` mean daily revenue against `€7,477.72` operating cost (**`7.39%` overall cost recovery**, `8.63%` record mean, losing **`-€3.28M`** overall).
 - **Decision Insight:** Fixed-route transit cross-subsidises shared micromobility. City-level deficits (e.g., Madrid `-€272.5k`, Barcelona `-€152.7k`, Milan `-€145.9k`, Hamburg `-€137.6k`) are driven by high micromobility operating costs relative to low per-trip fare revenue (`~€1.15` per Bike Share trip and `~€1.59` per E-Scooter trip).
 
 ---

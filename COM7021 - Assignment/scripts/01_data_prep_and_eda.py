@@ -213,9 +213,15 @@ def main() -> None:
     mode_tbl["Cost_Recovery_Pct"] = (
         mode_tbl["Total_Revenue_EUR"] / mode_tbl["Total_Cost_EUR"] * 100.0
     ).round(2)
+    mode_tbl["Mean_Record_Cost_Recovery_Pct"] = (
+        df.groupby("Transport_Mode")["Cost_Recovery_Pct"].mean().round(2)
+    )
     mode_tbl["Complaints_per_10k_Pax"] = (
         mode_tbl["Total_Complaints"] / mode_tbl["Total_Passengers"] * 10000.0
     ).round(2)
+    mode_tbl["Mean_Record_Complaints_per_10k"] = (
+        df.groupby("Transport_Mode")["Complaints_per_10k_Pax"].mean().round(2)
+    )
     mode_tbl["CO2_per_kWh"] = np.where(
         mode_tbl["Total_Energy_KWh"] > 0,
         (mode_tbl["Total_CO2_KG"] / mode_tbl["Total_Energy_KWh"]).round(2),
@@ -235,6 +241,7 @@ def main() -> None:
             Total_Revenue_EUR=("Ticket_Revenue_EUR", "sum"),
             Total_Cost_EUR=("Operating_Cost_EUR", "sum"),
             Net_Margin_EUR=("Net_Margin_EUR", "sum"),
+            Mean_Margin_EUR=("Net_Margin_EUR", "mean"),
             Total_CO2_KG=("CO2_Saved_KG", "sum"),
             Mean_Rating=("Customer_Rating", "mean"),
             Total_Complaints=("Accessibility_Complaints", "sum"),
@@ -244,6 +251,9 @@ def main() -> None:
     city_tbl["Cost_Recovery_Pct"] = (
         city_tbl["Total_Revenue_EUR"] / city_tbl["Total_Cost_EUR"] * 100.0
     ).round(2)
+    city_tbl["Mean_Record_Cost_Recovery_Pct"] = (
+        df.groupby(["Country", "City"])["Cost_Recovery_Pct"].mean().round(2)
+    )
     city_tbl["Complaints_per_10k_Pax"] = (
         city_tbl["Total_Complaints"] / city_tbl["Total_Passengers"] * 10000.0
     ).round(2)
@@ -258,13 +268,23 @@ def main() -> None:
     unit_econ_tbl = compute_unit_economics_and_carbon(df)
     unit_econ_tbl.to_csv(TABLES_DIR / "table05_unit_economics_and_carbon_cost.csv", index=False)
 
-    # Table 6: Route x Mode Accessibility Complaint Intensity Matrix (per 10k Pax)
+    # Table 6: Route x Mode Accessibility Complaint Intensity Matrix (Aggregate per 10k Pax: Sum Complaints / Sum Pax * 10,000)
+    acc_grp = (
+        df.groupby(["Route_Type", "Transport_Mode"], as_index=False)
+        .agg(
+            Total_Complaints=("Accessibility_Complaints", "sum"),
+            Total_Passengers=("Passengers", "sum"),
+            Mean_Record_Rate=("Complaints_per_10k_Pax", "mean"),
+        )
+    )
+    acc_grp["Aggregate_Complaints_per_10k_Pax"] = (
+        acc_grp["Total_Complaints"] / acc_grp["Total_Passengers"] * 10000.0
+    ).round(2)
     acc_piv = (
-        df.pivot_table(
+        acc_grp.pivot(
             index="Route_Type",
             columns="Transport_Mode",
-            values="Complaints_per_10k_Pax",
-            aggfunc="mean",
+            values="Aggregate_Complaints_per_10k_Pax",
         )
         .round(2)
     )

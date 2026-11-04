@@ -171,7 +171,7 @@ def fig00_executive_kpi_strip() -> str:
 </svg>"""
 
 
-def fig08_methodology_pipeline() -> str:
+def fig00_methodology_pipeline() -> str:
     """Recipe 6.6 Numbered procedure: 5-stage Python data visualisation workflow."""
     parts = [
         step(110, 58, "01"),
@@ -220,8 +220,8 @@ def fig08_methodology_pipeline() -> str:
 </svg>"""
 
 
-def fig09_mode_performance_matrix() -> str:
-    """Recipe 6.6 Comparison matrix: 6 transport modes across 5 core KPIs."""
+def fig08_mode_performance_matrix() -> str:
+    """Figure 8: Comparison matrix of 6 transport modes across 5 core KPIs."""
     headers = [
         (175, "Metro", True),
         (315, "Tram", False),
@@ -271,120 +271,13 @@ def fig09_mode_performance_matrix() -> str:
 </svg>"""
 
 
-def curved_arrow(
-    d: str, tiffany: bool = True, dashed: bool = True, label: str = "", lx: float = 0, ly: float = 0
-) -> str:
-    c = TIFFANY_DEEP if tiffany else MUTE
-    dash = 'stroke-dasharray="4,3"' if dashed else ""
-    m = "url(#arrowT)" if tiffany else "url(#arrow)"
-    label_svg = ""
-    if label:
-        label_svg = (
-            f'<text x="{lx}" y="{ly}" text-anchor="middle" class="tiny" '
-            f'style="font-size:9.5px; font-weight:600; fill:{c}; font-style:italic;">{esc(label)}</text>'
-        )
-    return (
-        f'<path d="{d}" fill="none" stroke="{c}" stroke-width="1.8" {dash} '
-        f'marker-end="{m}"/>{label_svg}'
-    )
-
-
-def fig00_workflow_roadmap() -> str:
-    """Minimal, symbolic R&D network topology.
-    Clean, lightweight visual showing high-level project status and iterative feedback loops.
-    """
-    nodes = [
-        # Top row: Forward discovery
-        {"id": "01", "name": "Ingestion & Hygiene", "sub": "Verified 5k Clean Dataset", "status": "Done ✓", "x": 40, "y": 55, "w": 260, "h": 50, "hi": False, "dashed": False},
-        {"id": "02", "name": "Feature Engineering", "sub": "Unit Economics & Ratios", "status": "Done ✓", "x": 350, "y": 55, "w": 260, "h": 50, "hi": False, "dashed": False},
-        {"id": "03", "name": "Visual Analytics", "sub": "7 Distributional Figures", "status": "Done ✓", "x": 660, "y": 55, "w": 260, "h": 50, "hi": False, "dashed": False},
-        # Bottom row: Interactive & Synthesis
-        {"id": "06", "name": "Formative Review & Word", "sub": "Tutor Feedback & Final .docx", "status": "Pending", "x": 40, "y": 145, "w": 260, "h": 50, "hi": False, "dashed": True},
-        {"id": "05", "name": "Academic Synthesis", "sub": "Task 1 & 2 Critical Report", "status": "In Review", "x": 350, "y": 145, "w": 260, "h": 50, "hi": True, "dashed": False},
-        {"id": "04", "name": "Decision Dashboard", "sub": "Multi-Filter Scenario App", "status": "Done ✓", "x": 660, "y": 145, "w": 260, "h": 50, "hi": False, "dashed": False},
-    ]
-
-    parts = []
-    # Minimal top banner title
-    parts.append(
-        f'<text x="40" y="20" class="lab" style="font-size:12px; font-weight:700; fill:{MIDNIGHT}; letter-spacing:0.3px;">'
-        f'PROJECT WORKFLOW &amp; WORKING TOPOLOGY · <tspan font-weight="400" fill="{MUTE};">Iterative research with recursive feedback loops</tspan>'
-        f'</text>'
-    )
-
-    # 1. Forward flow arrows
-    parts.append(arrow(300, 80, 345, 80))
-    parts.append(arrow(610, 80, 655, 80, tiffany=True))
-    parts.append(arrow(790, 105, 790, 140))
-    parts.append(arrow(660, 170, 615, 170, tiffany=True))
-    parts.append(arrow(350, 170, 305, 170))
-
-    # 2. Subtle, minimal dashed feedback loops
-    # Loop 02 -> 01
-    parts.append(
-        curved_arrow("M 380 55 C 340 32, 290 32, 240 52", tiffany=True, dashed=True,
-                     label="anomaly audit", lx=310, ly=34)
-    )
-    # Loop 03 -> 02
-    parts.append(
-        curved_arrow("M 690 55 C 650 32, 600 32, 550 52", tiffany=True, dashed=True,
-                     label="Simpson's loop", lx=620, ly=34)
-    )
-    # Loop 04 -> 03 (right)
-    parts.append(
-        curved_arrow("M 920 160 C 948 138, 948 108, 920 88", tiffany=True, dashed=True,
-                     label="stress-test", lx=946, ly=125)
-    )
-    # Loop 05 <-> 02 (center vertical)
-    parts.append(
-        curved_arrow("M 465 142 L 465 109", tiffany=True, dashed=True,
-                     label="model feedback", lx=425, ly=127)
-    )
-    # Loop 06 -> 05 (bottom)
-    parts.append(
-        curved_arrow("M 260 195 C 300 215, 350 215, 390 195", tiffany=True, dashed=True,
-                     label="tutor review loop", lx=325, ly=214)
-    )
-
-    # 3. Draw clean, minimal symbolic node pills
-    for n in nodes:
-        x, y, w, h = n["x"], n["y"], n["w"], n["h"]
-        fill = MIST if n["hi"] else WHITE
-        stroke = TIFFANY_DEEP if n["hi"] else (LINE if not n["dashed"] else "#98AAB5")
-        sw = "2" if n["hi"] else ("1.2" if not n["dashed"] else "1.2")
-        dash_attr = 'stroke-dasharray="3,3"' if n["dashed"] else ""
-        badge_bg = TIFFANY_DEEP if n["hi"] else (MIDNIGHT if not n["dashed"] else MUTE)
-
-        parts.append(f"""
-        <g filter="url(#shadow)">
-          <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10"
-                fill="{fill}" stroke="{stroke}" stroke-width="{sw}" {dash_attr}/>
-          <!-- Circle number -->
-          <circle cx="{x + 22}" cy="{y + h/2}" r="12" fill="{badge_bg}"/>
-          <text x="{x + 22}" y="{y + h/2 + 4}" text-anchor="middle" class="num" style="font-size:10px;">{n['id']}</text>
-          <!-- Title & Sub -->
-          <text x="{x + 42}" y="{y + 22}" class="lab" style="font-size:11.5px; font-weight:700; fill:{MIDNIGHT};">{esc(n['name'])}</text>
-          <text x="{x + 42}" y="{y + 36}" class="tiny" style="font-size:9px; fill:{MUTE};">{esc(n['sub'])}</text>
-          <!-- Status pill -->
-          <rect x="{x + w - 62}" y="{y + 16}" width="54" height="18" rx="9" fill="{WHITE if n['hi'] else PAPER}" stroke="{stroke}" stroke-width="1"/>
-          <text x="{x + w - 35}" y="{y + 28}" text-anchor="middle" class="tiny" style="font-size:8.5px; font-weight:700; fill:{TIFFANY_DEEP if n['hi'] else (MIDNIGHT if not n['dashed'] else MUTE)};">
-            {esc(n['status'])}
-          </text>
-        </g>""")
-
-    return f"""<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="970" height="235" viewBox="0 0 970 235">
-  <rect width="970" height="235" fill="{PAPER}"/>
-  {defs()}
-  {"".join(parts)}
-</svg>"""
-
-
 def main() -> None:
     render(fig00_executive_kpi_strip(), "fig00_executive_kpi_strip", width=1600)
-    render(fig00_workflow_roadmap(), "fig00_workflow_roadmap", width=1600)
-    render(fig08_methodology_pipeline(), "fig08_methodology_pipeline", width=1600)
-    render(fig09_mode_performance_matrix(), "fig09_mode_performance_matrix", width=1600)
+    render(fig00_methodology_pipeline(), "fig00_methodology_pipeline", width=1600)
+    render(fig08_mode_performance_matrix(), "fig08_mode_performance_matrix", width=1600)
+    # Keep legacy filenames synced for any external references
+    render(fig00_methodology_pipeline(), "fig08_methodology_pipeline", width=1600)
+    render(fig08_mode_performance_matrix(), "fig09_mode_performance_matrix", width=1600)
 
 
 if __name__ == "__main__":

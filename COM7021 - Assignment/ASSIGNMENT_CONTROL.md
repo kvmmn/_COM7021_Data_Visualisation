@@ -39,27 +39,46 @@
 | **LO4:** Critically evaluate and contextualise understanding of subject area linking to local, national, and global issues using academic/professional resources | Task 2 (30 marks) | Connect findings to European urban mobility policy, decarbonisation ($\text{CO}_2$ vs energy), social equity (accessibility complaints per 10k passengers), and public-sector subsidy trade-offs (micromobility deficit vs mass transit surplus) with Harvard references. |
 
 ### Rubric Checklist for Band 80–100 (Outstanding / Exemplary)
-1. **Data Importing & Preparation:** Document exact schema (`5,000 × 18`), convert Excel serial integer `Date` (`45292`–`46022`, `origin='1899-12-30'`) to ISO `datetime64`, verify zero missing/duplicate records, and engineer normalised metrics (`Net_Margin_EUR`, `Cost_Recovery_Pct`, `Complaints_per_10k_Pax`, `Passengers_per_Trip`, `CO2_per_kWh`).
-2. **Initial Statistics:** Present a structured summary statistics table (Mean, SD, Median, IQR, Min, Max, Skewness) before plotting, explaining why right-skewed variables (`Passengers`, `Ticket_Revenue_EUR`, `CO2_Saved_KG`) require both parametric and non-parametric (median/IQR) inspection.
-3. **Six Distinct Visualisations (No Unnecessary Repetition):**
-   - **Fig 1 (Time-Series):** Monthly mobility demand & seasonal trajectory (2024–2025) highlighting spring peaks and autumn troughs (`line` + `band` / `point`).
-   - **Fig 2 (Comparison — Cities & Demand/Financials):** City-level ridership and net operating margin comparison across the 12 European cities (`col` / horizontal bar with highlighted claim).
-   - **Fig 3 (Comparison / Structural Divide — Transport Modes):** Cost recovery ratio (`%`) and net financial performance across the 6 transport modes, exposing the shared micromobility (`Bike Share` / `E-Scooter`) structural deficit versus rail (`Metro` / `Tram` / `Park and Ride`) surplus.
-   - **Fig 4 (Distribution — Reliability & Delays):** Distribution of `Average_Delay_Minutes` across transport modes and weather conditions (`boxplot` / violin or faceted distribution), isolating `Bus` and `Snow`/`Rain` tail risks.
-   - **Fig 5 (Relationship — Delay, Satisfaction & Event Shocks):** Multivariate relationship between `Average_Delay_Minutes`, `Customer_Rating` ($r = -0.821$), and `Event_Day` / `Transport_Mode` (`scatter` / joint relationship view).
-   - **Fig 6 (Performance Indicator & Sustainability / Accessibility Matrix):** Multi-metric performance table/chart (`Great Tables` `GT_aesth` or faceted dot/bar matrix) comparing `CO2_Saved_KG`, `Energy_Consumption_KWh`, and normalised `Complaints_per_10k_Pax` across modes and route types (`Suburban Feeder` complaint intensity vs `Metro` volume).
-4. **Interactive Dashboard (`Shiny for Python` + `aesth`):**
-   - Filters: Country/City, Transport Mode, Route Type, Weather Condition, Event Day, Date Range.
-   - Views: Executive KPI strip + interactive trend, mode/route reliability & financial comparison, and formatted Great Tables summary.
+1. **Data Importing & Preparation:** Document exact schema (`5,000 × 18`), convert Excel serial integer `Date` (`45292`–`46022`, `origin='1899-12-30'`) to ISO `datetime64`, verify zero missing/duplicate records, and engineer normalised metrics (`Net_Margin_EUR`, `Cost_Recovery_Pct`, `Fare_per_Pax_EUR`, `Cost_per_Pax_EUR`, `Complaints_per_10k_Pax`, `CO2_per_kWh`).
+2. **Initial Statistics:** Present a structured summary statistics table (Mean, SD, Median, IQR, Min, Max, Skewness) before plotting, explaining why right-skewed variables (`Passengers`, `Ticket_Revenue_EUR`, `CO2_Saved_KG`) require both parametric and non-parametric (median/IQR) inspection, and reconciling unweighted record-mean cost recovery (`84.12%`) against volume-weighted overall cost recovery (`99.58%`).
+3. **Unified Visualisation Suite (Figure 0, Figure A, and Figures 1 to 10):**
+   - **Figure 0 (`fig00_executive_kpi_strip.png`):** Executive KPI summary strip across all 5,000 daily records.
+   - **Figure A (`fig00_methodology_pipeline.png`):** Five-stage Python data investigation and visualisation pipeline.
+   - **Figure 1 (`fig01_monthly_demand_trend.png`):** Monthly mobility demand & weekday/weekend regime decomposition (2024–2025).
+   - **Figure 2 (`fig02_city_demand_comparison.png`):** Connected dumbbell plot of raw vs modal-mix-adjusted city margins (resolving Simpson's Paradox).
+   - **Figure 3 (`fig03_mode_cost_recovery.png`):** Two-panel per-passenger unit economics and cumulative net margin / carbon abatement return.
+   - **Figure 4 (`fig04_delay_distribution_boxplot.png`):** Raincloud distribution (half-violin KDE + Tukey boxplot + jittered observations) of daily service delays across modes.
+   - **Figure 5 (`fig05_delay_rating_relationship.png`):** Joint scatter + OLS regression + marginal KDE strips of service delay vs customer satisfaction ($r = -0.821$) and Major Event Day shifts.
+   - **Figure 6 (`fig06_weather_mode_delay_heatmap.png`):** Dual-encoded Weather × Mode delay interaction heatmap.
+   - **Figure 7 (`fig07_route_accessibility_rate.png`):** Two-way volume-weighted accessibility complaint rate matrix per 10,000 passengers across routes and modes.
+   - **Figure 8 (`fig08_mode_performance_matrix.png`):** Multi-dimensional modal performance matrix synthesising demand share, delay, overall cost recovery, carbon efficiency, and complaint rates.
+   - **Figure 9 (`fig09_dashboard_overview.png`):** Interactive dashboard screenshot — default unfiltered network baseline ($N = 5,000$).
+   - **Figure 10 (`fig10_dashboard_filtered_scenario.png`):** Interactive dashboard screenshot — filtered adverse-weather surface transit scenario ($n = 583$).
+4. **Interactive Dashboard (`Plotly` + Multi-Filter HTML Application):**
+   - Filters: Country, City, Transport Mode, Route Type, Weather Condition, Major Event Day.
+   - Views: 6 KPI cards + 4 coordinated charts + static screenshot evidence (Figures 9 and 10).
 5. **Process Evidence & Appendix:**
-   - Screenshots of data import, initial statistics output, individual figures, and interactive dashboard states (default + filtered decision scenario).
+   - Final `.docx` submission (`COM7021_Assessment_25199053.docx`) and synchronised HTML reports (`COM7021_Draft_Review_25199053.html`, `index.html`).
    - Complete, clean, reproducible Python code in the Appendix.
 
 ---
 
 ## 4. Technical & Design Standard
 
-- **Visual Package:** `aesth` (`plotnine` + `Great Tables` + `Shiny for Python`) using the locked `arden` palette (`#002B49` midnight, `#66C9BA` tiffany, `#3AA89A` tiffany_deep, `#0E7C8B` teal, `#1A4A6B` midnight_soft, `#E6F5F2` mist, `#F7FAFB` paper).
+- **Visual Styling:** Locked `arden` palette (`#002B49` midnight, `#66C9BA` tiffany, `#3AA89A` tiffany_deep, `#0E7C8B` teal, `#1A4A6B` midnight_soft, `#E6F5F2` mist, `#F7FAFB` paper).
 - **Typography:** Microsoft Aptos (`Regular`, `SemiBold`, `Bold`).
-- **Strict Refusals:** No pie/donut/radar charts, no 3D, no dual y-axes, no rainbow hues, no uncaptioned screenshots.
-- **Language:** British English throughout (`visualisation`, `colour`, `organise`, `centre`, `programme`, `analyse`).
+- **Strict Refusals:** No pie/donut/radar charts, no 3D, no dual y-axes, no rainbow hues, no uncaptioned screenshots, no personal reflection boxes or project progress banners.
+- **Language:** British English throughout (`visualisation`, `colour`, `normalised`, `standardisation`, `programme`, `analyse`).
+
+---
+
+## 5. Tutor Formative Feedback Resolution Log (Ahmed Hassan)
+
+| Feedback Area | Resolution Implemented |
+|---|---|
+| **1. Figure Numbering** | Unified sequential numbering (`Figure 0`, `Figure A`, and `Figures 1 to 10`) across all filenames, SVG headers, captions, and in-text references in Task 1 and Task 2. |
+| **2. Statistical Interpretation** | Framed all correlations ($r = -0.821$ delay vs rating, $r = -0.968$ delay vs on-time, $r = 0.866$ complaints vs passengers) as observational associations/covariation, explicitly noting unmeasured confounders (vehicle crowding, transfer friction, platform discomfort, fleet age). |
+| **3. Financial Analysis** | Reconciled cumulative totals (€111.64M rev, €112.11M cost, −€0.47M net), per-record means (€22,328.12 rev, €22,422.00 cost, −€93.88 net), and per-passenger figures (€2.73 vs €2.74/pax), and explained the difference between unweighted record-mean cost recovery (`84.12%`, median `102.26%`) and volume-weighted overall recovery (`99.58%`). |
+| **4. Recommendations** | Framed all four policy interventions (contract rebalancing audits, corridor bus priority appraisal, weather/event timetable buffers, suburban feeder site audits) as evidence-supported options for pilot evaluation and feasibility appraisal rather than established solutions. |
+| **5. Presentation** | Removed all 13 personal reflection callout boxes and the "Project Working Topology & Status Overview" banner; integrated key methodological reflections directly into the academic discussion. |
+| **6. Word Count & Conciseness** | Eliminated cross-section repetition; Task 1 prose is `617 words` (target ~600w) and Task 2 report is `934 words` (target ~900w), totalling `1,551 words` of written prose. |

@@ -4,8 +4,8 @@ Produces:
 1. Self-contained interactive HTML dashboard (Plotly + interactive filter controls)
    at output/dashboard/ecomove_interactive_dashboard.html
 2. High-resolution dashboard state captures (SVG + PNG) for report evidence:
-   - fig10_dashboard_overview.png (Full network baseline: N = 5,000 records)
-   - fig11_dashboard_filtered_scenario.png (Filtered executive scenario: Rain & Snow on Surface Transit)
+   - fig09_dashboard_overview.png (Full network baseline: N = 5,000 records)
+   - fig10_dashboard_filtered_scenario.png (Filtered executive scenario: Rain & Snow on Surface Transit)
 """
 
 from __future__ import annotations
@@ -679,7 +679,7 @@ def main() -> None:
     # 1. Export interactive HTML application
     export_interactive_html_dashboard(df)
 
-    # 2. Render default full-network dashboard state capture (Figure 10)
+    # 2. Render default full-network dashboard state capture (Figure 9)
     render_dashboard_capture_svg(
         df_sub=df,
         filter_chips=[
@@ -690,11 +690,25 @@ def main() -> None:
             ("Weather", "All (6)", False),
             ("Event Day", "All", False),
         ],
-        subtitle="Default View: All 12 European Cities · 2024–2025 Full Dataset (N = 5,000 records)",
+        subtitle="Figure 9 Default View: All 12 European Cities · 2024–2025 Full Dataset (N = 5,000 records)",
+        stem="fig09_dashboard_overview",
+    )
+    # Keep legacy filename synced
+    render_dashboard_capture_svg(
+        df_sub=df,
+        filter_chips=[
+            ("Country", "All (6)", False),
+            ("City", "All (12)", False),
+            ("Mode", "All (6)", False),
+            ("Route", "All (6)", False),
+            ("Weather", "All (6)", False),
+            ("Event Day", "All", False),
+        ],
+        subtitle="Figure 9 Default View: All 12 European Cities · 2024–2025 Full Dataset (N = 5,000 records)",
         stem="fig10_dashboard_overview",
     )
 
-    # 3. Render filtered executive scenario state capture (Figure 11: Rain & Snow on Surface Modes)
+    # 3. Render filtered executive scenario state capture (Figure 10: Rain & Snow on Surface Modes)
     df_filtered = df[
         df["Weather"].isin(["Rain", "Snow"])
         & df["Transport_Mode"].isin(["Bus", "Tram", "Park and Ride"])
@@ -709,7 +723,21 @@ def main() -> None:
             ("Weather", "Rain + Snow", True),
             ("Event Day", "All", False),
         ],
-        subtitle="Filtered Scenario: Adverse Weather (Rain & Snow) on Surface Modes (Bus, Tram, Park & Ride)",
+        subtitle="Figure 10 Filtered Scenario: Adverse Weather (Rain & Snow) on Surface Modes (Bus, Tram, Park & Ride)",
+        stem="fig10_dashboard_filtered_scenario",
+    )
+    # Keep legacy filename synced
+    render_dashboard_capture_svg(
+        df_sub=df_filtered,
+        filter_chips=[
+            ("Country", "All (6)", False),
+            ("City", "All (12)", False),
+            ("Mode", "Surface (3)", True),
+            ("Route", "All (6)", False),
+            ("Weather", "Rain + Snow", True),
+            ("Event Day", "All", False),
+        ],
+        subtitle="Figure 10 Filtered Scenario: Adverse Weather (Rain & Snow) on Surface Modes (Bus, Tram, Park & Ride)",
         stem="fig11_dashboard_filtered_scenario",
     )
 

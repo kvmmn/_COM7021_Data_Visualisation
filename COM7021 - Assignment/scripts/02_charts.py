@@ -253,11 +253,11 @@ def fig02_city_demand_comparison(df: pd.DataFrame) -> Path:
         adj_v = row["Mix_Adj_Mean_Margin_EUR"]
         if city == "Madrid":
             ax.text(
-                adj_v + 18,
+                18,
                 idx,
                 "Madrid: -€702 raw to -€268 adj. (28.6% micromobility)",
                 color=MIDNIGHT,
-                fontsize=8.4,
+                fontsize=8.3,
                 fontweight="semibold",
                 ha="left",
                 va="center",
@@ -638,9 +638,10 @@ def fig05_delay_rating_relationship(df: pd.DataFrame) -> Path:
     ax_top.plot(gx, kde_evt_x, color=TIFFANY_DEEP, linewidth=1.8)
     ax_top.axvline(normal["Average_Delay_Minutes"].mean(), color=MIDNIGHT_SOFT, linestyle=":", linewidth=1.2)
     ax_top.axvline(event["Average_Delay_Minutes"].mean(), color=TIFFANY_DEEP, linestyle="--", linewidth=1.4)
+    ax_top.set_ylim(0, max(max(kde_norm_x), max(kde_evt_x)) * 1.24)
     ax_top.text(
-        event["Average_Delay_Minutes"].mean() + 0.25,
-        max(kde_evt_x) * 0.78,
+        event["Average_Delay_Minutes"].mean() + 2.35,
+        max(kde_evt_x) * 0.88,
         "Event shift: +31.0% delay",
         color=MIDNIGHT,
         fontsize=8.3,
@@ -792,26 +793,33 @@ def fig07_route_accessibility_rate(df: pd.DataFrame) -> Path:
     ax1.set_xlabel("Complaints per 10,000 pax")
     ax1.set_ylabel("Route type")
 
-    # Panel B: 6x6 Route_Type x Transport_Mode Interaction Heatmap (Mean Complaints per 10k Pax)
+    # Panel B: 6x6 Route_Type x Transport_Mode Interaction Heatmap (Aggregate Complaints per 10k Pax: Sum Complaints / Sum Pax * 10,000)
     mode_cols = ["Metro", "Tram", "Park and Ride", "Bus", "Bike Share", "E-Scooter"]
+    acc_grp = (
+        df.groupby(["Route_Type", "Transport_Mode"], as_index=False)
+        .agg(
+            Complaints=("Accessibility_Complaints", "sum"),
+            Passengers=("Passengers", "sum"),
+        )
+        .assign(Rate_10k=lambda d: d["Complaints"] / d["Passengers"] * 10000.0)
+    )
     piv = (
-        df.pivot_table(
+        acc_grp.pivot(
             index="Route_Type",
             columns="Transport_Mode",
-            values="Complaints_per_10k_Pax",
-            aggfunc="mean",
+            values="Rate_10k",
         )
         .reindex(index=route_order, columns=mode_cols)
     )
 
-    im = ax2.imshow(piv.values, cmap=ARDEN_CMAP, aspect="auto", vmin=8.0, vmax=68.0)
+    im = ax2.imshow(piv.values, cmap=ARDEN_CMAP, aspect="auto", vmin=10.0, vmax=56.0)
     ax2.set_xticks(range(len(mode_cols)), labels=mode_cols)
     plt.setp(ax2.get_xticklabels(), rotation=18, ha="right")
 
     for i in range(len(route_order)):
         for j in range(len(mode_cols)):
             val = piv.values[i, j]
-            txt_color = WHITE if val >= 32.0 else MIDNIGHT
+            txt_color = WHITE if val >= 28.0 else MIDNIGHT
             is_anom = route_order[i] == "Suburban Feeder" and mode_cols[j] in ("Bike Share", "E-Scooter", "Bus")
             ax2.text(
                 j,
@@ -827,7 +835,7 @@ def fig07_route_accessibility_rate(df: pd.DataFrame) -> Path:
     cbar = fig.colorbar(im, ax=ax2, pad=0.02, fraction=0.038)
     cbar.outline.set_edgecolor(GRID)
     cbar.ax.tick_params(colors=MUTE, labelsize=8.5)
-    cbar.set_label("Mean complaints / 10k pax", color=MIDNIGHT, fontsize=9.5, fontweight="semibold")
+    cbar.set_label("Aggregate complaints / 10k pax", color=MIDNIGHT, fontsize=9.5, fontweight="semibold")
 
     ax2.set_title("B. Route × Mode interaction: Suburban Feeder micromobility spike", pad=10, fontsize=11.5)
     ax2.set_xlabel("Transport mode")
