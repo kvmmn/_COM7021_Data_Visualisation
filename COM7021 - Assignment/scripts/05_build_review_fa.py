@@ -957,7 +957,7 @@ def build_fa_html() -> None:
         <span>۱.۴ داشبورد تعاملی پایتون (اپلیکیشن زنده + شکل‌های ۹ و ۱۰)</span>
         <span class="badge">داشبورد زنده + تصاویر گزارش</span>
       </h2>
-      <p style="margin-top:0;">با انتخاب فیلترهای زیر می‌توانید تأثیر کشور، شهر، وسیله نقلیه، نوع مسیر، آب‌وهوا و روزهای رویداد را بر شاخص‌های عملکردی به صورت زنده بررسی کنید. در زیر داشبورد زنده، <strong>شکل ۹</strong> (نمای پیش‌فرض کل شبکه) و <strong>شکل ۱۰</strong> (سناریوی فیلترشده ناوگان سطحی در باران و برف) قرار دارند.</p>
+      <p style="margin-top:0;">داشبورد تعاملی تصمیم‌گیری با <strong>Streamlit + Plotly</strong> پیاده‌سازی شده و به صورت آنلاین در دسترس است: <a href="https://com7021-data-visualisation.streamlit.app/" target="_blank" rel="noopener"><strong>https://com7021-data-visualisation.streamlit.app/</strong></a> (مخزن گیت‌هاب: <a href="https://github.com/kvmmn/_COM7021_Data_Visualisation" target="_blank" rel="noopener"><code>github.com/kvmmn/_COM7021_Data_Visualisation</code></a>). با استفاده از ۶ سناریوی از پیش‌تعریف‌شده یا فیلترهای زیر، مدیران می‌توانند رفتار شاخص‌ها را بررسی کنند. در زیر پیش‌نمایش تعاملی، <strong>شکل ۹</strong> (نمای پیش‌فرض کل شبکه) و <strong>شکل ۱۰</strong> (سناریوی فیلترشده ناوگان سطحی در باران و برف) قرار دارند.</p>
 
       <div class="dash-shell">
         <div class="dash-presets">

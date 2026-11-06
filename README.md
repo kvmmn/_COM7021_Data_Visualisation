@@ -10,10 +10,12 @@ Remote: [github.com/kvmmn/_COM7021_Data_Visualisation](https://github.com/kvmmn/
 
 University lecture files and the assessment statement stay in this private repository. They are not for redistribution.
 
-### Assessment Tutor Review Draft (GitHub Pages)
-The self-contained interactive assessment draft (Task 1 & Task 2) is published live on GitHub Pages:
-👉 **[https://kvmmn.github.io/_COM7021_Data_Visualisation/](https://kvmmn.github.io/_COM7021_Data_Visualisation/)**
-- Direct review file path in repository: [`COM7021 - Assignment/COM7021_Draft_Review_25199053.html`](COM7021%20-%20Assignment/COM7021_Draft_Review_25199053.html)
+### Assessment Deliverables & Live Links
+- **Live Streamlit Decision Dashboard:** 👉 **[https://com7021-data-visualisation.streamlit.app/](https://com7021-data-visualisation.streamlit.app/)**
+- **Primary Word Report (.docx):** [`COM7021 - Assignment/COM7021_Assessment_25199053.docx`](COM7021%20-%20Assignment/COM7021_Assessment_25199053.docx)
+- **Interactive Review Draft (GitHub Pages):** 👉 **[https://kvmmn.github.io/_COM7021_Data_Visualisation/](https://kvmmn.github.io/_COM7021_Data_Visualisation/)**
+  - Direct review file path: [`COM7021 - Assignment/COM7021_Draft_Review_25199053.html`](COM7021%20-%20Assignment/COM7021_Draft_Review_25199053.html)
+  - Persian edition: [`COM7021 - Assignment/COM7021_Draft_Review_25199053_fa.html`](COM7021%20-%20Assignment/COM7021_Draft_Review_25199053_fa.html)
 
 
 ## Layout

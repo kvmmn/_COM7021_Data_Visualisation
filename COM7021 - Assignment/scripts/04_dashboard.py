@@ -7,7 +7,7 @@ Produces publication-grade 220 DPI dashboard state captures (SVG + PNG) for the 
 
 Companion to the live interactive Streamlit application:
 - Script: scripts/04_streamlit_dashboard.py
-- Live Deployment: https://visualisation.streamlit.app/
+- Live Deployment: https://com7021-data-visualisation.streamlit.app/
 - Repository: https://github.com/kvmmn/_COM7021_Data_Visualisation
 """
 
