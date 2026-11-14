@@ -1,6 +1,6 @@
 [project]
 name = "aesth"
-version = "0.1.0"
+version = "0.3.0"
 description = "The aesthetics of data. A thin visual language over plotnine, Great Tables, and Shiny."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -21,7 +21,12 @@ charts = ["plotnine>=0.15"]
 tables = ["great-tables>=0.17"]
 apps = ["shiny>=1.0"]
 examples = ["aesth[all]", "pandas>=2.2"]
+dev = ["pytest>=8", "pandas>=2.2"]
 all = ["aesth[charts,tables,apps]"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
 
 [build-system]
 requires = ["hatchling"]

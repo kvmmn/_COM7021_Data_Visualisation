@@ -21,7 +21,7 @@ Option 3.
 
 Every palette fills the same roles (`ink`, `accent`, `accent_deep`, `ink_soft`, `support`, `mist`, `paper`, `mute`, `grid`, `line`, `series[5]`). plotnine, Great Tables, Shiny CSS, and SVG diagrams read those roles. Switching palettes does not change geometry.
 
-`arden` is the COM7021 default. The other names are now frozen; see [ADR 0005](0005-freeze.md).
+`arden` is the package default. The other names are now frozen; see [ADR 0005](0005-freeze.md).
 
 ## Consequences
 

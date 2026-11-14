@@ -10,7 +10,7 @@ Product name: **Aesth**. Package: `aesth`. Mark: **æsth**.
 
 ```python
 import pandas as pd
-from plotnine import ggplot, aes, geom_point, geom_smooth, facet_wrap, labs
+from plotnine import ggplot, aes, facet_wrap, labs
 
 import aesth
 
@@ -20,18 +20,21 @@ print(aesth.palette().ink)  # '#002B49'
 from plotnine.data import anscombe_quartet
 
 plot = (
-    ggplot(anscombe_quartet, aes("x", "y"))
-    + geom_point()
-    + geom_smooth(method="lm", se=False)
+    ggplot(anscombe_quartet, aes("x", "y", color="dataset"))
+    + aesth.line()
     + facet_wrap("dataset")
     + labs(title="Anscombe's quartet")
-    + aesth.theme_aesth()
-    + aesth.scale_colour_aesth()
+    + aesth.dress(colour=True, claim="I", levels=["I", "II", "III", "IV"])
 )
-plot.save("anscombe.png", dpi=220)
+aesth.save(plot, "anscombe.png")
 
 table = aesth.GT_aesth(pd.DataFrame({"city": ["Leeds"], "index": [112]}))
 css = aesth.css_aesth()     # Bootstrap variables; no shinyswatch
+
+# Shiny Express. Same palette on the page, the plot, and the table.
+# aesth.page_aesth("arden", title="æsth")
+# @render.plot  -> ggplot(...) + aesth.theme_aesth("arden")
+# @render.ui    -> ui.HTML(aesth.GT_aesth(frame, palette="arden").as_raw_html())
 ```
 
 Eight frozen palettes share the same roles: `arden`, `carbon`, `vellum`, `obsidian`, `cinnabar`, `chloris`, `iodine`, `noir`. Switch with `aesth.use("carbon")` or pass `palette=` to a helper.
@@ -41,8 +44,9 @@ Eight frozen palettes share the same roles: `arden`, `carbon`, `vellum`, `obsidi
 | Layer | Job |
 |---|---|
 | Palettes | Named token sets in `src/aesth/palettes.py` |
-| Geometry | One job per figure, one highlight, five categorical series maximum |
-| Themes | `theme_aesth`, `GT_aesth`, `css_aesth` |
+| Marks | `line`, `point`, `col`, `area`, `band` — plotnine geoms with house geometry |
+| Claim | `dress(colour=True, claim=, levels=)` puts accent on one category |
+| Themes | `theme_aesth`, `GT_aesth` (quiet `fmt_*`), `page_aesth` |
 | Diagrams | Hand SVG for structure that is not a data geom |
 
 ## What this package refuses
@@ -50,7 +54,7 @@ Eight frozen palettes share the same roles: `arden`, `carbon`, `vellum`, `obsidi
 - Forking or vendoring plotnine, Great Tables, or Shiny
 - Rainbow categorical palettes, 3D, glow, dual y-axes, pie charts
 - Guessing hex values without contrast notes and a rendered proof
-- Putting university course files, lecture PDFs, or assignment datasets in this tree
+- Putting private datasets, lecture notes, or unrelated project files in this tree
 
 ## Install
 
@@ -63,20 +67,20 @@ Core `import aesth` does not require the extras. Theme helpers raise a clear err
 
 ## Status
 
-0.1.0 — palettes frozen, themes importable, proofs in `studies/`. Read [`docs/INDEX.md`](docs/INDEX.md). Brand brief: [`aesth — Creative Direction Brief.md`](<aesth — Creative Direction Brief.md>).
+0.3.0 — one palette path for a plotnine figure, a Great Table, and a Shiny page (`page_aesth`). `import aesth` does not load those three libraries. Proofs in `studies/`. Read [`docs/INDEX.md`](docs/INDEX.md). Brand brief: [`aesth — Creative Direction Brief.md`](<aesth — Creative Direction Brief.md>).
 
 ## Layout
 
 ```text
 aesth/
   aesth — Creative Direction Brief.md  # locked brand brief (original filename)
-  src/aesth/           # contrast, tokens, palettes, theme, tables, shiny
+  src/aesth/           # contrast, tokens, palettes, marks, theme, tables, shiny
   docs/                # research, decisions, palettes, brand pointer
   examples/            # anscombe.py, table.py, app.py
   studies/             # rendered PNG/SVG proofs
   scripts/             # freeze_palettes.py
 ```
 
-## Course context
+## What it is for
 
-This folder is a subproject of the COM7021 Data Visualisation working repo. Assessed writing still lives in `COM7021 - Assignment/`. EcoMove analysis will *import* aesth; it will not live inside this package.
+aesth is an open-source wrapper. plotnine draws, Great Tables sets type, and Shiny hosts the page. aesth supplies shorter commands: one palette, one highlight, house geometry, and a page that uses the same tokens. It does not reimplement those libraries, and it does not carry a dataset of its own.

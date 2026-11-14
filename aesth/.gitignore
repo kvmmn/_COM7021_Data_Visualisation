@@ -9,6 +9,8 @@ __pycache__/
 dist/
 build/
 examples/anscombe.png
+studies/recipe_demand.png
+studies/gallery_*.png
 examples/table.html
 .shiny_app_cache/
 _site/

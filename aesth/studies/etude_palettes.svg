@@ -1,0 +1,616 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="3834" viewBox="0 0 1480 3834">
+<style>
+text { font-family: Aptos, 'Helvetica Neue', sans-serif; }
+.title { font-size: 28px; font-weight: 700; fill: #151515; }
+.lede { font-size: 14px; fill: #5A564E; }
+.name { font-size: 22px; font-weight: 700; }
+.pair { font-size: 13px; font-weight: 600; }
+.note { font-size: 13px; }
+.role { font-size: 10px; font-weight: 600; }
+.hex { font-size: 9px; }
+.chip { font-size: 11px; font-weight: 700; fill: #FFFFFF; }
+</style>
+<rect width="100%" height="100%" fill="#EFEAE3"/>
+<text class="title" x="48" y="52">æsth — palette etude</text>
+<text class="lede" x="48" y="78">Fifteen rooms. raven is the documented Arden crow. New rows cover needs the first nine did not. Hexes are ours; moods after Color Hunt.</text>
+<rect x="40" y="120" width="1400" height="228" rx="16" fill="#F7FAFB" stroke="#C9D5DD"/>
+<text class="name" x="64" y="156" fill="#002B49">raven</text>
+<text class="pair" x="200" y="156" fill="#3AA89A">Midnight  ·  tiffany</text>
+<rect x="560" y="136" width="78" height="26" rx="13" fill="#3AA89A"/>
+<text class="chip" x="599" y="154" text-anchor="middle">University</text>
+<rect x="64" y="172" width="220" height="72" rx="10" fill="#002B49"/>
+<text x="174" y="214" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="172" width="220" height="72" rx="10" fill="#66C9BA"/>
+<text x="406" y="214" text-anchor="middle" fill="#002B49" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="198" fill="#1A4A6B">Codename for the Arden crow. Documented colours only.</text>
+<rect x="64" y="262" width="118" height="36" rx="6" fill="#002B49" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="72" y="318" fill="#5A6B75">ink</text>
+<text class="hex" x="72" y="332" fill="#5A6B75">#002B49</text>
+<rect x="196" y="262" width="118" height="36" rx="6" fill="#66C9BA" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="204" y="318" fill="#5A6B75">accent</text>
+<text class="hex" x="204" y="332" fill="#5A6B75">#66C9BA</text>
+<rect x="328" y="262" width="118" height="36" rx="6" fill="#3AA89A" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="336" y="318" fill="#5A6B75">accent_deep</text>
+<text class="hex" x="336" y="332" fill="#5A6B75">#3AA89A</text>
+<rect x="460" y="262" width="118" height="36" rx="6" fill="#1A4A6B" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="468" y="318" fill="#5A6B75">ink_soft</text>
+<text class="hex" x="468" y="332" fill="#5A6B75">#1A4A6B</text>
+<rect x="592" y="262" width="118" height="36" rx="6" fill="#0E7C8B" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="600" y="318" fill="#5A6B75">support</text>
+<text class="hex" x="600" y="332" fill="#5A6B75">#0E7C8B</text>
+<rect x="724" y="262" width="118" height="36" rx="6" fill="#E6F5F2" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="732" y="318" fill="#5A6B75">mist</text>
+<text class="hex" x="732" y="332" fill="#5A6B75">#E6F5F2</text>
+<rect x="856" y="262" width="118" height="36" rx="6" fill="#F7FAFB" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="864" y="318" fill="#5A6B75">paper</text>
+<text class="hex" x="864" y="332" fill="#5A6B75">#F7FAFB</text>
+<rect x="988" y="262" width="118" height="36" rx="6" fill="#5A6B75" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="996" y="318" fill="#5A6B75">mute</text>
+<text class="hex" x="996" y="332" fill="#5A6B75">#5A6B75</text>
+<rect x="1120" y="262" width="118" height="36" rx="6" fill="#D5DEE3" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="1128" y="318" fill="#5A6B75">grid</text>
+<text class="hex" x="1128" y="332" fill="#5A6B75">#D5DEE3</text>
+<rect x="1252" y="262" width="118" height="36" rx="6" fill="#C9D5DD" stroke="#C9D5DD" stroke-width="1"/>
+<text class="role" x="1260" y="318" fill="#5A6B75">line</text>
+<text class="hex" x="1260" y="332" fill="#5A6B75">#C9D5DD</text>
+<rect x="40" y="366" width="1400" height="228" rx="16" fill="#F5F0E8" stroke="#D8CFC2"/>
+<text class="name" x="64" y="402" fill="#3A243C">salon</text>
+<text class="pair" x="200" y="402" fill="#6E6414">Aubergine  ·  chartreuse</text>
+<rect x="560" y="382" width="78" height="26" rx="13" fill="#6E6414"/>
+<text class="chip" x="599" y="400" text-anchor="middle">Drawing room</text>
+<rect x="64" y="418" width="220" height="72" rx="10" fill="#3A243C"/>
+<text x="174" y="460" text-anchor="middle" fill="#FFFCF8" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="418" width="220" height="72" rx="10" fill="#C6B423"/>
+<text x="406" y="460" text-anchor="middle" fill="#3A243C" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="444" fill="#5C4860">Violet against yellow-green. Plaster wall, one theatrical cushion.</text>
+<rect x="64" y="508" width="118" height="36" rx="6" fill="#3A243C" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="72" y="564" fill="#6E655C">ink</text>
+<text class="hex" x="72" y="578" fill="#6E655C">#3A243C</text>
+<rect x="196" y="508" width="118" height="36" rx="6" fill="#C6B423" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="204" y="564" fill="#6E655C">accent</text>
+<text class="hex" x="204" y="578" fill="#6E655C">#C6B423</text>
+<rect x="328" y="508" width="118" height="36" rx="6" fill="#6E6414" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="336" y="564" fill="#6E655C">accent_deep</text>
+<text class="hex" x="336" y="578" fill="#6E655C">#6E6414</text>
+<rect x="460" y="508" width="118" height="36" rx="6" fill="#5C4860" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="468" y="564" fill="#6E655C">ink_soft</text>
+<text class="hex" x="468" y="578" fill="#6E655C">#5C4860</text>
+<rect x="592" y="508" width="118" height="36" rx="6" fill="#A08A68" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="600" y="564" fill="#6E655C">support</text>
+<text class="hex" x="600" y="578" fill="#6E655C">#A08A68</text>
+<rect x="724" y="508" width="118" height="36" rx="6" fill="#F3EBD0" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="732" y="564" fill="#6E655C">mist</text>
+<text class="hex" x="732" y="578" fill="#6E655C">#F3EBD0</text>
+<rect x="856" y="508" width="118" height="36" rx="6" fill="#F5F0E8" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="864" y="564" fill="#6E655C">paper</text>
+<text class="hex" x="864" y="578" fill="#6E655C">#F5F0E8</text>
+<rect x="988" y="508" width="118" height="36" rx="6" fill="#6E655C" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="996" y="564" fill="#6E655C">mute</text>
+<text class="hex" x="996" y="578" fill="#6E655C">#6E655C</text>
+<rect x="1120" y="508" width="118" height="36" rx="6" fill="#E6DDD0" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="1128" y="564" fill="#6E655C">grid</text>
+<text class="hex" x="1128" y="578" fill="#6E655C">#E6DDD0</text>
+<rect x="1252" y="508" width="118" height="36" rx="6" fill="#D8CFC2" stroke="#D8CFC2" stroke-width="1"/>
+<text class="role" x="1260" y="564" fill="#6E655C">line</text>
+<text class="hex" x="1260" y="578" fill="#6E655C">#D8CFC2</text>
+<rect x="40" y="612" width="1400" height="228" rx="16" fill="#F4EFE8" stroke="#D6CEC4"/>
+<text class="name" x="64" y="648" fill="#0E3C42">veranda</text>
+<text class="pair" x="200" y="648" fill="#8E3C28">Teal  ·  coral</text>
+<rect x="560" y="628" width="78" height="26" rx="13" fill="#8E3C28"/>
+<text class="chip" x="599" y="646" text-anchor="middle">Loggia</text>
+<rect x="64" y="664" width="220" height="72" rx="10" fill="#0E3C42"/>
+<text x="174" y="706" text-anchor="middle" fill="#FFFCF8" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="664" width="220" height="72" rx="10" fill="#E57A56"/>
+<text x="406" y="706" text-anchor="middle" fill="#0E3C42" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="690" fill="#3A5C60">Sea against fired clay. Cool structure, one warm object.</text>
+<rect x="64" y="754" width="118" height="36" rx="6" fill="#0E3C42" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="72" y="810" fill="#6A635C">ink</text>
+<text class="hex" x="72" y="824" fill="#6A635C">#0E3C42</text>
+<rect x="196" y="754" width="118" height="36" rx="6" fill="#E57A56" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="204" y="810" fill="#6A635C">accent</text>
+<text class="hex" x="204" y="824" fill="#6A635C">#E57A56</text>
+<rect x="328" y="754" width="118" height="36" rx="6" fill="#8E3C28" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="336" y="810" fill="#6A635C">accent_deep</text>
+<text class="hex" x="336" y="824" fill="#6A635C">#8E3C28</text>
+<rect x="460" y="754" width="118" height="36" rx="6" fill="#3A5C60" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="468" y="810" fill="#6A635C">ink_soft</text>
+<text class="hex" x="468" y="824" fill="#6A635C">#3A5C60</text>
+<rect x="592" y="754" width="118" height="36" rx="6" fill="#C4A06A" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="600" y="810" fill="#6A635C">support</text>
+<text class="hex" x="600" y="824" fill="#6A635C">#C4A06A</text>
+<rect x="724" y="754" width="118" height="36" rx="6" fill="#F7E6DC" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="732" y="810" fill="#6A635C">mist</text>
+<text class="hex" x="732" y="824" fill="#6A635C">#F7E6DC</text>
+<rect x="856" y="754" width="118" height="36" rx="6" fill="#F4EFE8" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="864" y="810" fill="#6A635C">paper</text>
+<text class="hex" x="864" y="824" fill="#6A635C">#F4EFE8</text>
+<rect x="988" y="754" width="118" height="36" rx="6" fill="#6A635C" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="996" y="810" fill="#6A635C">mute</text>
+<text class="hex" x="996" y="824" fill="#6A635C">#6A635C</text>
+<rect x="1120" y="754" width="118" height="36" rx="6" fill="#E4DCD2" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="1128" y="810" fill="#6A635C">grid</text>
+<text class="hex" x="1128" y="824" fill="#6A635C">#E4DCD2</text>
+<rect x="1252" y="754" width="118" height="36" rx="6" fill="#D6CEC4" stroke="#D6CEC4" stroke-width="1"/>
+<text class="role" x="1260" y="810" fill="#6A635C">line</text>
+<text class="hex" x="1260" y="824" fill="#6A635C">#D6CEC4</text>
+<rect x="40" y="858" width="1400" height="228" rx="16" fill="#F2F0EB" stroke="#CFC9C0"/>
+<text class="name" x="64" y="894" fill="#161616">nocturne</text>
+<text class="pair" x="200" y="894" fill="#1E5C48">Ink  ·  malachite</text>
+<rect x="560" y="874" width="78" height="26" rx="13" fill="#1E5C48"/>
+<text class="chip" x="599" y="892" text-anchor="middle">Night room</text>
+<rect x="64" y="910" width="220" height="72" rx="10" fill="#161616"/>
+<text x="174" y="952" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="910" width="220" height="72" rx="10" fill="#3E8F72"/>
+<text x="406" y="952" text-anchor="middle" fill="#161616" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="936" fill="#3A3A3A">Near-black architecture. One mineral green, no second neon.</text>
+<rect x="64" y="1000" width="118" height="36" rx="6" fill="#161616" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="72" y="1056" fill="#5E5A54">ink</text>
+<text class="hex" x="72" y="1070" fill="#5E5A54">#161616</text>
+<rect x="196" y="1000" width="118" height="36" rx="6" fill="#3E8F72" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="204" y="1056" fill="#5E5A54">accent</text>
+<text class="hex" x="204" y="1070" fill="#5E5A54">#3E8F72</text>
+<rect x="328" y="1000" width="118" height="36" rx="6" fill="#1E5C48" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="336" y="1056" fill="#5E5A54">accent_deep</text>
+<text class="hex" x="336" y="1070" fill="#5E5A54">#1E5C48</text>
+<rect x="460" y="1000" width="118" height="36" rx="6" fill="#3A3A3A" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="468" y="1056" fill="#5E5A54">ink_soft</text>
+<text class="hex" x="468" y="1070" fill="#5E5A54">#3A3A3A</text>
+<rect x="592" y="1000" width="118" height="36" rx="6" fill="#8A8174" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="600" y="1056" fill="#5E5A54">support</text>
+<text class="hex" x="600" y="1070" fill="#5E5A54">#8A8174</text>
+<rect x="724" y="1000" width="118" height="36" rx="6" fill="#E7E4DE" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="732" y="1056" fill="#5E5A54">mist</text>
+<text class="hex" x="732" y="1070" fill="#5E5A54">#E7E4DE</text>
+<rect x="856" y="1000" width="118" height="36" rx="6" fill="#F2F0EB" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="864" y="1056" fill="#5E5A54">paper</text>
+<text class="hex" x="864" y="1070" fill="#5E5A54">#F2F0EB</text>
+<rect x="988" y="1000" width="118" height="36" rx="6" fill="#5E5A54" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="996" y="1056" fill="#5E5A54">mute</text>
+<text class="hex" x="996" y="1070" fill="#5E5A54">#5E5A54</text>
+<rect x="1120" y="1000" width="118" height="36" rx="6" fill="#DDD8D0" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="1128" y="1056" fill="#5E5A54">grid</text>
+<text class="hex" x="1128" y="1070" fill="#5E5A54">#DDD8D0</text>
+<rect x="1252" y="1000" width="118" height="36" rx="6" fill="#CFC9C0" stroke="#CFC9C0" stroke-width="1"/>
+<text class="role" x="1260" y="1056" fill="#5E5A54">line</text>
+<text class="hex" x="1260" y="1070" fill="#5E5A54">#CFC9C0</text>
+<rect x="40" y="1104" width="1400" height="228" rx="16" fill="#F3EEE6" stroke="#D5CBBE"/>
+<text class="name" x="64" y="1140" fill="#143044">hague</text>
+<text class="pair" x="200" y="1140" fill="#8C3412">Blue  ·  orange</text>
+<rect x="560" y="1120" width="78" height="26" rx="13" fill="#8C3412"/>
+<text class="chip" x="599" y="1138" text-anchor="middle">Study</text>
+<rect x="64" y="1156" width="220" height="72" rx="10" fill="#143044"/>
+<text x="174" y="1198" text-anchor="middle" fill="#FFFCF8" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="1156" width="220" height="72" rx="10" fill="#E25C22"/>
+<text x="406" y="1198" text-anchor="middle" fill="#143044" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="1182" fill="#3C5568">Navy structure, one lacquered orange chair.</text>
+<rect x="64" y="1246" width="118" height="36" rx="6" fill="#143044" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="72" y="1302" fill="#6A6258">ink</text>
+<text class="hex" x="72" y="1316" fill="#6A6258">#143044</text>
+<rect x="196" y="1246" width="118" height="36" rx="6" fill="#E25C22" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="204" y="1302" fill="#6A6258">accent</text>
+<text class="hex" x="204" y="1316" fill="#6A6258">#E25C22</text>
+<rect x="328" y="1246" width="118" height="36" rx="6" fill="#8C3412" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="336" y="1302" fill="#6A6258">accent_deep</text>
+<text class="hex" x="336" y="1316" fill="#6A6258">#8C3412</text>
+<rect x="460" y="1246" width="118" height="36" rx="6" fill="#3C5568" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="468" y="1302" fill="#6A6258">ink_soft</text>
+<text class="hex" x="468" y="1316" fill="#6A6258">#3C5568</text>
+<rect x="592" y="1246" width="118" height="36" rx="6" fill="#7C8E9A" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="600" y="1302" fill="#6A6258">support</text>
+<text class="hex" x="600" y="1316" fill="#6A6258">#7C8E9A</text>
+<rect x="724" y="1246" width="118" height="36" rx="6" fill="#F6E3D2" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="732" y="1302" fill="#6A6258">mist</text>
+<text class="hex" x="732" y="1316" fill="#6A6258">#F6E3D2</text>
+<rect x="856" y="1246" width="118" height="36" rx="6" fill="#F3EEE6" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="864" y="1302" fill="#6A6258">paper</text>
+<text class="hex" x="864" y="1316" fill="#6A6258">#F3EEE6</text>
+<rect x="988" y="1246" width="118" height="36" rx="6" fill="#6A6258" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="996" y="1302" fill="#6A6258">mute</text>
+<text class="hex" x="996" y="1316" fill="#6A6258">#6A6258</text>
+<rect x="1120" y="1246" width="118" height="36" rx="6" fill="#E4DACD" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="1128" y="1302" fill="#6A6258">grid</text>
+<text class="hex" x="1128" y="1316" fill="#6A6258">#E4DACD</text>
+<rect x="1252" y="1246" width="118" height="36" rx="6" fill="#D5CBBE" stroke="#D5CBBE" stroke-width="1"/>
+<text class="role" x="1260" y="1302" fill="#6A6258">line</text>
+<text class="hex" x="1260" y="1316" fill="#6A6258">#D5CBBE</text>
+<rect x="40" y="1350" width="1400" height="228" rx="16" fill="#F8F0E4" stroke="#D9C8B2"/>
+<text class="name" x="64" y="1386" fill="#6A242C">hearth</text>
+<text class="pair" x="200" y="1386" fill="#8A5410">Wine  ·  amber</text>
+<rect x="560" y="1366" width="78" height="26" rx="13" fill="#8A5410"/>
+<text class="chip" x="599" y="1384" text-anchor="middle">Sunset</text>
+<rect x="64" y="1402" width="220" height="72" rx="10" fill="#6A242C"/>
+<text x="174" y="1444" text-anchor="middle" fill="#FFFCF6" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="1402" width="220" height="72" rx="10" fill="#E39B2B"/>
+<text x="406" y="1444" text-anchor="middle" fill="#6A242C" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="1428" fill="#8A4A42">After Color Hunt sunsets: warmth without a traffic-light red.</text>
+<rect x="64" y="1492" width="118" height="36" rx="6" fill="#6A242C" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="72" y="1548" fill="#6E5E52">ink</text>
+<text class="hex" x="72" y="1562" fill="#6E5E52">#6A242C</text>
+<rect x="196" y="1492" width="118" height="36" rx="6" fill="#E39B2B" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="204" y="1548" fill="#6E5E52">accent</text>
+<text class="hex" x="204" y="1562" fill="#6E5E52">#E39B2B</text>
+<rect x="328" y="1492" width="118" height="36" rx="6" fill="#8A5410" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="336" y="1548" fill="#6E5E52">accent_deep</text>
+<text class="hex" x="336" y="1562" fill="#6E5E52">#8A5410</text>
+<rect x="460" y="1492" width="118" height="36" rx="6" fill="#8A4A42" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="468" y="1548" fill="#6E5E52">ink_soft</text>
+<text class="hex" x="468" y="1562" fill="#6E5E52">#8A4A42</text>
+<rect x="592" y="1492" width="118" height="36" rx="6" fill="#C47A58" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="600" y="1548" fill="#6E5E52">support</text>
+<text class="hex" x="600" y="1562" fill="#6E5E52">#C47A58</text>
+<rect x="724" y="1492" width="118" height="36" rx="6" fill="#F6E4CC" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="732" y="1548" fill="#6E5E52">mist</text>
+<text class="hex" x="732" y="1562" fill="#6E5E52">#F6E4CC</text>
+<rect x="856" y="1492" width="118" height="36" rx="6" fill="#F8F0E4" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="864" y="1548" fill="#6E5E52">paper</text>
+<text class="hex" x="864" y="1562" fill="#6E5E52">#F8F0E4</text>
+<rect x="988" y="1492" width="118" height="36" rx="6" fill="#6E5E52" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="996" y="1548" fill="#6E5E52">mute</text>
+<text class="hex" x="996" y="1562" fill="#6E5E52">#6E5E52</text>
+<rect x="1120" y="1492" width="118" height="36" rx="6" fill="#E8D8C4" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="1128" y="1548" fill="#6E5E52">grid</text>
+<text class="hex" x="1128" y="1562" fill="#6E5E52">#E8D8C4</text>
+<rect x="1252" y="1492" width="118" height="36" rx="6" fill="#D9C8B2" stroke="#D9C8B2" stroke-width="1"/>
+<text class="role" x="1260" y="1548" fill="#6E5E52">line</text>
+<text class="hex" x="1260" y="1562" fill="#6E5E52">#D9C8B2</text>
+<rect x="40" y="1596" width="1400" height="228" rx="16" fill="#F7F1F2" stroke="#D8C6CC"/>
+<text class="name" x="64" y="1632" fill="#1C1418">cabaret</text>
+<text class="pair" x="200" y="1632" fill="#8E2048">Charcoal  ·  magenta</text>
+<rect x="560" y="1612" width="78" height="26" rx="13" fill="#8E2048"/>
+<text class="chip" x="599" y="1630" text-anchor="middle">Foyer</text>
+<rect x="64" y="1648" width="220" height="72" rx="10" fill="#1C1418"/>
+<text x="174" y="1690" text-anchor="middle" fill="#FFFCFC" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="1648" width="220" height="72" rx="10" fill="#E23D78"/>
+<text x="406" y="1690" text-anchor="middle" fill="#1C1418" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="1674" fill="#4A343C">After Color Hunt hot pink: one fuchsia object, not a neon field.</text>
+<rect x="64" y="1738" width="118" height="36" rx="6" fill="#1C1418" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="72" y="1794" fill="#6A5A5E">ink</text>
+<text class="hex" x="72" y="1808" fill="#6A5A5E">#1C1418</text>
+<rect x="196" y="1738" width="118" height="36" rx="6" fill="#E23D78" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="204" y="1794" fill="#6A5A5E">accent</text>
+<text class="hex" x="204" y="1808" fill="#6A5A5E">#E23D78</text>
+<rect x="328" y="1738" width="118" height="36" rx="6" fill="#8E2048" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="336" y="1794" fill="#6A5A5E">accent_deep</text>
+<text class="hex" x="336" y="1808" fill="#6A5A5E">#8E2048</text>
+<rect x="460" y="1738" width="118" height="36" rx="6" fill="#4A343C" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="468" y="1794" fill="#6A5A5E">ink_soft</text>
+<text class="hex" x="468" y="1808" fill="#6A5A5E">#4A343C</text>
+<rect x="592" y="1738" width="118" height="36" rx="6" fill="#C4A0A8" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="600" y="1794" fill="#6A5A5E">support</text>
+<text class="hex" x="600" y="1808" fill="#6A5A5E">#C4A0A8</text>
+<rect x="724" y="1738" width="118" height="36" rx="6" fill="#F6E4EA" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="732" y="1794" fill="#6A5A5E">mist</text>
+<text class="hex" x="732" y="1808" fill="#6A5A5E">#F6E4EA</text>
+<rect x="856" y="1738" width="118" height="36" rx="6" fill="#F7F1F2" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="864" y="1794" fill="#6A5A5E">paper</text>
+<text class="hex" x="864" y="1808" fill="#6A5A5E">#F7F1F2</text>
+<rect x="988" y="1738" width="118" height="36" rx="6" fill="#6A5A5E" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="996" y="1794" fill="#6A5A5E">mute</text>
+<text class="hex" x="996" y="1808" fill="#6A5A5E">#6A5A5E</text>
+<rect x="1120" y="1738" width="118" height="36" rx="6" fill="#E6D6DA" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="1128" y="1794" fill="#6A5A5E">grid</text>
+<text class="hex" x="1128" y="1808" fill="#6A5A5E">#E6D6DA</text>
+<rect x="1252" y="1738" width="118" height="36" rx="6" fill="#D8C6CC" stroke="#D8C6CC" stroke-width="1"/>
+<text class="role" x="1260" y="1794" fill="#6A5A5E">line</text>
+<text class="hex" x="1260" y="1808" fill="#6A5A5E">#D8C6CC</text>
+<rect x="40" y="1842" width="1400" height="228" rx="16" fill="#F4F1E6" stroke="#D4CCBA"/>
+<text class="name" x="64" y="1878" fill="#3A442C">grove</text>
+<text class="pair" x="200" y="1878" fill="#7A341C">Olive  ·  clay</text>
+<rect x="560" y="1858" width="78" height="26" rx="13" fill="#7A341C"/>
+<text class="chip" x="599" y="1876" text-anchor="middle">Garden</text>
+<rect x="64" y="1894" width="220" height="72" rx="10" fill="#3A442C"/>
+<text x="174" y="1936" text-anchor="middle" fill="#FFFCF6" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="1894" width="220" height="72" rx="10" fill="#C4623A"/>
+<text x="406" y="1936" text-anchor="middle" fill="#3A442C" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="1920" fill="#5C6848">Earth board: cultivated green, one fired-clay pot.</text>
+<rect x="64" y="1984" width="118" height="36" rx="6" fill="#3A442C" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="72" y="2040" fill="#686258">ink</text>
+<text class="hex" x="72" y="2054" fill="#686258">#3A442C</text>
+<rect x="196" y="1984" width="118" height="36" rx="6" fill="#C4623A" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="204" y="2040" fill="#686258">accent</text>
+<text class="hex" x="204" y="2054" fill="#686258">#C4623A</text>
+<rect x="328" y="1984" width="118" height="36" rx="6" fill="#7A341C" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="336" y="2040" fill="#686258">accent_deep</text>
+<text class="hex" x="336" y="2054" fill="#686258">#7A341C</text>
+<rect x="460" y="1984" width="118" height="36" rx="6" fill="#5C6848" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="468" y="2040" fill="#686258">ink_soft</text>
+<text class="hex" x="468" y="2054" fill="#686258">#5C6848</text>
+<rect x="592" y="1984" width="118" height="36" rx="6" fill="#A89468" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="600" y="2040" fill="#686258">support</text>
+<text class="hex" x="600" y="2054" fill="#686258">#A89468</text>
+<rect x="724" y="1984" width="118" height="36" rx="6" fill="#EFE6D2" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="732" y="2040" fill="#686258">mist</text>
+<text class="hex" x="732" y="2054" fill="#686258">#EFE6D2</text>
+<rect x="856" y="1984" width="118" height="36" rx="6" fill="#F4F1E6" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="864" y="2040" fill="#686258">paper</text>
+<text class="hex" x="864" y="2054" fill="#686258">#F4F1E6</text>
+<rect x="988" y="1984" width="118" height="36" rx="6" fill="#686258" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="996" y="2040" fill="#686258">mute</text>
+<text class="hex" x="996" y="2054" fill="#686258">#686258</text>
+<rect x="1120" y="1984" width="118" height="36" rx="6" fill="#E2DACA" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="1128" y="2040" fill="#686258">grid</text>
+<text class="hex" x="1128" y="2054" fill="#686258">#E2DACA</text>
+<rect x="1252" y="1984" width="118" height="36" rx="6" fill="#D4CCBA" stroke="#D4CCBA" stroke-width="1"/>
+<text class="role" x="1260" y="2040" fill="#686258">line</text>
+<text class="hex" x="1260" y="2054" fill="#686258">#D4CCBA</text>
+<rect x="40" y="2088" width="1400" height="228" rx="16" fill="#F4F7F8" stroke="#C6D2D8"/>
+<text class="name" x="64" y="2124" fill="#243848">glacier</text>
+<text class="pair" x="200" y="2124" fill="#2E6484">Slate  ·  ice</text>
+<rect x="560" y="2104" width="78" height="26" rx="13" fill="#2E6484"/>
+<text class="chip" x="599" y="2122" text-anchor="middle">Winter</text>
+<rect x="64" y="2140" width="220" height="72" rx="10" fill="#243848"/>
+<text x="174" y="2182" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="2140" width="220" height="72" rx="10" fill="#7EB4D4"/>
+<text x="406" y="2182" text-anchor="middle" fill="#243848" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="2166" fill="#4A6274">Cold, not tiffany. A pale blue claim on a stone wall.</text>
+<rect x="64" y="2230" width="118" height="36" rx="6" fill="#243848" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="72" y="2286" fill="#5C6A72">ink</text>
+<text class="hex" x="72" y="2300" fill="#5C6A72">#243848</text>
+<rect x="196" y="2230" width="118" height="36" rx="6" fill="#7EB4D4" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="204" y="2286" fill="#5C6A72">accent</text>
+<text class="hex" x="204" y="2300" fill="#5C6A72">#7EB4D4</text>
+<rect x="328" y="2230" width="118" height="36" rx="6" fill="#2E6484" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="336" y="2286" fill="#5C6A72">accent_deep</text>
+<text class="hex" x="336" y="2300" fill="#5C6A72">#2E6484</text>
+<rect x="460" y="2230" width="118" height="36" rx="6" fill="#4A6274" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="468" y="2286" fill="#5C6A72">ink_soft</text>
+<text class="hex" x="468" y="2300" fill="#5C6A72">#4A6274</text>
+<rect x="592" y="2230" width="118" height="36" rx="6" fill="#8AA0AE" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="600" y="2286" fill="#5C6A72">support</text>
+<text class="hex" x="600" y="2300" fill="#5C6A72">#8AA0AE</text>
+<rect x="724" y="2230" width="118" height="36" rx="6" fill="#E4EEF4" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="732" y="2286" fill="#5C6A72">mist</text>
+<text class="hex" x="732" y="2300" fill="#5C6A72">#E4EEF4</text>
+<rect x="856" y="2230" width="118" height="36" rx="6" fill="#F4F7F8" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="864" y="2286" fill="#5C6A72">paper</text>
+<text class="hex" x="864" y="2300" fill="#5C6A72">#F4F7F8</text>
+<rect x="988" y="2230" width="118" height="36" rx="6" fill="#5C6A72" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="996" y="2286" fill="#5C6A72">mute</text>
+<text class="hex" x="996" y="2300" fill="#5C6A72">#5C6A72</text>
+<rect x="1120" y="2230" width="118" height="36" rx="6" fill="#D5E0E6" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="1128" y="2286" fill="#5C6A72">grid</text>
+<text class="hex" x="1128" y="2300" fill="#5C6A72">#D5E0E6</text>
+<rect x="1252" y="2230" width="118" height="36" rx="6" fill="#C6D2D8" stroke="#C6D2D8" stroke-width="1"/>
+<text class="role" x="1260" y="2286" fill="#5C6A72">line</text>
+<text class="hex" x="1260" y="2300" fill="#5C6A72">#C6D2D8</text>
+<rect x="40" y="2334" width="1400" height="228" rx="16" fill="#F7F1E4" stroke="#D8C8B0"/>
+<text class="name" x="64" y="2370" fill="#2A1C12">gild</text>
+<text class="pair" x="200" y="2370" fill="#7A5418">Espresso  ·  brass</text>
+<rect x="560" y="2350" width="78" height="26" rx="13" fill="#7A5418"/>
+<text class="chip" x="599" y="2368" text-anchor="middle">Ceremony</text>
+<rect x="64" y="2386" width="220" height="72" rx="10" fill="#2A1C12"/>
+<text x="174" y="2428" text-anchor="middle" fill="#FFFCF6" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="2386" width="220" height="72" rx="10" fill="#C8963E"/>
+<text x="406" y="2428" text-anchor="middle" fill="#2A1C12" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="2412" fill="#5A4636">After Color Hunt gold boards. One brass object, not a yellow dashboard.</text>
+<rect x="64" y="2476" width="118" height="36" rx="6" fill="#2A1C12" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="72" y="2532" fill="#6E6256">ink</text>
+<text class="hex" x="72" y="2546" fill="#6E6256">#2A1C12</text>
+<rect x="196" y="2476" width="118" height="36" rx="6" fill="#C8963E" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="204" y="2532" fill="#6E6256">accent</text>
+<text class="hex" x="204" y="2546" fill="#6E6256">#C8963E</text>
+<rect x="328" y="2476" width="118" height="36" rx="6" fill="#7A5418" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="336" y="2532" fill="#6E6256">accent_deep</text>
+<text class="hex" x="336" y="2546" fill="#6E6256">#7A5418</text>
+<rect x="460" y="2476" width="118" height="36" rx="6" fill="#5A4636" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="468" y="2532" fill="#6E6256">ink_soft</text>
+<text class="hex" x="468" y="2546" fill="#6E6256">#5A4636</text>
+<rect x="592" y="2476" width="118" height="36" rx="6" fill="#A68462" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="600" y="2532" fill="#6E6256">support</text>
+<text class="hex" x="600" y="2546" fill="#6E6256">#A68462</text>
+<rect x="724" y="2476" width="118" height="36" rx="6" fill="#F3E6CC" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="732" y="2532" fill="#6E6256">mist</text>
+<text class="hex" x="732" y="2546" fill="#6E6256">#F3E6CC</text>
+<rect x="856" y="2476" width="118" height="36" rx="6" fill="#F7F1E4" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="864" y="2532" fill="#6E6256">paper</text>
+<text class="hex" x="864" y="2546" fill="#6E6256">#F7F1E4</text>
+<rect x="988" y="2476" width="118" height="36" rx="6" fill="#6E6256" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="996" y="2532" fill="#6E6256">mute</text>
+<text class="hex" x="996" y="2546" fill="#6E6256">#6E6256</text>
+<rect x="1120" y="2476" width="118" height="36" rx="6" fill="#E6D8C4" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="1128" y="2532" fill="#6E6256">grid</text>
+<text class="hex" x="1128" y="2546" fill="#6E6256">#E6D8C4</text>
+<rect x="1252" y="2476" width="118" height="36" rx="6" fill="#D8C8B0" stroke="#D8C8B0" stroke-width="1"/>
+<text class="role" x="1260" y="2532" fill="#6E6256">line</text>
+<text class="hex" x="1260" y="2546" fill="#6E6256">#D8C8B0</text>
+<rect x="40" y="2580" width="1400" height="228" rx="16" fill="#F6F1E8" stroke="#D6C8BA"/>
+<text class="name" x="64" y="2616" fill="#3A2A22">espresso</text>
+<text class="pair" x="200" y="2616" fill="#7A4A24">Roast  ·  cream</text>
+<rect x="560" y="2596" width="78" height="26" rx="13" fill="#7A4A24"/>
+<text class="chip" x="599" y="2614" text-anchor="middle">Cafe</text>
+<rect x="64" y="2632" width="220" height="72" rx="10" fill="#3A2A22"/>
+<text x="174" y="2674" text-anchor="middle" fill="#FFFCF8" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="2632" width="220" height="72" rx="10" fill="#C4844A"/>
+<text x="406" y="2674" text-anchor="middle" fill="#3A2A22" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="2658" fill="#6A5346">Coffee browns for a long page. Cognac is the only claim.</text>
+<rect x="64" y="2722" width="118" height="36" rx="6" fill="#3A2A22" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="72" y="2778" fill="#6A5E54">ink</text>
+<text class="hex" x="72" y="2792" fill="#6A5E54">#3A2A22</text>
+<rect x="196" y="2722" width="118" height="36" rx="6" fill="#C4844A" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="204" y="2778" fill="#6A5E54">accent</text>
+<text class="hex" x="204" y="2792" fill="#6A5E54">#C4844A</text>
+<rect x="328" y="2722" width="118" height="36" rx="6" fill="#7A4A24" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="336" y="2778" fill="#6A5E54">accent_deep</text>
+<text class="hex" x="336" y="2792" fill="#6A5E54">#7A4A24</text>
+<rect x="460" y="2722" width="118" height="36" rx="6" fill="#6A5346" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="468" y="2778" fill="#6A5E54">ink_soft</text>
+<text class="hex" x="468" y="2792" fill="#6A5E54">#6A5346</text>
+<rect x="592" y="2722" width="118" height="36" rx="6" fill="#A89078" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="600" y="2778" fill="#6A5E54">support</text>
+<text class="hex" x="600" y="2792" fill="#6A5E54">#A89078</text>
+<rect x="724" y="2722" width="118" height="36" rx="6" fill="#EFE4D6" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="732" y="2778" fill="#6A5E54">mist</text>
+<text class="hex" x="732" y="2792" fill="#6A5E54">#EFE4D6</text>
+<rect x="856" y="2722" width="118" height="36" rx="6" fill="#F6F1E8" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="864" y="2778" fill="#6A5E54">paper</text>
+<text class="hex" x="864" y="2792" fill="#6A5E54">#F6F1E8</text>
+<rect x="988" y="2722" width="118" height="36" rx="6" fill="#6A5E54" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="996" y="2778" fill="#6A5E54">mute</text>
+<text class="hex" x="996" y="2792" fill="#6A5E54">#6A5E54</text>
+<rect x="1120" y="2722" width="118" height="36" rx="6" fill="#E4D8CC" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="1128" y="2778" fill="#6A5E54">grid</text>
+<text class="hex" x="1128" y="2792" fill="#6A5E54">#E4D8CC</text>
+<rect x="1252" y="2722" width="118" height="36" rx="6" fill="#D6C8BA" stroke="#D6C8BA" stroke-width="1"/>
+<text class="role" x="1260" y="2778" fill="#6A5E54">line</text>
+<text class="hex" x="1260" y="2792" fill="#6A5E54">#D6C8BA</text>
+<rect x="40" y="2826" width="1400" height="228" rx="16" fill="#F7F4EF" stroke="#D6D0C8"/>
+<text class="name" x="64" y="2862" fill="#3E5344">blossom</text>
+<text class="pair" x="200" y="2862" fill="#8A5460">Sage  ·  blush</text>
+<rect x="560" y="2842" width="78" height="26" rx="13" fill="#8A5460"/>
+<text class="chip" x="599" y="2860" text-anchor="middle">Clinic</text>
+<rect x="64" y="2878" width="220" height="72" rx="10" fill="#3E5344"/>
+<text x="174" y="2920" text-anchor="middle" fill="#FFFCFA" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="2878" width="220" height="72" rx="10" fill="#E4A8B4"/>
+<text x="406" y="2920" text-anchor="middle" fill="#3E5344" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="2904" fill="#6A7A68">Pastel spring. Quiet enough to read, pink enough to be remembered.</text>
+<rect x="64" y="2968" width="118" height="36" rx="6" fill="#3E5344" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="72" y="3024" fill="#6A645E">ink</text>
+<text class="hex" x="72" y="3038" fill="#6A645E">#3E5344</text>
+<rect x="196" y="2968" width="118" height="36" rx="6" fill="#E4A8B4" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="204" y="3024" fill="#6A645E">accent</text>
+<text class="hex" x="204" y="3038" fill="#6A645E">#E4A8B4</text>
+<rect x="328" y="2968" width="118" height="36" rx="6" fill="#8A5460" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="336" y="3024" fill="#6A645E">accent_deep</text>
+<text class="hex" x="336" y="3038" fill="#6A645E">#8A5460</text>
+<rect x="460" y="2968" width="118" height="36" rx="6" fill="#6A7A68" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="468" y="3024" fill="#6A645E">ink_soft</text>
+<text class="hex" x="468" y="3038" fill="#6A645E">#6A7A68</text>
+<rect x="592" y="2968" width="118" height="36" rx="6" fill="#C4B09A" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="600" y="3024" fill="#6A645E">support</text>
+<text class="hex" x="600" y="3038" fill="#6A645E">#C4B09A</text>
+<rect x="724" y="2968" width="118" height="36" rx="6" fill="#F6E8EA" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="732" y="3024" fill="#6A645E">mist</text>
+<text class="hex" x="732" y="3038" fill="#6A645E">#F6E8EA</text>
+<rect x="856" y="2968" width="118" height="36" rx="6" fill="#F7F4EF" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="864" y="3024" fill="#6A645E">paper</text>
+<text class="hex" x="864" y="3038" fill="#6A645E">#F7F4EF</text>
+<rect x="988" y="2968" width="118" height="36" rx="6" fill="#6A645E" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="996" y="3024" fill="#6A645E">mute</text>
+<text class="hex" x="996" y="3038" fill="#6A645E">#6A645E</text>
+<rect x="1120" y="2968" width="118" height="36" rx="6" fill="#E4DED6" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="1128" y="3024" fill="#6A645E">grid</text>
+<text class="hex" x="1128" y="3038" fill="#6A645E">#E4DED6</text>
+<rect x="1252" y="2968" width="118" height="36" rx="6" fill="#D6D0C8" stroke="#D6D0C8" stroke-width="1"/>
+<text class="role" x="1260" y="3024" fill="#6A645E">line</text>
+<text class="hex" x="1260" y="3038" fill="#6A645E">#D6D0C8</text>
+<rect x="40" y="3072" width="1400" height="228" rx="16" fill="#17181B" stroke="#4A4C52"/>
+<text class="name" x="64" y="3108" fill="#F3EFE6">vesper</text>
+<text class="pair" x="200" y="3108" fill="#7A5014">Night  ·  candle</text>
+<rect x="560" y="3088" width="78" height="26" rx="13" fill="#7A5014"/>
+<text class="chip" x="599" y="3106" text-anchor="middle">After dark</text>
+<rect x="64" y="3124" width="220" height="72" rx="10" fill="#F3EFE6"/>
+<text x="174" y="3166" text-anchor="middle" fill="#17181B" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="3124" width="220" height="72" rx="10" fill="#E2B15A"/>
+<text x="406" y="3166" text-anchor="middle" fill="#F3EFE6" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="3150" fill="#C8C2B4">The wall is the dark. Text and sofa are the light. One candle accent.</text>
+<rect x="64" y="3214" width="118" height="36" rx="6" fill="#F3EFE6" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="72" y="3270" fill="#B7B1A4">ink</text>
+<text class="hex" x="72" y="3284" fill="#B7B1A4">#F3EFE6</text>
+<rect x="196" y="3214" width="118" height="36" rx="6" fill="#E2B15A" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="204" y="3270" fill="#B7B1A4">accent</text>
+<text class="hex" x="204" y="3284" fill="#B7B1A4">#E2B15A</text>
+<rect x="328" y="3214" width="118" height="36" rx="6" fill="#7A5014" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="336" y="3270" fill="#B7B1A4">accent_deep</text>
+<text class="hex" x="336" y="3284" fill="#B7B1A4">#7A5014</text>
+<rect x="460" y="3214" width="118" height="36" rx="6" fill="#C8C2B4" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="468" y="3270" fill="#B7B1A4">ink_soft</text>
+<text class="hex" x="468" y="3284" fill="#B7B1A4">#C8C2B4</text>
+<rect x="592" y="3214" width="118" height="36" rx="6" fill="#8E8678" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="600" y="3270" fill="#B7B1A4">support</text>
+<text class="hex" x="600" y="3284" fill="#B7B1A4">#8E8678</text>
+<rect x="724" y="3214" width="118" height="36" rx="6" fill="#2A2C30" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="732" y="3270" fill="#B7B1A4">mist</text>
+<text class="hex" x="732" y="3284" fill="#B7B1A4">#2A2C30</text>
+<rect x="856" y="3214" width="118" height="36" rx="6" fill="#17181B" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="864" y="3270" fill="#B7B1A4">paper</text>
+<text class="hex" x="864" y="3284" fill="#B7B1A4">#17181B</text>
+<rect x="988" y="3214" width="118" height="36" rx="6" fill="#B7B1A4" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="996" y="3270" fill="#B7B1A4">mute</text>
+<text class="hex" x="996" y="3284" fill="#B7B1A4">#B7B1A4</text>
+<rect x="1120" y="3214" width="118" height="36" rx="6" fill="#3A3C40" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="1128" y="3270" fill="#B7B1A4">grid</text>
+<text class="hex" x="1128" y="3284" fill="#B7B1A4">#3A3C40</text>
+<rect x="1252" y="3214" width="118" height="36" rx="6" fill="#4A4C52" stroke="#4A4C52" stroke-width="1"/>
+<text class="role" x="1260" y="3270" fill="#B7B1A4">line</text>
+<text class="hex" x="1260" y="3284" fill="#B7B1A4">#4A4C52</text>
+<rect x="40" y="3318" width="1400" height="228" rx="16" fill="#F3EBDD" stroke="#D6C8B6"/>
+<text class="name" x="64" y="3354" fill="#2C3A55">archive</text>
+<text class="pair" x="200" y="3354" fill="#7A454C">Faded navy  ·  rose</text>
+<rect x="560" y="3334" width="78" height="26" rx="13" fill="#7A454C"/>
+<text class="chip" x="599" y="3352" text-anchor="middle">Museum</text>
+<rect x="64" y="3370" width="220" height="72" rx="10" fill="#2C3A55"/>
+<text x="174" y="3412" text-anchor="middle" fill="#FFFCF8" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="3370" width="220" height="72" rx="10" fill="#C9898E"/>
+<text x="406" y="3412" text-anchor="middle" fill="#2C3A55" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="3396" fill="#5A6880">Aged paper and a dusty rose. History, not cabaret.</text>
+<rect x="64" y="3460" width="118" height="36" rx="6" fill="#2C3A55" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="72" y="3516" fill="#6A6258">ink</text>
+<text class="hex" x="72" y="3530" fill="#6A6258">#2C3A55</text>
+<rect x="196" y="3460" width="118" height="36" rx="6" fill="#C9898E" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="204" y="3516" fill="#6A6258">accent</text>
+<text class="hex" x="204" y="3530" fill="#6A6258">#C9898E</text>
+<rect x="328" y="3460" width="118" height="36" rx="6" fill="#7A454C" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="336" y="3516" fill="#6A6258">accent_deep</text>
+<text class="hex" x="336" y="3530" fill="#6A6258">#7A454C</text>
+<rect x="460" y="3460" width="118" height="36" rx="6" fill="#5A6880" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="468" y="3516" fill="#6A6258">ink_soft</text>
+<text class="hex" x="468" y="3530" fill="#6A6258">#5A6880</text>
+<rect x="592" y="3460" width="118" height="36" rx="6" fill="#A89880" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="600" y="3516" fill="#6A6258">support</text>
+<text class="hex" x="600" y="3530" fill="#6A6258">#A89880</text>
+<rect x="724" y="3460" width="118" height="36" rx="6" fill="#F0E4D8" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="732" y="3516" fill="#6A6258">mist</text>
+<text class="hex" x="732" y="3530" fill="#6A6258">#F0E4D8</text>
+<rect x="856" y="3460" width="118" height="36" rx="6" fill="#F3EBDD" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="864" y="3516" fill="#6A6258">paper</text>
+<text class="hex" x="864" y="3530" fill="#6A6258">#F3EBDD</text>
+<rect x="988" y="3460" width="118" height="36" rx="6" fill="#6A6258" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="996" y="3516" fill="#6A6258">mute</text>
+<text class="hex" x="996" y="3530" fill="#6A6258">#6A6258</text>
+<rect x="1120" y="3460" width="118" height="36" rx="6" fill="#E4D8C8" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="1128" y="3516" fill="#6A6258">grid</text>
+<text class="hex" x="1128" y="3530" fill="#6A6258">#E4D8C8</text>
+<rect x="1252" y="3460" width="118" height="36" rx="6" fill="#D6C8B6" stroke="#D6C8B6" stroke-width="1"/>
+<text class="role" x="1260" y="3516" fill="#6A6258">line</text>
+<text class="hex" x="1260" y="3530" fill="#6A6258">#D6C8B6</text>
+<rect x="40" y="3564" width="1400" height="228" rx="16" fill="#F4F6F8" stroke="#C6D0D8"/>
+<text class="name" x="64" y="3600" fill="#0E1C38">marina</text>
+<text class="pair" x="200" y="3600" fill="#1E4E92">Harbour  ·  signal</text>
+<rect x="560" y="3580" width="78" height="26" rx="13" fill="#1E4E92"/>
+<text class="chip" x="599" y="3598" text-anchor="middle">Chart desk</text>
+<rect x="64" y="3616" width="220" height="72" rx="10" fill="#0E1C38"/>
+<text x="174" y="3658" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">ink</text>
+<rect x="296" y="3616" width="220" height="72" rx="10" fill="#3D7AD4"/>
+<text x="406" y="3658" text-anchor="middle" fill="#0E1C38" font-size="13" font-weight="600">accent</text>
+<text class="note" x="540" y="3642" fill="#3A4E68">Deeper than veranda, colder than raven. One signal blue.</text>
+<rect x="64" y="3706" width="118" height="36" rx="6" fill="#0E1C38" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="72" y="3762" fill="#5C6A76">ink</text>
+<text class="hex" x="72" y="3776" fill="#5C6A76">#0E1C38</text>
+<rect x="196" y="3706" width="118" height="36" rx="6" fill="#3D7AD4" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="204" y="3762" fill="#5C6A76">accent</text>
+<text class="hex" x="204" y="3776" fill="#5C6A76">#3D7AD4</text>
+<rect x="328" y="3706" width="118" height="36" rx="6" fill="#1E4E92" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="336" y="3762" fill="#5C6A76">accent_deep</text>
+<text class="hex" x="336" y="3776" fill="#5C6A76">#1E4E92</text>
+<rect x="460" y="3706" width="118" height="36" rx="6" fill="#3A4E68" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="468" y="3762" fill="#5C6A76">ink_soft</text>
+<text class="hex" x="468" y="3776" fill="#5C6A76">#3A4E68</text>
+<rect x="592" y="3706" width="118" height="36" rx="6" fill="#8AA0B4" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="600" y="3762" fill="#5C6A76">support</text>
+<text class="hex" x="600" y="3776" fill="#5C6A76">#8AA0B4</text>
+<rect x="724" y="3706" width="118" height="36" rx="6" fill="#E4EAF2" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="732" y="3762" fill="#5C6A76">mist</text>
+<text class="hex" x="732" y="3776" fill="#5C6A76">#E4EAF2</text>
+<rect x="856" y="3706" width="118" height="36" rx="6" fill="#F4F6F8" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="864" y="3762" fill="#5C6A76">paper</text>
+<text class="hex" x="864" y="3776" fill="#5C6A76">#F4F6F8</text>
+<rect x="988" y="3706" width="118" height="36" rx="6" fill="#5C6A76" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="996" y="3762" fill="#5C6A76">mute</text>
+<text class="hex" x="996" y="3776" fill="#5C6A76">#5C6A76</text>
+<rect x="1120" y="3706" width="118" height="36" rx="6" fill="#D4DEE6" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="1128" y="3762" fill="#5C6A76">grid</text>
+<text class="hex" x="1128" y="3776" fill="#5C6A76">#D4DEE6</text>
+<rect x="1252" y="3706" width="118" height="36" rx="6" fill="#C6D0D8" stroke="#C6D0D8" stroke-width="1"/>
+<text class="role" x="1260" y="3762" fill="#5C6A76">line</text>
+<text class="hex" x="1260" y="3776" fill="#5C6A76">#C6D0D8</text>
+</svg>

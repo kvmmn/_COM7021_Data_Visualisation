@@ -6,7 +6,7 @@ Canonical pages: [Shiny for Python](https://shiny.posit.co/py/) (S05), [Overview
 
 ## Purpose
 
-Shiny builds reactive web apps in pure Python. The engine recomputes only outputs whose upstream inputs changed (S05). It sits on Starlette and asyncio, so it is a real web stack, not a notebook slideshow. The COM7021 brief asks for an interactive dashboard and names Dash, Streamlit, Panel, Bokeh, **or another suitable Python framework**. Shiny is that other framework (S12).
+Shiny builds reactive web apps in pure Python. The engine recomputes only outputs whose upstream inputs changed (S05). It sits on Starlette and asyncio, so it is a real web stack, not a notebook slideshow. aesth uses it as the page shell because `@render.plot` already accepts plotnine (S06).
 
 ## Install (documented)
 
@@ -33,7 +33,7 @@ aesth will not ship that template’s look. The template is only evidence that d
 
 - **shinyswatch / Bootswatch** as the look. Convenient and wrong: Darkly and friends are generic SaaS skins (S08). The creative brief forbids that register.
 - Sample value-box theme `bg-gradient-indigo-purple` (S09). Gradients and purple glow are explicit house-style refusals.
-- Plotly via `shinywidgets` unless a geom plotnine cannot draw is required. It is not required for the six COM7021 types.
+- Plotly via `shinywidgets`. Shiny already rasterises plotnine. A second chart engine is out of scope.
 - `@render.data_frame` as the primary table. That is an explorer grid. Managers get Great Tables.
 
 ## Fit to æsth
@@ -50,4 +50,4 @@ Shiny is HTML. Identity colours (`#151515`, `#F1F0EB`) may clothe the **docs sit
 
 ## Worked example (prose, before code)
 
-One sidebar filter (dataset or city), one plotnine facet, one GT HTML table, three value boxes using `ink` / `accent` / `paper`. No Bootswatch. That is the theme proof. EcoMove comes after.
+One sidebar filter, one plotnine facet, one GT HTML table, three value boxes using `ink` / `accent` / `paper`. No Bootswatch. That is the theme proof in `examples/app.py`.

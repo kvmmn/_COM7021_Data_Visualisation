@@ -21,6 +21,8 @@ British English. Every claim that came from the web has a URL in [`SOURCES.md`](
 | [decisions/0003-docs-standard.md](decisions/0003-docs-standard.md) | How this tree is written |
 | [decisions/0004-palettes.md](decisions/0004-palettes.md) | Palettes as a user-selectable registry |
 | [decisions/0005-freeze.md](decisions/0005-freeze.md) | Hex freeze and WCAG contrast method |
+| [decisions/0006-marks.md](decisions/0006-marks.md) | House geometry as plotnine layers |
+| [decisions/0007-one-path.md](decisions/0007-one-path.md) | Shiny page shell, quiet GT formats, lazy import |
 | [SOURCES.md](SOURCES.md) | Living source ledger |
 
 ## Reading order
@@ -33,4 +35,4 @@ British English. Every claim that came from the web has a URL in [`SOURCES.md`](
 
 Theme Python lives in `src/aesth/`. Palettes are frozen; see ADR 0005.
 
-The original creative brief lives at [`aesth/aesth — Creative Direction Brief.md`](<../aesth — Creative Direction Brief.md>). [`brand/CREATIVE_DIRECTION.md`](brand/CREATIVE_DIRECTION.md) is a pointer only. Do not keep a copy at the course-repo root.
+The original creative brief lives at [`aesth/aesth — Creative Direction Brief.md`](<../aesth — Creative Direction Brief.md>). [`brand/CREATIVE_DIRECTION.md`](brand/CREATIVE_DIRECTION.md) is a pointer only. Do not keep a second copy.

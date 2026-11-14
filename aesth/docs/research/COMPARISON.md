@@ -4,23 +4,23 @@ aesth is a **language layer**. The three libraries keep their engines. This page
 
 | Job | Owner | aesth adds | We refuse |
 |---|---|---|---|
-| Grammar of charts (layers, facets, scales) | [plotnine](https://plotnine.org/) | `theme_aesth(palette)`, `scale_*_aesth` | A second matplotlib style path; seaborn; Plotly traces |
-| Publication tables | [Great Tables](https://posit-dev.github.io/great-tables/) | `GT_aesth(df, palette=...)` chrome, highlight column, fmt defaults | DataGrid as the manager table; rainbow cell heatmaps |
-| Reactive dashboard | [Shiny for Python](https://shiny.posit.co/py/) | CSS variables + value-box theme from the active palette | shinyswatch / Bootswatch; indigo–purple gradients |
-| Structural diagrams (lanes, matrices, KPI strips that are not geoms) | Hand SVG (existing COM7021 studies) | Same semantic tokens as the active palette | Drawing architecture in plotnine |
+| Grammar of charts (layers, facets, scales) | [plotnine](https://plotnine.org/) | `theme_aesth`, `line` / `col` / `area` / `band`, `dress(claim=)` | A second matplotlib style path; seaborn; Plotly traces |
+| Publication tables | [Great Tables](https://posit-dev.github.io/great-tables/) | `GT_aesth(df, palette=...)` chrome, `highlight_column`, quiet `fmt_integer` / `fmt_number` / `sub_missing` | DataGrid as the manager table; rainbow cell heatmaps |
+| Reactive dashboard | [Shiny for Python](https://shiny.posit.co/py/) | `page_aesth` applies one palette; `@render.plot` for plotnine and `ui.HTML` for a Great Table | shinyswatch / Bootswatch; indigo–purple gradients |
+| Structural diagrams (lanes, matrices, KPI strips that are not geoms) | Hand SVG | Same semantic tokens as the active palette | Drawing architecture in plotnine |
 | Colour | aesth palette registry | Named token sets the user can switch | One locked hue family for the whole product |
 | Argument / caption | The report, not the figure | Noun-phrase titles only | Sentences baked into PNG |
 
 ## Why this split
 
 - Plotnine already sits on matplotlib, and Shiny’s `@render.plot` already accepts plotnine ([overview](https://shiny.posit.co/py/docs/overview.html)). No adapter library is required.
-- Great Tables already exports HTML (for the app) and images (for Word). That is the report + dashboard table path.
-- Shiny is a permitted “other suitable Python framework” in the COM7021 brief. Dash/Streamlit/Panel/Bokeh are alternatives, not requirements.
+- Great Tables already exports HTML and images. That is the table path for both a page and a print figure.
+- Shiny is the reactive shell because `@render.plot` already accepts plotnine. Dash, Streamlit, Panel, and Bokeh are other apps, not this wrapper.
 - Identity chrome (`#151515` / `#F1F0EB`) is brand, not data. Data marks come from the **active palette**.
 
-## Default path for COM7021 EcoMove
+## Default path
 
-`palette="arden"` on charts, tables, and the Shiny page, so the assignment screenshots match the existing visual guide. Other palettes are for the public gallery and later work.
+`aesth.use("arden")` is the process default: midnight structure, tiffany claim. Pass another frozen name, or `palette=`, when the figure needs a different room. The same name should reach the plot, the table, and `page_aesth`.
 
 ## Sources
 

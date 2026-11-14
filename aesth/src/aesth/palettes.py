@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from aesth.tokens import Palette
 
-# arden is locked to the COM7021 visual guide. Do not restyle.
+# arden is the default midnight / tiffany set. Do not restyle the frozen hex.
 _ARDEN = Palette(
     name="arden",
     ink="#002B49",

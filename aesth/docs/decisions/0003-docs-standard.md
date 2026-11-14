@@ -5,7 +5,7 @@
 
 ## Context
 
-aesth is meant to be publishable. Course PDFs, student ID, and EcoMove must not leak into the public tree. Research has to be reconstructable.
+aesth is meant to be publishable. Private datasets and course files must not leak into the public tree. Research has to be reconstructable.
 
 ## Choice
 
@@ -13,8 +13,8 @@ aesth is meant to be publishable. Course PDFs, student ID, and EcoMove must not 
 - Every web claim cites a URL that appears in [SOURCES.md](../SOURCES.md). No remembered URLs.
 - Research notes share one outline: purpose, install, API we wrap, API we refuse, fit, risks, worked example in prose.
 - Decisions are ADRs: context, options, choice, consequences, links.
-- University materials stay in `COM7021 - *` folders. This package never copies them.
-- Lesson-scale public examples may use Anscombe or other non-assessed toy frames. EcoMove stays in the assignment folder.
+- Private data and course files stay outside this package.
+- Public examples use Anscombe or other toy frames. The package does not ship a dataset.
 - Palette hexes are not invented in prose. They freeze only after contrast notes and a rendered proof, except `arden`, which is already proven in COM7020/7021.
 
 ## Consequences

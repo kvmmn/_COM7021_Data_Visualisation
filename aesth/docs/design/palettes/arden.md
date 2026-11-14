@@ -1,6 +1,6 @@
 # Palette: `arden`
 
-**Status:** frozen (assignment default)  
+**Status:** frozen (package default)  
 **Proofs:** COM7020 MES figures; COM7021 design-guide studies; `studies/anscombe_arden.png`, `studies/arden_table.html`
 
 Midnight is structure. Tiffany is the claim. Nothing else joins the hue family.

@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
+
+from aesth.claim import _SERIES_LIMIT, _refuse_series_count, colour_map
 from aesth.fonts import resolve_sans
 from aesth.palettes import get_palette
 from aesth.tokens import Palette
@@ -116,16 +119,85 @@ def theme_aesth(palette: str | Palette | None = None, *, figure_size: tuple[floa
     )
 
 
-def scale_colour_aesth(palette: str | Palette | None = None, **kwargs):
-    pn = _plotnine()
-    tokens = _resolve(palette)
-    return pn["scale_colour_manual"](values=list(tokens.series), **kwargs)
+def _value_count(values) -> int | None:
+    if values is None or isinstance(values, (str, bytes, bool)) or callable(values):
+        return None
+    try:
+        return len(values)
+    except TypeError:
+        return None
 
 
-def scale_fill_aesth(palette: str | Palette | None = None, **kwargs):
+def _scale_values(
+    tokens: Palette,
+    *,
+    claim: object | None,
+    levels: Sequence[object] | None,
+    kwargs: dict,
+) -> dict:
+    if claim is not None and "values" in kwargs:
+        raise ValueError("pass claim or values, not both")
+    kwargs = dict(kwargs)
+    if claim is not None:
+        if levels is None:
+            raise ValueError("claim requires levels")
+        kwargs["values"] = colour_map(levels, claim, tokens)
+        kwargs.setdefault("limits", list(levels))
+    else:
+        kwargs.setdefault("values", list(tokens.series))
+    count = _value_count(kwargs.get("values"))
+    if count == 0:
+        raise ValueError("aesth scale requires at least one colour")
+    if count is not None:
+        _refuse_series_count(count)
+    for key in ("limits", "breaks"):
+        width = _value_count(kwargs.get(key))
+        if width is not None:
+            _refuse_series_count(width)
+    return kwargs
+
+
+def _cap_palette(scale):
+    """Raise when a manual scale is asked for a sixth series.
+
+    plotnine only warns, then paints the extra level with the missing-value
+    colour. The house rule is to facet or split.
+    """
+    original = scale.palette
+
+    def palette(n: int):
+        if n > _SERIES_LIMIT:
+            _refuse_series_count(n)
+        return original(n)
+
+    scale.palette = palette
+    return scale
+
+
+def scale_colour_aesth(
+    palette: str | Palette | None = None,
+    *,
+    claim: object | None = None,
+    levels: Sequence[object] | None = None,
+    **kwargs,
+):
     pn = _plotnine()
     tokens = _resolve(palette)
-    return pn["scale_fill_manual"](values=list(tokens.series), **kwargs)
+    kwargs = _scale_values(tokens, claim=claim, levels=levels, kwargs=kwargs)
+    return _cap_palette(pn["scale_colour_manual"](**kwargs))
+
+
+def scale_fill_aesth(
+    palette: str | Palette | None = None,
+    *,
+    claim: object | None = None,
+    levels: Sequence[object] | None = None,
+    **kwargs,
+):
+    pn = _plotnine()
+    tokens = _resolve(palette)
+    kwargs = _scale_values(tokens, claim=claim, levels=levels, kwargs=kwargs)
+    return _cap_palette(pn["scale_fill_manual"](**kwargs))
 
 
 scale_color_aesth = scale_colour_aesth

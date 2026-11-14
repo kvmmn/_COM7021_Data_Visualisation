@@ -45,7 +45,7 @@ Nanoplots (inline sparklines in cells) are **in scope later**, not in the first 
 
 The COM7020/7021 comparison-matrix recipe is already a GT: midnight headers, one recommended column in accent-deep, body cells white, accent stroke on the claimed column. `tab_style` can express that without hand SVG.
 
-Identity chrome (`#151515` / `#F1F0EB`) is for documentation pages. Data tables use the **active palette** (`arden` for EcoMove).
+Identity chrome (`#151515` / `#F1F0EB`) is for documentation pages. Data tables use the **active palette**.
 
 ## Risks
 
@@ -55,4 +55,4 @@ Identity chrome (`#151515` / `#F1F0EB`) is for documentation pages. Data tables 
 
 ## Worked example (prose, before code)
 
-A ten-row country or city ranking: stub = name, one integer column, header + source note, `arden` header fill midnight, body paper, no zebra unless it helps a scan. That is enough to prove the theme before EcoMove KPIs.
+A ten-row ranking: stub = name, one integer column, header + source note, header fill `ink`, body `paper`, no zebra unless it helps a scan. That is enough to prove the theme.

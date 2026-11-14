@@ -19,7 +19,7 @@ If white-on-accent misses AA, chips use `accent_deep`, or `ink` when that also m
 
 | Name | Intent | Hex status |
 |---|---|---|
-| [`arden`](arden.md) | COM7021 / assignment default. Midnight structure, tiffany claim. | Frozen |
+| [`arden`](arden.md) | Default. Midnight structure, tiffany claim. | Frozen |
 | [`carbon`](carbon.md) | Graphite and warm white; oxidised-brass accent. | Frozen |
 | [`vellum`](vellum.md) | Archival paper, oxide, bone. | Frozen |
 | [`obsidian`](obsidian.md) | Cool black, glacial claim, museum. | Frozen |
@@ -43,4 +43,4 @@ aesth.GT_aesth(df)
 print(aesth.css_aesth())
 ```
 
-COM7021 EcoMove uses `arden` unless a later assignment note says otherwise.
+`arden` is the default. Switch with `aesth.use` when the figure needs another frozen room.

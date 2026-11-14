@@ -1,4 +1,9 @@
-"""Great Tables chrome bound to the active aesth palette."""
+"""Great Tables chrome bound to the active aesth palette.
+
+The caller's frame is passed straight to ``GT``. aesth does not copy it.
+Quiet formatting calls Great Tables' own ``fmt_integer``, ``fmt_number``,
+and ``sub_missing``. There is no cell heatmap.
+"""
 
 from __future__ import annotations
 
@@ -23,8 +28,81 @@ def _resolve(palette: str | Palette | None) -> Palette:
     return get_palette(palette)
 
 
-def GT_aesth(df, palette: str | Palette | None = None, *, stripe: bool = False, **kwargs):
-    """Wrap ``GT(df)`` with ink headers, paper body, and quiet rules."""
+def _numeric_kind(dtype: object) -> str | None:
+    """``int``, ``float``, or ``None``. Reads the dtype label only."""
+    kind = getattr(dtype, "kind", None)
+    if kind in {"i", "u"}:
+        return "int"
+    if kind == "f":
+        return "float"
+    if kind in {"b", "O", "M", "m", "S", "U"}:
+        return None
+    text = str(dtype).lower()
+    if "bool" in text:
+        return None
+    if "int" in text or "uint" in text:
+        return "int"
+    if "float" in text or "double" in text or "decimal" in text:
+        return "float"
+    return None
+
+
+def _numeric_columns(df) -> tuple[list, list]:
+    """Column names by numeric dtype. Does not copy the frame."""
+    columns = getattr(df, "columns", None)
+    if columns is None:
+        return [], []
+    integers: list = []
+    floats: list = []
+    dtypes = getattr(df, "dtypes", None)
+    schema = getattr(df, "schema", None)
+    for name in list(columns):
+        dtype = None
+        if dtypes is not None:
+            try:
+                dtype = dtypes[name]
+            except (KeyError, TypeError, IndexError):
+                dtype = None
+        if dtype is None and schema is not None:
+            try:
+                dtype = schema[name]
+            except (KeyError, TypeError):
+                dtype = None
+        kind = _numeric_kind(dtype) if dtype is not None else None
+        if kind == "int":
+            integers.append(name)
+        elif kind == "float":
+            floats.append(name)
+    return integers, floats
+
+
+def _quiet_formats(table, df):
+    """GT ``fmt_*`` and ``sub_missing`` only. No second table engine."""
+    integers, floats = _numeric_columns(df)
+    if integers:
+        table = table.fmt_integer(columns=integers)
+    if floats:
+        table = table.fmt_number(columns=floats, decimals=2)
+    # Default missing text is GT's em dash (``&mdash;``). Substitutions
+    # leave already-formatted numbers alone.
+    return table.sub_missing()
+
+
+def GT_aesth(
+    df,
+    palette: str | Palette | None = None,
+    *,
+    stripe: bool = False,
+    quiet: bool = True,
+    **kwargs,
+):
+    """Wrap ``GT(df)`` with ink headers, paper body, and quiet rules.
+
+    ``quiet=True`` formats integer columns with ``fmt_integer``, other
+    numeric columns with ``fmt_number(decimals=2)``, and missing cells
+    with ``sub_missing``. ``quiet=False`` leaves cell text to the caller.
+    ``df`` is not copied.
+    """
     GT, loc, style = _gt()
     tokens = _resolve(palette)
     table = GT(df, **kwargs)
@@ -71,6 +149,8 @@ def GT_aesth(df, palette: str | Palette | None = None, *, stripe: bool = False, 
         )
     except (TypeError, ValueError, AttributeError):
         pass
+    if quiet:
+        table = _quiet_formats(table, df)
     return table
 
 

@@ -1,6 +1,8 @@
 """Shiny / Bootstrap CSS variables from the active aesth palette.
 
 Rejects shinyswatch skins and indigo–purple value-box gradients.
+Shiny is imported only when a tag is requested. CSS is built once per call,
+not stored as an attribute that rebuilds on access.
 """
 
 from __future__ import annotations
@@ -109,11 +111,43 @@ a {{
 """.strip()
 
 
-def page_css(palette: str | Palette | None = None):
+def _style_tag(css: str):
     """Return ``ui.tags.style`` when Shiny is installed, else the CSS string."""
-    css = css_aesth(palette)
     try:
         from shiny import ui
     except ImportError:
         return css
     return ui.tags.style(css)
+
+
+def page_css(palette: str | Palette | None = None):
+    """Return ``ui.tags.style`` when Shiny is installed, else the CSS string."""
+    return _style_tag(css_aesth(palette))
+
+
+def page_aesth(palette: str | Palette | None = None, *, title: str | None = None):
+    """Apply one palette to a Shiny page.
+
+    Returns a ``ui.tags.style`` tag (or the CSS string if Shiny is not
+    installed). The sheet is ``css_aesth``: flat value boxes, no
+    shinyswatch, no indigo–purple gradient. In a Shiny Express app,
+    ``title`` is forwarded to ``page_opts``. Outside Express the title is
+    ignored and the style tag is still returned, so it can sit in a Core
+    page without a running server.
+
+    Plot and table share the palette. Render the plotnine figure with
+    ``@render.plot`` and ``theme_aesth`` or ``dress``. Render the Great
+    Table with ``ui.HTML(GT_aesth(..., palette=same).as_raw_html())``.
+    """
+    if title is not None:
+        try:
+            from shiny.express.ui import page_opts
+        except ImportError:
+            pass
+        else:
+            try:
+                page_opts(title=title)
+            except RuntimeError:
+                # Core apps and headless calls have no Express page context.
+                pass
+    return _style_tag(css_aesth(palette))

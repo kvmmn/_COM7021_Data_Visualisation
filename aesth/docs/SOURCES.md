@@ -23,5 +23,8 @@ Fetched 19 October 2026 unless noted. Do not cite a URL that is not in this file
 | S16 | https://plotnine.org/reference/theme_minimal.html | `theme_minimal(base_size, base_family)` | theme.py |
 | S17 | https://posit-dev.github.io/great-tables/reference/GT.tab_options.html | Live `tab_options` field names (heading/column/body/stripe) | tables.py |
 | S18 | https://posit-dev.github.io/great-tables/user-guide/table-theme-options.html | Worked `tab_options` examples | tables.py |
+| S19 | plotnine 0.15.8 `ggplot.save` docstring, installed locally | `dpi`, `verbose`, and `**kwargs` forwarded to matplotlib `savefig` (`bbox_inches`, `pad_inches`) | compose.py, 0006-marks.md |
+| S20 | great_tables, installed locally: `fmt_number`, `fmt_integer`, `sub_missing`, and `sub_zero` docstrings | `fmt_number` defaults to 2 decimal places; `sub_missing` with no `missing_text` uses an em dash (`&mdash;`); the `sub_zero` docstring says a `sub_*` call does not interfere with formatting, so order does not change the result | tables.py, 0007-one-path.md |
+| S21 | shiny, installed locally: `shiny.express.ui.page_opts` docstring | Express page title and page-function choice; custom CSS belongs in `ui.tags.style` / `include_css`, not a replacement Bootstrap file | shiny.py, 0007-one-path.md |
 
 Pages requested but not found on 19 Oct 2026: `plotnine.org/guide/themes.html`, `posit-dev.github.io/great-tables/get-started/table-styling.html`. `user-guide/table-theme-options.html` resolved later the same day (S18).

@@ -2,7 +2,7 @@
 
 Geometry and reduction. Colour lives in the [palette registry](palettes/README.md). Brand chrome lives in [CREATIVE_DIRECTION.md](../brand/CREATIVE_DIRECTION.md).
 
-Derived from the COM7021 visual design guide (S10) and the æsth brief (S11). Where they conflict on **hue**, palettes win. Where they conflict on **reduction**, this page wins.
+The reduction rules below are the house style. Where a palette note conflicts on **hue**, the palette wins. Where it conflicts on **reduction**, this page wins.
 
 ## Principles
 
@@ -33,7 +33,7 @@ Identity-only (docs, mark, monochrome icon — not a data series): `#151515`, `#
 
 ## Type
 
-Charts and diagrams share one grotesk. COM7021 figures use **Microsoft Aptos** (Regular 400, SemiBold 600, Bold 700). Public builds may substitute a documented neo-grotesk later; silent fallback to DejaVu is a fail. Matplotlib’s SVG path converter can double the last Aptos glyph — raster plotnine PNGs are fine; posters go through live SVG text and `rsvg-convert`.
+Charts and diagrams share one grotesk. The preferred face is **Microsoft Aptos** (Regular 400, SemiBold 600, Bold 700). If Aptos is absent, a documented neo-grotesk is used and the substitution is reported. Silent fallback to DejaVu is a fail. Matplotlib’s SVG path converter can double the last Aptos glyph — raster plotnine PNGs are fine; posters go through live SVG text and `rsvg-convert`.
 
 Chart scale: title 13 pt bold `ink`; axis 11 pt semibold `ink`; ticks 10 pt `mute`; legend 9 pt, no frame.
 
@@ -60,14 +60,16 @@ Titles are noun phrases: “Mean half-hourly demand by region”. Not a sentence
 - Default card stroke `line` 1.5; claim path `accent` 1.5–2; structural emphasis `ink` 1.5.
 - Default arrows `mute`; claimed flow `accent_deep`.
 
-## Recipes (engine-agnostic)
+## Recipes
 
-1. Multi-series line + optional accent window.
-2. Single line + point encoding on a subset.
-3. Bar with one highlighted state.
-4. Line with area fill (magnitude under the curve).
-5. Comparison matrix: `ink` headers, one `accent_deep` column, `accent` stroke on claimed cells.
-6. KPI strip: one or two tiles with `accent` stroke; the rest quiet.
+These are plotnine layers, not a new grammar. See [ADR 0006](../decisions/0006-marks.md).
+
+1. Multi-series line: `line()` plus `dress(colour=True, claim=, levels=)`. Optional window: `band()`.
+2. Single line plus a second encoding: `line()` and `point(claim=True)` on the subset.
+3. Bar with one highlighted state: `col(claim=True)` for that row, or `col()` plus `dress(fill=True, claim=, levels=)`.
+4. Magnitude under the curve: `area()`.
+5. Comparison matrix: `GT_aesth`, one `highlight_column`.
+6. KPI strip: Shiny value boxes; `aesth-claim` on one or two tiles.
 
 ## Toolchain
 

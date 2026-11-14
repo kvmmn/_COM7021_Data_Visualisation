@@ -17,8 +17,7 @@ import aesth
 
 NAMES = list(aesth.PALETTES)
 
-ui.page_opts(title="æsth")
-ui.tags.style(aesth.css_aesth("arden"))
+aesth.page_aesth("arden", title="æsth")
 
 with ui.sidebar():
     ui.input_selectize("pal", "Palette", choices=NAMES, selected="arden")
@@ -27,39 +26,36 @@ with ui.sidebar():
 
 @render.ui
 def live_css():
-    return ui.tags.style(aesth.css_aesth(input.pal()))
+    return aesth.page_css(input.pal())
 
 
 with ui.layout_column_wrap(width=1 / 3):
     with ui.value_box():
         "Ink"
-        ui.output_text("ink_hex")
+
+        @render.text
+        def ink_hex():
+            return aesth.get_palette(input.pal()).ink
+
         "structure"
 
     with ui.value_box(class_="aesth-claim"):
         "Accent"
-        ui.output_text("accent_hex")
+
+        @render.text
+        def accent_hex():
+            return aesth.get_palette(input.pal()).accent
+
         "the claim"
 
     with ui.value_box():
         "Chip"
-        ui.output_text("chip_hex")
+
+        @render.text
+        def chip_hex():
+            return aesth.get_palette(input.pal()).chip_fill
+
         "AA white text"
-
-
-@render.text
-def ink_hex():
-    return aesth.get_palette(input.pal()).ink
-
-
-@render.text
-def accent_hex():
-    return aesth.get_palette(input.pal()).accent
-
-
-@render.text
-def chip_hex():
-    return aesth.get_palette(input.pal()).chip_fill
 
 
 @render.plot

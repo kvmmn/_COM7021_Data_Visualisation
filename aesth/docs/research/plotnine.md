@@ -21,12 +21,12 @@ Overview notes pandas **and** polars DataFrames, in tidy (longer) form (S02).
 | Piece | Why |
 |---|---|
 | `ggplot(data)` + `aes(...)` | Single entry point |
-| `geom_line`, `geom_point`, `geom_col` / `geom_bar`, `geom_area`, `geom_histogram`, `geom_boxplot`, `geom_violin`, `geom_smooth`, `geom_tile` | Covers the six COM7021 visualisation *types* without a new engine |
+| `geom_line`, `geom_point`, `geom_col` / `geom_bar`, `geom_area`, `geom_histogram`, `geom_boxplot`, `geom_violin`, `geom_smooth`, `geom_tile` | The usual visualisation jobs, without a new engine |
 | `facet_wrap` / `facet_grid` | Split instead of a sixth categorical colour |
 | `scale_colour_*` / `scale_fill_*` | Bind the active aesth palette |
 | `labs`, `coord_*` | Titles as noun phrases; no dual axes |
 | `theme_minimal()` as a **base**, then `theme(...)` + `element_line` / `element_text` / `element_rect` / `element_blank` | House chrome: paper canvas, mute ticks, hidden extra spines |
-| `ggsave` / `.save()` | PNG for the Word report; Shiny forwards kwargs to `save()` (S07) |
+| `ggsave` / `.save()` | PNG for print; Shiny forwards kwargs to `save()` (S07) |
 
 The homepage itself shows the intended path from a one-liner to a branded figure: defaults first, then override colour/size, then `theme_tufte(...)` + `theme(...)` for organisation brand (S01). aesth occupies that last step.
 
@@ -34,7 +34,7 @@ The homepage itself shows the intended path from a one-liner to a branded figure
 
 - A parallel matplotlib helper that restyles the same chart a second way
 - Seaborn (would fight the theme)
-- Plotly traces (assignment does not require them; Shiny already rasterises plotnine)
+- Plotly traces. Shiny already rasterises plotnine.
 - Custom geom classes in v0
 - Dual y-axis coordinate helpers
 
