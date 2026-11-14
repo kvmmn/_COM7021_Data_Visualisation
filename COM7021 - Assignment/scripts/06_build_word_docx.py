@@ -824,7 +824,7 @@ def build_word_document() -> None:
     )
 
     # ==========================================================================
-    # PAGE 1: FORMAL ARDEN UNIVERSITY ASSESSMENT COVER PAGE
+    # PAGE 1: ARDEN UNIVERSITY ASSESSMENT COVER SHEET (PROFESSIONAL PALETTE TABLE)
     # ==========================================================================
     doc.add_banner_box(
         "ARDEN UNIVERSITY BERLIN · SCHOOL OF COMPUTING &amp; DATA SCIENCE · MSc DATA SCIENCE",
@@ -834,53 +834,50 @@ def build_word_document() -> None:
 
     doc.add_paragraph_html(
         "<p><strong>Assessment Control &amp; Submission Specification</strong></p>",
-        space_before=140,
-        space_after=60,
+        space_before=100,
+        space_after=40,
         size_half_pt=22,
+        color="002B49",
         keep_next=True,
     )
 
-    cover_headers = ["Submission Parameter", "Details &amp; Verification"]
+    cover_headers = ["Assessment Parameter", "Official Submission Details"]
     cover_rows = [
-        ["<strong>Student ID Number</strong>", "<strong>25199053</strong>"],
-        ["<strong>Module Code &amp; Title</strong>", "COM7021 (COM7021SCC) — Data Visualisation"],
-        ["<strong>Degree Programme</strong>", "MSc Data Science (Arden University Berlin)"],
-        ["<strong>Module Tutor</strong>", "Ahmed Hassan"],
-        ["<strong>Assignment Deliverables</strong>", "Single Word Report (<code>.docx</code>), Live Streamlit Dashboard (<code>https://com7021-data-visualisation.streamlit.app/</code>), and GitHub Repository (<code>https://github.com/kvmmn/_COM7021_Data_Visualisation</code>)"],
-        ["<strong>Authoritative Dataset</strong>", "<code>[5442] EcoMoveMobility.xlsx</code> (5,000 daily records × 18 columns; 12 European cities, 2024–2025)"],
+        ["<strong>Awarding Body:</strong>", "<strong>Arden University</strong> (Study Centre: Berlin)"],
+        ["<strong>Programme Name:</strong>", "<strong>MSc Data Science</strong>"],
+        ["<strong>Module Name (and Part if applicable):</strong>", "<strong>COM7021 (COM7021SCC) — Data Visualisation</strong>"],
+        ["<strong>Assessment Title:</strong>", "<strong>Sustainable Urban Mobility Performance Across European Cities: A Python Data Visualisation Investigation and Critical Report</strong>"],
+        ["<strong>Student Number:</strong>", "<strong>25199053</strong>"],
+        ["<strong>Tutor Name:</strong>", "<strong>Ahmed Hassan</strong>"],
         [
-            "<strong>Task 1 Allocation (70 Marks · LO1 &amp; LO2)</strong>",
-            f"1,500 words equivalent (Practical Python Investigation, 8 Charts + Interactive Dashboard) + <strong>{t1_words} written words</strong> (Nominal target: ~600 words)",
+            "<strong>Word Count:</strong>",
+            f"<strong>{t1_words + t2_words} written words</strong><br/>"
+            f"<span style='color:#5A6B75;font-size:8.5pt;'>"
+            f"• Task 1: {t1_words} written words + 1,500w practical Python work equivalent (Target: ~600w)<br/>"
+            f"• Task 2: {t2_words} written words (Target: ~900w)<br/>"
+            f"• Total: ~3,000 words equivalent (Task 1 + Task 2)<br/>"
+            f"<em>Please refer to the Word Count Policy on your Module Page for guidance</em></span>",
         ],
-        [
-            "<strong>Task 2 Allocation (30 Marks · LO3 &amp; LO4)</strong>",
-            f"<strong>{t2_words} written words</strong> (Nominal target: ~900 words; Critical Evaluation &amp; Evidence-Supported Recommendations)",
-        ],
-        [
-            "<strong>Total Assessment Word Count</strong>",
-            f"<strong>{t1_words + t2_words} written prose words</strong> + 1,500 words equivalent practical work (Total: ~3,000 words equivalent)",
-        ],
-        ["<strong>Referencing Standard</strong>", "Arden University Harvard Referencing (AU Harvard)"],
     ]
     doc.add_table(
         cover_headers,
         cover_rows,
         col_widths_pct=[32.0, 68.0],
         col_aligns=["left", "left"],
-        highlight_rows={0, 6, 7, 8},
+        highlight_rows={0, 4, 6},
         font_half_pt=18,
     )
 
     doc.add_image(
         "fig00_executive_kpi_strip.png",
-        "<strong>Figure 0 (Executive Summary Strip):</strong> Baseline 2024–2025 operational metrics across 5,000 daily records in 12 European cities. Tiffany-bordered tiles highlight surface delay bottlenecks (mean 4.35 min; Bus 6.58 min) and aggregate vs modal cost-recovery divergence (99.6% overall network recovery vs 84.1% unweighted record average; Bike Share 5.2%).",
+        "<strong>Figure 0 (Executive Summary Strip):</strong> Baseline 2024–2025 operational metrics across 5,000 daily records in 12 European cities (generated via <code>scripts/03_diagrams.py</code>). Tiffany-bordered tiles highlight surface delay bottlenecks (mean 4.35 min; Bus 6.58 min) and aggregate vs modal cost-recovery divergence (99.6% overall network recovery vs 84.1% unweighted record average; Bike Share 5.2%).",
         max_width_cm=16.2,
     )
 
     doc.add_paragraph_html(
-        "<p><strong>Declaration of Academic Integrity:</strong> I confirm that this assessment submission (Student ID: <code>25199053</code>) is my own original work produced in Python for module <code>COM7021 Data Visualisation</code>, that all external academic and policy sources are acknowledged in accordance with Arden University Harvard Referencing guidelines, and that the complete reproducible Python source code is provided in the Appendix.</p>",
+        "<p><strong>Statement of Authorship:</strong> This report (Student ID: <code>25199053</code>) presents my independent analytical work in Python for module <code>COM7021 Data Visualisation</code>. Cited academic literature and European mobility frameworks follow Arden University Harvard conventions, and the five Python modules generating every table, chart, and the interactive dashboard appear in the Appendix.</p>",
         space_before=40,
-        space_after=60,
+        space_after=40,
         size_half_pt=18,
         color="5A6B75",
         left_border_color="002B49",
@@ -911,7 +908,7 @@ def build_word_document() -> None:
         ["Section 2.3", "Critical Evaluation of Dashboard Effectiveness and Analytical Limitations", "LO1, LO3", "Shneiderman Mantra &amp; Constraints"],
         ["Section 2.4", "Evidence-Supported Recommendations and Decision-Making Value (Table 3)", "LO3, LO4", "Pilot &amp; Feasibility Appraisal"],
         ["<strong>References</strong>", "<strong>Arden University Harvard (AU Harvard) Reference List</strong>", "<strong>LO1, LO4</strong>", "<strong>12 Peer-Reviewed &amp; Policy Sources</strong>"],
-        ["<strong>Appendix</strong>", "<strong>Complete Reproducible Python &amp; Streamlit Source Code (6 Modules)</strong>", "<strong>LO2</strong>", "<strong>Full Verification Code</strong>"],
+        ["<strong>Appendix</strong>", "<strong>Complete Reproducible Python &amp; Streamlit Source Code (5 Modules)</strong>", "<strong>LO2</strong>", "<strong>Full Verification Code</strong>"],
     ]
     doc.add_table(
         toc_headers,
@@ -964,7 +961,7 @@ def build_word_document() -> None:
     doc.add_html_block(html_builder.TASK1_SEC_1_1)
     doc.add_image(
         "fig00_methodology_pipeline.png",
-        "<strong>Figure A (Investigation Workflow):</strong> Five-stage Python analytical pipeline from raw Excel ingestion and serial-date conversion (<code>origin='1899-12-30'</code>) to normalised feature engineering, static 220 DPI chart generation, and interactive multi-filter dashboard deployment.",
+        "<strong>Figure A (Investigation Workflow):</strong> Five-stage Python analytical pipeline from raw Excel ingestion and serial-date conversion (<code>origin='1899-12-30'</code>) to normalised feature engineering, static 220 DPI chart generation, and interactive multi-filter dashboard deployment (rendered reproducibly via <code>scripts/03_diagrams.py</code>).",
     )
 
     doc.add_heading("1.2 Initial Descriptive Statistics and Financial Aggregation Basis", level=2)
@@ -1016,50 +1013,50 @@ def build_word_document() -> None:
     doc.add_html_block(html_builder.TASK1_FIG1_TEXT)
     doc.add_image(
         "fig01_monthly_demand_trend.png",
-        "<strong>Figure 1 (Time-Series &amp; Regime Decomposition):</strong> Monthly mean daily passenger demand across 2024–2025, decomposing the +34.1% weekday commute premium (shaded ribbon) and contrasting recurring March–April spring peaks with the &minus;27.2% October trough.",
+        "<strong>Figure 1 (Time-Series &amp; Regime Decomposition):</strong> Monthly mean daily passenger demand across 2024–2025, decomposing the +34.1% weekday commute premium (shaded ribbon) and contrasting recurring March–April spring peaks with the &minus;27.2% October trough (generated via <code>scripts/02_charts.py</code>).",
     )
 
     doc.add_html_block(html_builder.TASK1_FIG2_TEXT)
     doc.add_image(
         "fig02_city_demand_comparison.png",
-        "<strong>Figure 2 (Connected Dumbbell Plot — Simpson's Paradox):</strong> Unadjusted raw mean net margin per record versus modal-mix-adjusted net margin per record across the 12 European cities. Direct standardisation controls for modal sampling share (<em>r</em> = &minus;0.795), shifting Berlin from Rank #4 (+€35.65/record) to Rank #11 (&minus;€353.87/record) while Madrid improves from &minus;€702.29 to &minus;€268.04/record.",
+        "<strong>Figure 2 (Connected Dumbbell Plot — Simpson's Paradox):</strong> Unadjusted raw mean net margin per record versus modal-mix-adjusted net margin per record across the 12 European cities (generated via <code>scripts/02_charts.py</code>). Direct standardisation controls for modal sampling share (<em>r</em> = &minus;0.795), shifting Berlin from Rank #4 (+€35.65/record) to Rank #11 (&minus;€353.87/record) while Madrid improves from &minus;€702.29 to &minus;€268.04/record.",
     )
 
     doc.add_html_block(html_builder.TASK1_FIG3_TEXT)
     doc.add_image(
         "fig03_mode_cost_recovery.png",
-        "<strong>Figure 3 (Two-Panel Unit Economics &amp; Carbon Abatement Return):</strong> Panel A compares aggregate per-passenger ticket fare against operating cost across modes, illustrating negative per-trip unit margins in Bike Share (&minus;€20.84/trip; 5.25% overall recovery) and E-Scooter (&minus;€19.98/trip; 7.39% recovery). Panel B reports cumulative 2-year net margins (€M) and net public-finance return per tonne of CO<sub>2</sub> saved.",
+        "<strong>Figure 3 (Two-Panel Unit Economics &amp; Carbon Abatement Return):</strong> Panel A compares aggregate per-passenger ticket fare against operating cost across modes, illustrating negative per-trip unit margins in Bike Share (&minus;€20.84/trip; 5.25% overall recovery) and E-Scooter (&minus;€19.98/trip; 7.39% recovery). Panel B reports cumulative 2-year net margins (€M) and net public-finance return per tonne of CO<sub>2</sub> saved (generated via <code>scripts/02_charts.py</code>).",
     )
 
     doc.add_html_block(html_builder.TASK1_FIG4_TEXT)
     doc.add_image(
         "fig04_delay_distribution_boxplot.png",
-        "<strong>Figure 4 (Distribution Visualisation — Raincloud Plot):</strong> Raincloud distribution combining half-violin Gaussian KDE densities, Tukey boxplots (median and IQR), and jittered daily observations across modes. Bus exhibits the widest delay distribution (median 6.50 min, mean 6.58 min, max 12.50 min).",
+        "<strong>Figure 4 (Distribution Visualisation — Raincloud Plot):</strong> Raincloud distribution combining half-violin Gaussian KDE densities, Tukey boxplots (median and IQR), and jittered daily observations across modes (generated via <code>scripts/02_charts.py</code>). Bus exhibits the widest delay distribution (median 6.50 min, mean 6.58 min, max 12.50 min).",
     )
 
     doc.add_html_block(html_builder.TASK1_FIG5_TEXT)
     doc.add_image(
         "fig05_delay_rating_relationship.png",
-        "<strong>Figure 5 (Joint Bivariate Relationship &amp; Marginal Density Projections):</strong> Observational association between average service delay and customer satisfaction rating (<em>r</em> = &minus;0.821, OLS slope &minus;0.14 pts/min; <em>N</em> = 5,000), with top and right marginal KDE strips comparing Standard Days (<em>n</em> = 4,490) against Major Event Days (<em>n</em> = 510).",
+        "<strong>Figure 5 (Joint Bivariate Relationship &amp; Marginal Density Projections):</strong> Observational association between average service delay and customer satisfaction rating (<em>r</em> = &minus;0.821, OLS slope &minus;0.14 pts/min; <em>N</em> = 5,000; generated via <code>scripts/02_charts.py</code>), with top and right marginal KDE strips comparing Standard Days (<em>n</em> = 4,490) against Major Event Days (<em>n</em> = 510).",
     )
 
     doc.add_html_block(html_builder.TASK1_FIG6_8_TEXT)
     doc.add_image(
         "fig06_weather_mode_delay_heatmap.png",
-        "<strong>Figure 6 (Dual-Encoded Weather × Mode Interaction Heatmap):</strong> Mean service delay (minutes) and percentage escalation relative to Clear weather across transport modes and weather conditions.",
+        "<strong>Figure 6 (Dual-Encoded Weather × Mode Interaction Heatmap):</strong> Mean service delay (minutes) and percentage escalation relative to Clear weather across transport modes and weather conditions (generated via <code>scripts/02_charts.py</code>).",
     )
     doc.add_image(
         "fig07_route_accessibility_rate.png",
-        "<strong>Figure 7 (Two-Way Accessibility Complaint Rate Matrix):</strong> Volume-weighted aggregate accessibility complaints per 10,000 passengers by route type (Panel A) and across the 6×6 Route × Mode interaction matrix (Panel B), isolating elevated complaint intensity on Suburban Feeder micromobility services (E-Scooter: 54.02/10k aggregate; Bike Share: 49.26/10k aggregate).",
+        "<strong>Figure 7 (Two-Way Accessibility Complaint Rate Matrix):</strong> Volume-adjusted complaint intensity across urban corridors (Panel A) and across all 6×6 route–mode pairs (Panel B; generated via <code>scripts/02_charts.py</code>), isolating elevated rates on Suburban Feeder micromobility corridors (E-Scooter: 54.02/10k aggregate; Bike Share: 49.26/10k aggregate).",
     )
     doc.add_image(
         "fig08_mode_performance_matrix.png",
-        "<strong>Figure 8 (Multi-Dimensional Modal Performance Matrix):</strong> Cross-modal summary comparing passenger demand share, mean service delay, overall cost-recovery ratio, environmental efficiency (<code>CO2 / kWh</code>), and aggregate accessibility complaints per 10,000 passengers.",
+        "<strong>Figure 8 (Multi-Dimensional Modal Performance Matrix):</strong> Cross-modal summary comparing passenger demand share, mean service delay, overall cost-recovery ratio, environmental efficiency (<code>CO2 / kWh</code>), and aggregate accessibility complaints per 10,000 passengers (rendered via <code>scripts/03_diagrams.py</code>).",
     )
 
     doc.add_heading("1.4 Interactive Streamlit &amp; Plotly Decision Dashboard (Figures 9 &amp; 10)", level=2)
     doc.add_paragraph_html(
-        "<p>The interactive decision dashboard is built in <strong>Streamlit and Plotly</strong> (<code>scripts/04_streamlit_dashboard.py</code>, deployed live at <code>https://com7021-data-visualisation.streamlit.app/</code>, version-controlled on GitHub at <code>https://github.com/kvmmn/_COM7021_Data_Visualisation</code>, and executable locally via <code>streamlit run \"COM7021 - Assignment/scripts/04_streamlit_dashboard.py\"</code>). It links six one-click executive scenario presets and six sidebar filters (Country, City, Transport Mode, Route Topology, Weather Condition, and Major Event Day) to six KPI cards—explicitly reporting both volume-weighted overall cost recovery (99.58%) and unweighted record-mean recovery (84.12%)—and five analytical tabs. <strong>Figure 9</strong> (unfiltered network baseline, <code>N = 5,000</code>) and <strong>Figure 10</strong> (filtered adverse-weather surface transit scenario, <code>n = 583</code>) provide the static screenshot evidence below.</p>"
+        "<p>The interactive decision dashboard is built in <strong>Streamlit and Plotly</strong> (<code>scripts/04_streamlit_dashboard.py</code>, deployed live at <code>https://com7021-data-visualisation.streamlit.app/</code>, version-controlled on GitHub at <code>https://github.com/kvmmn/_COM7021_Data_Visualisation</code>, and executable locally via <code>streamlit run \"COM7021 - Assignment/scripts/04_streamlit_dashboard.py\"</code>). Six one-click executive scenario presets and six sidebar filters (covering country, city, transit mode, corridor category, weather state, and event-day flags) update six KPI cards—explicitly tracking both volume-weighted overall recovery (99.58%) and unweighted record-mean recovery (84.12%)—alongside five analytical tabs. <strong>Figure 9</strong> (unfiltered baseline, <code>N = 5,000</code>) and <strong>Figure 10</strong> (adverse-weather surface transit scenario, <code>n = 583</code>) provide screenshot evidence below.</p>"
     )
     doc.add_image(
         "fig09_dashboard_overview.png",
@@ -1204,7 +1201,6 @@ def build_word_document() -> None:
         ("scripts/02_charts.py", BASE_DIR / "scripts" / "02_charts.py"),
         ("scripts/03_diagrams.py", BASE_DIR / "scripts" / "03_diagrams.py"),
         ("scripts/04_streamlit_dashboard.py", BASE_DIR / "scripts" / "04_streamlit_dashboard.py"),
-        ("scripts/04_dashboard.py", BASE_DIR / "scripts" / "04_dashboard.py"),
     ]
     for title, path in code_files:
         doc.add_code_listing(title, path.read_text(encoding="utf-8"))

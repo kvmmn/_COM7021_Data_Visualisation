@@ -1,12 +1,6 @@
-"""Arden Midnight / Tiffany figure style for COM7021 Assessment.
-Follows COM7021 - Assignment/VISUAL_DESIGN_GUIDE.md.
-"""
-
-from __future__ import annotations
-
 from pathlib import Path
+import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib import font_manager
 from matplotlib.colors import LinearSegmentedColormap
 
 MIDNIGHT = "#002B49"
@@ -21,76 +15,53 @@ GRID = "#D5DEE3"
 LINE = "#C9D5DD"
 WHITE = "#FFFFFF"
 
-# Five-series order. Tiffany stays last so it can still be the highlight.
 SERIES = [MIDNIGHT, TIFFANY_DEEP, TEAL, MIDNIGHT_SOFT, TIFFANY]
-
-# House heatmap colormap: mist -> tiffany -> tiffany_deep -> midnight_soft -> midnight
 ARDEN_CMAP = LinearSegmentedColormap.from_list(
-    "arden_heatmap",
-    [MIST, TIFFANY, TIFFANY_DEEP, MIDNIGHT_SOFT, MIDNIGHT],
-    N=256,
+    "arden_heatmap", [MIST, TIFFANY, TIFFANY_DEEP, MIDNIGHT_SOFT, MIDNIGHT], N=256
 )
+FONT_FAMILY = "Aptos, Calibri, Helvetica Neue, Arial, sans-serif"
 
 
-def _resolve_font_family() -> str:
-    """Use Microsoft Aptos when available, with clean sans-serif fallback."""
-    available = {f.name for f in font_manager.fontManager.ttflist}
-    for candidate in ("Aptos", "Helvetica Neue", "Arial", "DejaVu Sans"):
-        if candidate in available:
-            return candidate
-    return "sans-serif"
+def apply_rcparams():
+    mpl.rcParams.update({
+        "font.family": "sans-serif",
+        "font.sans-serif": ["Aptos", "Calibri", "Helvetica Neue", "Arial", "DejaVu Sans"],
+        "font.size": 10.0,
+        "figure.facecolor": WHITE,
+        "figure.dpi": 220,
+        "axes.facecolor": WHITE,
+        "axes.edgecolor": LINE,
+        "axes.titlesize": 12.5,
+        "axes.titleweight": "bold",
+        "axes.labelsize": 10.0,
+        "axes.labelweight": "semibold",
+        "axes.labelcolor": MIDNIGHT,
+        "xtick.labelsize": 9.0,
+        "xtick.color": MUTE,
+        "ytick.labelsize": 9.0,
+        "ytick.color": MUTE,
+        "grid.color": GRID,
+        "grid.linestyle": "--",
+        "grid.linewidth": 0.7,
+        "legend.frameon": False,
+        "legend.fontsize": 9.0,
+    })
 
 
-FONT_FAMILY = _resolve_font_family()
-
-
-def apply_rcparams() -> None:
-    plt.rcParams.update(
-        {
-            "font.family": "sans-serif",
-            "font.sans-serif": ["Aptos", "Helvetica Neue", "Arial", "DejaVu Sans"],
-            "axes.titleweight": "bold",
-            "axes.labelweight": "semibold",
-            "figure.facecolor": WHITE,
-            "axes.facecolor": PAPER,
-            "text.color": MIDNIGHT,
-            "axes.labelcolor": MIDNIGHT,
-            "axes.titlesize": 13,
-            "axes.labelsize": 11,
-            "xtick.labelsize": 10,
-            "ytick.labelsize": 10,
-            "legend.fontsize": 9,
-            "figure.dpi": 160,
-            "savefig.dpi": 220,
-            "savefig.bbox": "tight",
-            "savefig.pad_inches": 0.25,
-        }
-    )
-
-
-def style_axes(ax, grid_axis: str = "y") -> None:
-    ax.set_facecolor(PAPER)
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_color(GRID)
-    ax.spines["bottom"].set_color(GRID)
-    ax.tick_params(colors=MUTE, labelsize=10)
-    ax.yaxis.label.set_color(MIDNIGHT)
+def style_axes(ax, grid_axis="y"):
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.spines[["left", "bottom"]].set_color(LINE)
+    ax.tick_params(colors=MUTE, which="both")
     ax.xaxis.label.set_color(MIDNIGHT)
-    ax.yaxis.label.set_fontweight("semibold")
-    ax.xaxis.label.set_fontweight("semibold")
-    ax.title.set_color(MIDNIGHT)
-    ax.title.set_fontweight("bold")
-    ax.grid(False)
+    ax.yaxis.label.set_color(MIDNIGHT)
     if grid_axis in ("x", "y", "both"):
-        ax.grid(True, axis=grid_axis, color=GRID, linewidth=1.0)
-    ax.set_axisbelow(True)
+        ax.grid(axis=grid_axis, color=GRID, alpha=0.75)
+        ax.set_axisbelow(True)
+    else:
+        ax.grid(False)
 
 
-def save(fig, path: str | Path) -> Path:
-    out_path = Path(path)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out_path)
+def save(fig, path: Path):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path, dpi=220, bbox_inches="tight", facecolor=WHITE)
     plt.close(fig)
-    print(f"Saved figure: {out_path}")
-    return out_path
